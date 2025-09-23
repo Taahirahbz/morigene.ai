@@ -5,37 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Landing Page</title>
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background GIF as full-screen */
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1; /* Send it behind everything */
+    }
+
+    /* Content container */
+    .container {
+      position: relative;
+      z-index: 1;
       display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      font-family: Arial, sans-serif;
-    }
-
-    .container {
       text-align: center;
-    }
-
-    .container img {
-      max-width: 90%;
-      height: auto;
+      padding: 20px;
+      color: white;
+      background-color: rgba(0, 0, 0, 0.4); /* Optional dark overlay for readability */
     }
 
     h1 {
-      margin-top: 20px;
-      color: #333;
+      font-size: 2em;
+      margin: 0;
+    }
+
+    /* Responsive font size */
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 1.5em;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Background GIF -->
+  <img class="background" src="images/landing.gif" alt="Landing Background">
+
+  <!-- Foreground content -->
   <div class="container">
-    <img src="images/landing.gif" alt="Landing Animation">
-    <h1>There is ONLY one right path!</h1>
+    <h1> Decoding life, one genome at a time </h1>
   </div>
 </body>
 </html>
+
 
