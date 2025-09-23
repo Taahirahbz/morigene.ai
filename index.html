@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Landing Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -18,7 +19,7 @@
       overflow: hidden;
     }
 
-    /* Background GIF as full-screen */
+    /* === Background === */
     .background {
       position: fixed;
       top: 0;
@@ -29,179 +30,10 @@
       z-index: -1;
     }
 
-    /* Navbar Styles (Default - desktop) */
+    /* === Navbar (Desktop Default) === */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
       height: 60px;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 30px;
-      z-index: 10;
-    }
-
-    .navbar-logo {
-      color: white;
-      font-size: 1.5em;
-      font-weight: bold;
-    }
-    .logo {
-     height: auto;
-     width: 150px;  /* default size for desktop */
-     max-width: 100%;
-     display: block;
-    }
-
-    .navbar-menu {
-      list-style: none;
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-      margin: 0;
-      padding: 0;
-    }
-
-    .navbar-menu li {
-      display: inline;
-    }
-
-    .navbar-menu li a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.3s;
-    }
-
-    .navbar-menu li a:hover {
-      color: #ffcc00;
-    }
-
-    /* Hamburger icon (hidden on desktop) */
-    .hamburger {
-      display: none;
-      font-size: 28px;
-      cursor: pointer;
-      color: white;
-    }
-
-    /* Content container */
-    .container {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-      padding-top: 150px;
-      color: white;
-      background-color: rgba(0, 0, 0, 0.4);
-    }
-
-    .headline {
-      margin-top: 0;
-      font-size: 4.5em;
-      font-weight: bold;
-      font-style: italic;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-    }
-
-    /* Mobile styles */
-    @media (max-width: 768px) {
-      .hamburger {
-        display: block;
-    }
-
-    .logo {
-      width: 120px;  /* smaller logo on mobile */
-    }
-}
-
-    .navbar-menu {
-      position: absolute;
-      top: 60px;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.9);
-      flex-direction: column;
-      width: 100%;
-      display: none;
-      padding: 20px 0;
-    }
-
-    .navbar-menu.active {
-      display: flex;
-    }
-
-    .navbar-menu li {
-     text-align: center;
-     padding: 10px 0;
-    }
-
-    .container {
-     padding-top: 130px;
-    }
-
-    .headline {
-     font-size: 2.5em;
-    }
-    .logo {
-     height: 50px;         /* Adjust as needed */
-     width: auto;
-     display: block;
-    }
-
-    .navbar-logo {
-     display: flex;
-     align-items: center;
-    }
-
-   }
-
-  </style>
-
-  <script>
-    function toggleMenu() {
-      document.querySelector('.navbar-menu').classList.toggle('active');
-    }
-  </script>
-</head>
-<body>
-
-  <!-- Background GIF -->
-  <img class="background" src="images/landing.gif" alt="Landing Background">
-
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div class="navbar-logo">
-    <a href="/">
-    <img src="images/logo.svg" alt="Logo" class="logo">
-    </a>
-    </div>
-
-    <!-- Hamburger -->
-    <div class="hamburger" onclick="toggleMenu()">
-      &#9776;
-    </div>
-
-    <!-- Menu Items -->
-    <ul class="navbar-menu">
-      <li><a href="#">HOME</a></li>
-      <li><a href="#">HEALTH</a></li>
-      <li><a href="#">ANALYSIS</a></li>
-      <li><a href="#">LEARN</a></li>
-      <li><a href="#">CONTACT</a></li>
-    </ul>
-  </nav>
-
-  <!-- Foreground content -->
-  <div class="container">
-    <h1 class="headline">Decoding life, one genome at a time!</h1>
-  </div>
-
-</body>
-</html>
-
+      ba
