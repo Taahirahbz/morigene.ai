@@ -5,12 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Landing Page</title>
   <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet" />
-
   <style>
     * {
       box-sizing: border-box;
     }
-
     html, body {
       margin: 0;
       padding: 0;
@@ -18,34 +16,20 @@
       font-family: 'Alegreya', serif;
       overflow-x: hidden;
       scroll-behavior: smooth;
+      color: white;
     }
 
-    /* === Background Wrapper with JPEG + GIF === */
-    .background-wrapper {
+    /* === Fullscreen GIF background === */
+    body::before {
+      content: "";
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
-      display: flex;
-      flex-direction: column;
-      pointer-events: none; /* Prevent background from blocking interactions */
-    }
-
-    .background-jpeg {
-      flex: 3;
-      background-image: url('images/landing.jpg'); /* Replace with your JPEG */
-      background-size: cover;
-      background-position: center;
+      background: url('images/landing.gif') no-repeat center center / cover;
       z-index: -1;
-    }
-
-    .background-gif {
-      flex: 1;
-      background-image: url('images/landing.gif'); /* Replace with your GIF */
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
+      pointer-events: none;
+      filter: brightness(0.6); /* Optional: darken for text readability */
     }
 
     /* === Navbar === */
@@ -61,19 +45,16 @@
       padding: 0 30px;
       z-index: 10;
     }
-
     .navbar-logo {
       display: flex;
       align-items: center;
     }
-
     .logo {
       width: 150px;
       height: auto;
       max-width: 100%;
       margin-top: 9px;
     }
-
     .navbar-menu {
       list-style: none;
       display: flex;
@@ -82,18 +63,15 @@
       margin: 0;
       padding: 0;
     }
-
     .navbar-menu li a {
       color: white;
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
     }
-
     .navbar-menu li a:hover {
       color: #ffcc00;
     }
-
     .hamburger {
       display: none;
       font-size: 28px;
@@ -115,7 +93,6 @@
       padding-top: 130px;
       background-color: rgba(0, 0, 0, 0.4);
     }
-
     .headline {
       font-size: 4.5em;
       font-weight: bold;
@@ -132,7 +109,6 @@
       color: white;
       text-align: center;
     }
-
     .section h2 {
       font-size: 2.5em;
       margin-top: 0;
@@ -146,7 +122,6 @@
       z-index: 100;
       cursor: pointer;
     }
-
     .whatsapp-button img {
       width: 50px;
       height: 50px;
@@ -157,7 +132,6 @@
       .hamburger {
         display: block;
       }
-
       .navbar-menu {
         position: absolute;
         top: 110px;
@@ -168,24 +142,19 @@
         display: none;
         padding: 20px 0;
       }
-
       .navbar-menu.active {
         display: flex;
       }
-
       .navbar-menu li {
         text-align: center;
         padding: 10px 0;
       }
-
       .logo {
         width: 120px;
       }
-
       .headline {
         font-size: 2.5em;
       }
-
       .container {
         padding-top: 130px;
       }
@@ -201,12 +170,6 @@
 
 <body>
 
-  <!-- Background JPEG + GIF -->
-  <div class="background-wrapper">
-    <div class="background-jpeg"></div>
-    <div class="background-gif"></div>
-  </div>
-
   <!-- Navbar -->
   <nav class="navbar">
     <div class="navbar-logo">
@@ -216,11 +179,11 @@
     </div>
     <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <ul class="navbar-menu">
-      <li><a href="#home">HOME</a></li>
-      <li><a href="#health">HEALTH</a></li>
-      <li><a href="#analysis">ANALYSIS</a></li>
-      <li><a href="#learn">LEARN</a></li>
-      <li><a href="#contact">CONTACT</a></li>
+      <li><a href="home.html">HOME</a></li>
+      <li><a href="health.html">HEALTH</a></li>
+      <li><a href="analysis.html">ANALYSIS</a></li>
+      <li><a href="learn.html">LEARN</a></li>
+      <li><a href="blog.html">BLOG</a></li>
     </ul>
   </nav>
 
@@ -229,26 +192,6 @@
     <h1 class="headline">Decoding life, one genome at a time!</h1>
   </div>
 
-  <!-- Additional Sections -->
-  <section id="health" class="section">
-    <h2>Health Section</h2>
-    <p>Content related to health and genetics.</p>
-  </section>
-
-  <section id="analysis" class="section">
-    <h2>Analysis Section</h2>
-    <p>Explore genetic data and visualizations.</p>
-  </section>
-
-  <section id="learn" class="section">
-    <h2>Learn Section</h2>
-    <p>Educational resources about genomics.</p>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Contact Section</h2>
-    <p>Contact us for more information.</p>
-  </section>
 
   <!-- WhatsApp Button -->
   <a
