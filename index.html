@@ -29,21 +29,23 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      z-index: -1;
+      pointer-events: none; /* Prevent background from blocking interactions */
     }
 
     .background-jpeg {
-      flex: 3; /* 75% */
-      background-image: url('images/landing.jpg'); /* Replace with your JPEG path */
+      flex: 3;
+      background-image: url('images/landing.jpg'); /* Replace with your JPEG */
       background-size: cover;
       background-position: center;
+      z-index: -1;
     }
 
     .background-gif {
-      flex: 1; /* 25% */
-      background-image: url('images/landing.gif'); /* Replace with your GIF path */
+      flex: 1;
+      background-image: url('images/landing.gif'); /* Replace with your GIF */
       background-size: cover;
       background-position: center;
+      z-index: -1;
     }
 
     /* === Navbar === */
@@ -158,7 +160,7 @@
 
       .navbar-menu {
         position: absolute;
-        top: 60px;
+        top: 110px;
         right: 0;
         background-color: rgba(0, 0, 0, 0.9);
         flex-direction: column;
@@ -209,88 +211,55 @@
   <nav class="navbar">
     <div class="navbar-logo">
       <a href="#home">
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Landing Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet" />
+        <img src="images/logo.svg" alt="Logo" class="logo" />
+      </a>
+    </div>
+    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+    <ul class="navbar-menu">
+      <li><a href="#home">HOME</a></li>
+      <li><a href="#health">HEALTH</a></li>
+      <li><a href="#analysis">ANALYSIS</a></li>
+      <li><a href="#learn">LEARN</a></li>
+      <li><a href="#contact">CONTACT</a></li>
+    </ul>
+  </nav>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+  <!-- Hero Section -->
+  <div class="container" id="home">
+    <h1 class="headline">Decoding life, one genome at a time!</h1>
+  </div>
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      font-family: 'Alegreya', serif;
-      overflow-x: hidden;
-      scroll-behavior: smooth;
-    }
+  <!-- Additional Sections -->
+  <section id="health" class="section">
+    <h2>Health Section</h2>
+    <p>Content related to health and genetics.</p>
+  </section>
 
-    /* === Background Wrapper with JPEG + GIF === */
-    .background-wrapper {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      z-index: -1;
-    }
+  <section id="analysis" class="section">
+    <h2>Analysis Section</h2>
+    <p>Explore genetic data and visualizations.</p>
+  </section>
 
-    .background-jpeg {
-      flex: 3; /* 75% */
-      background-image: url('images/landing.jpg'); /* Replace with your JPEG path */
-      background-size: cover;
-      background-position: center;
-    }
+  <section id="learn" class="section">
+    <h2>Learn Section</h2>
+    <p>Educational resources about genomics.</p>
+  </section>
 
-    .background-gif {
-      flex: 1; /* 25% */
-      background-image: url('images/landing.gif'); /* Replace with your GIF path */
-      background-size: cover;
-      background-position: center;
-    }
+  <section id="contact" class="section">
+    <h2>Contact Section</h2>
+    <p>Contact us for more information.</p>
+  </section>
 
-    /* === Navbar === */
-    .navbar {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      height: 110px;
-      background-color: rgba(0, 0, 0, 0.7);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 30px;
-      z-index: 10;
-    }
+  <!-- WhatsApp Button -->
+  <a
+    href="https://wa.me/23059119191"
+    class="whatsapp-button"
+    target="_blank"
+    rel="noopener"
+    aria-label="Chat with us on WhatsApp"
+  >
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+  </a>
 
-    .navbar-logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo {
-      width: 150px;
-      height: auto;
-      max-width: 100%;
-      margin-top: 9px;
-    }
-
-    .navbar-menu {
-      list-style: none;
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-      margin: 0;
-      padding: 0;
-    }
-
-    .navbar-menu li a {
-      color: white;
+</body>
+</html>
