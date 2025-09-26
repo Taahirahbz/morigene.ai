@@ -24,39 +24,30 @@
       color: white;
     }
 
+    /* === Video Background === */
     #bg-video {
       position: fixed;
       top: 0;
       left: 0;
-      min-width: 100%;
-      min-height: 100%;
+      width: 100vw;
+      height: 100vh;
       object-fit: cover;
       z-index: -1;
       filter: brightness(0.6);
     }
 
+    /* === Navbar === */
     .navbar {
       position: fixed;
       top: 0;
       width: 100%;
-      height: 110px;
+      height: 70px; /* Narrower */
       background-color: rgba(0, 0, 0, 0.7);
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      padding: 0 30px;
+      justify-content: flex-end;
+      padding: 0 20px;
       z-index: 10;
-    }
-
-    .navbar-logo {
-      display: flex;
-      align-items: center;
-    }
-
-    .logo {
-      width: 150px;
-      height: auto;
-      margin-top: 9px;
     }
 
     .navbar-menu {
@@ -73,6 +64,7 @@
       text-decoration: none;
       font-weight: 500;
       transition: color 0.3s;
+      font-size: 1rem;
     }
 
     .navbar-menu li a:hover {
@@ -86,6 +78,7 @@
       color: white;
     }
 
+    /* === Container / Hero Section === */
     .container {
       position: relative;
       z-index: 1;
@@ -95,7 +88,7 @@
       align-items: center;
       height: 100vh;
       text-align: center;
-      padding-top: 130px;
+      padding-top: 90px;
       background-color: rgba(0, 0, 0, 0.4);
     }
 
@@ -105,19 +98,69 @@
       font-style: italic;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
       margin: 0;
+      animation: fadeIn 2s ease-in-out;
     }
 
+    /* === Sections === */
     .section {
       height: 100vh;
-      padding-top: 110px;
+      padding-top: 90px;
       background-color: rgba(255, 255, 255, 0.1);
       text-align: center;
       color: white;
+      animation: fadeIn 2s ease-in-out;
     }
 
     .section h2 {
-      font-size: 2.5em;
+      font-size: 3em;
       margin-top: 0;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    .section p {
+      font-size: 1.5em;
+      padding: 0 10%;
+      line-height: 1.6em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    /* === Footer === */
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px 10px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #ffcc00;
+      text-decoration: none;
+      display: inline-block;
+      margin: 5px 10px;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    .footer-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .footer-contact img {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
+
+    /* === Fade-in Animation === */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* === Mobile Styles === */
@@ -128,7 +171,7 @@
 
       .navbar-menu {
         position: absolute;
-        top: 110px;
+        top: 70px;
         right: 0;
         background-color: rgba(0, 0, 0, 0.9);
         flex-direction: column;
@@ -146,30 +189,24 @@
         padding: 10px 0;
       }
 
-      .logo {
-        width: 120px;
-      }
-
       .headline {
         font-size: 2.5em;
+        padding: 0 20px;
       }
 
-      .container {
-        padding-top: 130px;
+      .section h2 {
+        font-size: 2em;
       }
-    }
 
-    /* === Footer WhatsApp Icon === */
-    .footer-contact {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+      .section p {
+        font-size: 1.2em;
+        padding: 0 20px;
+      }
 
-    .footer-contact img {
-      width: 20px;
-      height: 20px;
-      vertical-align: middle;
+      footer a {
+        display: block;
+        margin: 8px 0;
+      }
     }
   </style>
 
@@ -191,11 +228,6 @@
 
   <!-- Navbar -->
   <nav class="navbar">
-    <div class="navbar-logo">
-      <a href="#home">
-        <img src="images/logo.svg" alt="Logo" class="logo" />
-      </a>
-    </div>
     <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <ul class="navbar-menu">
       <li><a href="#home">HOME</a></li>
@@ -222,13 +254,13 @@
   </div>
 
   <!-- Footer -->
-  <footer style="background-color: #222; color: white; text-align: center; padding: 20px 10px; font-size: 14px;">
+  <footer>
     <p>© 2025 Morigene.ai — All rights reserved.</p>
     <p>
-      <a href="privacy-policy.html" style="color: #ffcc00; text-decoration: none;">Privacy Policy</a> |
-      <a href="terms&conditions.html" style="color: #ffcc00; text-decoration: none;">Terms and Conditions</a> |
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms&conditions.html">Terms and Conditions</a>
       <span class="footer-contact">
-        <a href="contact-form.html" style="color: #ffcc00; text-decoration: none;">Contact</a>
+        <a href="contact-form.html">Contact</a>
         <a href="https://wa.me/23057828591" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
           <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
         </a>
