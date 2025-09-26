@@ -24,7 +24,6 @@
       color: white;
     }
 
-    /* === Fullscreen Video Background === */
     #bg-video {
       position: fixed;
       top: 0;
@@ -33,10 +32,9 @@
       min-height: 100%;
       object-fit: cover;
       z-index: -1;
-      filter: brightness(0.6); /* Optional: darken for readability */
+      filter: brightness(0.6);
     }
 
-    /* === Navbar === */
     .navbar {
       position: fixed;
       top: 0;
@@ -88,7 +86,6 @@
       color: white;
     }
 
-    /* === Hero Section === */
     .container {
       position: relative;
       z-index: 1;
@@ -110,10 +107,9 @@
       margin: 0;
     }
 
-    /* === Section Styles === */
     .section {
       height: 100vh;
-      padding-top: 80px;
+      padding-top: 110px;
       background-color: rgba(255, 255, 255, 0.1);
       text-align: center;
       color: white;
@@ -122,20 +118,6 @@
     .section h2 {
       font-size: 2.5em;
       margin-top: 0;
-    }
-
-    /* === WhatsApp Button === */
-    .whatsapp-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      cursor: pointer;
-    }
-
-    .whatsapp-button img {
-      width: 50px;
-      height: 50px;
     }
 
     /* === Mobile Styles === */
@@ -176,6 +158,19 @@
         padding-top: 130px;
       }
     }
+
+    /* === Footer WhatsApp Icon === */
+    .footer-contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer-contact img {
+      width: 20px;
+      height: 20px;
+      vertical-align: middle;
+    }
   </style>
 
   <!-- Navbar Toggle Script -->
@@ -204,10 +199,10 @@
     <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <ul class="navbar-menu">
       <li><a href="#home">HOME</a></li>
-      <li><a href="health.html">HEALTH</a></li>
-      <li><a href="analysis.html">ANALYSIS</a></li>
-      <li><a href="learn.html">LEARN</a></li>
-      <li><a href="blog.html">BLOG</a></li>
+      <li><a href="#health">HEALTH</a></li>
+      <li><a href="#analysis">ANALYSIS</a></li>
+      <li><a href="#learn">LEARN</a></li>
+      <li><a href="#blog">BLOG</a></li>
     </ul>
   </nav>
 
@@ -216,24 +211,39 @@
     <h1 class="headline">Decoding life, one genome at a time!</h1>
   </div>
 
-  <!-- WhatsApp Button -->
-  <a
-    href="https://wa.me/23057828591"
-    class="whatsapp-button"
-    target="_blank"
-    rel="noopener"
-    aria-label="Chat with us on WhatsApp"
-  >
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
-  </a>
+  <!-- Other Sections -->
+  <div class="section" id="health">
+    <h2>Health Section</h2>
+    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA. Launching Soon!</p>
+  </div>
+
+  <div class="section" id="analysis">
+    <h2>Analysis Section</h2>
+    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple. Coming Soon.</p>
+  </div>
+
+  <div class="section" id="learn">
+    <h2>Learn Section</h2>
+    <p>Keep up with the fastest-growing field in science. Dive into bioinformatics and lead the way.</p>
+  </div>
+
+  <div class="section" id="blog">
+    <h2>Blog Section</h2>
+    <p>Subscribe for cool Bioinformatics updates!.</p>
+  </div>
 
   <!-- Footer -->
   <footer style="background-color: #222; color: white; text-align: center; padding: 20px 10px; font-size: 14px;">
     <p>© 2025 Morigene.ai — All rights reserved.</p>
     <p>
-      <a href="privacy.html" style="color: #ffcc00; text-decoration: none;">Privacy Policy</a> |
-      <a href="terms.html" style="color: #ffcc00; text-decoration: none;">Terms of Service</a> |
-      <a href="contact.html" style="color: #ffcc00; text-decoration: none;">Contact</a>
+      <a href="privacy-policy.html" style="color: #ffcc00; text-decoration: none;">Privacy Policy</a> |
+      <a href="terms&conditions.html" style="color: #ffcc00; text-decoration: none;">Terms and Conditions</a> |
+      <span class="footer-contact">
+        <a href="contact.html" style="color: #ffcc00; text-decoration: none;">Contact</a>
+        <a href="https://wa.me/23057828591" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
+          <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+        </a>
+      </span>
     </p>
   </footer>
 
