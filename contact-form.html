@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Form</title>
+  <style>
+    /* Background image styling */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background-image: url('images/background.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1rem;
+      box-sizing: border-box;
+    }
+
+    /* Form container with semi-transparent background */
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 2rem 1.5rem;
+      border-radius: 12px;
+      max-width: 480px;
+      width: 90vw; /* 90% of viewport width */
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      box-sizing: border-box;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 1.5rem;
+      font-size: 1.8rem;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      margin-bottom: 1.2rem;
+      font-weight: 600;
+      color: #555;
+      display: flex;
+      flex-direction: column;
+      font-size: 1rem;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    select,
+    textarea {
+      margin-top: 0.5rem;
+      padding: 0.8rem 1rem;
+      font-size: 1rem;
+      border: 1.5px solid #ccc;
+      border-radius: 8px;
+      resize: vertical;
+      transition: border-color 0.3s ease;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    select:focus,
+    textarea:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 140px;
+    }
+
+    button {
+      padding: 1rem;
+      font-size: 1.1rem;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 0.5rem;
+      font-weight: 600;
+    }
+
+    button:hover,
+    button:focus {
+      background-color: #0056b3;
+    }
+
+    /* Responsive typography */
+    @media (max-width: 360px) {
+      h2 {
+        font-size: 1.5rem;
+      }
+      label {
+        font-size: 0.9rem;
+      }
+      input[type="text"],
+      input[type="email"],
+      select,
+      textarea {
+        font-size: 0.9rem;
+        padding: 0.7rem 0.9rem;
+      }
+      button {
+        font-size: 1rem;
+        padding: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container" role="main">
+    <h2>Contact Us</h2>
+
+    <form action="https://formspree.io/f/mblzlegq" method="POST" novalidate>
+      <label for="name">
+        Your Name:
+        <input type="text" id="name" name="name" required autocomplete="name" />
+      </label>
+
+      <label for="email">
+        Your Email:
+        <input type="email" id="email" name="email" required autocomplete="email" />
+      </label>
+
+      <label for="subject">
+        Subject:
+        <input type="text" id="subject" name="subject" required />
+      </label>
+
+      <label for="topic">
+        Topic:
+        <select id="topic" name="topic" required>
+          <option value="" disabled selected>Select a topic</option>
+          <option value="General Inquiry">General Inquiry</option>
+          <option value="Support">Support</option>
+          <option value="Feedback">Feedback</option>
+        </select>
+      </label>
+
+      <label for="message">
+        Your Message:
+        <textarea id="message" name="message" required></textarea>
+      </label>
+
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+</body>
+</html>
+
