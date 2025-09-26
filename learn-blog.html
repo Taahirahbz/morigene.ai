@@ -4,15 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet" />
+
+  <!-- Mailchimp CSS -->
+  <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css" />
+
   <style>
-    /* Reset */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    body, html {
+    html, body {
       height: 100%;
       font-family: 'Alegreya', serif;
       color: white;
@@ -21,33 +24,25 @@
       overflow-x: hidden;
     }
 
-    /* Overlay to darken bg for readability */
     body::before {
       content: "";
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0, 0, 0, 0.6);
       z-index: -1;
     }
 
-    /* Navbar styles */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
       background-color: rgba(0,0,0,0.7);
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-end;
       align-items: center;
       padding: 15px 30px;
       z-index: 10;
       flex-wrap: wrap;
-    }
-
-    .logo {
-      font-weight: bold;
-      font-size: 1.8em;
-      cursor: default;
     }
 
     .menu {
@@ -68,30 +63,60 @@
       color: #ffcc00;
     }
 
-    /* Hamburger menu */
     .hamburger {
       display: none;
       font-size: 28px;
       cursor: pointer;
       user-select: none;
+      color: white;
     }
 
-    /* Catchy message container */
-    .content {
+    .section {
+      position: relative;
       height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 40px;
+      text-align: left;
+      animation: fadeIn 2s ease-in-out;
     }
 
-    .content h1 {
-      font-size: 3.5em;
-      font-weight: 700;
-      text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
-      max-width: 800px;
-      margin: auto;
+    .section h2 {
+      font-size: 2.8em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+    }
+
+    .section p {
+      font-size: 1.6em;
+      max-width: 500px;
+      line-height: 1.5;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Button */
+    .subscribe-btn {
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 1em;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .subscribe-btn:hover {
+      background-color: #0056b3;
+    }
+
+    /* Fade-in animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* Responsive */
@@ -100,10 +125,10 @@
         display: none;
         width: 100%;
         flex-direction: column;
-        background-color: rgba(0,0,0,0.9);
+        background-color: rgba(0, 0, 0, 0.9);
         position: absolute;
         top: 60px;
-        left: 0;
+        right: 0;
         padding: 15px 0;
         z-index: 20;
       }
@@ -119,41 +144,198 @@
 
       .hamburger {
         display: block;
-        color: white;
       }
 
       nav {
-        padding: 15px 20px;
+        justify-content: space-between;
       }
+
+      .section {
+        padding: 20px;
+      }
+
+      .section h2 {
+        font-size: 2em;
+      }
+
+      .section p {
+        font-size: 1.2em;
+      }
+    }
+
+    /* Popup Modal */
+    .popup-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .popup-content {
+      background: #fff;
+      color: #000;
+      padding: 30px 40px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      position: relative;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    .popup-content input[type="email"] {
+      width: 100%;
+      padding: 12px;
+      margin: 15px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    .popup-content input[type="submit"] {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 12px 25px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .success-message {
+      display: none;
+      font-size: 18px;
+      color: #28a745;
+      margin-top: 20px;
+    }
+
+    .back-home {
+      display: none;
+      margin-top: 15px;
+    }
+
+    .back-home a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .back-home a:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
+  <!-- Navbar -->
   <nav>
     <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <ul class="menu" id="menu">
-      <li><a href="home.html">Home</a></li>
-      <li><a href="#Learn">Latest</a></li>
-      <li><a href="#Blog">Archives</a></li>
+      <li><a href="home.html">HOME</a></li>
+      <li><a href="#learn">LEARN</a></li>
+      <li><a href="#blog">BLOG</a></li>
     </ul>
   </nav>
 
-   <div class="section" id="learn">
-    <h2>Learn Section</h2>
-    <p>Keep up with the fastest-growing field in science. Dive into bioinformatics and lead the way.</p>
+  <!-- Learn Section -->
+  <div class="section" id="learn">
+    <div>
+      <h2>Learn Section</h2>
+      <p>Keep up with the fastest-growing field in science. Dive into bioinformatics and lead the way.</p>
+    </div>
   </div>
 
+  <!-- Blog Section -->
   <div class="section" id="blog">
-    <h2>Blog Section</h2>
-    <p>Subscribe for cool Bioinformatics updates!.</p>
+    <div>
+      <h2>Blog Section</h2>
+      <p>Subscribe for cool Bioinformatics updates!</p>
+      <button class="subscribe-btn" onclick="openPopup()">Subscribe</button>
+    </div>
   </div>
 
+  <!-- Popup Modal -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-content">
+      <span class="popup-close" onclick="closePopup()">&times;</span>
+      <h2>Subscribe to Our Newsletter</h2>
+
+      <!-- Mailchimp Embed -->
+      <div id="mc_embed_signup">
+        <form action="https://gmail.us11.list-manage.com/subscribe/post?u=a3a0fc0677a746f170a59ac7c&amp;id=6630c786f4&amp;f_id=009bcde0f0"
+              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
+              class="validate" target="_blank" novalidate>
+          <input type="email" name="EMAIL" class="required email" id="mce-EMAIL"
+                 placeholder="Enter your email" required>
+          <div aria-hidden="true" style="position:absolute; left:-5000px;">
+            <input type="text" name="b_a3a0fc0677a746f170a59ac7c__6630c786f4" tabindex="-1" value="">
+          </div>
+ <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
+        </form>
+      </div>
+      <!-- Mailchimp Form End -->
+
+      <!-- Success Message -->
+      <div id="custom-success" class="success-message">
+        You're in!<br>Stay tuned for insightful updates.
+      </div>
+
+      <!-- Back to Home Link -->
+      <div class="back-home" id="back-home-link">
+        <a href="index.html">🔙 Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mailchimp Validation Script -->
+  <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
   <script>
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.classList.toggle('active');
+    (function ($) {
+      window.fnames = new Array(); 
+      window.ftypes = new Array();
+      fnames[0] = 'EMAIL'; ftypes[0] = 'email';
+    }(jQuery));
+    var $mcj = jQuery.noConflict(true);
+  </script>
+
+  <!-- Popup Logic -->
+  <script>
+    const popup = document.getElementById('popup');
+    const form = document.getElementById('mc-embedded-subscribe-form');
+    const successMsg = document.getElementById('custom-success');
+    const backLink = document.getElementById('back-home-link');
+
+    function openPopup() {
+      popup.style.display = 'flex';
     }
+
+    function closePopup() {
+      popup.style.display = 'none';
+    }
+
+    form.addEventListener('submit', function () {
+      // Delay to simulate Mailchimp external success (can't detect it directly)
+      setTimeout(() => {
+        form.style.display = 'none';
+        successMsg.style.display = 'block';
+        backLink.style.display = 'block';
+      }, 1000); // Adjust as needed
+    });
   </script>
 
 </body>
