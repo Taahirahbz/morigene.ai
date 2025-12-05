@@ -12,13 +12,9 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { height:100%; font-family: "IBM Plex Sans", sans-serif; color:white; overflow-x:hidden; }
 
-/* Scrollable body */
-body { overflow-y:auto; }
-
-/* Background image with fixed cover for parallax */
+/* Background color instead of image */
 body {
-  background: url("../images/background.jpg") center/cover no-repeat fixed;
-  transition: background-position 0.1s ease;
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
 }
 
 /* PARTICLES */
@@ -38,31 +34,61 @@ body {
   to { transform:translateY(-20vh); opacity:0; }
 }
 
+/* Glassmorphic course container */
+.courses-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 40px auto;
+}
+
+/* Responsive grid */
+@media(min-width: 600px) {
+  .courses-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media(min-width: 900px) {
+  .courses-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 /* Glassmorphic course boxes */
 .course {
   background: rgba(255,255,255,0.12);
-  padding: 20px;
-  margin: 20px auto;
-  width: 90%;
-  max-width: 600px;
-  border-radius: 1.2rem;
+  padding: 25px;
+  border-radius: 1.5rem;
   border:1px solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 25px rgba(0,0,0,0.35);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 0 35px rgba(0,0,0,0.35);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 .course:hover { 
   transform: translateY(-5px); 
-  box-shadow: 0 0 35px #ff4be0;
+  box-shadow: 0 0 45px #ff4be0;
 }
 .course a {
   color: #ff4be0;
   font-weight:600;
   text-decoration:none;
   font-size:1.2rem;
+  margin-top: 10px;
 }
 .course a:hover { text-decoration:underline; }
 .course p { margin-top:8px; font-size:1rem; }
+.course img {
+  width: 100%;
+  max-width: 200px;
+  border-radius: 12px;
+  margin-bottom: 15px;
+}
 
 /* Page header */
 h1 {
@@ -109,42 +135,31 @@ for(let i=0;i<30;i++){
   p.style.animationDelay=Math.random()*12+"s";
   document.querySelector(".particles").appendChild(p);
 }
-
-// Parallax background effect
-let mouseX=0, mouseY=0, currentX=0, currentY=0;
-document.addEventListener("mousemove", function(e){
-  mouseX = (e.clientX/window.innerWidth - 0.5) * 20;
-  mouseY = (e.clientY/window.innerHeight - 0.5) * 20;
-});
-function animate(){
-  currentX += (mouseX - currentX)*0.08;
-  currentY += (mouseY - currentY)*0.08;
-  document.body.style.backgroundPosition=`${50+currentX}% ${50+currentY}%`;
-  requestAnimationFrame(animate);
-}
-animate();
 </script>
 
 <h1>All Courses</h1>
 
-<div class="course">
-  <a href="introduction.html">Introduction to Bioinformatics</a>
-  <p>Learn the basics of bioinformatics with practical examples.</p>
-</div>
+<div class="courses-container">
+  <div class="course">
+    <img src="/images/analysis.jpg" alt="Introduction to Bioinformatics">
+    <a href="introduction.html">Introduction to Bioinformatics</a>
+    <p>Learn the basics of bioinformatics with practical examples.</p>
+  </div>
 
-<div class="course">
-  <a href="course1.html">Course 1: HTML Basics</a>
-  <p>Learn the fundamentals of HTML.</p>
-</div>
+  <div class="course">
+    <a href="course1.html">Course 1: HTML Basics</a>
+    <p>Learn the fundamentals of HTML.</p>
+  </div>
 
-<div class="course">
-  <a href="course2.html">Course 2: CSS Basics</a>
-  <p>Style your webpages with CSS.</p>
-</div>
+  <div class="course">
+    <a href="course2.html">Course 2: CSS Basics</a>
+    <p>Style your webpages with CSS.</p>
+  </div>
 
-<div class="course">
-  <a href="course3.html">Course 3: JavaScript Basics</a>
-  <p>Add interactivity with JavaScript.</p>
+  <div class="course">
+    <a href="course3.html">Course 3: JavaScript Basics</a>
+    <p>Add interactivity with JavaScript.</p>
+  </div>
 </div>
 
 <a href="learn-blog.html" class="back-arrow">⟵ Back</a>
