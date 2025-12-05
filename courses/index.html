@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>All Courses</title>
+
+<!-- Scientific font -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; font-family: "IBM Plex Sans", sans-serif; color:white; overflow-x:hidden; }
+
+/* Scrollable body */
+body { overflow-y:auto; }
+
+/* Background image with fixed cover for parallax */
+body {
+  background: url("../images/background.jpg") center/cover no-repeat fixed;
+  transition: background-position 0.1s ease;
+}
+
+/* PARTICLES */
+.particles { position: fixed; inset:0; z-index:0; }
+.particles span {
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:rgba(255,255,255,0.5);
+  border-radius:50%;
+  filter:blur(1px);
+  animation: floatUp 15s linear infinite;
+}
+@keyframes floatUp {
+  from { transform:translateY(120vh); opacity:0; }
+  20% { opacity:1; }
+  to { transform:translateY(-20vh); opacity:0; }
+}
+
+/* Glassmorphic course boxes */
+.course {
+  background: rgba(255,255,255,0.12);
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 1.2rem;
+  border:1px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 25px rgba(0,0,0,0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.course:hover { 
+  transform: translateY(-5px); 
+  box-shadow: 0 0 35px #ff4be0;
+}
+.course a {
+  color: #ff4be0;
+  font-weight:600;
+  text-decoration:none;
+  font-size:1.2rem;
+}
+.course a:hover { text-decoration:underline; }
+.course p { margin-top:8px; font-size:1rem; }
+
+/* Page header */
+h1 {
+  text-align:center;
+  font-size: clamp(2rem,4vw,3rem);
+  margin: 40px 0 20px 0;
+}
+
+/* Back button */
+.back-arrow {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  z-index:10;
+  font-weight:bold;
+  padding:0.6rem 1.6rem;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.18);
+  color:white;
+  font-size:clamp(0.9rem,1vw,1rem);
+  backdrop-filter: blur(8px);
+  cursor:pointer;
+  text-decoration:none;
+  text-align:center;
+  transition:0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+.back-arrow:hover {
+  box-shadow:0 0 25px #ff4be0,0 0 40px #ff4be0;
+  color:#ff4be0;
+  transform:translateY(-3px);
+}
+</style>
+</head>
+<body>
+
+<!-- Particles -->
+<div class="particles"></div>
+<script>
+// Generate floating particles
+for(let i=0;i<30;i++){
+  const p=document.createElement("span");
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDelay=Math.random()*12+"s";
+  document.querySelector(".particles").appendChild(p);
+}
+
+// Parallax background effect
+let mouseX=0, mouseY=0, currentX=0, currentY=0;
+document.addEventListener("mousemove", function(e){
+  mouseX = (e.clientX/window.innerWidth - 0.5) * 20;
+  mouseY = (e.clientY/window.innerHeight - 0.5) * 20;
+});
+function animate(){
+  currentX += (mouseX - currentX)*0.08;
+  currentY += (mouseY - currentY)*0.08;
+  document.body.style.backgroundPosition=`${50+currentX}% ${50+currentY}%`;
+  requestAnimationFrame(animate);
+}
+animate();
+</script>
+
+<h1>All Courses</h1>
+
+<div class="course">
+  <a href="introduction.html">Introduction to Bioinformatics</a>
+  <p>Learn the basics of bioinformatics with practical examples.</p>
+</div>
+
+<div class="course">
+  <a href="course1.html">Course 1: HTML Basics</a>
+  <p>Learn the fundamentals of HTML.</p>
+</div>
+
+<div class="course">
+  <a href="course2.html">Course 2: CSS Basics</a>
+  <p>Style your webpages with CSS.</p>
+</div>
+
+<div class="course">
+  <a href="course3.html">Course 3: JavaScript Basics</a>
+  <p>Add interactivity with JavaScript.</p>
+</div>
+
+<a href="learn-blog.html" class="back-arrow">⟵ Back</a>
+
+</body>
+</html>
