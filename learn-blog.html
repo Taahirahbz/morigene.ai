@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Scientific, formal font -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+<!-- Scientific font -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 /* RESET */
@@ -13,23 +13,21 @@
 
 html, body {
   height: 100%;
-  overflow: hidden;               /* no scrolling */
-  font-family: 'IBM Plex Sans', sans-serif;
+  overflow: hidden;     /* 🚫 No scrolling allowed */
+  font-family: "IBM Plex Sans", sans-serif;
   color: white;
 }
 
-/* BACKGROUND (Image Only — gradient removed) */
+/* FIXED BACKGROUND */
 body {
   background: url("images/background.jpg") center/cover no-repeat fixed;
-  transition: background-position 0.25s ease-out;
   position: relative;
 }
 
-/* FLOATING PARTICLES */
+/* PARTICLES */
 .particles {
   position: fixed;
   inset: 0;
-  overflow: hidden;
   z-index: 0;
 }
 .particles span {
@@ -43,114 +41,116 @@ body {
 }
 @keyframes floatUp {
   from { transform: translateY(120vh); opacity: 0; }
-  20% { opacity: 1; }
-  to { transform: translateY(-20vh); opacity: 0; }
+  20%  { opacity: 1; }
+  to   { transform: translateY(-20vh); opacity: 0; }
 }
 
-/* BACK ARROW — top-right, bold */
+/* BOTTOM-RIGHT BACK ARROW */
 .back-arrow {
   position: fixed;
-  top: 20px;
-  right: 25px;
+  bottom: 25px;
+  right: 30px;
   font-size: 2.5em;
   font-weight: 900;
   color: white;
   text-decoration: none;
+  transition: 0.3s ease;
   z-index: 50;
-
-  transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
 .back-arrow:hover {
   transform: translateX(5px);
   text-shadow: 0 0 15px rgba(255,255,255,0.9);
 }
 
-/* SHARED SECTION SETTINGS */
-.section {
-  height: 100vh;
+/* FULL SCREEN 2-COLUMN LAYOUT */
+.main-container {
   display: flex;
-  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
   z-index: 5;
-  padding: 60px;
 }
 
-/* LEFT SIDE (Tutorials) */
-#tutorials {
-  justify-content: flex-start;
+/* LEFT (Tutorials) */
+.left {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;   /* Move box down */
+  padding-bottom: 80px;    /* More space from bottom */
+  padding-left: 60px;      /* Slight left shift */
 }
 
-/* RIGHT SIDE (Blog) */
-#blog {
-  justify-content: flex-end;
-  text-align: right;
+/* RIGHT (Blog) */
+.right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;  /* Move box up */
+  padding-top: 80px;        /* More space from top */
+  padding-right: 60px;      /* Slight right shift */
 }
 
-/* GLASS CONTAINER */
-.section div {
+/* GLASS BOX */
+.glass-box {
   background: rgba(255,255,255,0.12);
-  padding: 35px 40px;
+  padding: 40px 50px;
   border-radius: 18px;
-  max-width: 480px;
-  backdrop-filter: blur(10px);
+  width: 420px;
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.3);
   box-shadow: 0 0 25px rgba(0,0,0,0.35);
+  text-align: center;     /* Center contents */
   animation: fadeIn 1.3s ease both;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-/* HEADERS — scientific font */
-.section h2 {
+.glass-box h2 {
   font-size: 3em;
   font-weight: 600;
   margin-bottom: 15px;
-  text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
-/* BODY TEXT */
-.section p {
-  font-size: 1.4em;
-  line-height: 1.55;
+.glass-box p {
+  font-size: 1.35em;
   margin-bottom: 18px;
+  line-height: 1.5;
 }
 
-/* MAGENTA HOVER-GLOW (Discover + Subscribe) */
+/* Magenta hover glow */
 .magenta-hover {
-  color: white;
   cursor: pointer;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  transition: 0.3s;
 }
-
 .magenta-hover:hover {
   color: #ff4be0;
-  text-shadow: 
-    0 0 10px #ff4be0,
-    0 0 20px #ff4be0,
-    0 0 35px #ff4be0;
+  text-shadow:
+    0 0 8px #ff4be0,
+    0 0 18px #ff4be0,
+    0 0 30px #ff4be0;
 }
 
-/* GLASS BUTTON (Subscribe) */
+/* Subscribe button */
 .subscribe-btn {
   padding: 12px 28px;
-  font-size: 1.1em;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255,255,255,0.18);
   color: white;
-
+  font-size: 1.1em;
   backdrop-filter: blur(8px);
   transition: 0.3s ease;
 }
 .subscribe-btn:hover {
-  background: rgba(255,255,255,0.28);
   box-shadow: 0 0 18px #ff4be0;
   color: #ff4be0;
 }
 
-/* POPUP (Glass) */
+/* POPUP */
 .popup-overlay {
   position: fixed;
   inset: 0;
@@ -160,7 +160,6 @@ body {
   align-items: center;
   z-index: 1000;
 }
-
 .popup-content {
   background: rgba(255,255,255,0.12);
   padding: 35px;
@@ -173,7 +172,6 @@ body {
   position: relative;
   color: white;
 }
-
 @keyframes popIn {
   from { opacity: 0; transform: scale(0.7); }
   to   { opacity: 1; transform: scale(1); }
@@ -206,22 +204,18 @@ input[type="submit"] {
   color: white;
   border: 1px solid rgba(255,255,255,0.4);
   cursor: pointer;
-  transition: 0.3s;
 }
 input[type="submit"]:hover {
-  box-shadow: 0 0 18px #ff4be0;
   color: #ff4be0;
+  box-shadow: 0 0 18px #ff4be0;
 }
-
-/* PARALLAX */
-body { transition: background-position 0.2s ease-out; }
 
 </style>
 </head>
 
 <body>
 
-<!-- FLOATING PARTICLES -->
+<!-- PARTICLES -->
 <div class="particles"></div>
 <script>
   for (let i = 0; i < 30; i++) {
@@ -232,28 +226,32 @@ body { transition: background-position 0.2s ease-out; }
   }
 </script>
 
-<!-- BACK ARROW (Top Right) -->
+<!-- BOTTOM-RIGHT BACK ARROW -->
 <a href="home.html" class="back-arrow">⟵</a>
 
-<!-- TUTORIALS (LEFT SIDE) -->
-<div class="section" id="tutorials">
-  <div>
-    <h2>Tutorials</h2>
-    <p>
-      Learn Bioinformatics with hands-on practice.<br>
-      <span class="magenta-hover">Discover</span>
-    </p>
-  </div>
-</div>
+<!-- TWO-COLUMN FIXED LAYOUT -->
+<div class="main-container">
 
-<!-- BLOG (RIGHT SIDE) -->
-<div class="section" id="blog">
-  <div>
-    <h2>Blog</h2>
-    <p>Get insights, updates and powerful bioinformatics concepts explained simply.</p>
-
-    <button class="subscribe-btn magenta-hover" onclick="openPopup()">Subscribe</button>
+  <!-- LEFT SIDE — TUTORIALS -->
+  <div class="left">
+    <div class="glass-box">
+      <h2>Tutorials</h2>
+      <p>
+        Learn Bioinformatics with hands-on practice.<br>
+        <span class="magenta-hover">Discover</span>
+      </p>
+    </div>
   </div>
+
+  <!-- RIGHT SIDE — BLOG -->
+  <div class="right">
+    <div class="glass-box">
+      <h2>Blog</h2>
+      <p>Get insights, updates and powerful bioinformatics concepts explained simply.</p>
+      <button class="subscribe-btn magenta-hover" onclick="openPopup()">Subscribe</button>
+    </div>
+  </div>
+
 </div>
 
 <!-- POPUP -->
@@ -264,22 +262,14 @@ body { transition: background-position 0.2s ease-out; }
     <h2>Subscribe</h2>
     <form>
       <input type="email" placeholder="Enter your email" required />
-      <input type="submit" value="Subscribe">
+      <input type="submit" value="Subscribe" />
     </form>
   </div>
 </div>
 
 <script>
-/* Popup */
-function openPopup(){ document.getElementById("popup").style.display = "flex"; }
-function closePopup(){ document.getElementById("popup").style.display = "none"; }
-
-/* Parallax */
-document.addEventListener("mousemove", (e) => {
-  const x = (e.clientX / window.innerWidth) * 8;
-  const y = (e.clientY / window.innerHeight) * 8;
-  document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
-});
+function openPopup() { document.getElementById("popup").style.display = "flex"; }
+function closePopup() { document.getElementById("popup").style.display = "none"; }
 </script>
 
 </body>
