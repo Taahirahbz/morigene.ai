@@ -4,223 +4,157 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet"/>
+<!-- Scientific, formal font -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-/* ---------------------- RESET ---------------------- */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* RESET */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
   height: 100%;
-  overflow: hidden;
-  font-family: "Alegreya", serif;
+  overflow: hidden;               /* no scrolling */
+  font-family: 'IBM Plex Sans', sans-serif;
   color: white;
 }
 
-/* ---------------------- BACKGROUND (Image + Animated Gradient Overlay) ---------------------- */
+/* BACKGROUND (Image Only — gradient removed) */
 body {
   background: url("images/background.jpg") center/cover no-repeat fixed;
-  transition: background-position 0.2s ease-out;
+  transition: background-position 0.25s ease-out;
   position: relative;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(
-      to bottom right,
-      rgba(0, 110, 110, 0.55),
-      rgba(0, 55, 55, 0.60),
-      rgba(0, 25, 35, 0.75)
-    );
-  background-size: 200% 200%;
-  animation: gradientMove 13s ease infinite;
-  z-index: -1;
-}
-
-@keyframes gradientMove {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-/* ---------------------- FLOATING PARTICLES ---------------------- */
+/* FLOATING PARTICLES */
 .particles {
   position: fixed;
   inset: 0;
   overflow: hidden;
   z-index: 0;
 }
-
 .particles span {
   position: absolute;
   width: 5px;
   height: 5px;
   background: rgba(255,255,255,0.5);
   border-radius: 50%;
-  animation: floatUp 15s linear infinite;
   filter: blur(1px);
+  animation: floatUp 15s linear infinite;
 }
-
 @keyframes floatUp {
   from { transform: translateY(120vh); opacity: 0; }
   20% { opacity: 1; }
   to { transform: translateY(-20vh); opacity: 0; }
 }
 
-/* ---------------------- NAVBAR (Glassmorphic) ---------------------- */
-nav {
-  position: fixed;
-  top: 15px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 70%;
-  padding: 18px 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 50px;
-
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 18px;
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.3);
-
-  box-shadow: 0 0 25px rgba(0,0,0,0.35);
-  z-index: 50;
-}
-
-/* Back arrow */
+/* BACK ARROW — top-right, bold */
 .back-arrow {
-  position: absolute;
-  left: 25px;
-  font-size: 1.9em;
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  font-size: 2.5em;
+  font-weight: 900;
   color: white;
   text-decoration: none;
+  z-index: 50;
+
   transition: transform 0.3s ease, text-shadow 0.3s ease;
 }
-
 .back-arrow:hover {
-  transform: translateX(-5px);
-  text-shadow: 0 0 12px white;
+  transform: translateX(5px);
+  text-shadow: 0 0 15px rgba(255,255,255,0.9);
 }
 
-/* Menu */
-.menu {
-  display: flex;
-  list-style: none;
-  gap: 40px;
-}
-
-.menu li a {
-  text-decoration: none;
-  color: white;
-  font-size: 1.35em;
-  font-weight: 600;
-  letter-spacing: 1px;
-  position: relative;
-  padding-bottom: 4px;
-
-  transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-/* Animated underline */
-.menu li a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 0%;
-  height: 3px;
-  background: #ffcc00;
-  transition: width 0.3s ease;
-}
-
-.menu li a:hover::after {
-  width: 100%;
-}
-
-/* Hover glow */
-.menu li a:hover {
-  color: #ffcc00;
-  text-shadow: 0 0 12px rgba(255,200,0,0.9);
-}
-
-/* ---------------------- SECTIONS ---------------------- */
+/* SHARED SECTION SETTINGS */
 .section {
   height: 100vh;
   display: flex;
   align-items: center;
-  padding-left: 60px;
   z-index: 5;
-  animation: fadeSlide 1.6s ease both;
+  padding: 60px;
 }
 
-@keyframes fadeSlide {
-  from { opacity: 0; transform: translateX(-35px); }
-  to { opacity: 1; transform: translateX(0); }
+/* LEFT SIDE (Tutorials) */
+#tutorials {
+  justify-content: flex-start;
 }
 
-/* Glassmorphic content card */
+/* RIGHT SIDE (Blog) */
+#blog {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* GLASS CONTAINER */
 .section div {
   background: rgba(255,255,255,0.12);
-  padding: 35px 45px;
-  border-radius: 20px;
+  padding: 35px 40px;
+  border-radius: 18px;
   max-width: 480px;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.3);
   box-shadow: 0 0 25px rgba(0,0,0,0.35);
-  animation: glowIn 2s ease;
+  animation: fadeIn 1.3s ease both;
 }
 
-@keyframes glowIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
+/* HEADERS — scientific font */
 .section h2 {
-  font-size: 3.2em;
+  font-size: 3em;
+  font-weight: 600;
   margin-bottom: 15px;
-  text-shadow: 0 0 14px rgba(0,0,0,0.7);
+  text-shadow: 0 0 10px rgba(0,0,0,0.6);
 }
 
+/* BODY TEXT */
 .section p {
-  font-size: 1.5em;
+  font-size: 1.4em;
   line-height: 1.55;
-  margin-bottom: 20px;
-  text-shadow: 0 0 8px rgba(0,0,0,0.6);
+  margin-bottom: 18px;
 }
 
-/* Button (glass) */
+/* MAGENTA HOVER-GLOW (Discover + Subscribe) */
+.magenta-hover {
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.magenta-hover:hover {
+  color: #ff4be0;
+  text-shadow: 
+    0 0 10px #ff4be0,
+    0 0 20px #ff4be0,
+    0 0 35px #ff4be0;
+}
+
+/* GLASS BUTTON (Subscribe) */
 .subscribe-btn {
   padding: 12px 28px;
-  font-size: 1.15em;
-  color: white;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(0, 120, 255, 0.25);
+  font-size: 1.1em;
   border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
 
   backdrop-filter: blur(8px);
-  cursor: pointer;
-  transition: 0.3s;
+  transition: 0.3s ease;
 }
-
 .subscribe-btn:hover {
-  transform: translateY(-3px);
-  background: rgba(0,120,255,0.45);
-  box-shadow: 0 0 18px rgba(0,120,255,0.8);
+  background: rgba(255,255,255,0.28);
+  box-shadow: 0 0 18px #ff4be0;
+  color: #ff4be0;
 }
 
-/* ---------------------- POPUP (Glassmorphic) ---------------------- */
+/* POPUP (Glass) */
 .popup-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.78);
   display: none;
   justify-content: center;
   align-items: center;
@@ -228,107 +162,97 @@ nav {
 }
 
 .popup-content {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.12);
   padding: 35px;
-  border-radius: 18px;
+  border-radius: 16px;
   width: 90%;
-  max-width: 480px;
+  max-width: 420px;
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.35);
-  color: white;
-
-  animation: popIn 0.45s ease;
+  border: 1px solid rgba(255,255,255,0.3);
+  animation: popIn 0.4s ease;
   position: relative;
+  color: white;
 }
 
 @keyframes popIn {
-  from { transform: scale(0.7); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from { opacity: 0; transform: scale(0.7); }
+  to   { opacity: 1; transform: scale(1); }
 }
 
 .popup-close {
   position: absolute;
   right: 15px;
-  top: 10px;
-  font-size: 26px;
+  top: 12px;
   cursor: pointer;
+  font-size: 26px;
   color: white;
 }
 
-/* Inputs (glass) */
+/* Popup Inputs */
 input[type="email"] {
   width: 100%;
   padding: 12px;
   margin: 18px 0;
   border-radius: 8px;
-  border: 1px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.15);
-  color: white;
-
-  backdrop-filter: blur(6px);
-}
-
-input[type="submit"] {
-  padding: 12px 30px;
-  background: rgba(40,167,69,0.45);
+  background: rgba(255,255,255,0.18);
   border: 1px solid rgba(255,255,255,0.35);
   color: white;
+  backdrop-filter: blur(8px);
+}
+input[type="submit"] {
+  padding: 12px 25px;
   border-radius: 8px;
+  background: rgba(255,255,255,0.26);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.4);
   cursor: pointer;
-  backdrop-filter: blur(6px);
+  transition: 0.3s;
 }
-
 input[type="submit"]:hover {
-  background: rgba(40,167,69,0.6);
+  box-shadow: 0 0 18px #ff4be0;
+  color: #ff4be0;
 }
 
-/* ---------------------- PARALLAX ---------------------- */
-body {
-  transition: background-position 0.2s ease-out;
-}
+/* PARALLAX */
+body { transition: background-position 0.2s ease-out; }
+
 </style>
 </head>
 
 <body>
 
-<!-- Floating Particles -->
-<div class="particles">
-  <script>
-    for (let i = 0; i < 30; i++) {
-      const p = document.createElement("span");
-      p.style.left = Math.random() * 100 + "vw";
-      p.style.animationDelay = Math.random() * 12 + "s";
-      p.style.opacity = Math.random();
-      document.querySelector(".particles").appendChild(p);
-    }
-  </script>
-</div>
+<!-- FLOATING PARTICLES -->
+<div class="particles"></div>
+<script>
+  for (let i = 0; i < 30; i++) {
+    const p = document.createElement("span");
+    p.style.left = Math.random() * 100 + "vw";
+    p.style.animationDelay = Math.random() * 12 + "s";
+    document.querySelector(".particles").appendChild(p);
+  }
+</script>
 
-<!-- NAVBAR -->
-<nav>
-  <a href="home.html" class="back-arrow">⟵</a>
+<!-- BACK ARROW (Top Right) -->
+<a href="home.html" class="back-arrow">⟵</a>
 
-  <ul class="menu">
-    <li><a href="#tutorials">Tutorials</a></li>
-    <li><a href="#blog">Blog</a></li>
-  </ul>
-</nav>
-
-<!-- TUTORIALS SECTION -->
+<!-- TUTORIALS (LEFT SIDE) -->
 <div class="section" id="tutorials">
   <div>
     <h2>Tutorials</h2>
-    <p>Learn bioinformatics with clear, structured tutorials and hands-on examples.</p>
+    <p>
+      Learn Bioinformatics with hands-on practice.<br>
+      <span class="magenta-hover">Discover</span>
+    </p>
   </div>
 </div>
 
-<!-- BLOG SECTION -->
+<!-- BLOG (RIGHT SIDE) -->
 <div class="section" id="blog">
   <div>
     <h2>Blog</h2>
-    <p>Get the latest insights, news and powerful bioinformatics concepts explained simply.</p>
+    <p>Get insights, updates and powerful bioinformatics concepts explained simply.</p>
 
-    <button class="subscribe-btn" onclick="openPopup()">Subscribe</button>
+    <button class="subscribe-btn magenta-hover" onclick="openPopup()">Subscribe</button>
   </div>
 </div>
 
@@ -338,30 +262,22 @@ body {
     <span class="popup-close" onclick="closePopup()">&times;</span>
 
     <h2>Subscribe</h2>
-
     <form>
       <input type="email" placeholder="Enter your email" required />
-      <input type="submit" value="Subscribe" />
+      <input type="submit" value="Subscribe">
     </form>
   </div>
 </div>
 
 <script>
-/* Popup logic */
-const popup = document.getElementById("popup");
+/* Popup */
+function openPopup(){ document.getElementById("popup").style.display = "flex"; }
+function closePopup(){ document.getElementById("popup").style.display = "none"; }
 
-function openPopup() {
-  popup.style.display = "flex";
-}
-
-function closePopup() {
-  popup.style.display = "none";
-}
-
-/* Parallax (mouse-driven) */
+/* Parallax */
 document.addEventListener("mousemove", (e) => {
-  let x = (e.clientX / window.innerWidth) * 10;
-  let y = (e.clientY / window.innerHeight) * 10;
+  const x = (e.clientX / window.innerWidth) * 8;
+  const y = (e.clientY / window.innerHeight) * 8;
   document.body.style.backgroundPosition = `${50 + x}% ${50 + y}%`;
 });
 </script>
