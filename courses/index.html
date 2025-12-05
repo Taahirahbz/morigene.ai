@@ -5,119 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>All Courses</title>
 
-<!-- Scientific font -->
+<!-- Font -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; font-family: "IBM Plex Sans", sans-serif; color:white; overflow-x:hidden; }
+html, body {
+  height:100%;
+  font-family: "IBM Plex Sans", sans-serif;
+  color:white;
+  overflow-x:hidden;
+}
 
-/* Background color instead of image */
+/* TEAL GLASS BACKGROUND (with subtle magenta lighting) */
 body {
-  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  background: linear-gradient(135deg, #003C43, #135D66, #1B8A8E);
+  background-size: 200% 200%;
+  animation: gradientShift 12s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* PARTICLES */
 .particles { position: fixed; inset:0; z-index:0; }
 .particles span {
   position:absolute;
-  width:5px;
-  height:5px;
-  background:rgba(255,255,255,0.5);
+  width:6px;
+  height:6px;
+  background:rgba(255,255,255,0.55);
   border-radius:50%;
-  filter:blur(1px);
+  filter:blur(2px);
   animation: floatUp 15s linear infinite;
 }
 @keyframes floatUp {
-  from { transform:translateY(120vh); opacity:0; }
+  from { transform:translateY(110vh); opacity:0; }
   20% { opacity:1; }
   to { transform:translateY(-20vh); opacity:0; }
 }
 
-/* Glassmorphic course container */
-.courses-container {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
-  padding: 40px;
-  max-width: 1200px;
-  margin: 40px auto;
-}
-
-/* Responsive grid */
-@media(min-width: 600px) {
-  .courses-container {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media(min-width: 900px) {
-  .courses-container {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* Glassmorphic course boxes */
-.course {
-  background: rgba(255,255,255,0.12);
-  padding: 25px;
-  border-radius: 1.5rem;
-  border:1px solid rgba(255,255,255,0.3);
-  backdrop-filter: blur(15px);
-  box-shadow: 0 0 35px rgba(0,0,0,0.35);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-.course:hover { 
-  transform: translateY(-5px); 
-  box-shadow: 0 0 45px #ff4be0;
-}
-.course a {
-  color: #ff4be0;
-  font-weight:600;
-  text-decoration:none;
-  font-size:1.2rem;
-  margin-top: 10px;
-}
-.course a:hover { text-decoration:underline; }
-.course p { margin-top:8px; font-size:1rem; }
-.course img {
-  width: 100%;
-  max-width: 200px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-
-/* Page header */
+/* PAGE TITLE */
 h1 {
   text-align:center;
   font-size: clamp(2rem,4vw,3rem);
   margin: 40px 0 20px 0;
+  text-shadow: 0 0 25px rgba(255, 75, 224, 0.7);
 }
 
-/* Back button */
+/* COURSE GRID */
+.courses-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 25px;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
+@media(min-width: 600px) {
+  .courses-container { grid-template-columns: repeat(2, 1fr); }
+}
+@media(min-width: 900px) {
+  .courses-container { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* GLASS COURSE CARD */
+.course {
+  background: rgba(255,255,255,0.12);
+  padding: 25px;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 0 35px rgba(0,0,0,0.35);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  text-align: center;
+  z-index: 1;
+}
+
+.course:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 0 35px teal, 0 0 65px rgba(255, 75, 224, 0.9);
+}
+
+/* COURSE IMAGES */
+.course img {
+  width: 100%;
+  max-width: 240px;
+  border-radius: 14px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 25px rgba(255, 75, 224, 0.4);
+}
+
+/* COURSE LINKS */
+.course a {
+  color: #FF4BE0;
+  font-weight:600;
+  text-decoration:none;
+  font-size:1.25rem;
+}
+.course a:hover {
+  text-shadow:0 0 15px #ff4be0;
+}
+
+.course p {
+  margin-top:8px;
+  font-size:1rem;
+  opacity:0.9;
+}
+
+/* BACK BUTTON */
 .back-arrow {
   position: fixed;
   bottom: 3%;
   right: 3%;
   z-index:10;
-  font-weight:bold;
   padding:0.6rem 1.6rem;
-  border-radius:10px;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.15);
   color:white;
-  font-size:clamp(0.9rem,1vw,1rem);
   backdrop-filter: blur(8px);
   cursor:pointer;
   text-decoration:none;
-  text-align:center;
-  transition:0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  transition:0.3s ease;
+  font-weight:bold;
 }
 .back-arrow:hover {
-  box-shadow:0 0 25px #ff4be0,0 0 40px #ff4be0;
+  box-shadow:0 0 30px teal, 0 0 45px #ff4be0;
   color:#ff4be0;
   transform:translateY(-3px);
 }
@@ -125,14 +142,13 @@ h1 {
 </head>
 <body>
 
-<!-- Particles -->
+<!-- PARTICLES -->
 <div class="particles"></div>
 <script>
-// Generate floating particles
-for(let i=0;i<30;i++){
+for(let i=0;i<35;i++){
   const p=document.createElement("span");
   p.style.left=Math.random()*100+"vw";
-  p.style.animationDelay=Math.random()*12+"s";
+  p.style.animationDelay=Math.random()*14+"s";
   document.querySelector(".particles").appendChild(p);
 }
 </script>
@@ -140,26 +156,29 @@ for(let i=0;i<30;i++){
 <h1>All Courses</h1>
 
 <div class="courses-container">
+
+  <!-- INTRODUCTION WITH IMAGE -->
   <div class="course">
-    <img src="/images/analysis.jpg" alt="Introduction to Bioinformatics">
+    <img src="images/analysis.jpg" alt="Introduction to Bioinformatics">
     <a href="introduction.html">Introduction to Bioinformatics</a>
-    <p>Learn the basics of bioinformatics with practical examples.</p>
+    <p>Learn the foundations of bioinformatics through real biological datasets.</p>
   </div>
 
   <div class="course">
     <a href="course1.html">Course 1: HTML Basics</a>
-    <p>Learn the fundamentals of HTML.</p>
+    <p>Understand the structure of the web using HTML.</p>
   </div>
 
   <div class="course">
     <a href="course2.html">Course 2: CSS Basics</a>
-    <p>Style your webpages with CSS.</p>
+    <p>Learn how to style beautiful webpages with CSS.</p>
   </div>
 
   <div class="course">
     <a href="course3.html">Course 3: JavaScript Basics</a>
-    <p>Add interactivity with JavaScript.</p>
+    <p>Add interactivity and dynamic content using JavaScript.</p>
   </div>
+
 </div>
 
 <a href="learn-blog.html" class="back-arrow">⟵ Back</a>
