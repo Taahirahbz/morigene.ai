@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet" />
 
-  <!-- Mailchimp CSS -->
-  <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css" />
-
   <style>
     * {
       box-sizing: border-box;
@@ -21,7 +18,7 @@
       color: white;
       background: url('images/background.jpg') no-repeat center center fixed;
       background-size: cover;
-      overflow-x: hidden;
+      overflow: hidden;   /* 🔹 Prevent scrolling */
     }
 
     body::before {
@@ -32,30 +29,30 @@
       z-index: -1;
     }
 
+    /* NAVBAR */
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background-color: rgba(0,0,0,0.7);
+      background-color: teal; /* 🔹 Teal header */
       display: flex;
-      justify-content: flex-end;
+      justify-content: center; /* 🔹 Center menu */
       align-items: center;
       padding: 15px 30px;
       z-index: 10;
-      flex-wrap: wrap;
     }
 
     .menu {
       list-style: none;
       display: flex;
-      gap: 25px;
+      gap: 40px;
     }
 
     .menu li a {
       text-decoration: none;
       color: white;
-      font-weight: 500;
-      font-size: 1.1em;
+      font-weight: 600;
+      font-size: 1.2em;
       transition: color 0.3s ease;
     }
 
@@ -65,38 +62,33 @@
 
     .hamburger {
       display: none;
-      font-size: 28px;
-      cursor: pointer;
-      user-select: none;
-      color: white;
     }
 
+    /* SECTION LAYOUT */
     .section {
-      position: relative;
       height: 100vh;
       display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
-      padding: 40px;
+      align-items: center;
+      justify-content: flex-start;  /* 🔹 Left-align content */
+      padding-left: 40px;
       text-align: left;
-      animation: fadeIn 2s ease-in-out;
     }
 
     .section h2 {
-      font-size: 2.8em;
+      font-size: 3em;
       font-weight: bold;
       margin-bottom: 10px;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }
 
     .section p {
-      font-size: 1.6em;
-      max-width: 500px;
+      font-size: 1.5em;
+      max-width: 420px;
       line-height: 1.5;
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
     }
 
-    /* Button */
+    /* BUTTON */
     .subscribe-btn {
       margin-top: 20px;
       padding: 12px 24px;
@@ -113,57 +105,7 @@
       background-color: #0056b3;
     }
 
-    /* Fade-in animation */
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .menu {
-        display: none;
-        width: 100%;
-        flex-direction: column;
-        background-color: rgba(0, 0, 0, 0.9);
-        position: absolute;
-        top: 60px;
-        right: 0;
-        padding: 15px 0;
-        z-index: 20;
-      }
-
-      .menu.active {
-        display: flex;
-      }
-
-      .menu li {
-        margin: 10px 0;
-        text-align: center;
-      }
-
-      .hamburger {
-        display: block;
-      }
-
-      nav {
-        justify-content: space-between;
-      }
-
-      .section {
-        padding: 20px;
-      }
-
-      .section h2 {
-        font-size: 2em;
-      }
-
-      .section p {
-        font-size: 1.2em;
-      }
-    }
-
-    /* Popup Modal */
+    /* POPUP */
     .popup-overlay {
       position: fixed;
       top: 0;
@@ -198,25 +140,6 @@
       color: #333;
     }
 
-    .popup-content input[type="email"] {
-      width: 100%;
-      padding: 12px;
-      margin: 15px 0;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    .popup-content input[type="submit"] {
-      background-color: #28a745;
-      color: white;
-      border: none;
-      padding: 12px 25px;
-      border-radius: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
-
     .success-message {
       display: none;
       font-size: 18px;
@@ -231,8 +154,8 @@
 
     .back-home a {
       color: #007BFF;
-      text-decoration: none;
       font-weight: bold;
+      text-decoration: none;
     }
 
     .back-home a:hover {
@@ -240,22 +163,22 @@
     }
   </style>
 </head>
+
 <body>
 
   <!-- Navbar -->
   <nav>
-    <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
     <ul class="menu" id="menu">
       <li><a href="home.html">HOME</a></li>
-      <li><a href="#learn">LEARN</a></li>
+      <li><a href="#tutorials">TUTORIALS</a></li>
       <li><a href="#blog">BLOG</a></li>
     </ul>
   </nav>
 
-  <!-- Learn Section -->
-  <div class="section" id="learn">
+  <!-- Tutorials Section -->
+  <div class="section" id="tutorials">
     <div>
-      <h2>Learn Section</h2>
+      <h2>Tutorials</h2>
       <p>Keep up with the fastest-growing field in science. Dive into bioinformatics and lead the way.</p>
     </div>
   </div>
@@ -263,78 +186,50 @@
   <!-- Blog Section -->
   <div class="section" id="blog">
     <div>
-      <h2>Blog Section</h2>
+      <h2>Blog</h2>
       <p>Subscribe for cool Bioinformatics updates!</p>
       <button class="subscribe-btn" onclick="openPopup()">Subscribe</button>
     </div>
   </div>
 
-  <!-- Popup Modal -->
+  <!-- Popup -->
   <div class="popup-overlay" id="popup">
     <div class="popup-content">
       <span class="popup-close" onclick="closePopup()">&times;</span>
+
       <h2>Subscribe to Our Newsletter</h2>
 
-      <!-- Mailchimp Embed -->
-      <div id="mc_embed_signup">
-        <form action="https://gmail.us11.list-manage.com/subscribe/post?u=a3a0fc0677a746f170a59ac7c&amp;id=6630c786f4&amp;f_id=009bcde0f0"
-              method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form"
-              class="validate" target="_blank" novalidate>
-          <input type="email" name="EMAIL" class="required email" id="mce-EMAIL"
-                 placeholder="Enter your email" required>
-          <div aria-hidden="true" style="position:absolute; left:-5000px;">
-            <input type="text" name="b_a3a0fc0677a746f170a59ac7c__6630c786f4" tabindex="-1" value="">
-          </div>
- <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe">
-        </form>
-      </div>
-      <!-- Mailchimp Form End -->
+      <form action="https://gmail.us11.list-manage.com/subscribe/post?u=a3a0fc0677a746f170a59ac7c&amp;id=6630c786f4&amp;f_id=009bcde0f0"
+            method="post" id="mc-embedded-subscribe-form" target="_blank" novalidate>
+        <input type="email" name="EMAIL" placeholder="Enter your email" required>
+        <input type="submit" value="Subscribe">
+      </form>
 
-      <!-- Success Message -->
       <div id="custom-success" class="success-message">
         You're in!<br>Stay tuned for insightful updates.
       </div>
 
-      <!-- Back to Home Link -->
       <div class="back-home" id="back-home-link">
         <a href="index.html">🔙 Back to Home</a>
       </div>
     </div>
   </div>
 
-  <!-- Mailchimp Validation Script -->
-  <script src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script>
-  <script>
-    (function ($) {
-      window.fnames = new Array(); 
-      window.ftypes = new Array();
-      fnames[0] = 'EMAIL'; ftypes[0] = 'email';
-    }(jQuery));
-    var $mcj = jQuery.noConflict(true);
-  </script>
-
-  <!-- Popup Logic -->
   <script>
     const popup = document.getElementById('popup');
     const form = document.getElementById('mc-embedded-subscribe-form');
     const successMsg = document.getElementById('custom-success');
     const backLink = document.getElementById('back-home-link');
 
-    function openPopup() {
-      popup.style.display = 'flex';
-    }
-
-    function closePopup() {
-      popup.style.display = 'none';
-    }
+    function openPopup() { popup.style.display = 'flex'; }
+    function closePopup() { popup.style.display = 'none'; }
 
     form.addEventListener('submit', function () {
-      // Delay to simulate Mailchimp external success (can't detect it directly)
       setTimeout(() => {
         form.style.display = 'none';
         successMsg.style.display = 'block';
         backLink.style.display = 'block';
-      }, 1000); // Adjust as needed
+      }, 1000);
     });
   </script>
 
