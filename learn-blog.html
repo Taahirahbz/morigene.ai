@@ -8,20 +8,19 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* RESET */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html, body {
   height: 100%;
-  overflow: hidden;     /* 🚫 No scrolling allowed */
+  overflow: hidden;
   font-family: "IBM Plex Sans", sans-serif;
   color: white;
+  perspective: 1000px;
 }
 
-/* FIXED BACKGROUND */
 body {
   background: url("images/background.jpg") center/cover no-repeat fixed;
   position: relative;
+  transition: background-position 0.1s ease;
 }
 
 /* PARTICLES */
@@ -41,67 +40,41 @@ body {
 }
 @keyframes floatUp {
   from { transform: translateY(120vh); opacity: 0; }
-  20%  { opacity: 1; }
-  to   { transform: translateY(-20vh); opacity: 0; }
+  20% { opacity: 1; }
+  to { transform: translateY(-20vh); opacity: 0; }
 }
 
-/* BOTTOM-RIGHT BACK ARROW */
-.back-arrow {
-  position: fixed;
-  bottom: 25px;
-  right: 30px;
-  font-size: 2.5em;
-  font-weight: 900;
-  color: white;
-  text-decoration: none;
-  transition: 0.3s ease;
-  z-index: 50;
-}
-.back-arrow:hover {
-  transform: translateX(5px);
-  text-shadow: 0 0 15px rgba(255,255,255,0.9);
-}
-
-/* FULL SCREEN 2-COLUMN LAYOUT */
+/* MAIN CONTAINER */
 .main-container {
   display: flex;
+  flex-wrap: wrap;
   height: 100vh;
   width: 100vw;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
   position: relative;
   z-index: 5;
+  transform-style: preserve-3d;
 }
 
-/* LEFT (Tutorials) */
-.left {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;   /* Move box down */
-  padding-bottom: 80px;    /* More space from bottom */
-  padding-left: 60px;      /* Slight left shift */
-}
-
-/* RIGHT (Blog) */
-.right {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;  /* Move box up */
-  padding-top: 80px;        /* More space from top */
-  padding-right: 60px;      /* Slight right shift */
-}
-
-/* GLASS BOX */
+/* GLASS BOXES */
 .glass-box {
   background: rgba(255,255,255,0.12);
-  padding: 40px 50px;
-  border-radius: 18px;
-  width: 420px;
+  padding: 3vw 3vw;
+  border-radius: 1.5rem;
+  width: clamp(280px, 40vw, 400px);
+  height: clamp(220px, 30vh, 300px);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.3);
   box-shadow: 0 0 25px rgba(0,0,0,0.35);
-  text-align: center;     /* Center contents */
-  animation: fadeIn 1.3s ease both;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeIn 1.5s ease both, floatBox 6s ease-in-out infinite alternate;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 @keyframes fadeIn {
@@ -109,45 +82,54 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.glass-box h2 {
-  font-size: 3em;
-  font-weight: 600;
-  margin-bottom: 15px;
+@keyframes floatBox {
+  from { transform: translateY(0px); }
+  to { transform: translateY(12px); }
 }
 
+/* HEADERS & TEXT */
+.glass-box h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
 .glass-box p {
-  font-size: 1.35em;
-  margin-bottom: 18px;
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  margin-bottom: 1.5rem;
   line-height: 1.5;
 }
 
-/* Magenta hover glow */
-.magenta-hover {
-  cursor: pointer;
-  transition: 0.3s;
-}
-.magenta-hover:hover {
-  color: #ff4be0;
-  text-shadow:
-    0 0 8px #ff4be0,
-    0 0 18px #ff4be0,
-    0 0 30px #ff4be0;
-}
-
-/* Subscribe button */
-.subscribe-btn {
-  padding: 12px 28px;
+/* BUTTON-LIKE STYLING */
+.button-like {
+  padding: 0.7rem 1.8rem;
   border-radius: 10px;
   border: 1px solid rgba(255,255,255,0.4);
   background: rgba(255,255,255,0.18);
   color: white;
-  font-size: 1.1em;
+  font-size: clamp(0.9rem, 1.1vw, 1.1rem);
   backdrop-filter: blur(8px);
-  transition: 0.3s ease;
+  transition: 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  display: inline-block;
+  text-decoration: none;
 }
-.subscribe-btn:hover {
-  box-shadow: 0 0 18px #ff4be0;
+.button-like:hover {
+  box-shadow: 0 0 25px #ff4be0, 0 0 40px #ff4be0;
   color: #ff4be0;
+  transform: translateY(-3px);
+  animation: pulse 1.2s infinite alternate;
+}
+@keyframes pulse {
+  from { box-shadow: 0 0 15px #ff4be0, 0 0 25px #ff4be0; }
+  to   { box-shadow: 0 0 25px #ff4be0, 0 0 40px #ff4be0; }
+}
+
+/* BACK ARROW */
+.back-arrow {
+  position: fixed;
+  bottom: 3%;
+  right: 3%;
+  z-index: 10;
 }
 
 /* POPUP */
@@ -164,19 +146,18 @@ body {
   background: rgba(255,255,255,0.12);
   padding: 35px;
   border-radius: 16px;
-  width: 90%;
-  max-width: 420px;
+  width: clamp(300px, 80vw, 420px);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.3);
   animation: popIn 0.4s ease;
   position: relative;
   color: white;
+  text-align: center;
 }
 @keyframes popIn {
   from { opacity: 0; transform: scale(0.7); }
   to   { opacity: 1; transform: scale(1); }
 }
-
 .popup-close {
   position: absolute;
   right: 15px;
@@ -210,6 +191,13 @@ input[type="submit"]:hover {
   box-shadow: 0 0 18px #ff4be0;
 }
 
+/* RESPONSIVE STACKING */
+@media (max-width: 900px) {
+  .main-container {
+    flex-direction: column;
+    gap: 5vh;
+  }
+}
 </style>
 </head>
 
@@ -218,47 +206,38 @@ input[type="submit"]:hover {
 <!-- PARTICLES -->
 <div class="particles"></div>
 <script>
-  for (let i = 0; i < 30; i++) {
-    const p = document.createElement("span");
-    p.style.left = Math.random() * 100 + "vw";
-    p.style.animationDelay = Math.random() * 12 + "s";
-    document.querySelector(".particles").appendChild(p);
-  }
+for (let i = 0; i < 30; i++) {
+  const p = document.createElement("span");
+  p.style.left = Math.random() * 100 + "vw";
+  p.style.animationDelay = Math.random() * 12 + "s";
+  document.querySelector(".particles").appendChild(p);
+}
 </script>
 
-<!-- BOTTOM-RIGHT BACK ARROW -->
-<a href="home.html" class="back-arrow">⟵</a>
-
-<!-- TWO-COLUMN FIXED LAYOUT -->
+<!-- TWO-COLUMN CENTERED LAYOUT -->
 <div class="main-container">
-
-  <!-- LEFT SIDE — TUTORIALS -->
-  <div class="left">
-    <div class="glass-box">
-      <h2>Tutorials</h2>
-      <p>
-        Learn Bioinformatics with hands-on practice.<br>
-        <span class="magenta-hover">Discover</span>
-      </p>
-    </div>
+  <!-- LEFT: Tutorials -->
+  <div class="glass-box" id="tutorial-box">
+    <h2>Tutorials</h2>
+    <p>Learn Bioinformatics with hands-on practice.</p>
+    <a class="button-like" href="#">Discover</a>
   </div>
 
-  <!-- RIGHT SIDE — BLOG -->
-  <div class="right">
-    <div class="glass-box">
-      <h2>Blog</h2>
-      <p>Get insights, updates and powerful bioinformatics concepts explained simply.</p>
-      <button class="subscribe-btn magenta-hover" onclick="openPopup()">Subscribe</button>
-    </div>
+  <!-- RIGHT: Blog -->
+  <div class="glass-box" id="blog-box">
+    <h2>Blog</h2>
+    <p>Tiny reads, Big genes: Bio bytes that fit your coffee break</p>
+    <button class="button-like" onclick="openPopup()">Subscribe</button>
   </div>
-
 </div>
+
+<!-- BACK ARROW -->
+<a href="home.html" class="button-like back-arrow">⟵</a>
 
 <!-- POPUP -->
 <div class="popup-overlay" id="popup">
   <div class="popup-content">
     <span class="popup-close" onclick="closePopup()">&times;</span>
-
     <h2>Subscribe</h2>
     <form>
       <input type="email" placeholder="Enter your email" required />
@@ -268,8 +247,49 @@ input[type="submit"]:hover {
 </div>
 
 <script>
-function openPopup() { document.getElementById("popup").style.display = "flex"; }
-function closePopup() { document.getElementById("popup").style.display = "none"; }
+function openPopup(){ document.getElementById("popup").style.display="flex"; }
+function closePopup(){ document.getElementById("popup").style.display="none"; }
+
+/* SMOOTH PARALLAX + 3D TILT + DRIFT + DYNAMIC HOVER LIGHT */
+let mouseX = 0, mouseY = 0;
+let currentX = 0, currentY = 0;
+let drift = 0;
+
+const tutorial = document.getElementById("tutorial-box");
+const blog = document.getElementById("blog-box");
+
+document.addEventListener("mousemove", function(e){
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
+  mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+});
+
+function animate() {
+  // easing toward mouse
+  currentX += (mouseX - currentX) * 0.08;
+  currentY += (mouseY - currentY) * 0.08;
+
+  // slow drifting rotation
+  drift += 0.2;
+  const driftX = Math.sin(drift/50) * 3;
+  const driftY = Math.cos(drift/50) * 3;
+
+  // background parallax
+  document.body.style.backgroundPosition = `${50 + currentX}% ${50 + currentY}%`;
+
+  // Dynamic light calculation (shadow offset)
+  const shadowX = currentX/2;
+  const shadowY = currentY/2;
+
+  // Boxes transform + shadow
+  tutorial.style.transform = `translate(${currentX*0.5}px, ${currentY*0.5}px) rotateY(${currentX+driftX}deg) rotateX(${-currentY+driftY}deg)`;
+  tutorial.style.boxShadow = `${-shadowX}px ${-shadowY}px 35px rgba(255,75,224,0.35), 0 0 25px rgba(0,0,0,0.3)`;
+
+  blog.style.transform = `translate(${-currentX*0.5}px, ${-currentY*0.5}px) rotateY(${-currentX+driftX}deg) rotateX(${currentY+driftY}deg)`;
+  blog.style.boxShadow = `${shadowX}px ${shadowY}px 35px rgba(255,75,224,0.35), 0 0 25px rgba(0,0,0,0.3)`;
+
+  requestAnimationFrame(animate);
+}
+animate();
 </script>
 
 </body>
