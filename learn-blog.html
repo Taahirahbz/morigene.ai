@@ -17,6 +17,7 @@ html, body {
   perspective: 1000px;
 }
 
+/* BACKGROUND IMAGE */
 body {
   background: url("images/background.jpg") center/cover no-repeat fixed;
   position: relative;
@@ -24,11 +25,7 @@ body {
 }
 
 /* PARTICLES */
-.particles {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-}
+.particles { position: fixed; inset: 0; z-index: 0; }
 .particles span {
   position: absolute;
   width: 5px;
@@ -44,47 +41,20 @@ body {
   to { transform: translateY(-20vh); opacity: 0; }
 }
 
-/* MAIN CONTAINER */
-.main-container {
-  display: flex;
-  flex-wrap: wrap;
-  height: 100vh;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-  gap: 5vw;
-  position: relative;
-  z-index: 5;
-  transform-style: preserve-3d;
-}
-
 /* GLASS BOXES */
 .glass-box {
   background: rgba(255,255,255,0.12);
-  padding: 3vw 3vw;
+  padding: 3vw;
   border-radius: 1.5rem;
-  width: clamp(280px, 40vw, 400px);
-  height: clamp(220px, 30vh, 300px);
   backdrop-filter: blur(12px);
   border: 1px solid rgba(255,255,255,0.3);
   box-shadow: 0 0 25px rgba(0,0,0,0.35);
-  text-align: center;
+  text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  animation: fadeIn 1.5s ease both, floatBox 6s ease-in-out infinite alternate;
   transform-style: preserve-3d;
   transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(25px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes floatBox {
-  from { transform: translateY(0px); }
-  to { transform: translateY(12px); }
 }
 
 /* HEADERS & TEXT */
@@ -99,7 +69,7 @@ body {
   line-height: 1.5;
 }
 
-/* BUTTON-LIKE STYLING */
+/* BUTTON-LIKE STYLING (Same for Discover & Subscribe) */
 .button-like {
   padding: 0.7rem 1.8rem;
   border-radius: 10px;
@@ -130,6 +100,7 @@ body {
   bottom: 3%;
   right: 3%;
   z-index: 10;
+  font-weight: bold;
 }
 
 /* POPUP */
@@ -181,7 +152,7 @@ input[type="email"] {
 input[type="submit"] {
   padding: 12px 25px;
   border-radius: 8px;
-  background: rgba(255,255,255,0.26);
+  background: rgba(255,255,255,0.18);
   color: white;
   border: 1px solid rgba(255,255,255,0.4);
   cursor: pointer;
@@ -191,11 +162,28 @@ input[type="submit"]:hover {
   box-shadow: 0 0 18px #ff4be0;
 }
 
-/* RESPONSIVE STACKING */
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes floatTutorial {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(12px) scale(1.03); }
+  100% { transform: translateY(0) scale(1); }
+}
+@keyframes floatBlog {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(8px) scale(1.02); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* RESPONSIVE FOR SMALL SCREENS */
 @media (max-width: 900px) {
-  .main-container {
-    flex-direction: column;
-    gap: 5vh;
+  #tutorial-box, #blog-box {
+    position: relative !important;
+    margin: 2vh auto;
+    width: 80vw;
   }
 }
 </style>
@@ -206,29 +194,26 @@ input[type="submit"]:hover {
 <!-- PARTICLES -->
 <div class="particles"></div>
 <script>
-for (let i = 0; i < 30; i++) {
-  const p = document.createElement("span");
-  p.style.left = Math.random() * 100 + "vw";
-  p.style.animationDelay = Math.random() * 12 + "s";
+for (let i=0;i<30;i++){
+  const p=document.createElement("span");
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDelay=Math.random()*12+"s";
   document.querySelector(".particles").appendChild(p);
 }
 </script>
 
-<!-- TWO-COLUMN CENTERED LAYOUT -->
-<div class="main-container">
-  <!-- LEFT: Tutorials -->
-  <div class="glass-box" id="tutorial-box">
-    <h2>Tutorials</h2>
-    <p>Learn Bioinformatics with hands-on practice.</p>
-    <a class="button-like" href="#">Discover</a>
-  </div>
+<!-- TUTORIALS BOX -->
+<div class="glass-box" id="tutorial-box" style="top:12%; left:6%; position:absolute; animation: fadeIn 1.5s ease both, floatTutorial 6s ease-in-out infinite;">
+  <h2>Tutorials</h2>
+  <p>Learn Bioinformatics with hands-on practice.</p>
+  <a class="button-like" href="#">Discover</a>
+</div>
 
-  <!-- RIGHT: Blog -->
-  <div class="glass-box" id="blog-box">
-    <h2>Blog</h2>
-    <p>Tiny reads, Big genes: Bio bytes that fit your coffee break</p>
-    <button class="button-like" onclick="openPopup()">Subscribe</button>
-  </div>
+<!-- BLOG BOX -->
+<div class="glass-box" id="blog-box" style="top:35%; left:12%; position:absolute; animation: fadeIn 1.5s ease both, floatBlog 7s ease-in-out infinite;">
+  <h2>Blog</h2>
+  <p>Tiny reads, Big genes: Bio bytes that fit your coffee break</p>
+  <a class="button-like" onclick="openPopup()">Subscribe</a>
 </div>
 
 <!-- BACK ARROW -->
@@ -250,42 +235,33 @@ for (let i = 0; i < 30; i++) {
 function openPopup(){ document.getElementById("popup").style.display="flex"; }
 function closePopup(){ document.getElementById("popup").style.display="none"; }
 
-/* SMOOTH PARALLAX + 3D TILT + DRIFT + DYNAMIC HOVER LIGHT */
-let mouseX = 0, mouseY = 0;
-let currentX = 0, currentY = 0;
-let drift = 0;
-
-const tutorial = document.getElementById("tutorial-box");
-const blog = document.getElementById("blog-box");
+/* SMOOTH PARALLAX + 3D TILT + DRIFT */
+let mouseX=0, mouseY=0, currentX=0, currentY=0, drift=0;
+const tutorial=document.getElementById("tutorial-box");
+const blog=document.getElementById("blog-box");
 
 document.addEventListener("mousemove", function(e){
-  mouseX = (e.clientX / window.innerWidth - 0.5) * 20;
-  mouseY = (e.clientY / window.innerHeight - 0.5) * 20;
+  mouseX = (e.clientX/window.innerWidth - 0.5) * 20;
+  mouseY = (e.clientY/window.innerHeight - 0.5) * 20;
 });
 
-function animate() {
-  // easing toward mouse
-  currentX += (mouseX - currentX) * 0.08;
-  currentY += (mouseY - currentY) * 0.08;
-
-  // slow drifting rotation
+function animate(){
+  currentX += (mouseX - currentX)*0.08;
+  currentY += (mouseY - currentY)*0.08;
   drift += 0.2;
-  const driftX = Math.sin(drift/50) * 3;
-  const driftY = Math.cos(drift/50) * 3;
+  const driftX=Math.sin(drift/50)*3;
+  const driftY=Math.cos(drift/50)*3;
 
-  // background parallax
-  document.body.style.backgroundPosition = `${50 + currentX}% ${50 + currentY}%`;
+  document.body.style.backgroundPosition=`${50+currentX}% ${50+currentY}%`;
 
-  // Dynamic light calculation (shadow offset)
   const shadowX = currentX/2;
   const shadowY = currentY/2;
 
-  // Boxes transform + shadow
-  tutorial.style.transform = `translate(${currentX*0.5}px, ${currentY*0.5}px) rotateY(${currentX+driftX}deg) rotateX(${-currentY+driftY}deg)`;
-  tutorial.style.boxShadow = `${-shadowX}px ${-shadowY}px 35px rgba(255,75,224,0.35), 0 0 25px rgba(0,0,0,0.3)`;
+  tutorial.style.transform=`translate(${currentX*0.5}px, ${currentY*0.5}px) rotateY(${currentX+driftX}deg) rotateX(${-currentY+driftY}deg)`;
+  tutorial.style.boxShadow=`${-shadowX}px ${-shadowY}px 35px rgba(255,75,224,0.35), 0 0 25px rgba(0,0,0,0.3)`;
 
-  blog.style.transform = `translate(${-currentX*0.5}px, ${-currentY*0.5}px) rotateY(${-currentX+driftX}deg) rotateX(${currentY+driftY}deg)`;
-  blog.style.boxShadow = `${shadowX}px ${shadowY}px 35px rgba(255,75,224,0.35), 0 0 25px rgba(0,0,0,0.3)`;
+  blog.style.transform=`translate(${-currentX*0.5}px, ${-currentY*0.5}px) rotateY(${-currentX+driftX}deg) rotateX(${currentY+driftY}deg)`;
+  blog.style.boxShadow=`${shadowX}px ${shadowY}px 35px rgba(255,75,224,0.35), 0 0 25px rgba(0,0,0,0.3)`;
 
   requestAnimationFrame(animate);
 }
