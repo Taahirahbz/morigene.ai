@@ -5,307 +5,241 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Scientific Font -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* RESET */
 * { margin:0; padding:0; box-sizing:border-box; }
+
 html, body {
   height:100%;
-  overflow:hidden;
   font-family:"IBM Plex Sans", sans-serif;
   color:white;
-}
-
-/* Background image */
-body {
   background:url("images/background.jpg") center/cover no-repeat fixed;
-  position:relative;
-  transition:background-position 0.1s ease;
+  overflow-x:hidden;
 }
 
-/* ------------------------------------------------------ */
-/*                  DNA ANIMATED BACKGROUND              */
-/* ------------------------------------------------------ */
-.dna-background {
+/* -------------------------------------------- */
+/* PARTICLES — lightweight and subtle           */
+/* -------------------------------------------- */
+.particles {
   position:fixed;
   inset:0;
-  overflow:hidden;
   pointer-events:none;
   z-index:0;
 }
-
-.dna-strand {
+.particles span {
   position:absolute;
-  top:0;
   width:3px;
-  height:140vh;
-  background:rgba(255,255,255,0.28);
-  border-radius:50px;
-  opacity:0.32;
-  animation:floatDNA 16s linear infinite;
-}
-
-.dna-dot {
-  position:absolute;
-  width:10px;
-  height:10px;
-  background:#ff5ab1;
+  height:3px;
+  background:rgba(255,255,255,0.45);
   border-radius:50%;
   filter:blur(1px);
-  opacity:0.85;
-  animation:twistDNA 3.5s ease-in-out infinite;
+  animation:rise 18s linear infinite;
+}
+@keyframes rise {
+  from { transform:translateY(110vh); opacity:0; }
+  25% { opacity:0.45; }
+  to { transform:translateY(-10vh); opacity:0; }
 }
 
-@keyframes floatDNA {
-  from { transform:translateY(0); }
-  to   { transform:translateY(-40vh); }
-}
-
-@keyframes twistDNA {
-  0%   { transform:translateX(-22px); }
-  50%  { transform:translateX(22px); }
-  100% { transform:translateX(-22px); }
-}
-
-
-/* ------------------------------------------------------ */
-/*                      GLASS CARDS                       */
-/* ------------------------------------------------------ */
-.glass-box {
+/* -------------------------------------------- */
+/* RESPONSIVE LAYOUT WRAPPER                    */
+/* -------------------------------------------- */
+.container {
   position:relative;
-  background:rgba(255,255,255,0.12);
-  width:350px;
-  height:220px;
-  padding:1.8rem;
-  border-radius:1.5rem;
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.3);
-  box-shadow:0 0 25px rgba(0,0,0,0.35);
+  z-index:5;
+  height:100%;
+  width:100%;
+
   display:flex;
   flex-direction:column;
   justify-content:center;
-  text-align:left;
-  transform-style:preserve-3d;
-  animation:fadeIn 1.5s ease both;
-  transition:transform 0.3s ease;
+  align-items:center;
+  gap:4rem;
+
+  padding:3rem;
 }
 
-.glass-box .glow {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  border-radius:inherit;
-  opacity:0;
-  mix-blend-mode:soft-light;
-  transition:opacity 0.25s ease;
-  background:radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
+/* Tablet & Desktop: turn into row layout */
+@media (min-width:900px) {
+  .container {
+    flex-direction:row;
+    gap:5vw;
+  }
 }
 
-/* Headers */
-.glass-box h2 {
-  font-size:clamp(1.8rem,3vw,2.5rem);
+/* Wide-screen desktop spacing */
+@media (min-width:1400px) {
+  .container {
+    gap:7vw;
+  }
+}
+
+/* -------------------------------------------- */
+/*           GLASS CARDS                        */
+/* -------------------------------------------- */
+.card {
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.10);
+  backdrop-filter:blur(18px) saturate(140%);
+  border-radius:1rem;
+  padding:2rem;
+  width:90%;
+  max-width:380px;
+
+  box-shadow:
+    0 8px 25px rgba(0,0,0,0.35),
+    inset 0 0 40px rgba(255,255,255,0.05);
+
+  transition:transform 0.35s ease, opacity 0.3s ease;
+}
+
+/* Desktop hover */
+@media (min-width:900px) {
+  .card:hover {
+    transform:translateY(-6px) scale(1.03);
+  }
+}
+
+.card h2 {
+  font-size:2.2rem;
+  font-weight:500;
   margin-bottom:0.8rem;
-  font-weight:600;
 }
-.glass-box p {
-  font-size:clamp(1rem,1.5vw,1.2rem);
-  margin-bottom:1rem;
+.card p {
+  opacity:0.9;
+  font-size:1.15rem;
+  margin-bottom:1.3rem;
   line-height:1.5;
 }
 
-/* Buttons */
+/* -------------------------------------------- */
+/* BUTTONS                                      */
+/* -------------------------------------------- */
 .button-like {
-  padding:0.6rem 1.6rem;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.4);
-  background:rgba(255,255,255,0.18);
+  padding:0.75rem 1.7rem;
   color:white;
-  backdrop-filter:blur(8px);
-  cursor:pointer;
   text-decoration:none;
+  border-radius:10px;
+
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.15);
+  backdrop-filter:blur(8px);
+
+  cursor:pointer;
   transition:0.3s ease;
 }
-
 .button-like:hover {
   transform:translateY(-3px);
-  color:#ff5ab1;
-  box-shadow:0 0 25px #ff5ab1,0 0 40px #ff5ab1;
-}
-
-/* Fade */
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(25px);}
-  to {opacity:1; transform:translateY(0);}
-}
-
-/* ------------------------------------------------------ */
-/*             NEW FLOATING CIRCULAR BACK BUTTON          */
-/* ------------------------------------------------------ */
-.back-arrow {
-  position:fixed;
-  bottom:3%;
-  right:3%;
-  width:55px;
-  height:55px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  border-radius:50%;
-  background:rgba(255,255,255,0.14);
-  border:1px solid rgba(255,255,255,0.22);
-  backdrop-filter:blur(12px) saturate(150%);
-  color:white;
-  font-size:1.8rem;
-  cursor:pointer;
-  text-decoration:none;
-  z-index:20;
-  transition:0.3s ease;
-  box-shadow:0 6px 20px rgba(0,0,0,0.25);
-}
-
-.back-arrow:hover {
-  transform:translateY(-4px) scale(1.05);
-  color:#ff5ab1;
-  box-shadow:0 0 20px #ff5ab1, 0 0 35px #ff5ab1;
-}
-
-
-/* POPUP */
-.popup-overlay {
-  position:fixed; inset:0;
-  background:rgba(0,0,0,0.78);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-.popup-content {
-  background:rgba(255,255,255,0.12);
-  padding:35px;
-  border-radius:16px;
-  width:clamp(300px,80vw,420px);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.3);
-  animation:popIn 0.4s ease;
-  text-align:center;
-  color:white;
-}
-@keyframes popIn {
-  from {opacity:0; transform:scale(0.7);}
-  to   {opacity:1; transform:scale(1);}
-}
-.popup-close {
-  position:absolute;
-  right:15px;
-  top:12px;
-  cursor:pointer;
-  font-size:26px;
-}
-
-/* Inputs */
-input[type=email], input[type=submit] {
-  width:100%;
-  padding:12px;
-  margin:18px 0;
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,0.35);
-  background:rgba(255,255,255,0.18);
-  color:white;
-}
-input[type=submit]:hover {
   color:#ff5ab1;
   box-shadow:0 0 18px #ff5ab1;
 }
 
-
-/* Desktop absolute positioning */
-#tutorial-box { position:absolute; top:10%; left:6%; }
-#blog-box { position:absolute; bottom:10%; left:10%; }
-
-/* ------------------------------------------------------ */
-/*               MOBILE COVERFLOW CAROUSEL                */
-/* ------------------------------------------------------ */
-@media (max-width: 900px) {
-
-  body { overflow:hidden; }
-
-  #tutorial-box, #blog-box {
-    position:relative !important;
-    top:auto !important;
-    left:auto !important;
-    bottom:auto !important;
-    margin:0;
-    transform:none !important;
-  }
-
-  .carousel {
-    position:absolute;
-    top:5vh;
-    left:0;
-    right:0;
-    bottom:0;
-    display:flex;
-    gap:10vw;
-    padding:0 10vw;
-    overflow-x:scroll;
-    scroll-snap-type:x mandatory;
-    scrollbar-width:none;
-  }
-  .carousel::-webkit-scrollbar { display:none; }
-
-  .glass-box {
-    min-width:75vw;
-    height:auto;
-    padding:2rem;
-    scroll-snap-align:center;
-    transition:transform 0.3s ease, opacity 0.3s ease;
-  }
-
-  .glass-box.left {
-    transform:rotateY(25deg) scale(0.85);
-    opacity:0.65;
-  }
-  .glass-box.center {
-    transform:rotateY(0deg) scale(1);
-    opacity:1;
-  }
-  .glass-box.right {
-    transform:rotateY(-25deg) scale(0.85);
-    opacity:0.65;
-  }
-
-  .glass-box .glow { display:none; }
+/* -------------------------------------------- */
+/* BACK ARROW (bottom right)                    */
+/* -------------------------------------------- */
+.back-arrow {
+  position:fixed;
+  bottom:3%;
+  right:3%;
+  z-index:20;
 }
+
+/* -------------------------------------------- */
+/* POPUP DIALOG                                 */
+/* -------------------------------------------- */
+.popup-overlay {
+  position:fixed;
+  inset:0;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.82);
+  z-index:1000;
+}
+
+.popup-content {
+  width:clamp(280px, 80vw, 420px);
+  padding:35px;
+  border-radius:14px;
+
+  background:rgba(255,255,255,0.12);
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(20px);
+
+  text-align:center;
+  animation:popIn 0.35s ease;
+}
+@keyframes popIn {
+  from {opacity:0; transform:translateY(40px) scale(0.96);}
+  to {opacity:1; transform:translateY(0) scale(1);}
+}
+
+.popup-close {
+  position:absolute;
+  top:12px;
+  right:16px;
+  cursor:pointer;
+  font-size:28px;
+  opacity:0.8;
+}
+.popup-close:hover {
+  opacity:1;
+  color:#ff5ab1;
+}
+
+input[type=email], input[type=submit] {
+  width:100%;
+  padding:14px;
+  margin:18px 0;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.15);
+  color:white;
+  font-size:1rem;
+}
+input[type=submit]:hover {
+  color:#ff5ab1;
+  box-shadow:0 0 16px #ff5ab1;
+}
+
 </style>
 </head>
 
 <body>
 
-<!-- DNA BACKGROUND -->
-<div class="dna-background" id="dna"></div>
+<!-- PARTICLES -->
+<div class="particles"></div>
+<script>
+for(let i=0;i<14;i++){
+  const p=document.createElement("span");
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDelay=Math.random()*14+"s";
+  document.querySelector(".particles").appendChild(p);
+}
+</script>
 
-<!-- DESKTOP + MOBILE WRAPPER -->
-<div class="carousel">
+<!-- RESPONSIVE CONTAINER -->
+<div class="container">
 
-  <div class="glass-box" id="tutorial-box">
-    <div class="glow"></div>
+  <div class="card">
     <h2>Tutorials</h2>
-    <p>Learn Bioinformatics with hands-on practice.</p>
+    <p>Learn bioinformatics through clear, structured, hands-on lessons.</p>
     <a class="button-like" href="courses/index.html">Discover</a>
   </div>
 
-  <div class="glass-box" id="blog-box">
-    <div class="glow"></div>
+  <div class="card">
     <h2>Blog</h2>
-    <p>Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
+    <p>Tiny reads, big genes — bioinformatics insights for busy people.</p>
     <a class="button-like" onclick="openPopup()">Subscribe</a>
   </div>
 
 </div>
 
-<!-- NEW BACK BUTTON -->
-<a href="index.html" class="back-arrow">←</a>
+<!-- BACK -->
+<a href="index.html" class="button-like back-arrow">⟵</a>
 
 <!-- POPUP -->
 <div class="popup-overlay" id="popup">
@@ -322,110 +256,6 @@ input[type=submit]:hover {
 <script>
 function openPopup(){ document.getElementById("popup").style.display="flex"; }
 function closePopup(){ document.getElementById("popup").style.display="none"; }
-
-/* ------------------------------------------------------ */
-/*                      DNA BACKGROUND                    */
-/* ------------------------------------------------------ */
-const dna = document.getElementById("dna");
-const strands = 6;
-const dotsPerStrand = 18;
-
-for (let i = 0; i < strands; i++) {
-  const strand = document.createElement("div");
-  strand.className = "dna-strand";
-  strand.style.left = `${(i+1) * (100 / (strands + 1))}vw`;
-  strand.style.animationDelay = `${i * 1.4}s`;
-  dna.appendChild(strand);
-
-  for (let j = 0; j < dotsPerStrand; j++) {
-    const dot = document.createElement("div");
-    dot.className = "dna-dot";
-    dot.style.top = `${j * 8}vh`;
-    dot.style.left = `${(i+1) * (100 / (strands + 1))}vw`;
-    dot.style.animationDelay = `${(j * 0.2) + (i * 0.7)}s`;
-    dna.appendChild(dot);
-  }
-}
-
-
-/* ------------------------------------------------------ */
-/* Desktop parallax & tilt                                */
-/* ------------------------------------------------------ */
-let mouseX=0, mouseY=0, currentX=0, currentY=0;
-const tut=document.getElementById("tutorial-box");
-const blog=document.getElementById("blog-box");
-
-document.addEventListener("mousemove", e=>{
-  mouseX=(e.clientX/window.innerWidth - 0.5)*20;
-  mouseY=(e.clientY/window.innerHeight - 0.5)*20;
-});
-
-function animate(){
-  if(window.innerWidth > 900){
-    currentX+=(mouseX-currentX)*0.08;
-    currentY+=(mouseY-currentY)*0.08;
-
-    document.body.style.backgroundPosition=
-      `${50+currentX}% ${50+currentY}%`;
-
-    tut.style.transform=`translate(${currentX*0.5}px, ${currentY*0.5}px)`;
-    blog.style.transform=`translate(${currentX*0.3}px, ${currentY*0.3}px)`;
-  }
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* Tilt cards */
-function applyTilt(card){
-  const glow=card.querySelector(".glow");
-  card.addEventListener("mousemove", e=>{
-    if(window.innerWidth < 900) return;
-    const r=card.getBoundingClientRect();
-    const x=e.clientX-r.left, y=e.clientY-r.top;
-    const ry=((x/r.width)-0.5)*18;
-    const rx=((y/r.height)-0.5)*-18;
-
-    card.style.transform=
-      `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-
-    glow.style.opacity="1";
-    glow.style.background=
-      `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
-  });
-
-  card.addEventListener("mouseleave", ()=>{
-    card.style.transform="perspective(900px) rotateX(0) rotateY(0)";
-    glow.style.opacity="0";
-  });
-}
-applyTilt(tut);
-applyTilt(blog);
-
-
-/* ------------------------------------------------------ */
-/* Mobile coverflow logic                                 */
-/* ------------------------------------------------------ */
-if(window.innerWidth < 900){
-  const cards=document.querySelectorAll(".glass-box");
-  const car=document.querySelector(".carousel");
-
-  function update(){
-    const center=window.innerWidth/2;
-    cards.forEach(card=>{
-      const box=card.getBoundingClientRect();
-      const cardCenter=box.left + box.width/2;
-      const dist=cardCenter - center;
-
-      card.classList.remove("left","center","right");
-      if(dist < -50) card.classList.add("left");
-      else if(dist > 50) card.classList.add("right");
-      else card.classList.add("center");
-    });
-  }
-
-  car.addEventListener("scroll", update);
-  update();
-}
 </script>
 
 </body>
