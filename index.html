@@ -2,230 +2,201 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MORIGENE Landing Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Morigene Landing Page</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Alegreya&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
-  height:100%;
-  overflow:hidden;
+  height: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
-  color:white;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* Video Background */
+/* Video background with parallax */
 #bg-video {
   position: fixed;
-  top:0;
-  left:0;
-  width:100vw;
-  height:100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
-  z-index:-1;
+  z-index: -1;
   filter: brightness(0.6);
+  transition: transform 0.2s ease-out;
 }
 
 /* Navbar */
 .navbar {
   position: fixed;
-  top:0;
-  width:100%;
-  height:60px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 0 30px;
-  background: rgba(0,0,0,0.3);
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
   z-index: 10;
-  font-family: 'IBM Plex Sans', sans-serif;
 }
-
-.navbar-left {
-  font-size:1.4rem;
-  color:white;
+.navbar .logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.9rem;
+  color: white;
 }
-
-.navbar-left span {
-  font-style: italic;
-  font-size:0.7em;
-}
-
 .navbar-menu {
-  list-style:none;
-  display:flex;
-  gap:25px;
+  list-style: none;
+  display: flex;
+  gap: 20px;
 }
-
 .navbar-menu li a {
-  color:white;
-  text-decoration:none;
-  border-bottom: 2px solid transparent;
-  transition: 0.3s;
-  font-size:1rem;
+  color: white;
+  text-decoration: underline;
+  font-weight: 500;
 }
-
 .navbar-menu li a:hover {
-  color:#ff5ab1;
-  border-bottom:2px solid #ff5ab1;
+  color: #ff5ab1;
 }
 
-/* Headline */
+/* Hero Section */
 .container {
   position: relative;
-  z-index:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:center;
-  height:100vh;
-  text-align:center;
-  padding-top:80px;
+  top: 70px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
 }
-
 .headline {
-  color:white;
-  font-family:'Alegreya', serif;
-  font-size:3.5rem;
-  font-style:italic;
-  margin-top:30px;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-style: italic;
+  font-weight: 400;
+  color: white;
+  line-height: 1.2;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  margin-bottom: 80px;
 }
 
 /* Glass Boxes */
 .glass-container {
-  position:relative;
-  width:100%;
-  height:calc(100vh - 150px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:60px;
-  padding:0 20px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 140px;
+  padding: 20px;
+  flex-wrap: wrap;
 }
-
 .glass-box {
-  position:relative;
-  background: rgba(255,255,255,0.12);
-  width:350px;
-  min-height:250px;
-  padding:1.8rem;
-  border-radius:1.5rem;
+  background: rgba(255,255,255,0.08);
+  width: 320px;
+  min-height: 260px;
+  padding: 2rem;
+  border-radius: 1.5rem;
   backdrop-filter: blur(12px);
-  border:1px solid rgba(255,255,255,0.3);
-  box-shadow:0 0 25px rgba(0,0,0,0.35);
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  text-align:justify;
-  transition: transform 0.3s ease;
+  border:1px solid rgba(255,255,255,0.25);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
-
-.glass-box:hover {
-  transform: scale(1.03);
-}
-
 .glass-box h2 {
-  font-size:1.8rem;
-  margin-bottom:1rem;
-  text-align:center;
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
   text-decoration: underline;
+  text-align: center;
 }
-
 .glass-box p {
-  font-size:1rem;
-  flex-grow:1;
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+  text-align: justify;
+  flex-grow: 1;
 }
-
 .button-like {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:1rem 2.6rem;
-  border-radius:50px;
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
+  border-radius: 50px;
   border:1px solid rgba(255,255,255,0.45);
-  background:rgba(255,255,255,0.22);
+  background: rgba(255,255,255,0.22);
   color:white;
-  backdrop-filter:blur(10px);
-  text-align:center;
-  cursor:pointer;
-  font-size:1.1rem;
-  letter-spacing:0.5px;
-  margin-top:auto;
-  align-self:center;
-  transition:transform 0.3s ease, color 0.3s ease;
+  backdrop-filter: blur(10px);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, color 0.3s ease;
+  margin-top: 20px;
 }
-
 .button-like:hover {
-  transform: translateY(-3px) scale(1.03);
-  color:#ff5ab1;
+  transform: translateY(-2px) scale(1.03);
+  color: #ff5ab1;
 }
 
 /* Footer */
 footer {
-  background: rgba(0,0,0,0.3);
-  color:white;
-  text-align:center;
-  padding:10px 20px;
-  font-size:14px;
-  position:relative;
+  background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  padding: 6px 20px;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
 }
-
 footer a {
-  color:white;
-  text-decoration:none;
-  margin: 0 8px;
+  color: white;
+  text-decoration: none;
 }
-
 footer a:hover {
-  color:#ff5ab1;
-}
-
-/* Parallax */
-body.parallax #bg-video {
-  transform: translateZ(-1px) scale(2);
-  height: 100vh;
+  text-decoration: underline;
 }
 
 /* Responsive */
-@media(max-width:900px){
-  .glass-container{
-    flex-direction:column;
-    gap:30px;
-  }
-  .glass-box{ width:75%; }
-  .headline{ font-size:2rem; margin-top:20px; }
-  .navbar-left{ font-size:1.2rem; }
-  .navbar-menu{ gap:15px; flex-direction:column; margin-top:10px; }
-  .navbar-menu li a{ font-size:1rem; }
+@media (max-width: 1200px) {
+  .glass-container { gap: 80px; }
 }
-
+@media (max-width: 900px) {
+  .glass-container { flex-direction: column; gap: 30px; }
+  .glass-box { width: 80vw; }
+  .headline { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 50px; }
+  .navbar-menu { gap: 10px; }
+  footer { flex-direction: column; gap: 5px; font-size: 12px; }
+}
 </style>
 </head>
 <body>
 
 <!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
-  <source src="videos/background.mp4" type="video/mp4">
+  <source src="videos/background.mp4" type="video/mp4" />
   Your browser does not support the video tag.
 </video>
 
 <!-- Navbar -->
 <nav class="navbar">
-  <div class="navbar-left">MORIGENE <span>by Tabe-i Ltd</span></div>
+  <div class="logo">Morigene - by Tabe-i Ltd</div>
   <ul class="navbar-menu">
-    <li><a href="#home">About</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
     <li><a href="#corporate">Corporate</a></li>
     <li><a href="learn-blog.html">More</a></li>
   </ul>
 </nav>
 
-<!-- Headline -->
-<div class="container" id="home">
+<!-- Hero -->
+<div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
@@ -233,27 +204,37 @@ body.parallax #bg-video {
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
-    <p>Personalized Health Plans Powered by Your DNA. Your Wellness, Your Way — Coming Soon!</p>
-    <a class="button-like">Learn more</a>
+    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA. Achieve your best life with insights tailored to you.</p>
+    <a class="button-like" href="#">Learn More</a>
   </div>
 
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
-    <p>Outsourcing Genomic Data Analysis with Professional Care. Simplifying Genomics for Businesses.</p>
-    <a class="button-like">Learn more</a>
+    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple. Streamline wellness programs for your team with precision.</p>
+    <a class="button-like" href="#">Learn More</a>
   </div>
 </div>
 
 <!-- Footer -->
 <footer>
-  <p>© 2025 Morigene.ai — All rights reserved.
+  <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
-  <a href="terms&conditions.html">Terms and Conditions</a>
+  <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
-  <a href="https://wa.me/23057828591" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" style="width:20px;height:20px;vertical-align:middle;">
-  </a></p>
+  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
+  </a>
 </footer>
+
+<script>
+// Parallax Video Effect
+document.addEventListener('mousemove', function(e){
+  const video = document.getElementById('bg-video');
+  const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+  const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+  video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+});
+</script>
 
 </body>
 </html>
