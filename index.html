@@ -6,184 +6,109 @@
 <title>Morigene Landing Page</title>
 
 <!-- Google Font -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-
-html, body {
-  height:100%;
-  font-family:"IBM Plex Sans", sans-serif;
-  color:white;
-  overflow-x:hidden;
-  scroll-behavior:smooth;
-}
+html, body { height:100%; font-family:"IBM Plex Sans", sans-serif; color:white; overflow-x:hidden; scroll-behavior:smooth; }
 
 /* Video Background */
-#bg-video {
-  position: fixed;
-  top:0;
-  left:0;
-  width:100vw;
-  height:100vh;
-  object-fit:cover;
-  z-index:-1;
-  filter: brightness(0.6);
-}
+#bg-video { position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; z-index:-1; filter: brightness(0.6); transition: transform 0.2s ease; }
 
 /* Navbar */
 .navbar {
-  position: fixed;
-  top:0;
-  width:100%;
-  height:55px;
-  background: rgba(20,20,30,0.5);
-  backdrop-filter: blur(10px);
-  display:flex;
-  justify-content:flex-end;
-  align-items:center;
-  padding:0 20px;
-  z-index:10;
+  position:fixed; top:0; width:100%; height:50px;
+  background: rgba(20,20,30,0.35);
+  backdrop-filter: blur(12px);
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 20px; z-index:10;
+}
+
+.navbar .brand {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight:400;
+  font-size:1.2rem;
+  color:#ff5ab1;
+  letter-spacing:1px;
 }
 
 .navbar-menu {
-  list-style:none;
-  display:flex;
-  gap:20px;
+  list-style:none; display:flex; gap:20px;
 }
 
 .navbar-menu li a {
-  color:white;
-  text-decoration:none;
-  font-weight:500;
-  font-size:clamp(0.9rem,1vw,1.1rem);
-  transition: color 0.3s;
+  color:white; text-decoration:none; font-weight:500; font-size:clamp(0.9rem,1vw,1.1rem); transition: color 0.3s;
 }
 
 .navbar-menu li a:hover { color:#ff5ab1; }
 
-.hamburger { display:none; font-size:28px; cursor:pointer; color:white; }
-
 /* Headline */
 .hero {
-  position: relative;
-  margin-top: 60px;
-  width:100%;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-  padding: 2rem 1rem;
+  position:relative; margin-top:55px; width:100%;
+  display:flex; justify-content:center; align-items:center;
+  text-align:center; padding: 2rem 1rem;
 }
 
 .hero h1 {
-  font-size:clamp(2rem,5vw,3rem);
-  font-weight:700;
-  color:white;
-  line-height:1.2;
-  text-shadow: 0 0 10px rgba(0,0,0,0.5);
-  transition: transform 0.2s ease;
+  font-size:clamp(2rem,5vw,3rem); font-weight:700; color:white;
+  line-height:1.2; text-shadow: 0 0 10px rgba(0,0,0,0.5);
+  transition: transform 0.2s ease, text-shadow 0.2s ease;
 }
 
 /* Glass Boxes Container */
 .sections-container {
-  position: relative;
-  z-index:1;
-  display:flex;
-  flex-direction:column;
-  justify-content:flex-start;
-  align-items:flex-start;
-  gap:2rem;
-  padding: 20px 0 50px 5%;
+  position:relative; z-index:1;
+  display:flex; justify-content:space-between; align-items:flex-start;
+  gap:2rem; padding: 50px 5%;
 }
 
 /* Glass Box */
 .glass-box {
-  position: relative;
-  background: rgba(255,255,255,0.08); 
-  width:350px;
-  padding:2rem;
-  border-radius:1.5rem;
-  backdrop-filter: blur(14px);
-  border:1px solid rgba(255,255,255,0.25);
-  box-shadow:0 0 25px rgba(0,0,0,0.35);
-  display:flex;
-  flex-direction: column;
-  align-items: center;
-  text-align:center;
+  position:relative; background: rgba(255,255,255,0.06);
+  width:350px; padding:2rem; border-radius:1.5rem; backdrop-filter: blur(14px);
+  border:1px solid rgba(255,255,255,0.25); box-shadow:0 0 25px rgba(0,0,0,0.35);
+  display:flex; flex-direction: column; align-items: center; text-align:center;
   transition: transform 0.3s ease;
 }
 
-.glass-box .glow {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  border-radius:inherit;
-  opacity:0;
-  mix-blend-mode:soft-light;
-  transition:opacity 0.25s ease;
+.glass-box .glow { position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  opacity:0; mix-blend-mode:soft-light; transition:opacity 0.25s ease;
   background: radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
 }
 
-.glass-box h2 {
-  font-size:clamp(1.5rem,2vw,2rem);
-  margin-bottom:0.8rem;
-  font-weight:600;
-}
+.glass-box h2 { font-size:clamp(1.5rem,2vw,2rem); margin-bottom:0.8rem; font-weight:600; transition: text-shadow 0.3s ease; }
+.glass-box p { font-size:clamp(1rem,1.2vw,1.2rem); margin-bottom:1.2rem; line-height:1.5; transition: text-shadow 0.3s ease; }
 
-.glass-box p {
-  font-size:clamp(1rem,1.2vw,1.2rem);
-  margin-bottom:1.2rem;
-  line-height:1.5;
+/* Hover glow effect for text */
+.glass-box:hover h2, .glass-box:hover p {
+  text-shadow: 0 0 15px rgba(255,90,177,0.5);
 }
 
 /* Centered Learn More button */
 .button-like {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:0.8rem 2rem;
-  border-radius:50px;
+  display:flex; justify-content:center; align-items:center;
+  padding:0.8rem 2rem; border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
-  background:rgba(255,255,255,0.18);
-  color:white;
-  backdrop-filter:blur(10px);
-  text-decoration:none;
-  cursor:pointer;
-  font-size:1rem;
-  letter-spacing:0.5px;
-  position:relative;
-  overflow:hidden;
-  transition:transform 0.3s ease, color 0.3s ease;
-  align-self:center;
+  background:rgba(255,255,255,0.18); color:white;
+  backdrop-filter:blur(10px); text-decoration:none; cursor:pointer;
+  font-size:1rem; letter-spacing:0.5px; position:relative; overflow:hidden;
+  transition:transform 0.3s ease, color 0.3s ease; align-self:center;
 }
 
 .button-like::after {
-  content:"";
-  position:absolute;
-  inset:0;
+  content:""; position:absolute; inset:0;
   background:radial-gradient(circle, rgba(255,91,177,0.55) 0%, transparent 70%);
-  opacity:0;
-  transform:scale(0.4);
-  transition:opacity 0.4s ease, transform 0.4s ease;
+  opacity:0; transform:scale(0.4); transition:opacity 0.4s ease, transform 0.4s ease;
 }
-
 .button-like:hover::after { opacity:1; transform:scale(1.4); }
 .button-like:hover { transform:translateY(-3px) scale(1.03); color:#ff5ab1; }
 
 /* Footer */
 footer {
-  background-color: rgba(20,20,30,0.8);
-  color: white;
-  text-align:center;
-  padding:8px 10px;
-  font-size:14px;
-  backdrop-filter: blur(10px);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:10px;
+  background-color: rgba(20,20,30,0.35);
+  color: white; text-align:center; padding:8px 10px;
+  font-size:14px; backdrop-filter: blur(10px);
+  display:flex; justify-content:center; align-items:center; flex-wrap:wrap; gap:10px;
 }
 
 footer a { color:#ff5ab1; text-decoration:none; }
@@ -193,18 +118,10 @@ footer a:hover { text-decoration:underline; }
 
 /* Mobile Carousel */
 @media(max-width:900px){
-  .sections-container {
-    flex-direction:row;
-    overflow-x:scroll;
-    gap:5vw;
-    padding:2rem 5vw;
-    scroll-snap-type:x mandatory;
-  }
+  .sections-container { flex-direction:row; overflow-x:scroll; gap:5vw; padding:2rem 5vw; scroll-snap-type:x mandatory; }
   .sections-container::-webkit-scrollbar { display:none; }
-  .glass-box {
-    min-width:75vw;
-    scroll-snap-align:center;
-  }
+  .glass-box { min-width:75vw; scroll-snap-align:center; }
+  .hero { padding:1rem; margin-top:50px; }
 }
 
 /* Responsive tweaks */
@@ -225,7 +142,7 @@ footer a:hover { text-decoration:underline; }
 
 <!-- Navbar -->
 <nav class="navbar">
-  <div class="hamburger">&#9776;</div>
+  <div class="brand">Morigene - by Tabe-i Ltd</div>
   <ul class="navbar-menu">
     <li><a href="#home">HOME</a></li>
     <li><a href="#individual">INDIVIDUAL</a></li>
@@ -269,7 +186,6 @@ footer a:hover { text-decoration:underline; }
   </span>
 </footer>
 
-<!-- Scripts -->
 <script>
 // Glass Box Tilt
 function applyTilt(card){
@@ -291,21 +207,25 @@ function applyTilt(card){
 }
 document.querySelectorAll(".glass-box").forEach(card => applyTilt(card));
 
-// Headline subtle tilt
+// Subtle headline tilt & glow
 const hero = document.querySelector(".hero h1");
 document.addEventListener("mousemove", e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 10;
-  const y = (e.clientY / window.innerHeight - 0.5) * -10;
+  const x = (e.clientX / window.innerWidth - 0.5) * 5;
+  const y = (e.clientY / window.innerHeight - 0.5) * -5;
   hero.style.transform = `rotateX(${y}deg) rotateY(${x}deg)`;
+  const glowX = (e.clientX / window.innerWidth) * 50;
+  const glowY = (e.clientY / window.innerHeight) * 50;
+  hero.style.textShadow = `
+    ${glowX}px ${glowY}px 15px rgba(255,90,177,0.3),
+    ${-glowX}px ${-glowY}px 15px rgba(255,90,177,0.3)
+  `;
 });
 
-// Scroll-based parallax
-const glassBoxes = document.querySelectorAll(".glass-box");
+// Subtle parallax on scroll
+const video = document.getElementById("bg-video");
 window.addEventListener("scroll", () => {
   const scrollY = window.scrollY;
-  glassBoxes.forEach((box, i) => {
-    box.style.transform += ` translateY(${scrollY * 0.05 * (i+1)}px)`;
-  });
+  video.style.transform = `translateY(${scrollY * 0.15}px)`; // very subtle
 });
 </script>
 
