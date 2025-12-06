@@ -55,7 +55,7 @@ body {
 
   display:flex;
   flex-direction:column;
-  justify-content:flex-start; /* content at top */
+  justify-content:flex-start;
   text-align:left;
   transform-style:preserve-3d;
   animation:fadeIn 1.5s ease both;
@@ -83,7 +83,7 @@ body {
   font-size:clamp(1rem,1.5vw,1.2rem);
   margin-bottom:1rem;
   line-height:1.5;
-  flex-grow:1; /* pushes button down */
+  flex-grow:1;
 }
 
 /* -------- RESPONSIVE BUTTON DESIGN -------- */
@@ -91,7 +91,7 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:0.8rem 2.2rem;
+  padding:1rem 2.6rem; /* increased height and padding */
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
@@ -100,12 +100,12 @@ body {
   text-align:center;
   text-decoration:none;
   cursor:pointer;
-  font-size:clamp(0.9rem, 1vw, 1.1rem);
+  font-size:clamp(1rem, 1.2vw, 1.3rem); /* slightly larger text */
   letter-spacing:0.5px;
 
   position:relative;
   overflow:hidden;
-  width:clamp(140px, 40%, 200px); /* fully responsive width */
+  width:clamp(140px, 40%, 220px); /* wider max-width */
   margin-top:auto;        /* stick to bottom */
   align-self:center;      /* horizontally centered */
 
@@ -148,7 +148,7 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:0.8rem 2.2rem;
+  padding:1rem 2.6rem; /* match button size */
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
@@ -156,7 +156,7 @@ body {
   backdrop-filter:blur(10px);
   text-decoration:none;
   cursor:pointer;
-  font-size:clamp(0.9rem, 1vw, 1.1rem);
+  font-size:clamp(1rem, 1.2vw, 1.3rem);
   letter-spacing:0.5px;
   transition:transform 0.3s ease, color 0.3s ease;
 }
@@ -279,6 +279,13 @@ input[type=submit]:hover {
   }
 
   .glass-box .glow { display:none; }
+
+  /* Slightly smaller buttons on mobile */
+  .button-like, .back-arrow {
+    padding:0.8rem 2rem;
+    font-size:clamp(0.9rem, 1vw, 1.1rem);
+    width:clamp(120px, 50%, 180px);
+  }
 }
 </style>
 </head>
