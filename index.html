@@ -6,7 +6,7 @@
 <title>Morigene Landing Page</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 /* Reset */
@@ -45,8 +45,9 @@ html, body {
   z-index: 10;
 }
 .navbar .logo {
+  font-family: 'Fredoka One', cursive;
+  font-size: 1.8rem;
   font-style: italic;
-  font-size: 1.6rem;
   color: white;
 }
 .navbar-menu {
@@ -56,7 +57,7 @@ html, body {
 }
 .navbar-menu li a {
   color: white;
-  text-decoration: none;
+  text-decoration: underline;
   font-weight: 500;
   transition: color 0.3s;
 }
@@ -77,6 +78,7 @@ html, body {
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
+  font-style: italic;
   font-weight: 600;
   color: white;
   line-height: 1.2;
@@ -91,14 +93,14 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
-  gap: 60px;
+  gap: 80px;
   justify-content: center;
   flex-wrap: wrap;
 }
 .glass-box {
-  background: rgba(255,255,255,0.06);
-  width: 300px;
-  height: 220px;
+  background: rgba(255,255,255,0.05);
+  width: 320px;
+  min-height: 220px;
   padding: 2rem;
   border-radius: 1.5rem;
   backdrop-filter: blur(12px);
@@ -106,19 +108,20 @@ html, body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  text-align: center;
+  text-align: justify;
   transition: transform 0.3s ease;
   perspective: 1000px;
 }
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-  margin-bottom: 0.8rem;
+  margin-bottom: 1rem;
   font-weight: 600;
   text-decoration: underline;
 }
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
   line-height: 1.5;
+  flex-grow: 1;
 }
 .button-like {
   display: block;
@@ -198,7 +201,7 @@ footer a:hover {
 <nav class="navbar">
   <div class="logo">Morigene - by Tabe-i Ltd</div>
   <ul class="navbar-menu">
-    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
     <li><a href="#corporate">Corporate</a></li>
     <li><a href="learn-blog.html">More</a></li>
@@ -206,21 +209,21 @@ footer a:hover {
 </nav>
 
 <!-- Hero -->
-<div class="container" id="home">
-  <h1 class="headline">Decoding life, one genome at a time</h1>
+<div class="container" id="about">
+  <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
 <!-- Glass Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
-    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
+    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA. Achieve your best life with insights tailored to you.</p>
     <a class="button-like" href="#">Learn More</a>
   </div>
 
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
-    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
+    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple. Streamline wellness programs for your team with precision.</p>
     <a class="button-like" href="#">Learn More</a>
   </div>
 </div>
