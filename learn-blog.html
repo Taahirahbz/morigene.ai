@@ -5,110 +5,186 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Scientific Font -->
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+/* GLOBAL RESET */
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body {
   height:100%;
   overflow:hidden;
   font-family:"IBM Plex Sans", sans-serif;
   color:white;
-}
-
-/* Background image */
-body {
   background:url("images/background.jpg") center/cover no-repeat fixed;
   position:relative;
   transition:background-position 0.1s ease;
 }
 
-/* PARTICLES */
-.particles { position:fixed; inset:0; z-index:0; }
+/* -------------------------------------------------- */
+/*      PARTICLES — Softer, smaller, calmer           */
+/* -------------------------------------------------- */
+.particles {
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
 .particles span {
   position:absolute;
-  width:5px;
-  height:5px;
-  background:rgba(255,255,255,0.5);
+  width:3px;
+  height:3px;
+  background:rgba(255,255,255,0.4);
   border-radius:50%;
   filter:blur(1px);
-  animation:floatUp 15s linear infinite;
+  animation:floatUp 18s linear infinite;
 }
 @keyframes floatUp {
-  from { transform:translateY(120vh); opacity:0; }
-  20%  { opacity:1; }
-  to   { transform:translateY(-20vh); opacity:0; }
+  from { transform:translateY(110vh); opacity:0; }
+  25% { opacity:0.45; }
+  to { transform:translateY(-10vh); opacity:0; }
 }
 
-/* Glassmorphic Cards */
+/* -------------------------------------------------- */
+/*           CARD — Modern Minimal Glass              */
+/* -------------------------------------------------- */
 .glass-box {
   position:relative;
-  background:rgba(255,255,255,0.12);
   width:350px;
   height:220px;
-  padding:1.8rem;
-  border-radius:1.5rem;
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.3);
-  box-shadow:0 0 25px rgba(0,0,0,0.35);
+  padding:2rem;
+  border-radius:0.9rem;
+
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px) saturate(140%);
+
+  box-shadow:
+     0 8px 20px rgba(0,0,0,0.35),
+     inset 0 0 40px rgba(255,255,255,0.05);
+
   display:flex;
   flex-direction:column;
   justify-content:center;
-  text-align:left;
+
   transform-style:preserve-3d;
-  animation:fadeIn 1.5s ease both;
-  transition:transform 0.3s ease;
+  animation:fadeIn 1.3s ease both;
+  transition:transform 0.35s ease, opacity 0.3s;
 }
 
+/* Soft inner glow highlight */
 .glass-box .glow {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  border-radius:inherit;
-  opacity:0;
-  mix-blend-mode:soft-light;
-  transition:opacity 0.25s ease;
-  background:radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
+  display:none; /* replaced by modern inner glow */
 }
 
-/* Headers */
+/* TEXT */
 .glass-box h2 {
-  font-size:clamp(1.8rem,3vw,2.5rem);
-  margin-bottom:0.8rem;
-  font-weight:600;
+  font-size:clamp(1.8rem,3vw,2.4rem);
+  font-weight:500;
+  letter-spacing:0.5px;
+  margin-bottom:0.6rem;
 }
 .glass-box p {
-  font-size:clamp(1rem,1.5vw,1.2rem);
-  margin-bottom:1rem;
-  line-height:1.5;
+  font-size:clamp(1rem,1.4vw,1.2rem);
+  opacity:0.9;
+  line-height:1.45;
+  margin-bottom:1.2rem;
 }
 
-/* Buttons */
+/* Button Modern */
 .button-like {
-  padding:0.6rem 1.6rem;
+  padding:0.65rem 1.6rem;
   border-radius:10px;
-  border:1px solid rgba(255,255,255,0.4);
-  background:rgba(255,255,255,0.18);
-  color:white;
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.12);
   backdrop-filter:blur(8px);
+  color:white;
   cursor:pointer;
   text-decoration:none;
   transition:0.3s ease;
 }
 .button-like:hover {
   transform:translateY(-3px);
-  color:#ff4be0;
-  box-shadow:0 0 25px #ff4be0,0 0 40px #ff4be0;
+  color:#ff5ab1;
+  box-shadow:0 0 22px #ff5ab1;
 }
 
-/* Fade */
+/* Fade in */
 @keyframes fadeIn {
-  from {opacity:0; transform:translateY(25px);}
+  from {opacity:0; transform:translateY(30px);}
   to {opacity:1; transform:translateY(0);}
 }
 
-/* Back Arrow */
+/* POSITIONING (Desktop) */
+#tutorial-box { position:absolute; top:10%; left:6%; }
+#blog-box { position:absolute; bottom:10%; left:10%; }
+
+/* -------------------------------------------------- */
+/*                  POPUP (Modern)                    */
+/* -------------------------------------------------- */
+.popup-overlay {
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.82);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:1000;
+}
+
+.popup-content {
+  position:relative;
+  width:clamp(300px, 80vw, 420px);
+  padding:40px;
+  border-radius:14px;
+
+  background:rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter:blur(20px) saturate(140%);
+
+  box-shadow:0 8px 35px rgba(0,0,0,0.5);
+
+  text-align:center;
+  animation:popIn 0.4s ease;
+}
+@keyframes popIn {
+  from {opacity:0; transform:translateY(40px) scale(0.96);}
+  to {opacity:1; transform:translateY(0) scale(1);}
+}
+
+.popup-close {
+  position:absolute;
+  right:18px;
+  top:15px;
+  cursor:pointer;
+  font-size:28px;
+  opacity:0.8;
+}
+.popup-close:hover {
+  opacity:1;
+  color:#ff5ab1;
+}
+
+/* Inputs */
+input[type=email], input[type=submit] {
+  width:100%;
+  padding:14px;
+  margin:20px 0;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.15);
+  color:white;
+  font-size:1rem;
+  backdrop-filter:blur(8px);
+}
+input[type=submit]:hover {
+  color:#ff5ab1;
+  box-shadow:0 0 16px #ff5ab1;
+}
+
+/* -------------------------------------------------- */
+/*        BACK ARROW                                  */
+/* -------------------------------------------------- */
 .back-arrow {
   position:fixed;
   bottom:3%;
@@ -116,87 +192,30 @@ body {
   z-index:10;
 }
 
-/* POPUP */
-.popup-overlay {
-  position:fixed; inset:0;
-  background:rgba(0,0,0,0.78);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-.popup-content {
-  background:rgba(255,255,255,0.12);
-  padding:35px;
-  border-radius:16px;
-  width:clamp(300px,80vw,420px);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.3);
-  animation:popIn 0.4s ease;
-  text-align:center;
-  color:white;
-}
-@keyframes popIn {
-  from {opacity:0; transform:scale(0.7);}
-  to   {opacity:1; transform:scale(1);}
-}
-.popup-close {
-  position:absolute;
-  right:15px;
-  top:12px;
-  cursor:pointer;
-  font-size:26px;
-}
-
-/* INPUTS */
-input[type=email], input[type=submit] {
-  width:100%;
-  padding:12px;
-  margin:18px 0;
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,0.35);
-  background:rgba(255,255,255,0.18);
-  color:white;
-}
-input[type=submit]:hover {
-  color:#ff4be0;
-  box-shadow:0 0 18px #ff4be0;
-}
-
-/* Desktop absolute positioning (unchanged) */
-#tutorial-box { position:absolute; top:10%; left:6%; }
-#blog-box { position:absolute; bottom:10%; left:10%; }
-
 /* -------------------------------------------------- */
-/*        MOBILE COVERFLOW CAROUSEL (C3 VERSION)       */
+/*        MOBILE CAROUSEL VERSION                     */
 /* -------------------------------------------------- */
-@media (max-width: 900px) {
+@media (max-width:900px) {
 
-  body { overflow-x:hidden; overflow-y:hidden; }
+  body { overflow:hidden; }
 
-  /* disable desktop transform behaviors */
   #tutorial-box, #blog-box {
     position:relative !important;
     top:auto !important;
     left:auto !important;
     bottom:auto !important;
-    margin:0;
     transform:none !important;
   }
 
-  /* turn into horizontal coverflow container */
   .carousel {
     position:absolute;
     top:5vh;
-    left:0;
-    right:0;
-    bottom:0;
+    left:0; right:0; bottom:0;
     display:flex;
     gap:10vw;
     padding:0 10vw;
     overflow-x:scroll;
     scroll-snap-type:x mandatory;
-    scrollbar-width:none;
   }
   .carousel::-webkit-scrollbar { display:none; }
 
@@ -205,25 +224,20 @@ input[type=submit]:hover {
     height:auto;
     padding:2rem;
     scroll-snap-align:center;
-    transition:transform 0.3s ease, opacity 0.3s ease;
   }
 
-  /* Coverflow depth + tilt */
   .glass-box.left {
-    transform:rotateY(25deg) scale(0.85);
-    opacity:0.7;
+    transform:scale(0.88);
+    opacity:0.65;
   }
   .glass-box.center {
-    transform:rotateY(0deg) scale(1);
+    transform:scale(1);
     opacity:1;
   }
   .glass-box.right {
-    transform:rotateY(-25deg) scale(0.85);
-    opacity:0.7;
+    transform:scale(0.88);
+    opacity:0.65;
   }
-
-  /* Disable desktop tilt system */
-  .glass-box .glow { display:none; }
 }
 </style>
 </head>
@@ -233,34 +247,32 @@ input[type=submit]:hover {
 <!-- PARTICLES -->
 <div class="particles"></div>
 <script>
-for(let i=0;i<30;i++){
+for(let i=0;i<15;i++){
   const p=document.createElement("span");
   p.style.left=Math.random()*100+"vw";
-  p.style.animationDelay=Math.random()*12+"s";
+  p.style.animationDelay=Math.random()*14+"s";
   document.querySelector(".particles").appendChild(p);
 }
 </script>
 
-<!-- DESKTOP VERSION + MOBILE CAROUSEL WRAPPER -->
+<!-- WRAPPER (Desktop + Mobile) -->
 <div class="carousel">
 
   <div class="glass-box" id="tutorial-box">
-    <div class="glow"></div>
     <h2>Tutorials</h2>
     <p>Learn Bioinformatics with hands-on practice.</p>
     <a class="button-like" href="courses/index.html">Discover</a>
   </div>
 
   <div class="glass-box" id="blog-box">
-    <div class="glow"></div>
     <h2>Blog</h2>
-    <p>Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
+    <p>Tiny reads, big genes: bio bytes for your coffee break.</p>
     <a class="button-like" onclick="openPopup()">Subscribe</a>
   </div>
 
 </div>
 
-<!-- BACK ARROW -->
+<!-- BACK -->
 <a href="index.html" class="button-like back-arrow">⟵</a>
 
 <!-- POPUP -->
@@ -280,60 +292,34 @@ function openPopup(){ document.getElementById("popup").style.display="flex"; }
 function closePopup(){ document.getElementById("popup").style.display="none"; }
 
 /* -------------------------------------------------- */
-/* Desktop parallax & tilt                            */
+/* Desktop parallax motion (subtle and smooth)        */
 /* -------------------------------------------------- */
 let mouseX=0, mouseY=0, currentX=0, currentY=0;
 const tut=document.getElementById("tutorial-box");
 const blog=document.getElementById("blog-box");
 
 document.addEventListener("mousemove", e=>{
-  mouseX=(e.clientX/window.innerWidth - 0.5)*20;
-  mouseY=(e.clientY/window.innerHeight - 0.5)*20;
+  mouseX=(e.clientX/window.innerWidth - 0.5)*14;
+  mouseY=(e.clientY/window.innerHeight - 0.5)*14;
 });
 
 function animate(){
   if(window.innerWidth > 900){
-    currentX+=(mouseX-currentX)*0.08;
-    currentY+=(mouseY-currentY)*0.08;
+    currentX+=(mouseX-currentX)*0.07;
+    currentY+=(mouseY-currentY)*0.07;
 
     document.body.style.backgroundPosition=
       `${50+currentX}% ${50+currentY}%`;
 
-    tut.style.transform=`translate(${currentX*0.5}px, ${currentY*0.5}px)`;
-    blog.style.transform=`translate(${currentX*0.3}px, ${currentY*0.3}px)`;
+    tut.style.transform=`translate(${currentX*0.4}px, ${currentY*0.4}px)`;
+    blog.style.transform=`translate(${currentX*0.25}px, ${currentY*0.25}px)`;
   }
   requestAnimationFrame(animate);
 }
 animate();
 
-/* Desktop tilt */
-function applyTilt(card){
-  const glow=card.querySelector(".glow");
-  card.addEventListener("mousemove", e=>{
-    if(window.innerWidth < 900) return;
-    const r=card.getBoundingClientRect();
-    const x=e.clientX-r.left, y=e.clientY-r.top;
-    const ry=((x/r.width)-0.5)*18;
-    const rx=((y/r.height)-0.5)*-18;
-
-    card.style.transform=
-      `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-
-    glow.style.opacity="1";
-    glow.style.background=
-      `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
-  });
-
-  card.addEventListener("mouseleave", ()=>{
-    card.style.transform="perspective(900px) rotateX(0) rotateY(0)";
-    glow.style.opacity="0";
-  });
-}
-applyTilt(tut);
-applyTilt(blog);
-
 /* -------------------------------------------------- */
-/* MOBILE COVERFLOW LOGIC                             */
+/* MOBILE: Card center detection                      */
 /* -------------------------------------------------- */
 if(window.innerWidth < 900){
   const cards=document.querySelectorAll(".glass-box");
