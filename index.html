@@ -46,9 +46,21 @@ html, body {
   z-index: 10;
 }
 .navbar .logo {
-  font-family: 'Fredoka One', cursive;
-  font-size: 1.9rem;
-  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.navbar .logo .main-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem); /* responsive main text */
+}
+.navbar .logo .sub-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-style: italic;
+  font-size: clamp(0.75rem, 1.25vw, 0.95rem); /* exactly half of main text */
+  margin-top: -2px; /* pull slightly closer for visual balance */
 }
 .navbar-menu {
   list-style: none;
@@ -186,7 +198,10 @@ footer a:hover {
 
 <!-- Navbar -->
 <nav class="navbar">
-  <div class="logo">Morigene - by Tabe-i Ltd</div>
+  <div class="logo">
+    <span class="main-text">MORIGENE</span>
+    <span class="sub-text">by Tabe-i Ltd</span>
+  </div>
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -204,14 +219,14 @@ footer a:hover {
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
-    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA. Achieve your best life with insights tailored to you.</p>
-    <a class="button-like" href="#">Learn More</a>
+    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
-    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple. Streamline wellness programs for your team with precision.</p>
-    <a class="button-like" href="#">Learn More</a>
+    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 </div>
 
