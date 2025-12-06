@@ -52,9 +52,10 @@ body {
   backdrop-filter:blur(12px);
   border:1px solid rgba(255,255,255,0.3);
   box-shadow:0 0 25px rgba(0,0,0,0.35);
+
   display:flex;
   flex-direction:column;
-  justify-content:center;
+  justify-content:flex-start; /* content at top */
   text-align:left;
   transform-style:preserve-3d;
   animation:fadeIn 1.5s ease both;
@@ -82,35 +83,35 @@ body {
   font-size:clamp(1rem,1.5vw,1.2rem);
   margin-bottom:1rem;
   line-height:1.5;
+  flex-grow:1; /* pushes button down */
 }
 
-/* -------- FINAL BUTTON DESIGN -------- */
+/* -------- RESPONSIVE BUTTON DESIGN -------- */
 .button-like {
-  display:inline-block;
-  padding:0.8rem 2.2rem;                /* slightly larger */
-  border-radius:50px;                   /* pill shape */
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:0.8rem 2.2rem;
+  border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
   color:white;
   backdrop-filter:blur(10px);
-
   text-align:center;
   text-decoration:none;
   cursor:pointer;
-
-  margin-top:0.8rem;
-  align-self:center;                    /* center horizontally */
-
-  font-size:1.05rem;
+  font-size:clamp(0.9rem, 1vw, 1.1rem);
   letter-spacing:0.5px;
 
   position:relative;
   overflow:hidden;
+  width:clamp(140px, 40%, 200px); /* fully responsive width */
+  margin-top:auto;        /* stick to bottom */
+  align-self:center;      /* horizontally centered */
 
   transition:transform 0.3s ease, color 0.3s ease;
 }
 
-/* Hover neon ripple */
 .button-like::after {
   content:"";
   position:absolute;
@@ -130,7 +131,6 @@ body {
   transform:translateY(-3px) scale(1.03);
   color:#ff5ab1;
 }
-/* -------- END FINAL BUTTON DESIGN -------- */
 
 /* Fade */
 @keyframes fadeIn {
@@ -138,12 +138,44 @@ body {
   to {opacity:1; transform:translateY(0);}
 }
 
-/* Back Arrow */
+/* Back Arrow (same style as buttons) */
 .back-arrow {
   position:fixed;
   bottom:3%;
   right:3%;
   z-index:10;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:0.8rem 2.2rem;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background:rgba(255,255,255,0.22);
+  color:white;
+  backdrop-filter:blur(10px);
+  text-decoration:none;
+  cursor:pointer;
+  font-size:clamp(0.9rem, 1vw, 1.1rem);
+  letter-spacing:0.5px;
+  transition:transform 0.3s ease, color 0.3s ease;
+}
+.back-arrow::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle, rgba(255,91,177,0.55) 0%, transparent 70%);
+  opacity:0;
+  transform:scale(0.4);
+  transition:opacity 0.4s ease, transform 0.4s ease;
+}
+.back-arrow:hover::after {
+  opacity:1;
+  transform:scale(1.4);
+}
+.back-arrow:hover {
+  transform:translateY(-3px) scale(1.03);
+  color:#ff5ab1;
 }
 
 /* POPUP */
@@ -197,11 +229,8 @@ input[type=submit]:hover {
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* -------------------------------------------------- */
-/* MOBILE COVERFLOW CAROUSEL                          */
-/* -------------------------------------------------- */
+/* MOBILE COVERFLOW CAROUSEL */
 @media (max-width: 900px) {
-
   body { overflow-x:hidden; overflow-y:hidden; }
 
   #tutorial-box, #blog-box {
@@ -287,7 +316,7 @@ for(let i=0;i<30;i++){
 </div>
 
 <!-- BACK ARROW -->
-<a href="index.html" class="button-like back-arrow">⟵</a>
+<a href="index.html" class="back-arrow">⟵</a>
 
 <!-- POPUP -->
 <div class="popup-overlay" id="popup">
