@@ -19,7 +19,7 @@ html, body {
   overflow-y: auto;
 }
 
-/* Video Background */
+/* Video background */
 #bg-video {
   position: fixed;
   top: 0;
@@ -43,31 +43,27 @@ html, body {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  z-index: 20;
+  z-index: 10;
 }
-
-.logo {
+.navbar .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
+  line-height: 1;
 }
-.main-text {
+.navbar .logo .main-text {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
-.sub-text {
+.navbar .logo .sub-text {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-style: italic;
   font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
 }
 
-.burger {
-  display: none;
-  font-size: 32px;
-  cursor: pointer;
-}
-
-/* Desktop Menu */
+/* Navbar Menu */
 .navbar-menu {
   list-style: none;
   display: flex;
@@ -76,170 +72,180 @@ html, body {
 .navbar-menu li a {
   color: white;
   text-decoration: underline;
-  font-weight: 700;
+  font-weight: 500;
 }
-.navbar-menu li a:hover { color: #ff5ab1; }
+.navbar-menu li a:hover {
+  color: #ff5ab1;
+}
 
-/* Mobile Navbar */
-@media (max-width: 900px) {
-  .burger { display: block; }
+/* Mobile Menu */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+.mobile-menu-toggle span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
 
-  .navbar-menu {
-    position: absolute;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.55);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 22px;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease, padding 0.3s ease;
-  }
-
-  .navbar-menu.active {
-    max-height: 260px;
-    padding: 20px 0;
-  }
+/* Mobile menu overlay */
+#mobileMenu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(0,0,0,0.95);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  z-index: 15;
+}
+#mobileMenu a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.8rem;
+  text-decoration: none;
+}
+#mobileMenu a:hover {
+  color: #ff5ab1;
 }
 
 /* Hero Section */
 .container {
   position: relative;
   top: 70px;
+  width: 100%;
   text-align: center;
   padding: 20px;
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  line-height: 1.25;
-  margin-bottom: 80px;
+  font-weight: 400;
+  color: white;
+  line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  margin-bottom: 100px; /* extra spacing for sci-fi effect */
 }
 
-/* Glass Boxes - Option 3 Modern 3D Glass */
+/* Glass Boxes */
 .glass-container {
+  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 140px;
   padding: 20px;
-  padding-bottom: 140px;
   flex-wrap: wrap;
 }
-
 .glass-box {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
   width: 320px;
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
-  backdrop-filter: blur(18px) saturate(150%);
-  border: 1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(6px);
+  border:1px solid rgba(255,255,255,0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  transition: transform 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
-  transform-style: preserve-3d;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-top: 0;
   margin-bottom: 1rem;
-  text-decoration: underline;
   font-weight: 600;
+  text-decoration: underline;
+  text-align: center;
 }
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.45;
+  line-height: 1.5;
   text-align: justify;
+  flex-grow: 1;
 }
-
-/* Glass Box Hover - floating + 3D tilt */
-.glass-box:hover {
-  transform: translateY(-6px) rotateX(2deg) rotateY(2deg) scale(1.02);
-  box-shadow: 0 20px 40px rgba(255,255,255,0.25);
-}
-
-/* Button */
 .button-like {
+  display: block;
   width: 100%;
   padding: 0.8rem 0;
   border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.4);
-  background: rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22);
   color:white;
-  margin-top: 15px;
+  backdrop-filter: blur(6px);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
   text-align: center;
-  text-decoration:none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
 }
-
-/* Button Hover - Option B Glow */
 .button-like:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 12px rgba(255,90,177,0.6);
+  transform: translateY(-3px) scale(1.03);
+  color: #ff5ab1;
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
 }
 
-/* Mobile Adjustments */
-@media (max-width: 900px) {
-  .container { top: 60px; margin-bottom: 20px; }
-  .headline { margin-bottom: 35px; }
-  .glass-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 35px;
-    padding-bottom: 150px;
-  }
-  .glass-box { width: 90vw; padding: 1.3rem; }
-}
-
-/* Desktop Footer: smaller than header */
+/* Footer */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
   text-align: center;
-  padding: 4px 16px;
-  font-size: 13px;
+  padding: 6px 20px;
+  font-size: 14px;
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 40px;
   display: flex;
   justify-content: center;
   gap: 15px;
   align-items: center;
-  z-index: 25;
 }
-footer a { color:white; text-decoration:none; }
-footer a:hover { text-decoration: underline; }
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
 
-/* Mobile Footer (native feel) */
+/* Responsive */
+@media (max-width: 1200px) {
+  .glass-container { gap: 80px; }
+}
 @media (max-width: 900px) {
-  footer {
-    padding: 4px 10px;
-    font-size: 11px;
-    gap: 8px;
-    height: auto;
-    backdrop-filter: blur(10px);
-    background: rgba(0,0,0,0.45);
-  }
-  footer img { width: 18px; height: 18px; }
+  .glass-container { flex-direction: column; gap: 30px; }
+  .glass-box { width: 80vw; }
+  .headline { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 50px; }
+
+  /* Mobile Navbar */
+  .navbar-menu { display: none; }
+  .mobile-menu-toggle { display: flex; }
+
+  /* Mobile menu overlay */
+  #mobileMenu { display: none; }
+
+  /* Footer small */
+  footer { font-size: 12px; padding: 4px 10px; gap: 5px; flex-direction: column; }
 }
 </style>
 </head>
-
 <body>
 
-<!-- Video -->
+<!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
 </video>
 
 <!-- Navbar -->
@@ -248,7 +254,11 @@ footer a:hover { text-decoration: underline; }
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
-  <div class="burger" onclick="toggleMenu()">&#9776;</div>
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -256,6 +266,14 @@ footer a:hover { text-decoration: underline; }
     <li><a href="learn-blog.html">More</a></li>
   </ul>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#individual">Individual</a>
+  <a href="#corporate">Corporate</a>
+  <a href="learn-blog.html">More</a>
+</div>
 
 <!-- Hero -->
 <div class="container" id="about">
@@ -269,6 +287,7 @@ footer a:hover { text-decoration: underline; }
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
+
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
@@ -283,17 +302,12 @@ footer a:hover { text-decoration: underline; }
   <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
   <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
   </a>
 </footer>
 
 <script>
-/* Mobile menu toggle */
-function toggleMenu(){
-  document.querySelector('.navbar-menu').classList.toggle('active');
-}
-
-/* Parallax */
+// Video Parallax
 document.addEventListener('mousemove', function(e){
   const video = document.getElementById('bg-video');
   const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
@@ -301,18 +315,43 @@ document.addEventListener('mousemove', function(e){
   video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 });
 
-/* MOBILE TOUCH FLOAT EFFECT FOR GLASS BOXES */
-const boxes = document.querySelectorAll('.glass-box');
-boxes.forEach(box => {
-  box.addEventListener('touchstart', () => {
-    box.style.transform = 'translateY(-6px) rotateX(2deg) rotateY(2deg) scale(1.02)';
-    box.style.boxShadow = '0 20px 40px rgba(255,255,255,0.25)';
+// Mobile Menu Toggle
+function toggleMobileMenu(){
+  const menu = document.getElementById('mobileMenu');
+  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+}
+
+// Desktop Glass Box Tilt & Glow
+if(window.innerWidth > 900){
+  const boxes = document.querySelectorAll('.glass-box');
+  boxes.forEach(box => {
+    const glow = document.createElement('div');
+    glow.style.position = 'absolute';
+    glow.style.inset = '0';
+    glow.style.borderRadius = 'inherit';
+    glow.style.opacity = '0';
+    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+    glow.style.pointerEvents = 'none';
+    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
+    box.appendChild(glow);
+
+    box.addEventListener('mousemove', e => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -15;
+      const ry = ((x / rect.width) - 0.5) * 15;
+      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      glow.style.opacity = '1';
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity = '0';
+    });
   });
-  box.addEventListener('touchend', () => {
-    box.style.transform = '';
-    box.style.boxShadow = '0 12px 30px rgba(0,0,0,0.2)';
-  });
-});
+}
 </script>
 
 </body>
