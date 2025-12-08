@@ -19,7 +19,7 @@ html, body {
   overflow-y: auto;
 }
 
-/* Video Background */
+/* Background Video */
 #bg-video {
   position: fixed;
   top: 0;
@@ -32,7 +32,7 @@ html, body {
   transition: transform 0.2s ease-out;
 }
 
-/* Navbar (top) */
+/* Top Navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -59,11 +59,11 @@ html, body {
   align-items: center;
 }
 
-.navbar .main-text {
+.main-text {
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
-.navbar .sub-text {
+.sub-text {
   font-style: italic;
   font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
@@ -74,12 +74,36 @@ html, body {
   display: flex;
   gap: 20px;
 }
-
 .navbar-menu li a {
   color: white;
   text-decoration: underline;
 }
-.navbar-menu li a:hover { color: #ff5ab1; }
+.navbar-menu li a:hover {
+  color: #ff5ab1;
+}
+
+/* Mobile Menu Centering */
+@media (max-width: 900px) {
+  .navbar-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.55);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;   /* CENTERED ITEMS */
+    gap: 22px;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+  }
+  .navbar-menu.active {
+    max-height: 250px;
+    padding: 20px 0;
+  }
+}
 
 /* Hero */
 .container {
@@ -91,18 +115,18 @@ html, body {
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
+  margin-bottom: 40px;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-  margin-bottom: 50px;
 }
 
-/* Glass Cards */
+/* Glass Boxes */
 .glass-container {
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 140px;
   padding: 20px;
-  padding-bottom: 140px; /* space above bottom nav */
+  padding-bottom: 140px; /* space above footer */
   flex-wrap: wrap;
 }
 
@@ -123,127 +147,121 @@ html, body {
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
   margin-bottom: 1rem;
+  font-weight: 600;
   text-decoration: underline;
 }
 
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
-  text-align: justify;
-  flex-grow: 1;
   line-height: 1.45;
+  text-align: justify;
 }
 
 .button-like {
   width: 100%;
   padding: 0.8rem 0;
   border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.22);
-  text-align: center;
-  margin-top: 18px;
+  border:1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.2);
   color:white;
+  margin-top: 15px;
+  text-align: center;
   text-decoration:none;
 }
 
-/* --- NATIVE APP-STYLE BOTTOM NAV BAR --- */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 64px;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(10px);
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  padding-bottom: env(safe-area-inset-bottom);
-  z-index: 30;
-}
-
-.bottom-nav a {
-  color: white;
-  font-size: 11px;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.bottom-nav img {
-  width: 20px;
-  height: 20px;
-  margin-bottom: 2px;
-}
-
-/* --- BOTTOM BACK ARROW FLOATING BUTTON --- */
-.back-arrow {
-  display: none;
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  background: rgba(0,0,0,0.5);
-  backdrop-filter: blur(8px);
-  border-radius: 50%;
-  width: 46px;
-  height: 46px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 40;
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.25);
-}
-.back-arrow img {
-  width: 22px;
-  height: 22px;
-}
-
-/* --- Mobile App-Like Layout --- */
+/* Mobile App-Like Spacing */
 @media (max-width: 900px) {
 
   .burger { display: block; }
 
-  .navbar-menu {
-    position: absolute;
-    top: 60px;
-    right: 0;
-    width: 100%;
-    background: rgba(0,0,0,0.55);
-    flex-direction: column;
-    gap: 18px;
-    padding: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-  .navbar-menu.active {
-    max-height: 230px;
-    padding: 15px 0;
-  }
-
   .headline {
-    font-size: clamp(1.6rem, 6vw, 2.4rem);
-    margin-bottom: 25px;
+    font-size: clamp(1.7rem, 6vw, 2.3rem);
+    margin-bottom: 20px;
   }
 
   .glass-container {
     flex-direction: column;
-    gap: 16px;
-    padding: 10px 0 120px 0; /* space above bottom nav */
+    align-items: center;   /* CENTER HORIZONTALLY */
+    gap: 26px;             /* Better card spacing */
+    padding-bottom: 160px; /* Enough space above footer */
   }
 
   .glass-box {
     width: 90vw;
-    padding: 1.25rem;
-  }
-
-  /* Back arrow visible on mobile */
-  .back-arrow {
-    display: flex;
+    padding: 1.3rem;
   }
 }
 
+/* Floating Back Arrow */
+.back-arrow {
+  position: fixed;
+  bottom: 90px;
+  right: 18px;
+  width: 48px;
+  height: 48px;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(10px);
+  border-radius: 50%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 40;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.back-arrow img {
+  width: 20px;
+  height: 20px;
+}
+
+/* Hover effect */
+.back-arrow:hover {
+  transform: scale(1.12);
+  background: rgba(255,255,255,0.15);
+}
+
+/* Mobile Only */
+@media (max-width: 900px) {
+  .back-arrow { display: flex; }
+}
+
+/* Footer (original items, improved mobile styling) */
+footer {
+  background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  padding: 6px 20px;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+  backdrop-filter: blur(8px);
+  z-index: 25;
+}
+
+footer a {
+  color:white;
+  text-decoration:none;
+}
+footer a:hover { text-decoration: underline; }
+
+/* Mobile footer refinement */
+@media (max-width: 900px) {
+  footer {
+    padding: 4px 12px;
+    font-size: 11px;
+    gap: 10px;
+  }
+  footer img {
+    width: 18px;
+    height: 18px;
+  }
+}
 </style>
 </head>
 
@@ -254,7 +272,7 @@ html, body {
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
-<!-- Top Navbar -->
+<!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
@@ -271,12 +289,12 @@ html, body {
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- GLASS CARDS -->
+<!-- Glass Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
@@ -291,38 +309,29 @@ html, body {
   </div>
 </div>
 
-<!-- FLOATING BACK ARROW (mobile) -->
+<!-- Back Arrow -->
 <div class="back-arrow" onclick="history.back()">
-  <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png" alt="Back">
+  <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png">
 </div>
 
-<!-- BOTTOM NAVIGATION BAR -->
-<nav class="bottom-nav">
-  <a href="#about">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home">
-    Home
+<!-- Original Footer (Restored Content) -->
+<footer>
+  <span>© 2025 Morigene.ai — All rights reserved.</span>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms&conditions.html">Terms & Conditions</a>
+  <a href="contact-form.html">Contact</a>
+  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" />
   </a>
-  <a href="#individual">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Individual">
-    Individual
-  </a>
-  <a href="#corporate">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/briefcase.png" alt="Corporate">
-    Corporate
-  </a>
-  <a href="contact-form.html">
-    <img src="https://img.icons8.com/ios-filled/50/ffffff/contacts.png">
-    Contact
-  </a>
-</nav>
+</footer>
 
 <script>
-/* Burger menu */
+/* Mobile menu function */
 function toggleMenu(){
   document.querySelector('.navbar-menu').classList.toggle('active');
 }
 
-/* Parallax */
+/* Parallax effect */
 document.addEventListener('mousemove', function(e){
   const video = document.getElementById('bg-video');
   const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
