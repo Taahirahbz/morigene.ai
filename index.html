@@ -19,7 +19,7 @@ html, body {
   overflow-y: auto;
 }
 
-/* Video background with parallax */
+/* Video Background */
 #bg-video {
   position: fixed;
   top: 0;
@@ -32,7 +32,7 @@ html, body {
   transition: transform 0.2s ease-out;
 }
 
-/* Navbar */
+/* Navbar (top) */
 .navbar {
   position: fixed;
   top: 0;
@@ -43,67 +43,69 @@ html, body {
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  z-index: 10;
+  z-index: 20;
 }
+
+.burger {
+  display: none;
+  font-size: 30px;
+  cursor: pointer;
+  user-select: none;
+}
+
 .navbar .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 1;
 }
-.navbar .logo .main-text {
-  font-family: 'IBM Plex Sans', sans-serif;
+
+.navbar .main-text {
   font-weight: 600;
-  font-size: clamp(1.5rem, 2.5vw, 1.9rem); /* responsive main text */
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
-.navbar .logo .sub-text {
-  font-family: 'IBM Plex Sans', sans-serif;
+.navbar .sub-text {
   font-style: italic;
-  font-size: clamp(0.75rem, 1.25vw, 0.95rem); /* exactly half of main text */
-  margin-top: -2px; /* pull slightly closer for visual balance */
+  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
+  margin-top: -2px;
 }
+
 .navbar-menu {
   list-style: none;
   display: flex;
   gap: 20px;
 }
+
 .navbar-menu li a {
   color: white;
   text-decoration: underline;
-  font-weight: 500;
 }
-.navbar-menu li a:hover {
-  color: #ff5ab1;
-}
+.navbar-menu li a:hover { color: #ff5ab1; }
 
-/* Hero Section */
+/* Hero */
 .container {
   position: relative;
   top: 70px;
-  width: 100%;
   text-align: center;
   padding: 20px;
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  font-weight: 400;
-  color: white;
-  line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-  margin-bottom: 80px;
+  margin-bottom: 50px;
 }
 
-/* Glass Boxes */
+/* Glass Cards */
 .glass-container {
-  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
   gap: 140px;
   padding: 20px;
+  padding-bottom: 140px; /* space above bottom nav */
   flex-wrap: wrap;
 }
+
 .glass-box {
   background: rgba(255,255,255,0.08);
   width: 320px;
@@ -117,91 +119,150 @@ html, body {
   justify-content: space-between;
   align-items: center;
 }
+
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-  margin-top: 0;
   margin-bottom: 1rem;
-  font-weight: 600;
   text-decoration: underline;
-  text-align: center;
 }
+
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.5;
   text-align: justify;
   flex-grow: 1;
+  line-height: 1.45;
 }
+
 .button-like {
-  display: block;
   width: 100%;
   padding: 0.8rem 0;
   border-radius: 50px;
   border:1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.22);
-  color:white;
-  backdrop-filter: blur(10px);
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
   text-align: center;
-  transition: transform 0.3s ease, color 0.3s ease;
-  margin-top: 20px;
-}
-.button-like:hover {
-  transform: translateY(-2px) scale(1.03);
-  color: #ff5ab1;
+  margin-top: 18px;
+  color:white;
+  text-decoration:none;
 }
 
-/* Footer */
-footer {
-  background: rgba(0,0,0,0.35);
-  color: white;
-  text-align: center;
-  padding: 6px 20px;
-  font-size: 14px;
+/* --- NATIVE APP-STYLE BOTTOM NAV BAR --- */
+.bottom-nav {
   position: fixed;
   bottom: 0;
+  left: 0;
   width: 100%;
+  height: 64px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(10px);
   display: flex;
-  justify-content: center;
-  gap: 15px;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: env(safe-area-inset-bottom);
+  z-index: 30;
+}
+
+.bottom-nav a {
+  color: white;
+  font-size: 11px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
-footer a {
-  color: white;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
+
+.bottom-nav img {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 2px;
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .glass-container { gap: 80px; }
+/* --- BOTTOM BACK ARROW FLOATING BUTTON --- */
+.back-arrow {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 40;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.25);
 }
+.back-arrow img {
+  width: 22px;
+  height: 22px;
+}
+
+/* --- Mobile App-Like Layout --- */
 @media (max-width: 900px) {
-  .glass-container { flex-direction: column; gap: 30px; }
-  .glass-box { width: 80vw; }
-  .headline { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 50px; }
-  .navbar-menu { gap: 10px; }
-  footer { flex-direction: column; gap: 5px; font-size: 12px; }
+
+  .burger { display: block; }
+
+  .navbar-menu {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.55);
+    flex-direction: column;
+    gap: 18px;
+    padding: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+  .navbar-menu.active {
+    max-height: 230px;
+    padding: 15px 0;
+  }
+
+  .headline {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+    margin-bottom: 25px;
+  }
+
+  .glass-container {
+    flex-direction: column;
+    gap: 16px;
+    padding: 10px 0 120px 0; /* space above bottom nav */
+  }
+
+  .glass-box {
+    width: 90vw;
+    padding: 1.25rem;
+  }
+
+  /* Back arrow visible on mobile */
+  .back-arrow {
+    display: flex;
+  }
 }
+
 </style>
 </head>
+
 <body>
 
-<!-- Video Background -->
+<!-- Background Video -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
 </video>
 
-<!-- Navbar -->
+<!-- Top Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
+
+  <div class="burger" onclick="toggleMenu()">&#9776;</div>
+
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -210,12 +271,12 @@ footer a:hover {
   </ul>
 </nav>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Glass Boxes -->
+<!-- GLASS CARDS -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
@@ -230,19 +291,38 @@ footer a:hover {
   </div>
 </div>
 
-<!-- Footer -->
-<footer>
-  <span>© 2025 Morigene.ai — All rights reserved.</span>
-  <a href="privacy-policy.html">Privacy Policy</a>
-  <a href="terms&conditions.html">Terms & Conditions</a>
-  <a href="contact-form.html">Contact</a>
-  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
+<!-- FLOATING BACK ARROW (mobile) -->
+<div class="back-arrow" onclick="history.back()">
+  <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png" alt="Back">
+</div>
+
+<!-- BOTTOM NAVIGATION BAR -->
+<nav class="bottom-nav">
+  <a href="#about">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/home.png" alt="Home">
+    Home
   </a>
-</footer>
+  <a href="#individual">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/user.png" alt="Individual">
+    Individual
+  </a>
+  <a href="#corporate">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/briefcase.png" alt="Corporate">
+    Corporate
+  </a>
+  <a href="contact-form.html">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/contacts.png">
+    Contact
+  </a>
+</nav>
 
 <script>
-// Parallax Video Effect
+/* Burger menu */
+function toggleMenu(){
+  document.querySelector('.navbar-menu').classList.toggle('active');
+}
+
+/* Parallax */
 document.addEventListener('mousemove', function(e){
   const video = document.getElementById('bg-video');
   const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
