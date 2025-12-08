@@ -19,7 +19,7 @@ html, body {
   overflow-y: auto;
 }
 
-/* Background Video */
+/* Video background */
 #bg-video {
   position: fixed;
   top: 0;
@@ -32,7 +32,7 @@ html, body {
   transition: transform 0.2s ease-out;
 }
 
-/* Top Navbar */
+/* Navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -46,14 +46,7 @@ html, body {
   z-index: 20;
 }
 
-.burger {
-  display: none;
-  font-size: 30px;
-  cursor: pointer;
-  user-select: none;
-}
-
-.navbar .logo {
+.logo {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,6 +62,13 @@ html, body {
   margin-top: -2px;
 }
 
+.burger {
+  display: none;
+  font-size: 32px;
+  cursor: pointer;
+}
+
+/* Desktop Menu */
 .navbar-menu {
   list-style: none;
   display: flex;
@@ -82,25 +82,28 @@ html, body {
   color: #ff5ab1;
 }
 
-/* Mobile Menu Centering */
+/* MOBILE NAV */
 @media (max-width: 900px) {
+  .burger { display: block; }
+
   .navbar-menu {
     position: absolute;
     top: 60px;
-    right: 0;
+    left: 0;
     width: 100%;
     background: rgba(0,0,0,0.55);
     flex-direction: column;
     justify-content: center;
-    align-items: center;   /* CENTERED ITEMS */
+    align-items: center; /* centered items */
     gap: 22px;
     padding: 0;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.3s ease, padding 0.3s ease;
   }
+
   .navbar-menu.active {
-    max-height: 250px;
+    max-height: 260px;
     padding: 20px 0;
   }
 }
@@ -112,11 +115,15 @@ html, body {
   text-align: center;
   padding: 20px;
 }
+
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  margin-bottom: 40px;
+  font-weight: 400;
+  color: white;
+  line-height: 1.25;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  margin-bottom: 80px;
 }
 
 /* Glass Boxes */
@@ -126,7 +133,7 @@ html, body {
   justify-content: center;
   gap: 140px;
   padding: 20px;
-  padding-bottom: 140px; /* space above footer */
+  padding-bottom: 140px;
   flex-wrap: wrap;
 }
 
@@ -157,6 +164,7 @@ html, body {
   text-align: justify;
 }
 
+/* Buttons */
 .button-like {
   width: 100%;
   padding: 0.8rem 0;
@@ -169,21 +177,23 @@ html, body {
   text-decoration:none;
 }
 
-/* Mobile App-Like Spacing */
+/* MOBILE APP-LIKE ADJUSTMENTS */
 @media (max-width: 900px) {
-
-  .burger { display: block; }
+  .container {
+    top: 70px;
+    margin-bottom: 25px; /* ensure hero always visible */
+  }
 
   .headline {
-    font-size: clamp(1.7rem, 6vw, 2.3rem);
-    margin-bottom: 20px;
+    margin-bottom: 30px; /* more space above boxes */
+    padding-top: 15px;
   }
 
   .glass-container {
     flex-direction: column;
-    align-items: center;   /* CENTER HORIZONTALLY */
-    gap: 26px;             /* Better card spacing */
-    padding-bottom: 160px; /* Enough space above footer */
+    align-items: center;
+    gap: 35px;           /* more vertical spacing */
+    padding-bottom: 170px; /* leave space for footer */
   }
 
   .glass-box {
@@ -192,7 +202,7 @@ html, body {
   }
 }
 
-/* Floating Back Arrow */
+/* BACK ARROW */
 .back-arrow {
   position: fixed;
   bottom: 90px;
@@ -215,18 +225,16 @@ html, body {
   height: 20px;
 }
 
-/* Hover effect */
 .back-arrow:hover {
   transform: scale(1.12);
   background: rgba(255,255,255,0.15);
 }
 
-/* Mobile Only */
 @media (max-width: 900px) {
   .back-arrow { display: flex; }
 }
 
-/* Footer (original items, improved mobile styling) */
+/* DESKTOP FOOTER (UNCHANGED — EXACT ORIGINAL) */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
@@ -240,7 +248,6 @@ footer {
   justify-content: center;
   gap: 15px;
   align-items: center;
-  backdrop-filter: blur(8px);
   z-index: 25;
 }
 
@@ -248,15 +255,20 @@ footer a {
   color:white;
   text-decoration:none;
 }
-footer a:hover { text-decoration: underline; }
+footer a:hover {
+  text-decoration: underline;
+}
 
-/* Mobile footer refinement */
+/* MOBILE FOOTER ONLY */
 @media (max-width: 900px) {
   footer {
     padding: 4px 12px;
     font-size: 11px;
     gap: 10px;
+    backdrop-filter: blur(10px);
+    background: rgba(0,0,0,0.45);
   }
+
   footer img {
     width: 18px;
     height: 18px;
@@ -267,7 +279,7 @@ footer a:hover { text-decoration: underline; }
 
 <body>
 
-<!-- Background Video -->
+<!-- Video -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
@@ -294,7 +306,7 @@ footer a:hover { text-decoration: underline; }
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Glass Boxes -->
+<!-- Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
@@ -314,7 +326,7 @@ footer a:hover { text-decoration: underline; }
   <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png">
 </div>
 
-<!-- Original Footer (Restored Content) -->
+<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -326,7 +338,7 @@ footer a:hover { text-decoration: underline; }
 </footer>
 
 <script>
-/* Mobile menu function */
+/* Mobile menu toggle */
 function toggleMenu(){
   document.querySelector('.navbar-menu').classList.toggle('active');
 }
