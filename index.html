@@ -19,7 +19,7 @@ html, body {
   overflow-y: auto;
 }
 
-/* Video background */
+/* Video BG */
 #bg-video {
   position: fixed;
   top: 0;
@@ -32,7 +32,7 @@ html, body {
   transition: transform 0.2s ease-out;
 }
 
-/* Navbar */
+/* NAVBAR */
 .navbar {
   position: fixed;
   top: 0;
@@ -51,7 +51,6 @@ html, body {
   flex-direction: column;
   align-items: center;
 }
-
 .main-text {
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
@@ -78,11 +77,9 @@ html, body {
   color: white;
   text-decoration: underline;
 }
-.navbar-menu li a:hover {
-  color: #ff5ab1;
-}
+.navbar-menu li a:hover { color: #ff5ab1; }
 
-/* MOBILE NAV */
+/* Mobile NAV */
 @media (max-width: 900px) {
   .burger { display: block; }
 
@@ -94,7 +91,7 @@ html, body {
     background: rgba(0,0,0,0.55);
     flex-direction: column;
     justify-content: center;
-    align-items: center; /* centered items */
+    align-items: center;
     gap: 22px;
     padding: 0;
     max-height: 0;
@@ -108,7 +105,7 @@ html, body {
   }
 }
 
-/* Hero */
+/* HERO */
 .container {
   position: relative;
   top: 70px;
@@ -119,14 +116,12 @@ html, body {
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  font-weight: 400;
-  color: white;
   line-height: 1.25;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 80px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
-/* Glass Boxes */
+/* GLASS BOXES */
 .glass-container {
   width: 100%;
   display: flex;
@@ -154,8 +149,8 @@ html, body {
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
   margin-bottom: 1rem;
-  font-weight: 600;
   text-decoration: underline;
+  font-weight: 600;
 }
 
 .glass-box p {
@@ -164,7 +159,6 @@ html, body {
   text-align: justify;
 }
 
-/* Buttons */
 .button-like {
   width: 100%;
   padding: 0.8rem 0;
@@ -177,23 +171,24 @@ html, body {
   text-decoration:none;
 }
 
-/* MOBILE APP-LIKE ADJUSTMENTS */
+/* MOBILE ADJUSTMENTS */
 @media (max-width: 900px) {
+
+  /* ⭐ HEADLINE MOVED CLOSER TO HEADER */
   .container {
-    top: 70px;
-    margin-bottom: 25px; /* ensure hero always visible */
+    top: 60px;
+    margin-bottom: 20px;
   }
 
   .headline {
-    margin-bottom: 30px; /* more space above boxes */
-    padding-top: 15px;
+    margin-bottom: 35px; 
   }
 
   .glass-container {
     flex-direction: column;
     align-items: center;
-    gap: 35px;           /* more vertical spacing */
-    padding-bottom: 170px; /* leave space for footer */
+    gap: 35px;
+    padding-bottom: 150px;
   }
 
   .glass-box {
@@ -202,48 +197,17 @@ html, body {
   }
 }
 
-/* BACK ARROW */
-.back-arrow {
-  position: fixed;
-  bottom: 90px;
-  right: 18px;
-  width: 48px;
-  height: 48px;
-  background: rgba(0,0,0,0.55);
-  backdrop-filter: blur(10px);
-  border-radius: 50%;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 40;
-  border: 1px solid rgba(255,255,255,0.25);
-  transition: transform 0.25s ease, background 0.25s ease;
-}
-
-.back-arrow img {
-  width: 20px;
-  height: 20px;
-}
-
-.back-arrow:hover {
-  transform: scale(1.12);
-  background: rgba(255,255,255,0.15);
-}
-
-@media (max-width: 900px) {
-  .back-arrow { display: flex; }
-}
-
-/* DESKTOP FOOTER (UNCHANGED — EXACT ORIGINAL) */
+/* DESKTOP FOOTER: smaller than header */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
   text-align: center;
-  padding: 6px 20px;
-  font-size: 14px;
+  padding: 4px 16px;
+  font-size: 13px;
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 40px;     /* smaller than 60px header */
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -251,40 +215,32 @@ footer {
   z-index: 25;
 }
 
-footer a {
-  color:white;
-  text-decoration:none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
+footer a { color:white; text-decoration:none; }
+footer a:hover { text-decoration: underline; }
 
-/* MOBILE FOOTER ONLY */
+/* MOBILE FOOTER (native feel) */
 @media (max-width: 900px) {
   footer {
-    padding: 4px 12px;
+    padding: 4px 10px;
     font-size: 11px;
-    gap: 10px;
+    gap: 8px;
+    height: auto;
     backdrop-filter: blur(10px);
     background: rgba(0,0,0,0.45);
   }
-
-  footer img {
-    width: 18px;
-    height: 18px;
-  }
+  footer img { width: 18px; height: 18px; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- Video -->
+<!-- VIDEO -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
-<!-- Navbar -->
+<!-- NAV -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
@@ -301,12 +257,12 @@ footer a:hover {
   </ul>
 </nav>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Boxes -->
+<!-- GLASS BOXES -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
@@ -321,12 +277,7 @@ footer a:hover {
   </div>
 </div>
 
-<!-- Back Arrow -->
-<div class="back-arrow" onclick="history.back()">
-  <img src="https://img.icons8.com/ios-filled/50/ffffff/long-arrow-left.png">
-</div>
-
-<!-- Footer -->
+<!-- FOOTER -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -343,7 +294,7 @@ function toggleMenu(){
   document.querySelector('.navbar-menu').classList.toggle('active');
 }
 
-/* Parallax effect */
+/* Parallax */
 document.addEventListener('mousemove', function(e){
   const video = document.getElementById('bg-video');
   const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
