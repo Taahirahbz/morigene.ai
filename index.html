@@ -19,7 +19,7 @@ html, body {
   overflow-y: auto;
 }
 
-/* Video BG */
+/* Video Background */
 #bg-video {
   position: fixed;
   top: 0;
@@ -32,7 +32,7 @@ html, body {
   transition: transform 0.2s ease-out;
 }
 
-/* NAVBAR */
+/* Navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -76,11 +76,11 @@ html, body {
 .navbar-menu li a {
   color: white;
   text-decoration: underline;
-  font-weight: 700; /* bold on mobile */
+  font-weight: 700;
 }
 .navbar-menu li a:hover { color: #ff5ab1; }
 
-/* Mobile NAV */
+/* Mobile Navbar */
 @media (max-width: 900px) {
   .burger { display: block; }
 
@@ -106,14 +106,13 @@ html, body {
   }
 }
 
-/* HERO */
+/* Hero Section */
 .container {
   position: relative;
   top: 70px;
   text-align: center;
   padding: 20px;
 }
-
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
@@ -122,7 +121,7 @@ html, body {
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
-/* GLASS BOXES */
+/* Glass Boxes - Option 3 Modern 3D Glass */
 .glass-container {
   width: 100%;
   display: flex;
@@ -134,20 +133,20 @@ html, body {
 }
 
 .glass-box {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.12);
   width: 320px;
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
-  backdrop-filter: blur(12px) saturate(150%);
-  border:1px solid rgba(255,255,255,0.25);
+  backdrop-filter: blur(18px) saturate(150%);
+  border: 1px solid rgba(255,255,255,0.25);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   transition: transform 0.4s ease, box-shadow 0.4s ease, backdrop-filter 0.4s ease;
   transform-style: preserve-3d;
-  box-shadow: 0 8px 30px rgba(255,255,255,0.1);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.2);
 }
 
 .glass-box h2 {
@@ -156,7 +155,6 @@ html, body {
   text-decoration: underline;
   font-weight: 600;
 }
-
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
   line-height: 1.45;
@@ -169,7 +167,7 @@ html, body {
   box-shadow: 0 20px 40px rgba(255,255,255,0.25);
 }
 
-/* BUTTON */
+/* Button */
 .button-like {
   width: 100%;
   padding: 0.8rem 0;
@@ -180,33 +178,29 @@ html, body {
   margin-top: 15px;
   text-align: center;
   text-decoration:none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
 }
 
-/* BUTTON Hover - floating soft shadow */
+/* Button Hover - Option B Glow */
 .button-like:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  transform: scale(1.05);
+  box-shadow: 0 0 12px rgba(255,90,177,0.6);
 }
 
-/* MOBILE ADJUSTMENTS */
+/* Mobile Adjustments */
 @media (max-width: 900px) {
-
-  /* Headline closer to header */
   .container { top: 60px; margin-bottom: 20px; }
   .headline { margin-bottom: 35px; }
-
   .glass-container {
     flex-direction: column;
     align-items: center;
     gap: 35px;
     padding-bottom: 150px;
   }
-
   .glass-box { width: 90vw; padding: 1.3rem; }
 }
 
-/* DESKTOP FOOTER: smaller than header */
+/* Desktop Footer: smaller than header */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
@@ -223,11 +217,10 @@ footer {
   align-items: center;
   z-index: 25;
 }
-
 footer a { color:white; text-decoration:none; }
 footer a:hover { text-decoration: underline; }
 
-/* MOBILE FOOTER (native feel) */
+/* Mobile Footer (native feel) */
 @media (max-width: 900px) {
   footer {
     padding: 4px 10px;
@@ -244,20 +237,18 @@ footer a:hover { text-decoration: underline; }
 
 <body>
 
-<!-- VIDEO -->
+<!-- Video -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
-<!-- NAV -->
+<!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
-
   <div class="burger" onclick="toggleMenu()">&#9776;</div>
-
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -266,19 +257,18 @@ footer a:hover { text-decoration: underline; }
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- GLASS BOXES -->
+<!-- Glass Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
-
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
@@ -286,7 +276,7 @@ footer a:hover { text-decoration: underline; }
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -320,7 +310,7 @@ boxes.forEach(box => {
   });
   box.addEventListener('touchend', () => {
     box.style.transform = '';
-    box.style.boxShadow = '0 8px 30px rgba(255,255,255,0.1)';
+    box.style.boxShadow = '0 12px 30px rgba(0,0,0,0.2)';
   });
 });
 </script>
