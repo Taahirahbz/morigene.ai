@@ -86,12 +86,12 @@ body {
   flex-grow:1;
 }
 
-/* -------- RESPONSIVE BUTTON DESIGN -------- */
+/* -------- BUTTON DESIGN -------- */
 .button-like {
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:1rem 2.6rem; /* increased height and padding */
+  padding:1rem 2.6rem;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
@@ -100,18 +100,17 @@ body {
   text-align:center;
   text-decoration:none;
   cursor:pointer;
-  font-size:clamp(1rem, 1.2vw, 1.3rem); /* slightly larger text */
+  font-size:clamp(1rem, 1.2vw, 1.3rem);
   letter-spacing:0.5px;
 
   position:relative;
   overflow:hidden;
-  width:clamp(140px, 40%, 220px); /* wider max-width */
-  margin-top:auto;        /* stick to bottom */
-  align-self:center;      /* horizontally centered */
+  width:clamp(140px, 40%, 220px);
+  margin-top:auto;
+  align-self:center;
 
   transition:transform 0.3s ease, color 0.3s ease;
 }
-
 .button-like::after {
   content:"";
   position:absolute;
@@ -121,12 +120,10 @@ body {
   transform:scale(0.4);
   transition:opacity 0.4s ease, transform 0.4s ease;
 }
-
 .button-like:hover::after {
   opacity:1;
   transform:scale(1.4);
 }
-
 .button-like:hover {
   transform:translateY(-3px) scale(1.03);
   color:#ff5ab1;
@@ -138,7 +135,7 @@ body {
   to {opacity:1; transform:translateY(0);}
 }
 
-/* Back Arrow (same style as buttons) */
+/* Back Arrow */
 .back-arrow {
   position:fixed;
   bottom:3%;
@@ -148,7 +145,7 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
-  padding:1rem 2.6rem; /* match button size */
+  padding:1rem 2.6rem;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
@@ -229,63 +226,54 @@ input[type=submit]:hover {
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* MOBILE COVERFLOW CAROUSEL */
+/* ----------------- MOBILE ONLY ----------------- */
 @media (max-width: 900px) {
+
   body { overflow-x:hidden; overflow-y:hidden; }
 
-  #tutorial-box, #blog-box {
-    position:relative !important;
-    top:auto !important;
-    left:auto !important;
-    bottom:auto !important;
-    margin:0;
-    transform:none !important;
-  }
-
+  /* Stack glass boxes vertically, centered */
   .carousel {
-    position:absolute;
-    top:5vh;
-    left:0;
-    right:0;
-    bottom:0;
-    display:flex;
-    gap:10vw;
-    padding:0 10vw;
-    overflow-x:scroll;
-    scroll-snap-type:x mandatory;
-    scrollbar-width:none;
-  }
-  .carousel::-webkit-scrollbar { display:none; }
-
-  .glass-box {
-    min-width:75vw;
-    height:auto;
-    padding:2rem;
-    scroll-snap-align:center;
-    transition:transform 0.3s ease, opacity 0.3s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;           /* space between boxes */
+    padding-bottom: 6rem; /* extra space for back arrow */
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    overflow: visible !important; /* remove horizontal scroll */
   }
 
-  .glass-box.left {
-    transform:rotateY(25deg) scale(0.85);
-    opacity:0.7;
-  }
-  .glass-box.center {
-    transform:rotateY(0deg) scale(1);
-    opacity:1;
-  }
-  .glass-box.right {
-    transform:rotateY(-25deg) scale(0.85);
-    opacity:0.7;
+  #tutorial-box, #blog-box {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+    margin: 0;
+    width: 80vw;
+    max-width: 400px;
+    transform: none !important; /* remove coverflow tilt/scale */
+    opacity: 1 !important;      /* remove coverflow opacity */
   }
 
-  .glass-box .glow { display:none; }
-
-  /* Slightly smaller buttons on mobile */
-  .button-like, .back-arrow {
-    padding:0.8rem 2rem;
-    font-size:clamp(0.9rem, 1vw, 1.1rem);
-    width:clamp(120px, 50%, 180px);
+  /* Back arrow smaller */
+  .back-arrow {
+    padding: 0.5rem 1.3rem;
+    font-size: clamp(0.8rem, 1vw, 1rem);
   }
+
+  /* Slightly smaller buttons */
+  .button-like {
+    padding: 0.8rem 2rem;
+    font-size: clamp(0.9rem, 1vw, 1.1rem);
+    width: clamp(120px, 50%, 180px);
+  }
+
+  /* Hide glow */
+  .glass-box .glow { display: none; }
 }
 </style>
 </head>
@@ -303,7 +291,7 @@ for(let i=0;i<30;i++){
 }
 </script>
 
-<!-- DESKTOP VERSION + MOBILE CAROUSEL WRAPPER -->
+<!-- DESKTOP VERSION + MOBILE WRAPPER -->
 <div class="carousel">
 
   <div class="glass-box" id="tutorial-box">
@@ -392,27 +380,17 @@ function applyTilt(card){
 applyTilt(tut);
 applyTilt(blog);
 
-/* MOBILE COVERFLOW LOGIC */
+/* MOBILE: disable carousel completely */
 if(window.innerWidth < 900){
-  const cards=document.querySelectorAll(".glass-box");
+  // Remove any existing coverflow classes and scroll event
   const car=document.querySelector(".carousel");
-
-  function update(){
-    const center=window.innerWidth/2;
-    cards.forEach(card=>{
-      const box=card.getBoundingClientRect();
-      const cardCenter=box.left + box.width/2;
-      const dist=cardCenter - center;
-
-      card.classList.remove("left","center","right");
-      if(dist < -50) card.classList.add("left");
-      else if(dist > 50) card.classList.add("right");
-      else card.classList.add("center");
-    });
-  }
-
-  car.addEventListener("scroll", update);
-  update();
+  const cards=document.querySelectorAll(".glass-box");
+  cards.forEach(card=>{
+    card.classList.remove("left","center","right");
+    card.style.transform="none";
+    card.style.opacity="1";
+  });
+  if(car) car.removeEventListener("scroll", null);
 }
 </script>
 
