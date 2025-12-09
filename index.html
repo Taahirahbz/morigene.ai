@@ -118,30 +118,28 @@ html, body {
   color: #ff5ab1;
 }
 
-/* -------------------------------------------------------------- */
-/* UPDATED: Mobile menu — soft teal gradient + smooth fade-in     */
-/* -------------------------------------------------------------- */
-#mobileMenu.open {
-  background: linear-gradient(
-    to bottom,
-    rgba(128, 255, 240, 0.7) 0%,
-    rgba(77, 210, 192, 0.7) 50%,
-    rgba(0, 128, 128, 0.7) 100%
-  );
-  animation: menuFadeIn 0.35s ease forwards;
-}
+/* Smooth Dark Blue → Purple Gradient for Mobile Menu */
+@media (max-width: 900px) {
+  #mobileMenu.open {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,31,54,0.7) 0%,     /* Deep dark blue */
+      rgba(15,10,45,0.7) 45%,   /* Smooth bluish purple */
+      rgba(25,5,38,0.7) 100%    /* Dark purple/blackish bottom */
+    );
+    animation: menuFadeIn 0.35s ease forwards;
+  }
 
-@keyframes menuFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(1.02);
+  @keyframes menuFadeIn {
+    from { opacity: 0; transform: scale(1.02); }
+    to { opacity: 1; transform: scale(1); }
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+
+  /* Move headline closer to navbar */
+  .container {
+    top: 20px;
   }
 }
-/* -------------------------------------------------------------- */
 
 /* Hero Section */
 .container {
