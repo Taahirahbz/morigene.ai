@@ -133,22 +133,24 @@ html, body {
   color: white;
   line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-  margin-bottom: 80px; /* slightly smaller than before for desktop */
+  margin-bottom: 80px;
 }
 
 /* Glass Boxes */
 .glass-container {
   position: relative;
   width: 100%;
+  max-width: 1200px;
+  margin: 0 auto; /* center container horizontally */
   display: flex;
-  justify-content: center;
-  gap: 140px;
+  justify-content: space-between;
+  gap: 40px;
   padding: 20px;
   flex-wrap: wrap;
 }
 .glass-box {
   background: rgba(255,255,255,0.05);
-  width: 320px;
+  width: 45%; /* slightly smaller for desktop */
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
@@ -201,7 +203,6 @@ footer {
   background: rgba(0,0,0,0.35);
   color: white;
   text-align: center;
-  padding: 6px 20px;
   font-size: 14px;
   position: fixed;
   bottom: 0;
@@ -210,7 +211,9 @@ footer {
   justify-content: center;
   gap: 15px;
   align-items: center;
-  height: 45px; /* Mobile footer height */
+  height: 45px; /* mobile footer height */
+  padding: 0 10px;
+  flex-wrap: wrap;
 }
 footer a {
   color: white;
@@ -222,17 +225,17 @@ footer a:hover {
 
 /* Responsive */
 @media (max-width: 1200px) {
-  .glass-container { gap: 80px; }
+  .glass-container { gap: 40px; }
 }
 @media (max-width: 900px) {
   /* Stacked glass boxes for mobile */
   .glass-container {
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
     align-items: center;
-    padding-bottom: 60px; /* space before footer */
+    padding-bottom: 60px; /* padding before footer */
   }
-  .glass-box { width: 90vw; }
+  .glass-box { width: 90%; max-width: 320px; } /* smaller on mobile */
   .headline { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 40px; }
 
   /* Mobile Navbar */
@@ -243,7 +246,7 @@ footer a:hover {
   #mobileMenu { display: none; }
 
   /* Footer small */
-  footer { font-size: 12px; padding: 4px 10px; gap: 5px; flex-direction: column; }
+  footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
 }
 </style>
 </head>
