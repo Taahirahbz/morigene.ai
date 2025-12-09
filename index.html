@@ -123,7 +123,7 @@ html, body {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
   font-weight: 400;
-  margin-bottom: 60px; /* reduced from 100px for desktop */
+  margin-bottom: 60px;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
@@ -136,7 +136,7 @@ html, body {
   gap: 140px;
   padding: 20px;
   flex-wrap: wrap;
-  margin-top: 20px; /* spacing from headline */
+  margin-top: 20px;
 }
 .glass-box {
   background: rgba(255,255,255,0.05);
@@ -213,26 +213,35 @@ footer a:hover { text-decoration: underline; }
   .glass-container { gap: 80px; }
 }
 
+/* Mobile only adjustments */
 @media (max-width: 900px) {
 
-  /* Glass boxes centered & slightly smaller */
+  /* Glass boxes carousel */
   .glass-container {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px; /* reduced spacing between boxes */
-    padding-bottom: 60px; /* prevent footer overlap */
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    position: relative;
+    scroll-behavior: smooth; /* smooth animation */
   }
-  .glass-box { width: 300px; } /* slightly smaller than desktop */
 
-  /* Mobile headline spacing */
-  .headline { margin-bottom: 40px; }
+  .glass-box {
+    flex: 0 0 80%;
+    scroll-snap-align: center;
+    margin-left: 10%;
+  }
 
-  /* Mobile navbar */
-  .navbar-menu { display: none; }
-  .mobile-menu-toggle { display: flex; }
+  /* Hide scrollbar */
+  .glass-container::-webkit-scrollbar { display: none; }
+  .glass-container { -ms-overflow-style: none; scrollbar-width: none; }
 
-  /* Footer small, items fit 45px height */
+  /* Headline spacing */
+  .headline { margin-bottom: 20px; }
+
+  /* Footer height adjustments */
   footer {
     height: 45px;
     padding: 4px 10px;
@@ -241,6 +250,26 @@ footer a:hover { text-decoration: underline; }
     flex-wrap: wrap;
     flex-direction: row;
     align-items: center;
+  }
+
+  /* Swipe indicators */
+  .swipe-indicators {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+  }
+  .swipe-indicators span {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    transition: background 0.3s;
+  }
+  .swipe-indicators span.active {
+    background: white;
   }
 }
 </style>
@@ -284,7 +313,7 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <!-- Glass Boxes -->
-<div class="glass-container">
+<div class="glass-container" id="glassContainer">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
@@ -295,6 +324,12 @@ footer a:hover { text-decoration: underline; }
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
+  </div>
+
+  <!-- Swipe indicators for mobile -->
+  <div class="swipe-indicators" id="swipeIndicators">
+    <span class="active"></span>
+    <span></span>
   </div>
 </div>
 
@@ -314,6 +349,17 @@ function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
   menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
 }
+
+// Mobile swipe indicators
+const glassContainer = document.getElementById('glassContainer');
+const indicators = document.querySelectorAll('.swipe-indicators span');
+
+glassContainer.addEventListener('scroll', () => {
+  const scrollLeft = glassContainer.scrollLeft;
+  const boxWidth = glassContainer.querySelector('.glass-box').offsetWidth + 20; // gap
+  const index = Math.round(scrollLeft / boxWidth);
+  indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
+});
 </script>
 
 </body>
