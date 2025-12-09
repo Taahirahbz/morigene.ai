@@ -269,14 +269,14 @@ footer a:hover {
     margin: 0;
   }
 
-  /* Hero section flex vertical centering on mobile */
+  /* Hero section flex vertical centering on mobile, reduced space by half */
   .container {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: calc(100vh - 60px - 260px); /* full height minus navbar and first glass box */
+    min-height: calc((100vh - 60px - 260px) / 2); /* Half the previous spacing */
     padding: 0 20px;
-    top: 60px; /* align below navbar */
+    top: 60px;
   }
 
   .headline {
