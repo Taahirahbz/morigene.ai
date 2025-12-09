@@ -1,22 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Morigene Landing Page</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+
+<style>
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  height: 100%;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Video background */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.6);
+  transition: transform 0.2s ease-out;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 10;
+}
+.navbar .logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.navbar .logo .main-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+}
+.navbar .logo .sub-text {
+  font-family: 'IBM Plex Sans', sans-serif;
+  font-style: italic;
+  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
+  margin-top: -2px;
+}
+
+/* Navbar Menu */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.navbar-menu li a {
+  color: white;
+  text-decoration: underline;
+  font-weight: 500;
+}
+.navbar-menu li a:hover {
+  color: #ff5ab1;
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+.mobile-menu-toggle span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Mobile menu overlay */
+#mobileMenu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(0,0,0,0.95);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  z-index: 15;
+}
+#mobileMenu a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.8rem;
+  text-decoration: none;
+}
+#mobileMenu a:hover {
+  color: #ff5ab1;
+}
+
+/* Hero Section */
+.container {
+  position: relative;
+  top: 70px;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+}
+.headline {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-style: italic;
+  font-weight: 400;
+  color: white;
+  line-height: 1.2;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  margin-bottom: 100px; /* extra spacing for sci-fi effect */
+}
+
+/* Glass Boxes */
+.glass-container {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 140px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+.glass-box {
+  background: rgba(255,255,255,0.05);
+  width: 320px;
+  min-height: 260px;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(6px);
+  border:1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-box h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-align: center;
+}
+.glass-box p {
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+  text-align: justify;
+  flex-grow: 1;
+}
+.button-like {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
+  border-radius: 50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22);
+  color:white;
+  backdrop-filter: blur(6px);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+.button-like:hover {
+  transform: translateY(-3px) scale(1.03);
+  color: #ff5ab1;
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+}
+
+/* Footer */
+footer {
+  background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  padding: 6px 20px;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+}
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .glass-container { gap: 80px; }
 }
-
 @media (max-width: 900px) {
-  .glass-container { 
-    flex-direction: column; 
-    gap: 30px; 
-    justify-content: center !important;     /* NEW – centered horizontally */
-    align-items: center;                    /* NEW – ensures full centering */
-  }
-
+  .glass-container { flex-direction: column; gap: 30px; }
   .glass-box { width: 80vw; }
-
-  .headline { 
-    font-size: clamp(1.5rem, 5vw, 3rem); 
-    margin-bottom: 50px; 
-  }
+  .headline { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 50px; }
 
   /* Mobile Navbar */
   .navbar-menu { display: none; }
@@ -26,11 +236,123 @@
   #mobileMenu { display: none; }
 
   /* Footer small */
-  footer { 
-    font-size: 12px; 
-    padding: 2px 10px;          /* slightly thinner */
-    gap: 5px; 
-    flex-direction: column; 
-    height: 40px;               /* NEW – footer smaller than header */
-  }
+  footer { font-size: 12px; padding: 4px 10px; gap: 5px; flex-direction: column; }
 }
+</style>
+</head>
+<body>
+
+<!-- Video Background -->
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="videos/background.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<!-- Navbar -->
+<nav class="navbar">
+  <div class="logo">
+    <span class="main-text">MORIGENE</span>
+    <span class="sub-text">by Tabe-i Ltd</span>
+  </div>
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <ul class="navbar-menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#individual">Individual</a></li>
+    <li><a href="#corporate">Corporate</a></li>
+    <li><a href="learn-blog.html">More</a></li>
+  </ul>
+</nav>
+
+<!-- Mobile Menu Overlay -->
+<div id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#individual">Individual</a>
+  <a href="#corporate">Corporate</a>
+  <a href="learn-blog.html">More</a>
+</div>
+
+<!-- Hero -->
+<div class="container" id="about">
+  <h1 class="headline">Decoding life, one genome at a time!</h1>
+</div>
+
+<!-- Glass Boxes -->
+<div class="glass-container">
+  <div class="glass-box" id="individual">
+    <h2>Individual</h2>
+    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
+  </div>
+
+  <div class="glass-box" id="corporate">
+    <h2>Corporate</h2>
+    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <span>© 2025 Morigene.ai — All rights reserved.</span>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms&conditions.html">Terms & Conditions</a>
+  <a href="contact-form.html">Contact</a>
+  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
+  </a>
+</footer>
+
+<script>
+// Video Parallax
+document.addEventListener('mousemove', function(e){
+  const video = document.getElementById('bg-video');
+  const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+  const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+  video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+});
+
+// Mobile Menu Toggle
+function toggleMobileMenu(){
+  const menu = document.getElementById('mobileMenu');
+  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+}
+
+// Desktop Glass Box Tilt & Glow
+if(window.innerWidth > 900){
+  const boxes = document.querySelectorAll('.glass-box');
+  boxes.forEach(box => {
+    const glow = document.createElement('div');
+    glow.style.position = 'absolute';
+    glow.style.inset = '0';
+    glow.style.borderRadius = 'inherit';
+    glow.style.opacity = '0';
+    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+    glow.style.pointerEvents = 'none';
+    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
+    box.appendChild(glow);
+
+    box.addEventListener('mousemove', e => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -15;
+      const ry = ((x / rect.width) - 0.5) * 15;
+      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      glow.style.opacity = '1';
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity = '0';
+    });
+  });
+}
+</script>
+
+</body>
+</html>
