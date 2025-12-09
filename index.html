@@ -45,7 +45,6 @@ html, body {
   padding: 0 20px;
   z-index: 10;
 }
-
 .navbar .logo {
   display: flex;
   flex-direction: column;
@@ -54,11 +53,11 @@ html, body {
 }
 .navbar .logo .main-text {
   font-weight: 600;
-  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
 .navbar .logo .sub-text {
   font-style: italic;
-  font-size: clamp(0.7rem, 1.5vw, 0.95rem);
+  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
 }
 
@@ -66,7 +65,7 @@ html, body {
 .navbar-menu {
   list-style: none;
   display: flex;
-  gap: clamp(12px, 2vw, 20px);
+  gap: 20px;
 }
 .navbar-menu li a {
   color: white;
@@ -91,6 +90,7 @@ html, body {
   border-radius: 2px;
 }
 
+/* Mobile menu overlay */
 #mobileMenu {
   display: none;
   position: fixed;
@@ -108,10 +108,12 @@ html, body {
 #mobileMenu a {
   color: white;
   font-weight: bold;
-  font-size: clamp(1.4rem, 6vw, 1.8rem);
+  font-size: 1.8rem;
   text-decoration: none;
 }
-#mobileMenu a:hover { color: #ff5ab1; }
+#mobileMenu a:hover {
+  color: #ff5ab1;
+}
 
 /* Hero Section */
 .container {
@@ -119,28 +121,32 @@ html, body {
   top: 70px;
   width: 100%;
   text-align: center;
-  padding: clamp(10px, 4vw, 40px);
+  padding: 20px;
 }
 .headline {
-  font-size: clamp(1.8rem, 5vw, 4rem);
+  font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
   font-weight: 400;
-  margin-bottom: clamp(40px, 8vw, 100px);
+  color: white;
+  line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  margin-bottom: 100px;
 }
 
 /* Glass Boxes */
 .glass-container {
+  position: relative;
   width: 100%;
   display: flex;
-  justify-content: center;
-  gap: clamp(20px, 8vw, 140px);
-  padding: clamp(10px, 4vw, 40px);
+  justify-content: center;       /* centered horizontally */
+  gap: 140px;
+  padding: 20px;
   flex-wrap: wrap;
+  margin-top: 30px;              /* NEW: space between headline & first box */
 }
 .glass-box {
   background: rgba(255,255,255,0.05);
-  width: min(320px, 90vw);
+  width: 320px;                  /* ORIGINAL SIZE RESTORED */
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
@@ -153,32 +159,33 @@ html, body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .glass-box h2 {
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
   margin-bottom: 1rem;
   font-weight: 600;
   text-decoration: underline;
   text-align: center;
 }
 .glass-box p {
-  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
   line-height: 1.5;
   text-align: justify;
   flex-grow: 1;
 }
 .button-like {
+  display: block;
   width: 100%;
   padding: 0.8rem 0;
-  margin-top: 20px;
   border-radius: 50px;
   border:1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.22);
   color:white;
   backdrop-filter: blur(6px);
-  text-align: center;
-  cursor: pointer;
   text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
   transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  font-size: clamp(0.9rem, 2.5vw, 1rem);
+  margin-top: 20px;
 }
 .button-like:hover {
   transform: translateY(-3px) scale(1.03);
@@ -192,7 +199,7 @@ footer {
   color: white;
   text-align: center;
   padding: 6px 20px;
-  font-size: clamp(12px, 2vw, 14px);
+  font-size: 14px;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -202,41 +209,33 @@ footer {
   align-items: center;
 }
 
-/* Responsive Adjustments */
+/* Responsive */
 @media (max-width: 1200px) {
-  .glass-container { gap: clamp(40px, 6vw, 80px); }
+  .glass-container { gap: 80px; }
 }
-
 @media (max-width: 900px) {
-  .navbar-menu { display: none; }
-  .mobile-menu-toggle { display: flex; }
 
   .glass-container {
     flex-direction: column;
-    justify-content: center !important;
-    align-items: center;
-    gap: clamp(20px, 6vw, 40px);
+    justify-content: center;
+    align-items: center; /* center horizontally */
+    gap: 30px;
   }
 
+  /* ORIGINAL glass box width preserved */
+  .glass-box { width: 320px; }
+
+  /* Mobile Navbar */
+  .navbar-menu { display: none; }
+  .mobile-menu-toggle { display: flex; }
+
+  /* Footer small BUT SAME COLOR AND STYLE */
   footer {
-    flex-direction: column;
-    gap: 5px;
+    font-size: 12px;
     padding: 4px 10px;
-    height: 40px; /* smaller than header */
-  }
-}
-
-@media (max-width: 500px) {
-  .headline {
-    font-size: clamp(1.4rem, 8vw, 2.3rem);
-  }
-  .glass-box {
-    width: 92vw;
-    padding: 1.4rem;
-  }
-  footer {
-    height: auto;
-    padding: 6px;
+    gap: 5px;
+    flex-direction: column;
+    height: 38px; /* smaller than header, no style change */
   }
 }
 </style>
@@ -247,7 +246,6 @@ footer {
 <!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
 </video>
 
 <!-- Navbar -->
@@ -257,9 +255,7 @@ footer {
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
   <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
@@ -304,55 +300,14 @@ footer {
   <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
   <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20"/>
   </a>
 </footer>
 
 <script>
-// Video Parallax
-document.addEventListener('mousemove', function(e){
-  const video = document.getElementById('bg-video');
-  const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-  const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-  video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-});
-
-// Mobile Menu Toggle
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
   menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-}
-
-// Desktop Glass Box Tilt & Glow
-if(window.innerWidth > 900){
-  const boxes = document.querySelectorAll('.glass-box');
-  boxes.forEach(box => {
-    const glow = document.createElement('div');
-    glow.style.position = 'absolute';
-    glow.style.inset = '0';
-    glow.style.borderRadius = 'inherit';
-    glow.style.opacity = '0';
-    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
-    glow.style.pointerEvents = 'none';
-    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
-    box.appendChild(glow);
-
-    box.addEventListener('mousemove', e => {
-      const rect = box.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const rx = ((y / rect.height) - 0.5) * -15;
-      const ry = ((x / rect.width) - 0.5) * 15;
-      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-      glow.style.opacity = '1';
-      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
-    });
-
-    box.addEventListener('mouseleave', () => {
-      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-      glow.style.opacity = '0';
-    });
-  });
 }
 </script>
 
