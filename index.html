@@ -45,6 +45,7 @@ html, body {
   padding: 0 20px;
   z-index: 10;
 }
+
 .navbar .logo {
   display: flex;
   flex-direction: column;
@@ -52,14 +53,12 @@ html, body {
   line-height: 1;
 }
 .navbar .logo .main-text {
-  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
-  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+  font-size: clamp(1.4rem, 2.5vw, 1.9rem);
 }
 .navbar .logo .sub-text {
-  font-family: 'IBM Plex Sans', sans-serif;
   font-style: italic;
-  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
+  font-size: clamp(0.7rem, 1.5vw, 0.95rem);
   margin-top: -2px;
 }
 
@@ -67,7 +66,7 @@ html, body {
 .navbar-menu {
   list-style: none;
   display: flex;
-  gap: 20px;
+  gap: clamp(12px, 2vw, 20px);
 }
 .navbar-menu li a {
   color: white;
@@ -86,14 +85,12 @@ html, body {
   gap: 5px;
 }
 .mobile-menu-toggle span {
-  display: block;
   width: 25px;
   height: 3px;
   background: white;
   border-radius: 2px;
 }
 
-/* Mobile menu overlay */
 #mobileMenu {
   display: none;
   position: fixed;
@@ -111,12 +108,10 @@ html, body {
 #mobileMenu a {
   color: white;
   font-weight: bold;
-  font-size: 1.8rem;
+  font-size: clamp(1.4rem, 6vw, 1.8rem);
   text-decoration: none;
 }
-#mobileMenu a:hover {
-  color: #ff5ab1;
-}
+#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero Section */
 .container {
@@ -124,31 +119,28 @@ html, body {
   top: 70px;
   width: 100%;
   text-align: center;
-  padding: 20px;
+  padding: clamp(10px, 4vw, 40px);
 }
 .headline {
-  font-size: clamp(2rem, 4vw, 4rem);
+  font-size: clamp(1.8rem, 5vw, 4rem);
   font-style: italic;
   font-weight: 400;
-  color: white;
-  line-height: 1.2;
+  margin-bottom: clamp(40px, 8vw, 100px);
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
-  margin-bottom: 100px; /* extra spacing for sci-fi effect */
 }
 
 /* Glass Boxes */
 .glass-container {
-  position: relative;
   width: 100%;
   display: flex;
   justify-content: center;
-  gap: 140px;
-  padding: 20px;
+  gap: clamp(20px, 8vw, 140px);
+  padding: clamp(10px, 4vw, 40px);
   flex-wrap: wrap;
 }
 .glass-box {
   background: rgba(255,255,255,0.05);
-  width: 320px;
+  width: min(320px, 90vw);
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
@@ -161,34 +153,32 @@ html, body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .glass-box h2 {
-  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-  margin-top: 0;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
   margin-bottom: 1rem;
   font-weight: 600;
   text-decoration: underline;
   text-align: center;
 }
 .glass-box p {
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  font-size: clamp(0.95rem, 2.2vw, 1.1rem);
   line-height: 1.5;
   text-align: justify;
   flex-grow: 1;
 }
 .button-like {
-  display: block;
   width: 100%;
   padding: 0.8rem 0;
+  margin-top: 20px;
   border-radius: 50px;
   border:1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.22);
   color:white;
   backdrop-filter: blur(6px);
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
   text-align: center;
+  cursor: pointer;
+  text-decoration: none;
   transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 20px;
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 .button-like:hover {
   transform: translateY(-3px) scale(1.03);
@@ -202,7 +192,7 @@ footer {
   color: white;
   text-align: center;
   padding: 6px 20px;
-  font-size: 14px;
+  font-size: clamp(12px, 2vw, 14px);
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -211,35 +201,47 @@ footer {
   gap: 15px;
   align-items: center;
 }
-footer a {
-  color: white;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
 
-/* Responsive */
+/* Responsive Adjustments */
 @media (max-width: 1200px) {
-  .glass-container { gap: 80px; }
+  .glass-container { gap: clamp(40px, 6vw, 80px); }
 }
-@media (max-width: 900px) {
-  .glass-container { flex-direction: column; gap: 30px; }
-  .glass-box { width: 80vw; }
-  .headline { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 50px; }
 
-  /* Mobile Navbar */
+@media (max-width: 900px) {
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
 
-  /* Mobile menu overlay */
-  #mobileMenu { display: none; }
+  .glass-container {
+    flex-direction: column;
+    justify-content: center !important;
+    align-items: center;
+    gap: clamp(20px, 6vw, 40px);
+  }
 
-  /* Footer small */
-  footer { font-size: 12px; padding: 4px 10px; gap: 5px; flex-direction: column; }
+  footer {
+    flex-direction: column;
+    gap: 5px;
+    padding: 4px 10px;
+    height: 40px; /* smaller than header */
+  }
+}
+
+@media (max-width: 500px) {
+  .headline {
+    font-size: clamp(1.4rem, 8vw, 2.3rem);
+  }
+  .glass-box {
+    width: 92vw;
+    padding: 1.4rem;
+  }
+  footer {
+    height: auto;
+    padding: 6px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <!-- Video Background -->
