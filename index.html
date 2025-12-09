@@ -72,9 +72,7 @@ html, body {
   text-decoration: underline;
   font-weight: 500;
 }
-.navbar-menu li a:hover {
-  color: #ff5ab1;
-}
+.navbar-menu li a:hover { color: #ff5ab1; }
 
 /* Mobile Menu */
 .mobile-menu-toggle {
@@ -125,7 +123,7 @@ html, body {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
   font-weight: 400;
-  margin-bottom: 100px;
+  margin-bottom: 60px; /* reduced from 100px for desktop */
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
@@ -138,11 +136,11 @@ html, body {
   gap: 140px;
   padding: 20px;
   flex-wrap: wrap;
-  margin-top: 30px; /* spacing from headline */
+  margin-top: 20px; /* spacing from headline */
 }
 .glass-box {
   background: rgba(255,255,255,0.05);
-  width: 320px; /* original desktop size */
+  width: 320px; 
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
@@ -194,7 +192,6 @@ footer {
   background: rgba(0,0,0,0.35);
   color: white;
   text-align: center;
-  padding: 6px 20px;
   font-size: 14px;
   position: fixed;
   bottom: 0;
@@ -203,9 +200,10 @@ footer {
   justify-content: center;
   gap: 15px;
   align-items: center;
+  padding: 6px 20px;
 }
 footer a {
-  color: white; /* always white */
+  color: white;
   text-decoration: none;
 }
 footer a:hover { text-decoration: underline; }
@@ -217,30 +215,32 @@ footer a:hover { text-decoration: underline; }
 
 @media (max-width: 900px) {
 
-  /* Center glass boxes on mobile */
+  /* Glass boxes centered & slightly smaller */
   .glass-container {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    /* extra bottom padding to avoid footer overlap */
-    padding-bottom: 60px; /* slightly more than footer height */
+    gap: 20px; /* reduced spacing between boxes */
+    padding-bottom: 60px; /* prevent footer overlap */
   }
+  .glass-box { width: 300px; } /* slightly smaller than desktop */
 
-  /* Keep glass box width same as desktop */
-  .glass-box { width: 320px; }
+  /* Mobile headline spacing */
+  .headline { margin-bottom: 40px; }
 
   /* Mobile navbar */
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
 
-  /* Mobile footer: smaller height */
+  /* Footer small, items fit 45px height */
   footer {
-    font-size: 12px;
+    height: 45px;
     padding: 4px 10px;
-    height: 45px; /* smaller than header (60px) */
+    font-size: 12px;
     gap: 5px;
-    flex-direction: column;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
   }
 }
 </style>
