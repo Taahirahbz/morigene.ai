@@ -101,10 +101,7 @@ html, body {
   left: 0;
   width: 100%;
   height: calc(100vh - 60px);
-
-  /* UPDATED – lighter transparency, readable but glassy */
   background: rgba(0,0,0,0.28);
-
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -119,6 +116,11 @@ html, body {
 }
 #mobileMenu a:hover {
   color: #ff5ab1;
+}
+
+/* DARKER MENU WHEN OPEN (60% LESS TRANSPARENT) */
+#mobileMenu.open {
+  background: rgba(0,0,0,0.7);
 }
 
 /* Hero Section */
@@ -145,23 +147,15 @@ html, body {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-
-  /* UPDATED – center the two boxes */
   display: flex;
   justify-content: center;
-
   gap: 40px;
   padding: 20px;
   flex-wrap: wrap;
 }
 .glass-box {
-
-  /* width reduction unchanged */
   width: 29.25%;
-
-  /* NEW – add side margin for nice spacing */
   margin: 0 20px;
-
   background: rgba(255,255,255,0.05);
   min-height: 260px;
   padding: 2rem;
@@ -210,6 +204,13 @@ html, body {
   box-shadow: 0 0 20px rgba(255,90,177,0.6);
 }
 
+/* MAKE "COMING SOON" TEXT MORE VISIBLE ON HOVER */
+.button-like:hover em {
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 8px rgba(255,255,255,0.8);
+}
+
 /* Footer */
 footer {
   background: rgba(0,0,0,0.35);
@@ -250,7 +251,7 @@ footer a:hover {
   .glass-box {
     width: 90%;
     max-width: 320px;
-    margin: 0; /* override desktop centering margins */
+    margin: 0;
   }
 
   .headline {
@@ -342,10 +343,13 @@ document.addEventListener('mousemove', function(e){
   video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 });
 
-// Mobile Menu Toggle
+// Mobile Menu Toggle (updated for transparency change)
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
-  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+  const isOpen = menu.style.display === 'flex';
+
+  menu.style.display = isOpen ? 'none' : 'flex';
+  menu.classList.toggle('open', !isOpen);
 }
 
 // Desktop Glass Box Tilt & Glow
