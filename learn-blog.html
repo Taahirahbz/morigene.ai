@@ -10,12 +10,7 @@
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body {
-  height:100%;
-  overflow:hidden;
-  font-family:"IBM Plex Sans", sans-serif;
-  color:white;
-}
+html, body { height:100%; overflow:hidden; font-family:"IBM Plex Sans", sans-serif; color:white; }
 
 /* Background image */
 body {
@@ -62,24 +57,6 @@ body {
   transition:transform 0.3s ease;
 }
 
-/* BACK-ARROW PULSING EFFECT ON ALL GLASS BOXES */
-.glass-box::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle, rgba(255,91,177,0.55) 0%, transparent 70%);
-  opacity:0.3;
-  transform:scale(0.8);
-  border-radius:inherit;
-  pointer-events:none;
-  animation:glowPulse 2.5s infinite ease-in-out; /* continuous pulsing */
-}
-@keyframes glowPulse {
-  0%, 100% { opacity:0.3; transform:scale(0.8); }
-  50%       { opacity:0.6; transform:scale(1.1); }
-}
-
-/* Glow overlay (desktop hover tilt) */
 .glass-box .glow {
   position:absolute;
   inset:0;
@@ -104,7 +81,7 @@ body {
   flex-grow:1;
 }
 
-/* Buttons */
+/* BUTTON STYLE */
 .button-like {
   display:flex;
   justify-content:center;
@@ -126,9 +103,9 @@ body {
   width:clamp(140px, 40%, 220px);
   margin-top:auto;
   align-self:center;
-
   transition:transform 0.3s ease, color 0.3s ease;
 }
+
 .button-like::after {
   content:"";
   position:absolute;
@@ -138,10 +115,12 @@ body {
   transform:scale(0.4);
   transition:opacity 0.4s ease, transform 0.4s ease;
 }
+
 .button-like:hover::after {
   opacity:1;
   transform:scale(1.4);
 }
+
 .button-like:hover {
   transform:translateY(-3px) scale(1.03);
   color:#ff5ab1;
@@ -153,7 +132,7 @@ body {
   to {opacity:1; transform:translateY(0);}
 }
 
-/* Back Arrow */
+/* Back Arrow (same style as buttons) */
 .back-arrow {
   position:fixed;
   bottom:3%;
@@ -244,56 +223,31 @@ input[type=submit]:hover {
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* ----------------- MOBILE ONLY ----------------- */
+/* MOBILE STYLING: stacked boxes, no carousel */
 @media (max-width: 900px) {
-
   body { overflow-x:hidden; overflow-y:hidden; }
 
-  /* Stack glass boxes vertically, perfectly centered */
   .carousel {
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* centers top & bottom equally */
-    gap: 2rem;               /* space between boxes */
-    height: 100vh;           /* full viewport height */
-    padding: 0 1rem;         /* horizontal padding */
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-    overflow: visible !important;
+    gap: 2rem;                  /* spacing between boxes */
+    padding: 5vh 1rem 5vh 1rem; /* equal top/bottom padding */
+    height: auto;               /* container height fits content */
   }
 
   #tutorial-box, #blog-box {
     position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    bottom: auto !important;
-    margin: 0;
-    width: 80vw;
-    max-width: 400px;
-    height: 220px;           /* original box height */
-    transform: none !important; /* remove coverflow rotation/scale only */
+    transform: none !important; /* remove carousel transforms */
     opacity: 1 !important;
   }
 
-  /* Back arrow smaller */
-  .back-arrow {
-    padding: 0.5rem 1.3rem;
-    font-size: clamp(0.8rem, 1vw, 1rem);
+  /* Slightly smaller buttons on mobile */
+  .button-like, .back-arrow {
+    padding:0.8rem 2rem;
+    font-size:clamp(0.9rem, 1vw, 1.1rem);
+    width:clamp(120px, 50%, 180px);
   }
-
-  /* Buttons */
-  .button-like {
-    padding: 0.8rem 2rem;
-    font-size: clamp(0.9rem, 1vw, 1.1rem);
-    width: clamp(120px, 50%, 180px);
-  }
-
-  /* Hide glow overlay */
-  .glass-box .glow { display: none; }
 }
 </style>
 </head>
@@ -311,9 +265,8 @@ for(let i=0;i<30;i++){
 }
 </script>
 
-<!-- DESKTOP VERSION + MOBILE WRAPPER -->
+<!-- GLASS BOXES -->
 <div class="carousel">
-
   <div class="glass-box" id="tutorial-box">
     <div class="glow"></div>
     <h2>Tutorials</h2>
@@ -327,7 +280,6 @@ for(let i=0;i<30;i++){
     <p>Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
     <a class="button-like" onclick="openPopup()">Subscribe</a>
   </div>
-
 </div>
 
 <!-- BACK ARROW -->
@@ -400,14 +352,11 @@ function applyTilt(card){
 applyTilt(tut);
 applyTilt(blog);
 
-/* MOBILE: disable coverflow carousel only */
+/* MOBILE: disable carousel transforms */
 if(window.innerWidth < 900){
-  const car=document.querySelector(".carousel");
   const cards=document.querySelectorAll(".glass-box");
   cards.forEach(card=>{
-    card.classList.remove("left","center","right");
-    card.style.transform="none"; // remove coverflow rotation/scale only
-    card.style.opacity="1";
+    card.classList.remove("left","center","right"); // remove carousel classes
   });
 }
 </script>
