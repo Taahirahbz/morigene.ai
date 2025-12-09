@@ -223,16 +223,16 @@ input[type=submit]:hover {
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* MOBILE STYLING: stacked boxes, fixed width, no carousel */
+/* MOBILE STYLING */
 @media (max-width: 900px) {
   body { overflow-x:hidden; overflow-y:hidden; }
 
   .carousel {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 2rem;                  
-    padding: 5vh 1rem 5vh 1rem; 
+    align-items: center; /* horizontal centering */
+    gap: 1.5rem;         /* vertical spacing */
+    padding: 5vh 0 5vh 0; /* equal top/bottom padding */
     height: auto;               
   }
 
@@ -240,14 +240,22 @@ input[type=submit]:hover {
     position: relative !important;
     transform: none !important; 
     opacity: 1 !important;
-    width: 350px !important; /* keep desktop width */
+    width: 80%; /* reduced width on mobile */
+    max-width: 350px;
   }
 
   /* Slightly smaller buttons on mobile */
-  .button-like, .back-arrow {
+  .button-like {
     padding:0.8rem 2rem;
     font-size:clamp(0.9rem, 1vw, 1.1rem);
     width:clamp(120px, 50%, 180px);
+  }
+
+  /* Back arrow half size on mobile */
+  .back-arrow {
+    padding:0.5rem 1.3rem; 
+    font-size:clamp(0.7rem, 0.8vw, 0.65rem); 
+    width:auto; 
   }
 }
 </style>
@@ -257,14 +265,6 @@ input[type=submit]:hover {
 
 <!-- PARTICLES -->
 <div class="particles"></div>
-<script>
-for(let i=0;i<30;i++){
-  const p=document.createElement("span");
-  p.style.left=Math.random()*100+"vw";
-  p.style.animationDelay=Math.random()*12+"s";
-  document.querySelector(".particles").appendChild(p);
-}
-</script>
 
 <!-- GLASS BOXES -->
 <div class="carousel">
@@ -299,6 +299,15 @@ for(let i=0;i<30;i++){
 </div>
 
 <script>
+// PARTICLES
+for(let i=0;i<30;i++){
+  const p=document.createElement("span");
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDelay=Math.random()*12+"s";
+  document.querySelector(".particles").appendChild(p);
+}
+
+// POPUP
 function openPopup(){ document.getElementById("popup").style.display="flex"; }
 function closePopup(){ document.getElementById("popup").style.display="none"; }
 
@@ -322,6 +331,11 @@ function animate(){
 
     tut.style.transform=`translate(${currentX*0.5}px, ${currentY*0.5}px)`;
     blog.style.transform=`translate(${currentX*0.3}px, ${currentY*0.3}px)`;
+  } else {
+    // Mobile: subtle floating effect, staggered
+    const t = Date.now() / 1000;
+    tut.style.transform = `translateY(${Math.sin(t)*5}px)`;
+    blog.style.transform = `translateY(${Math.sin(t+1)*5}px)`;
   }
   requestAnimationFrame(animate);
 }
