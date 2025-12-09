@@ -118,29 +118,6 @@ html, body {
   color: #ff5ab1;
 }
 
-/* Smooth Dark Blue → Purple Gradient for Mobile Menu */
-@media (max-width: 900px) {
-  #mobileMenu.open {
-    background: linear-gradient(
-      to bottom,
-      rgba(0,31,54,0.7) 0%,     /* Deep dark blue */
-      rgba(15,10,45,0.7) 45%,   /* Smooth bluish purple */
-      rgba(25,5,38,0.7) 100%    /* Dark purple/blackish bottom */
-    );
-    animation: menuFadeIn 0.35s ease forwards;
-  }
-
-  @keyframes menuFadeIn {
-    from { opacity: 0; transform: scale(1.02); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  /* Move headline closer to navbar */
-  .container {
-    top: 20px;
-  }
-}
-
 /* Hero Section */
 .container {
   position: relative;
@@ -221,8 +198,6 @@ html, body {
   color: #ff5ab1;
   box-shadow: 0 0 20px rgba(255,90,177,0.6);
 }
-
-/* Make "Coming Soon" text stand out more on hover */
 .button-like:hover em {
   font-weight: 700;
   color: white;
@@ -277,10 +252,41 @@ footer a:hover {
     margin-bottom: 40px;
   }
 
+  /* Move headline closer to navbar */
+  .container {
+    top: 10px;
+  }
+
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
 
   #mobileMenu { display: none; }
+
+  /* Mobile menu gradient + animation */
+  #mobileMenu.open {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,31,54,0.7) 0%,
+      rgba(15,10,45,0.7) 45%,
+      rgba(25,5,38,0.7) 100%
+    );
+    animation: menuFadeIn 0.35s ease forwards, menuPulse 3s ease-in-out infinite alternate;
+  }
+
+  #mobileMenu a {
+    text-decoration: underline;
+  }
+
+  @keyframes menuFadeIn {
+    from { opacity: 0; transform: scale(1.02); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes menuPulse {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 0% 100%; }
+    100% { background-position: 0% 0%; }
+  }
 
   footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
 }
