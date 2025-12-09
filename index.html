@@ -112,19 +112,40 @@ html, body {
   color: white;
   font-weight: bold;
   font-size: 1.8rem;
-  text-decoration: none;
+  text-decoration: underline; /* Mobile menu all items underlined */
 }
 #mobileMenu a:hover {
   color: #ff5ab1;
 }
 
+/* Mobile menu gradient on open */
+#mobileMenu.open {
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,64,0.7) 0%, 
+    rgba(48,25,78,0.7) 100%
+  );
+  animation: menuFadeIn 0.35s ease forwards;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 /* Hero Section */
 .container {
   position: relative;
-  top: 70px;
   width: 100%;
   text-align: center;
   padding: 20px;
+  top: 70px; /* Default for desktop */
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
@@ -233,6 +254,7 @@ footer a:hover {
 @media (max-width: 1200px) {
   .glass-container { gap: 40px; }
 }
+
 @media (max-width: 900px) {
   .glass-container {
     flex-direction: column;
@@ -247,46 +269,24 @@ footer a:hover {
     margin: 0;
   }
 
-  .headline {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 40px;
+  /* Hero section flex vertical centering on mobile */
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 60px - 260px); /* full height minus navbar and first glass box */
+    padding: 0 20px;
+    top: 60px; /* align below navbar */
   }
 
-  /* Move headline closer to navbar */
-  .container {
-    top: 10px;
+  .headline {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-bottom: 20px;
   }
 
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
-
   #mobileMenu { display: none; }
-
-  /* Mobile menu gradient + animation */
-  #mobileMenu.open {
-    background: linear-gradient(
-      to bottom,
-      rgba(0,31,54,0.7) 0%,
-      rgba(15,10,45,0.7) 45%,
-      rgba(25,5,38,0.7) 100%
-    );
-    animation: menuFadeIn 0.35s ease forwards, menuPulse 3s ease-in-out infinite alternate;
-  }
-
-  #mobileMenu a {
-    text-decoration: underline;
-  }
-
-  @keyframes menuFadeIn {
-    from { opacity: 0; transform: scale(1.02); }
-    to { opacity: 1; transform: scale(1); }
-  }
-
-  @keyframes menuPulse {
-    0% { background-position: 0% 0%; }
-    50% { background-position: 0% 100%; }
-    100% { background-position: 0% 0%; }
-  }
 
   footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
 }
@@ -371,7 +371,6 @@ document.addEventListener('mousemove', function(e){
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
   const isOpen = menu.style.display === 'flex';
-
   menu.style.display = isOpen ? 'none' : 'flex';
   menu.classList.toggle('open', !isOpen);
 }
