@@ -111,9 +111,7 @@ html, body {
   font-size: 1.8rem;
   text-decoration: none;
 }
-#mobileMenu a:hover {
-  color: #ff5ab1;
-}
+#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero Section */
 .container {
@@ -127,10 +125,8 @@ html, body {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
   font-weight: 400;
-  color: white;
-  line-height: 1.2;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 100px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
 /* Glass Boxes */
@@ -138,15 +134,15 @@ html, body {
   position: relative;
   width: 100%;
   display: flex;
-  justify-content: center;       /* centered horizontally */
+  justify-content: center;
   gap: 140px;
   padding: 20px;
   flex-wrap: wrap;
-  margin-top: 30px;              /* NEW: space between headline & first box */
+  margin-top: 30px; /* spacing from headline */
 }
 .glass-box {
   background: rgba(255,255,255,0.05);
-  width: 320px;                  /* ORIGINAL SIZE RESTORED */
+  width: 320px; /* original desktop size */
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
@@ -208,34 +204,43 @@ footer {
   gap: 15px;
   align-items: center;
 }
+footer a {
+  color: white; /* always white */
+  text-decoration: none;
+}
+footer a:hover { text-decoration: underline; }
 
 /* Responsive */
 @media (max-width: 1200px) {
   .glass-container { gap: 80px; }
 }
+
 @media (max-width: 900px) {
 
+  /* Center glass boxes on mobile */
   .glass-container {
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    align-items: center; /* center horizontally */
     gap: 30px;
+    /* extra bottom padding to avoid footer overlap */
+    padding-bottom: 60px; /* slightly more than footer height */
   }
 
-  /* ORIGINAL glass box width preserved */
+  /* Keep glass box width same as desktop */
   .glass-box { width: 320px; }
 
-  /* Mobile Navbar */
+  /* Mobile navbar */
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
 
-  /* Footer small BUT SAME COLOR AND STYLE */
+  /* Mobile footer: smaller height */
   footer {
     font-size: 12px;
     padding: 4px 10px;
+    height: 45px; /* smaller than header (60px) */
     gap: 5px;
     flex-direction: column;
-    height: 38px; /* smaller than header, no style change */
   }
 }
 </style>
