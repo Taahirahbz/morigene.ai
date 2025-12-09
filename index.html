@@ -37,7 +37,7 @@ html, body {
   position: fixed;
   top: 0;
   width: 100%;
-  height: 60px;
+  height: 60px; /* Desktop and mobile header height */
   background: rgba(0,0,0,0.35);
   display: flex;
   justify-content: space-between;
@@ -52,10 +52,12 @@ html, body {
   line-height: 1;
 }
 .navbar .logo .main-text {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
 .navbar .logo .sub-text {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-style: italic;
   font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
@@ -72,9 +74,11 @@ html, body {
   text-decoration: underline;
   font-weight: 500;
 }
-.navbar-menu li a:hover { color: #ff5ab1; }
+.navbar-menu li a:hover {
+  color: #ff5ab1;
+}
 
-/* Mobile Menu Toggle */
+/* Mobile Menu */
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
@@ -82,6 +86,7 @@ html, body {
   gap: 5px;
 }
 .mobile-menu-toggle span {
+  display: block;
   width: 25px;
   height: 3px;
   background: white;
@@ -109,7 +114,9 @@ html, body {
   font-size: 1.8rem;
   text-decoration: none;
 }
-#mobileMenu a:hover { color: #ff5ab1; }
+#mobileMenu a:hover {
+  color: #ff5ab1;
+}
 
 /* Hero Section */
 .container {
@@ -123,8 +130,10 @@ html, body {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
   font-weight: 400;
-  margin-bottom: 60px;
+  color: white;
+  line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  margin-bottom: 80px; /* slightly smaller than before for desktop */
 }
 
 /* Glass Boxes */
@@ -136,11 +145,10 @@ html, body {
   gap: 140px;
   padding: 20px;
   flex-wrap: wrap;
-  margin-top: 20px;
 }
 .glass-box {
   background: rgba(255,255,255,0.05);
-  width: 320px; 
+  width: 320px;
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
@@ -154,6 +162,7 @@ html, body {
 }
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-top: 0;
   margin-bottom: 1rem;
   font-weight: 600;
   text-decoration: underline;
@@ -192,6 +201,7 @@ footer {
   background: rgba(0,0,0,0.35);
   color: white;
   text-align: center;
+  padding: 6px 20px;
   font-size: 14px;
   position: fixed;
   bottom: 0;
@@ -200,87 +210,49 @@ footer {
   justify-content: center;
   gap: 15px;
   align-items: center;
-  padding: 6px 20px;
+  height: 45px; /* Mobile footer height */
 }
 footer a {
   color: white;
   text-decoration: none;
 }
-footer a:hover { text-decoration: underline; }
+footer a:hover {
+  text-decoration: underline;
+}
 
 /* Responsive */
 @media (max-width: 1200px) {
   .glass-container { gap: 80px; }
 }
-
-/* Mobile adjustments */
 @media (max-width: 900px) {
-
-  /* Glass boxes carousel */
+  /* Stacked glass boxes for mobile */
   .glass-container {
-    flex-direction: row;
-    overflow-x: auto;
-    gap: 0;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    justify-content: flex-start;
-    position: relative;
-    scroll-behavior: smooth;
-    padding: 0 10px;
-  }
-
-  .glass-box {
-    flex: 0 0 100%;
-    scroll-snap-align: center;
-    margin-left: 0;
-  }
-
-  /* Hide scrollbar */
-  .glass-container::-webkit-scrollbar { display: none; }
-  .glass-container { -ms-overflow-style: none; scrollbar-width: none; }
-
-  /* Headline spacing */
-  .headline { margin-bottom: 20px; }
-
-  /* Footer height adjustments */
-  footer {
-    height: 45px;
-    padding: 4px 10px;
-    font-size: 12px;
-    gap: 5px;
-    flex-wrap: wrap;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 30px;
     align-items: center;
+    padding-bottom: 60px; /* space before footer */
   }
+  .glass-box { width: 90vw; }
+  .headline { font-size: clamp(1.5rem, 5vw, 3rem); margin-bottom: 40px; }
 
-  /* Swipe indicators */
-  .swipe-indicators {
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 6px;
-  }
-  .swipe-indicators span {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    transition: background 0.3s;
-  }
-  .swipe-indicators span.active {
-    background: white;
-  }
+  /* Mobile Navbar */
+  .navbar-menu { display: none; }
+  .mobile-menu-toggle { display: flex; }
+
+  /* Mobile menu overlay */
+  #mobileMenu { display: none; }
+
+  /* Footer small */
+  footer { font-size: 12px; padding: 4px 10px; gap: 5px; flex-direction: column; }
 }
 </style>
 </head>
-
 <body>
 
 <!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
 </video>
 
 <!-- Navbar -->
@@ -288,6 +260,11 @@ footer a:hover { text-decoration: underline; }
   <div class="logo">
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
+  </div>
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
@@ -297,13 +274,21 @@ footer a:hover { text-decoration: underline; }
   </ul>
 </nav>
 
+<!-- Mobile Menu Overlay -->
+<div id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#individual">Individual</a>
+  <a href="#corporate">Corporate</a>
+  <a href="learn-blog.html">More</a>
+</div>
+
 <!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
 <!-- Glass Boxes -->
-<div class="glass-container" id="glassContainer">
+<div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
@@ -315,12 +300,6 @@ footer a:hover { text-decoration: underline; }
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
-
-  <!-- Swipe indicators for mobile -->
-  <div class="swipe-indicators" id="swipeIndicators">
-    <span class="active"></span>
-    <span></span>
-  </div>
 </div>
 
 <!-- Footer -->
@@ -330,7 +309,7 @@ footer a:hover { text-decoration: underline; }
   <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
   <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20"/>
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
   </a>
 </footer>
 
@@ -343,16 +322,43 @@ document.addEventListener('mousemove', function(e){
   video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 });
 
-// Mobile swipe indicators
-const glassContainer = document.getElementById('glassContainer');
-const indicators = document.querySelectorAll('.swipe-indicators span');
+// Mobile Menu Toggle
+function toggleMobileMenu(){
+  const menu = document.getElementById('mobileMenu');
+  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+}
 
-glassContainer.addEventListener('scroll', () => {
-  const scrollLeft = glassContainer.scrollLeft;
-  const boxWidth = glassContainer.querySelector('.glass-box').offsetWidth;
-  const index = Math.round(scrollLeft / boxWidth);
-  indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
-});
+// Desktop Glass Box Tilt & Glow
+if(window.innerWidth > 900){
+  const boxes = document.querySelectorAll('.glass-box');
+  boxes.forEach(box => {
+    const glow = document.createElement('div');
+    glow.style.position = 'absolute';
+    glow.style.inset = '0';
+    glow.style.borderRadius = 'inherit';
+    glow.style.opacity = '0';
+    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+    glow.style.pointerEvents = 'none';
+    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
+    box.appendChild(glow);
+
+    box.addEventListener('mousemove', e => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -15;
+      const ry = ((x / rect.width) - 0.5) * 15;
+      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      glow.style.opacity = '1';
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity = '0';
+    });
+  });
+}
 </script>
 
 </body>
