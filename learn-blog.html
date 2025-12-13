@@ -38,7 +38,7 @@ body {
   position:relative;
   background:rgba(255,255,255,0.12);
   width:350px;
-  height:auto;
+  height:220px;
   padding:1.8rem;
   border-radius:1.5rem;
   backdrop-filter:blur(12px);
@@ -48,7 +48,6 @@ body {
   display:flex;
   flex-direction:column;
   animation:fadeIn 1.5s ease both;
-  flex-shrink:0;
 }
 
 /* Headers */
@@ -101,6 +100,13 @@ body {
   box-shadow:0 0 30px rgba(255,91,177,0.8);
 }
 
+/* Bounce effect for desktop buttons */
+@keyframes bounceButton {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Fade in for boxes */
 @keyframes fadeIn {
   from {opacity:0; transform:translateY(25px);}
   to   {opacity:1; transform:translateY(0);}
@@ -135,38 +141,51 @@ body {
   100% { transform:translateX(0); }
 }
 
-/* Desktop positioning */
+/* ========================= */
+/* DESKTOP layout — original floating positions with glow */
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
+/* Bounce animation for buttons on desktop */
+#tutorial-box .button-like,
+#blog-box .button-like {
+  animation:buttonBreath 3s ease-in-out infinite, bounceButton 2.5s ease-in-out infinite;
+}
+
 /* ========================= */
-/* MOBILE — fully responsive stacked boxes */
-/* ========================= */
+/* MOBILE — stacked responsive boxes */
 @media (max-width:900px){
 
   html, body {
-    overflow:hidden; /* no scroll */
+    overflow:hidden; /* prevent scroll */
   }
 
   .carousel {
     display:flex;
     flex-direction:column;
-    justify-content:center;  /* vertical center */
-    align-items:center;      /* horizontal center */
+    justify-content:center;   /* vertical centering */
+    align-items:center;       /* horizontal centering */
     height:100vh;
-    gap:min(5vh, 3rem);      /* spacing scales with screen height */
-    padding:min(3vh, 1rem) 0; /* small top/bottom padding */
+    gap:4vh;                  /* vertical spacing */
+    padding:0 5vw;            /* equal left/right padding */
   }
 
   #tutorial-box,
   #blog-box {
     position:relative !important;
-    width:85vw;              /* responsive width */
+    width:100%;
     max-width:350px;
     height:auto;             /* natural height */
     flex-shrink:0;
   }
 
+  /* Remove desktop button bounce on mobile */
+  #tutorial-box .button-like,
+  #blog-box .button-like {
+    animation:buttonBreath 3s ease-in-out infinite;
+  }
+
+  /* Back arrow centered in pill */
   .back-arrow {
     animation:none;
     height:64px;
