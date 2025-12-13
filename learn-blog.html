@@ -71,7 +71,6 @@ body {
   padding:1rem 2.6rem;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
-  background:rgba(255,255,255,0.22);
   color:white;
   backdrop-filter:blur(10px);
   text-decoration:none;
@@ -84,15 +83,13 @@ body {
   margin-top:auto;
   align-self:center;
 
-  animation:buttonBreath 3.5s ease-in-out infinite;
+  /* Default desktop animations */
+  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.2) 100%);
+  background-size: 200% 100%;
+  animation: glowPulse 3s infinite, buttonBounce 2.5s infinite, shimmer 2s infinite linear;
 }
 
-@keyframes buttonBreath {
-  0%   { box-shadow:0 0 10px rgba(255,91,177,0.15); }
-  50%  { box-shadow:0 0 22px rgba(255,91,177,0.45); }
-  100% { box-shadow:0 0 10px rgba(255,91,177,0.15); }
-}
-
+/* Hover effect */
 .button-like:hover {
   animation:none;
   transform:translateY(-3px) scale(1.03);
@@ -100,10 +97,20 @@ body {
   box-shadow:0 0 30px rgba(255,91,177,0.8);
 }
 
-/* Bounce effect for desktop buttons */
-@keyframes bounceButton {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+/* Pulse Glow + Bounce + Shimmer */
+@keyframes glowPulse {
+  0%,100% { box-shadow:0 0 15px rgba(255,91,177,0.2); }
+  50% { box-shadow:0 0 30px rgba(255,91,177,0.6); }
+}
+
+@keyframes buttonBounce {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 
 /* Fade in for boxes */
@@ -112,7 +119,7 @@ body {
   to   {opacity:1; transform:translateY(0);}
 }
 
-/* BACK ARROW — desktop unchanged */
+/* BACK ARROW */
 .back-arrow {
   position:fixed;
   bottom:3%;
@@ -142,22 +149,16 @@ body {
 }
 
 /* ========================= */
-/* DESKTOP layout — original floating positions with glow */
+/* DESKTOP layout */
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* Bounce animation for buttons on desktop */
-#tutorial-box .button-like,
-#blog-box .button-like {
-  animation:buttonBreath 3s ease-in-out infinite, bounceButton 2.5s ease-in-out infinite;
-}
-
 /* ========================= */
-/* MOBILE — stacked responsive boxes */
+/* MOBILE layout */
 @media (max-width:900px){
 
   html, body {
-    overflow:hidden; /* prevent scroll */
+    overflow:hidden;
   }
 
   .carousel {
@@ -177,12 +178,17 @@ body {
     max-width:350px;
     height:auto;             /* natural height */
     flex-shrink:0;
+
+    /* prevent overlap on very short screens */
+    max-height: calc((100vh - 2*4vh) / 2); /* 2 boxes, gap=4vh */
   }
 
-  /* Remove desktop button bounce on mobile */
+  /* Remove extra bounce/shimmer on mobile for simplicity */
   #tutorial-box .button-like,
   #blog-box .button-like {
-    animation:buttonBreath 3s ease-in-out infinite;
+    animation: buttonBreath 3s ease-in-out infinite;
+    background: rgba(255,255,255,0.22);
+    box-shadow:0 0 10px rgba(255,91,177,0.15);
   }
 
   /* Back arrow centered in pill */
