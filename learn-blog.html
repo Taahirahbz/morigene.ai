@@ -48,20 +48,10 @@ body {
 
   display:flex;
   flex-direction:column;
-  transform-style:preserve-3d;
   animation:fadeIn 1.5s ease both;
 }
 
-.glass-box .glow {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  border-radius:inherit;
-  opacity:0;
-  transition:opacity 0.25s ease;
-  background:radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
-}
-
+/* Headers */
 .glass-box h2 {
   font-size:clamp(1.8rem,3vw,2.5rem);
   margin-bottom:0.8rem;
@@ -74,7 +64,7 @@ body {
   flex-grow:1;
 }
 
-/* BUTTONS */
+/* BUTTONS with breathing glow */
 .button-like {
   display:flex;
   justify-content:center;
@@ -96,23 +86,14 @@ body {
   align-self:center;
 
   animation:buttonBreath 3.5s ease-in-out infinite;
-  transition:transform 0.3s ease, color 0.3s ease;
 }
 
-/* BREATHING GLOW */
 @keyframes buttonBreath {
-  0% {
-    box-shadow:0 0 10px rgba(255,91,177,0.15);
-  }
-  50% {
-    box-shadow:0 0 22px rgba(255,91,177,0.45);
-  }
-  100% {
-    box-shadow:0 0 10px rgba(255,91,177,0.15);
-  }
+  0%   { box-shadow:0 0 10px rgba(255,91,177,0.15); }
+  50%  { box-shadow:0 0 22px rgba(255,91,177,0.45); }
+  100% { box-shadow:0 0 10px rgba(255,91,177,0.15); }
 }
 
-/* Hover overrides breathing */
 .button-like:hover {
   animation:none;
   transform:translateY(-3px) scale(1.03);
@@ -120,27 +101,12 @@ body {
   box-shadow:0 0 30px rgba(255,91,177,0.8);
 }
 
-.button-like::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle, rgba(255,91,177,0.55) 0%, transparent 70%);
-  opacity:0;
-  transform:scale(0.4);
-  transition:opacity 0.4s ease, transform 0.4s ease;
-}
-
-.button-like:hover::after {
-  opacity:1;
-  transform:scale(1.4);
-}
-
 @keyframes fadeIn {
   from {opacity:0; transform:translateY(25px);}
-  to {opacity:1; transform:translateY(0);}
+  to   {opacity:1; transform:translateY(0);}
 }
 
-/* BACK ARROW (unchanged) */
+/* BACK ARROW — big, bold, animated, NOT underlined */
 .back-arrow {
   position:fixed;
   bottom:3%;
@@ -150,31 +116,37 @@ body {
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
   color:white;
+
   font-size:2.4rem;
   font-weight:800;
+  line-height:1;
+
+  text-decoration:none;   /* ← underline removed */
   animation:arrowPulse 2.2s ease-in-out infinite;
 }
+
 @keyframes arrowPulse {
   0% { transform:translateX(0); }
   50% { transform:translateX(-6px); }
   100% { transform:translateX(0); }
 }
 
-/* Positioning */
+/* Desktop positioning */
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* MOBILE */
+/* MOBILE — equal side padding, box size retained */
 @media (max-width:900px){
   .carousel {
     display:flex;
     flex-direction:column;
+    align-items:center;     /* centers boxes */
     gap:1.5rem;
-    padding:5vh 5vw;
+    padding:5vh 5vw;        /* equal left & right padding */
   }
+
   #tutorial-box, #blog-box {
     position:relative !important;
-    width:100%;
   }
 }
 </style>
@@ -186,14 +158,12 @@ body {
 
 <div class="carousel">
   <div class="glass-box" id="tutorial-box">
-    <div class="glow"></div>
     <h2>Tutorials</h2>
     <p>Learn Bioinformatics with hands-on practice.</p>
     <a class="button-like" href="courses/index.html">Discover</a>
   </div>
 
   <div class="glass-box" id="blog-box">
-    <div class="glow"></div>
     <h2>Blog</h2>
     <p>Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
     <a class="button-like" onclick="openPopup()">Subscribe</a>
@@ -203,7 +173,6 @@ body {
 <a href="index.html" class="back-arrow">⟵</a>
 
 <script>
-// particles
 for(let i=0;i<30;i++){
   const p=document.createElement("span");
   p.style.left=Math.random()*100+"vw";
