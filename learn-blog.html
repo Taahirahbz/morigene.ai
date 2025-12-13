@@ -5,14 +5,12 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<!-- Scientific Font -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
 html, body { height:100%; overflow:hidden; font-family:"IBM Plex Sans", sans-serif; color:white; }
 
-/* Background image */
 body {
   background:url("images/background.jpg") center/cover no-repeat fixed;
   position:relative;
@@ -36,7 +34,7 @@ body {
   to   { transform:translateY(-20vh); opacity:0; }
 }
 
-/* Glassmorphic Cards */
+/* Glass Boxes */
 .glass-box {
   position:relative;
   background:rgba(255,255,255,0.12);
@@ -50,11 +48,8 @@ body {
 
   display:flex;
   flex-direction:column;
-  justify-content:flex-start;
-  text-align:left;
   transform-style:preserve-3d;
   animation:fadeIn 1.5s ease both;
-  transition:transform 0.3s ease;
 }
 
 .glass-box .glow {
@@ -63,12 +58,10 @@ body {
   pointer-events:none;
   border-radius:inherit;
   opacity:0;
-  mix-blend-mode:soft-light;
   transition:opacity 0.25s ease;
   background:radial-gradient(circle at center, rgba(255,255,255,0.35), transparent 60%);
 }
 
-/* Headers */
 .glass-box h2 {
   font-size:clamp(1.8rem,3vw,2.5rem);
   margin-bottom:0.8rem;
@@ -81,7 +74,7 @@ body {
   flex-grow:1;
 }
 
-/* BUTTON STYLE */
+/* BUTTONS */
 .button-like {
   display:flex;
   justify-content:center;
@@ -92,18 +85,39 @@ body {
   background:rgba(255,255,255,0.22);
   color:white;
   backdrop-filter:blur(10px);
-  text-align:center;
   text-decoration:none;
   cursor:pointer;
   font-size:clamp(1rem, 1.2vw, 1.3rem);
-  letter-spacing:0.5px;
 
   position:relative;
   overflow:hidden;
   width:clamp(140px, 40%, 220px);
   margin-top:auto;
   align-self:center;
+
+  animation:buttonBreath 3.5s ease-in-out infinite;
   transition:transform 0.3s ease, color 0.3s ease;
+}
+
+/* BREATHING GLOW */
+@keyframes buttonBreath {
+  0% {
+    box-shadow:0 0 10px rgba(255,91,177,0.15);
+  }
+  50% {
+    box-shadow:0 0 22px rgba(255,91,177,0.45);
+  }
+  100% {
+    box-shadow:0 0 10px rgba(255,91,177,0.15);
+  }
+}
+
+/* Hover overrides breathing */
+.button-like:hover {
+  animation:none;
+  transform:translateY(-3px) scale(1.03);
+  color:#ff5ab1;
+  box-shadow:0 0 30px rgba(255,91,177,0.8);
 }
 
 .button-like::after {
@@ -121,141 +135,46 @@ body {
   transform:scale(1.4);
 }
 
-.button-like:hover {
-  transform:translateY(-3px) scale(1.03);
-  color:#ff5ab1;
-}
-
-/* Fade */
 @keyframes fadeIn {
   from {opacity:0; transform:translateY(25px);}
   to {opacity:1; transform:translateY(0);}
 }
 
-/* Back Arrow (same style as buttons) */
+/* BACK ARROW (unchanged) */
 .back-arrow {
   position:fixed;
   bottom:3%;
   right:3%;
-  z-index:10;
-
-  display:flex;
-  justify-content:center;
-  align-items:center;
   padding:1rem 2.6rem;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
   color:white;
-  backdrop-filter:blur(10px);
-  text-decoration:none;
-  cursor:pointer;
-  font-size:clamp(1rem, 1.2vw, 1.3rem);
-  letter-spacing:0.5px;
-  transition:transform 0.3s ease, color 0.3s ease;
+  font-size:2.4rem;
+  font-weight:800;
+  animation:arrowPulse 2.2s ease-in-out infinite;
 }
-.back-arrow::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle, rgba(255,91,177,0.55) 0%, transparent 70%);
-  opacity:0;
-  transform:scale(0.4);
-  transition:opacity 0.4s ease, transform 0.4s ease;
-}
-.back-arrow:hover::after {
-  opacity:1;
-  transform:scale(1.4);
-}
-.back-arrow:hover {
-  transform:translateY(-3px) scale(1.03);
-  color:#ff5ab1;
+@keyframes arrowPulse {
+  0% { transform:translateX(0); }
+  50% { transform:translateX(-6px); }
+  100% { transform:translateX(0); }
 }
 
-/* POPUP */
-.popup-overlay {
-  position:fixed; inset:0;
-  background:rgba(0,0,0,0.78);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:1000;
-}
-.popup-content {
-  background:rgba(255,255,255,0.12);
-  padding:35px;
-  border-radius:16px;
-  width:clamp(300px,80vw,420px);
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.3);
-  animation:popIn 0.4s ease;
-  text-align:center;
-  color:white;
-}
-@keyframes popIn {
-  from {opacity:0; transform:scale(0.7);}
-  to   {opacity:1; transform:scale(1);}
-}
-.popup-close {
-  position:absolute;
-  right:15px;
-  top:12px;
-  cursor:pointer;
-  font-size:26px;
-}
-
-/* INPUTS */
-input[type=email], input[type=submit] {
-  width:100%;
-  padding:12px;
-  margin:18px 0;
-  border-radius:8px;
-  border:1px solid rgba(255,255,255,0.35);
-  background:rgba(255,255,255,0.18);
-  color:white;
-}
-input[type=submit]:hover {
-  color:#ff4be0;
-  box-shadow:0 0 18px #ff4be0;
-}
-
-/* Desktop absolute positioning */
+/* Positioning */
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* MOBILE STYLING */
-@media (max-width: 900px) {
-  body { overflow-x:hidden; overflow-y:hidden; }
-
+/* MOBILE */
+@media (max-width:900px){
   .carousel {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* horizontal centering */
-    gap: 1.5rem;         /* vertical spacing */
-    padding: 5vh 0 5vh 0; /* equal top/bottom padding */
-    height: auto;               
+    display:flex;
+    flex-direction:column;
+    gap:1.5rem;
+    padding:5vh 5vw;
   }
-
   #tutorial-box, #blog-box {
-    position: relative !important;
-    transform: none !important; 
-    opacity: 1 !important;
-    width: 80%; /* reduced width on mobile */
-    max-width: 350px;
-  }
-
-  /* Slightly smaller buttons on mobile */
-  .button-like {
-    padding:0.8rem 2rem;
-    font-size:clamp(0.9rem, 1vw, 1.1rem);
-    width:clamp(120px, 50%, 180px);
-  }
-
-  /* Back arrow half size on mobile */
-  .back-arrow {
-    padding:0.5rem 1.3rem; 
-    font-size:clamp(0.7rem, 0.8vw, 0.65rem); 
-    width:auto; 
+    position:relative !important;
+    width:100%;
   }
 }
 </style>
@@ -263,10 +182,8 @@ input[type=submit]:hover {
 
 <body>
 
-<!-- PARTICLES -->
 <div class="particles"></div>
 
-<!-- GLASS BOXES -->
 <div class="carousel">
   <div class="glass-box" id="tutorial-box">
     <div class="glow"></div>
@@ -283,96 +200,15 @@ input[type=submit]:hover {
   </div>
 </div>
 
-<!-- BACK ARROW -->
 <a href="index.html" class="back-arrow">⟵</a>
 
-<!-- POPUP -->
-<div class="popup-overlay" id="popup">
-  <div class="popup-content">
-    <span class="popup-close" onclick="closePopup()">&times;</span>
-    <h2>Subscribe</h2>
-    <form>
-      <input type="email" placeholder="Enter your email" required />
-      <input type="submit" value="Subscribe" />
-    </form>
-  </div>
-</div>
-
 <script>
-// PARTICLES
+// particles
 for(let i=0;i<30;i++){
   const p=document.createElement("span");
   p.style.left=Math.random()*100+"vw";
   p.style.animationDelay=Math.random()*12+"s";
   document.querySelector(".particles").appendChild(p);
-}
-
-// POPUP
-function openPopup(){ document.getElementById("popup").style.display="flex"; }
-function closePopup(){ document.getElementById("popup").style.display="none"; }
-
-/* Desktop parallax & tilt */
-let mouseX=0, mouseY=0, currentX=0, currentY=0;
-const tut=document.getElementById("tutorial-box");
-const blog=document.getElementById("blog-box");
-
-document.addEventListener("mousemove", e=>{
-  mouseX=(e.clientX/window.innerWidth - 0.5)*20;
-  mouseY=(e.clientY/window.innerHeight - 0.5)*20;
-});
-
-function animate(){
-  if(window.innerWidth > 900){
-    currentX+=(mouseX-currentX)*0.08;
-    currentY+=(mouseY-currentY)*0.08;
-
-    document.body.style.backgroundPosition=
-      `${50+currentX}% ${50+currentY}%`;
-
-    tut.style.transform=`translate(${currentX*0.5}px, ${currentY*0.5}px)`;
-    blog.style.transform=`translate(${currentX*0.3}px, ${currentY*0.3}px)`;
-  } else {
-    // Mobile: subtle floating effect, staggered
-    const t = Date.now() / 1000;
-    tut.style.transform = `translateY(${Math.sin(t)*5}px)`;
-    blog.style.transform = `translateY(${Math.sin(t+1)*5}px)`;
-  }
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* Desktop tilt */
-function applyTilt(card){
-  const glow=card.querySelector(".glow");
-  card.addEventListener("mousemove", e=>{
-    if(window.innerWidth < 900) return;
-    const r=card.getBoundingClientRect();
-    const x=e.clientX-r.left, y=e.clientY-r.top;
-    const ry=((x/r.width)-0.5)*18;
-    const rx=((y/r.height)-0.5)*-18;
-
-    card.style.transform=
-      `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-
-    glow.style.opacity="1";
-    glow.style.background=
-      `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
-  });
-
-  card.addEventListener("mouseleave", ()=>{
-    card.style.transform="perspective(900px) rotateX(0) rotateY(0)";
-    glow.style.opacity="0";
-  });
-}
-applyTilt(tut);
-applyTilt(blog);
-
-/* MOBILE: disable carousel transforms */
-if(window.innerWidth < 900){
-  const cards=document.querySelectorAll(".glass-box");
-  cards.forEach(card=>{
-    card.classList.remove("left","center","right");
-  });
 }
 </script>
 
