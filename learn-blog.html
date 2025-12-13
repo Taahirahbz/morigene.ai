@@ -14,7 +14,6 @@ html, body { height:100%; overflow:hidden; font-family:"IBM Plex Sans", sans-ser
 body {
   background:url("images/background.jpg") center/cover no-repeat fixed;
   position:relative;
-  transition:background-position 0.1s ease;
 }
 
 /* PARTICLES */
@@ -106,7 +105,7 @@ body {
   to   {opacity:1; transform:translateY(0);}
 }
 
-/* BACK ARROW — big, bold, animated, NOT underlined */
+/* BACK ARROW — desktop unchanged */
 .back-arrow {
   position:fixed;
   bottom:3%;
@@ -121,8 +120,12 @@ body {
   font-weight:800;
   line-height:1;
 
-  text-decoration:none;   /* ← underline removed */
+  text-decoration:none;
   animation:arrowPulse 2.2s ease-in-out infinite;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 @keyframes arrowPulse {
@@ -135,18 +138,28 @@ body {
 #tutorial-box { position:absolute; top:10%; left:6%; }
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
-/* MOBILE — equal side padding, box size retained */
+/* ========================= */
+/* MOBILE — SIMPLE STACKED BOXES */
+/* ========================= */
 @media (max-width:900px){
+
   .carousel {
     display:flex;
     flex-direction:column;
-    align-items:center;     /* centers boxes */
     gap:1.5rem;
-    padding:5vh 5vw;        /* equal left & right padding */
+    padding:5vh 0;          /* vertical spacing only */
+    align-items:center;     /* center fixed-width boxes */
   }
 
-  #tutorial-box, #blog-box {
+  #tutorial-box,
+  #blog-box {
     position:relative !important;
+    width:350px;            /* ORIGINAL SIZE RESTORED */
+  }
+
+  /* Mobile arrow: centered, no slide animation */
+  .back-arrow {
+    animation:none;
   }
 }
 </style>
