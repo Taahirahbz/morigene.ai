@@ -48,6 +48,7 @@ body {
   display:flex;
   flex-direction:column;
   animation:fadeIn 1.5s ease both;
+  flex-shrink:0;
 }
 
 /* Headers */
@@ -63,7 +64,7 @@ body {
   flex-grow:1;
 }
 
-/* BUTTONS with breathing glow */
+/* BUTTONS */
 .button-like {
   display:flex;
   justify-content:center;
@@ -139,27 +140,41 @@ body {
 #blog-box { position:absolute; bottom:10%; left:10%; }
 
 /* ========================= */
-/* MOBILE — SIMPLE STACKED BOXES */
+/* MOBILE — fully responsive stacked boxes */
 /* ========================= */
 @media (max-width:900px){
+
+  html, body {
+    overflow:hidden; /* no scroll */
+  }
 
   .carousel {
     display:flex;
     flex-direction:column;
-    gap:1.5rem;
-    padding:5vh 0;          /* vertical spacing only */
-    align-items:center;     /* center fixed-width boxes */
+    justify-content:center;  /* vertical center */
+    align-items:center;      /* horizontal center */
+    height:100vh;
+    gap:4vh;                 /* spacing scales with screen height */
+    padding:2vh 0;           /* small top/bottom padding */
   }
 
   #tutorial-box,
   #blog-box {
     position:relative !important;
-    width:350px;            /* ORIGINAL SIZE RESTORED */
+    width:85vw;              /* responsive width */
+    max-width:350px;
+    height:auto;
+    max-height:40vh;          /* shrink if screen is small */
   }
 
-  /* Mobile arrow: centered, no slide animation */
   .back-arrow {
     animation:none;
+    height:64px;
+    padding:0 2.6rem;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    line-height:1;
   }
 }
 </style>
