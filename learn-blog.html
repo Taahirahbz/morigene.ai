@@ -83,13 +83,12 @@ body {
   margin-top:auto;
   align-self:center;
 
-  /* Default desktop animations */
+  /* Pulse Glow + Bounce + Shimmer */
   background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.2) 100%);
   background-size: 200% 100%;
   animation: glowPulse 3s infinite, buttonBounce 2.5s infinite, shimmer 2s infinite linear;
 }
 
-/* Hover effect */
 .button-like:hover {
   animation:none;
   transform:translateY(-3px) scale(1.03);
@@ -164,11 +163,10 @@ body {
   .carousel {
     display:flex;
     flex-direction:column;
-    justify-content:center;   /* vertical centering */
-    align-items:center;       /* horizontal centering */
+    justify-content:space-around;   /* evenly distribute vertical space */
+    align-items:center;              /* horizontal centering */
     height:100vh;
-    gap:4vh;                  /* vertical spacing */
-    padding:0 5vw;            /* equal left/right padding */
+    padding:0 5vw;                  /* equal left/right padding */
   }
 
   #tutorial-box,
@@ -176,14 +174,11 @@ body {
     position:relative !important;
     width:100%;
     max-width:350px;
-    height:auto;             /* natural height */
+    height:auto;
     flex-shrink:0;
-
-    /* prevent overlap on very short screens */
-    max-height: calc((100vh - 2*4vh) / 2); /* 2 boxes, gap=4vh */
   }
 
-  /* Remove extra bounce/shimmer on mobile for simplicity */
+  /* Simplify button animation on mobile */
   #tutorial-box .button-like,
   #blog-box .button-like {
     animation: buttonBreath 3s ease-in-out infinite;
