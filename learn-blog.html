@@ -38,7 +38,7 @@ body {
   position:relative;
   background:rgba(255,255,255,0.12);
   width:350px;
-  height:220px;
+  height:auto;
   padding:1.8rem;
   border-radius:1.5rem;
   backdrop-filter:blur(12px);
@@ -154,8 +154,8 @@ body {
     justify-content:center;  /* vertical center */
     align-items:center;      /* horizontal center */
     height:100vh;
-    gap:4vh;                 /* spacing scales with screen height */
-    padding:2vh 0;           /* small top/bottom padding */
+    gap:min(5vh, 3rem);      /* spacing scales with screen height */
+    padding:min(3vh, 1rem) 0; /* small top/bottom padding */
   }
 
   #tutorial-box,
@@ -163,8 +163,8 @@ body {
     position:relative !important;
     width:85vw;              /* responsive width */
     max-width:350px;
-    height:auto;
-    max-height:40vh;          /* shrink if screen is small */
+    height:auto;             /* natural height */
+    flex-shrink:0;
   }
 
   .back-arrow {
