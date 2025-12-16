@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,9 +7,18 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
+/* ========================= */
+/* RESET */
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; overflow:hidden; font-family:"IBM Plex Sans", sans-serif; color:white; }
+html, body {
+  height:100%;
+  overflow:hidden;
+  font-family:"IBM Plex Sans", sans-serif;
+  color:white;
+}
 
+/* ========================= */
+/* BACKGROUND */
 body {
   background:url("images/background.jpg") center/cover no-repeat fixed;
   position:relative;
@@ -30,28 +38,29 @@ body {
 }
 @keyframes floatUp {
   from { transform:translateY(120vh); opacity:0; }
-  20%  { opacity:1; }
-  to   { transform:translateY(-20vh); opacity:0; }
+  20% { opacity:1; }
+  to { transform:translateY(-20vh); opacity:0; }
 }
 
 /* ========================= */
-/* SUBTLE FLOAT (BASE) */
+/* FLOAT ANIMATION */
 @keyframes subtleFloat {
   0%,100% { transform:translateY(0); }
   50% { transform:translateY(-6px); }
 }
 
 /* ========================= */
-/* Glass Boxes */
-.glass-box {
+/* GLASS CARD COMPONENT */
+.glass-card {
   position:relative;
-  background:rgba(255,255,255,0.05);
   width:350px;
   height:220px;
   padding:1.8rem;
-  border-radius:1.5rem;
+
+  background:rgba(255,255,255,0.05);
   backdrop-filter:blur(6px);
   border:1px solid rgba(255,255,255,0.2);
+  border-radius:1.5rem;
 
   display:flex;
   flex-direction:column;
@@ -60,87 +69,120 @@ body {
     fadeIn 1.5s ease both,
     subtleFloat 6s ease-in-out infinite;
 
-  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  transition:transform 0.3s ease;
 }
 
-/* ASYMMETRIC FLOAT PHASES */
-#tutorial-box {
-  animation-delay: 0s, -2s;
-}
-#blog-box {
-  animation-delay: 0s, -4s;
-}
+/* Float phase asymmetry */
+#tutorial-box { animation-delay:0s, -2s; }
+#blog-box { animation-delay:0s, -4s; }
 
-/* Headers */
-.glass-box h2 {
+/* ========================= */
+/* CARD CONTENT */
+.glass-card__title {
   font-size:clamp(1.8rem,3vw,2.5rem);
   margin-bottom:0.8rem;
   font-weight:600;
 }
-.glass-box p {
+
+.glass-card__text {
   font-size:clamp(1rem,1.5vw,1.2rem);
-  margin-bottom:1rem;
   line-height:1.5;
   flex-grow:1;
 }
 
 /* ========================= */
-/* BUTTONS (unchanged) */
-.button-like {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:1rem 2.6rem;
-  border-radius:50px;
-  border:1px solid rgba(255,255,255,0.45);
-  color:white;
-  backdrop-filter:blur(10px);
-  text-decoration:none;
-  cursor:pointer;
-  font-size:clamp(1rem, 1.2vw, 1.3rem);
-
-  position:relative;
-  overflow:hidden;
-  width:clamp(140px, 40%, 220px);
+/* ACTION BUTTON */
+.glass-card__action {
   margin-top:auto;
   align-self:center;
 
-  background: linear-gradient(
+  padding:1rem 2.6rem;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.45);
+
+  color:white;
+  text-decoration:none;
+  cursor:pointer;
+
+  backdrop-filter:blur(10px);
+  background:linear-gradient(
     135deg,
-    rgba(255,255,255,0.2) 0%,
-    rgba(255,255,255,0.1) 50%,
-    rgba(255,255,255,0.2) 100%
+    rgba(255,255,255,0.2),
+    rgba(255,255,255,0.1),
+    rgba(255,255,255,0.2)
   );
-  background-size: 200% 100%;
-  animation: glowPulse 3s infinite, buttonBounce 2.5s infinite, shimmer 2s infinite linear;
+  background-size:200% 100%;
+
+  animation:glowPulse 3s infinite, shimmer 2s linear infinite;
 }
 
-.button-like:hover {
+.glass-card__action:hover {
   animation:none;
   transform:translateY(-3px) scale(1.03);
   color:#ff5ab1;
   box-shadow:0 0 30px rgba(255,91,177,0.8);
 }
 
-/* Button animations */
+/* ========================= */
+/* ANIMATIONS */
+@keyframes fadeIn {
+  from { opacity:0; transform:translateY(25px); }
+  to { opacity:1; transform:translateY(0); }
+}
 @keyframes glowPulse {
   0%,100% { box-shadow:0 0 15px rgba(255,91,177,0.2); }
   50% { box-shadow:0 0 30px rgba(255,91,177,0.6); }
 }
-@keyframes buttonBounce {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-6px); }
-}
 @keyframes shimmer {
-  0% { background-position:-200% 0; }
-  100% { background-position:200% 0; }
+  from { background-position:-200% 0; }
+  to { background-position:200% 0; }
 }
 
 /* ========================= */
-/* Fade In */
-@keyframes fadeIn {
-  from {opacity:0; transform:translateY(25px);}
-  to {opacity:1; transform:translateY(0);}
+/* DESKTOP POSITIONS */
+#tutorial-box { position:absolute; top:10%; left:6%; }
+#blog-box { position:absolute; bottom:10%; left:10%; }
+
+/* ========================= */
+/* MOBILE LAYOUT */
+@media (max-width:900px){
+
+  .carousel {
+    display:flex;
+    flex-direction:column;
+    padding:8vh 6vw 0;
+    gap:18px;
+    align-items:flex-start;
+  }
+
+  .glass-card {
+    width:83%;              /* ~5% narrower */
+    max-width:280px;
+    height:auto;
+    padding:1.4rem;         /* contributes to ~10% height reduction */
+    transform:translateX(-6px);
+  }
+
+  .glass-card__title {
+    font-size:1.5rem;
+  }
+
+  .glass-card__text {
+    font-size:0.95rem;
+  }
+
+  .glass-card__action {
+    padding:0.85rem 2.2rem;
+  }
+
+  .back-arrow {
+    animation:none;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:64px;
+    padding:0 2.6rem;
+  }
 }
 
 /* ========================= */
@@ -149,78 +191,27 @@ body {
   position:fixed;
   bottom:3%;
   right:3%;
+
   padding:1rem 2.6rem;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
-  color:white;
 
+  color:white;
   font-size:2.4rem;
   font-weight:800;
-  line-height:1;
-
   text-decoration:none;
-  animation:arrowPulse 2.2s ease-in-out infinite;
 
   display:flex;
   justify-content:center;
   align-items:center;
-}
 
+  animation:arrowPulse 2.2s ease-in-out infinite;
+}
 @keyframes arrowPulse {
   0% { transform:translateX(0); }
   50% { transform:translateX(-6px); }
   100% { transform:translateX(0); }
-}
-
-/* ========================= */
-/* DESKTOP layout */
-#tutorial-box { position:absolute; top:10%; left:6%; }
-#blog-box { position:absolute; bottom:10%; left:10%; }
-
-/* ========================= */
-/* MOBILE layout */
-@media (max-width:900px){
-
-  html, body { overflow:hidden; }
-
-  .carousel {
-    display:flex;
-    flex-direction:column;
-    padding-top:8vh;
-    padding-left:6vw;
-    padding-right:6vw;
-    gap:18px;
-    align-items:flex-start;
-  }
-
-  #tutorial-box,
-  #blog-box {
-    position:relative !important;
-    width:88%;
-    max-width:300px;
-    height:auto;
-    transform:translateX(-6px);
-  }
-
-  /* Simplify button animation */
-  #tutorial-box .button-like,
-  #blog-box .button-like {
-    animation: buttonBreath 3s ease-in-out infinite;
-    background: rgba(255,255,255,0.22);
-    box-shadow:0 0 10px rgba(255,91,177,0.15);
-  }
-
-  /* BACK ARROW – PERFECT CENTERING */
-  .back-arrow {
-    animation:none;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:64px;
-    padding:0 2.6rem;
-    line-height:1;
-  }
 }
 </style>
 </head>
@@ -230,16 +221,16 @@ body {
 <div class="particles"></div>
 
 <div class="carousel">
-  <div class="glass-box" id="tutorial-box">
-    <h2>Tutorials</h2>
-    <p>Learn Bioinformatics with hands-on practice.</p>
-    <a class="button-like" href="courses/index.html">Discover</a>
+  <div class="glass-card" id="tutorial-box">
+    <h2 class="glass-card__title">Tutorials</h2>
+    <p class="glass-card__text">Learn Bioinformatics with hands-on practice.</p>
+    <a class="glass-card__action" href="courses/index.html">Discover</a>
   </div>
 
-  <div class="glass-box" id="blog-box">
-    <h2>Blog</h2>
-    <p>Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
-    <a class="button-like" onclick="openPopup()">Subscribe</a>
+  <div class="glass-card" id="blog-box">
+    <h2 class="glass-card__title">Blog</h2>
+    <p class="glass-card__text">Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
+    <a class="glass-card__action" onclick="openPopup()">Subscribe</a>
   </div>
 </div>
 
@@ -254,42 +245,35 @@ for(let i=0;i<30;i++){
   document.querySelector(".particles").appendChild(p);
 }
 
-/* Glass Box Tilt + Glow (Desktop only) */
+/* GLASS TILT + GLOW (DESKTOP ONLY) */
 if (window.innerWidth > 900) {
-  document.querySelectorAll('.glass-box').forEach(box => {
+  document.querySelectorAll('.glass-card').forEach(card => {
     const glow = document.createElement('div');
-    glow.style.position = 'absolute';
-    glow.style.inset = '0';
-    glow.style.borderRadius = 'inherit';
-    glow.style.pointerEvents = 'none';
-    glow.style.opacity = '0';
-    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
-    glow.style.background =
-      'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+    glow.style.position='absolute';
+    glow.style.inset='0';
+    glow.style.borderRadius='inherit';
+    glow.style.pointerEvents='none';
+    glow.style.opacity='0';
+    glow.style.transition='opacity 0.25s ease, background 0.25s ease';
+    card.appendChild(glow);
 
-    box.appendChild(glow);
+    card.addEventListener('mousemove', e => {
+      const r=card.getBoundingClientRect();
+      const x=e.clientX-r.left, y=e.clientY-r.top;
+      const rx=((y/r.height)-0.5)*-15;
+      const ry=((x/r.width)-0.5)*15;
 
-    box.addEventListener('mousemove', e => {
-      const rect = box.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const rx = ((y / rect.height) - 0.5) * -15;
-      const ry = ((x / rect.width) - 0.5) * 15;
-
-      box.style.transform =
+      card.style.transform=
         `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-
-      glow.style.opacity = '1';
-      glow.style.background =
+      glow.style.opacity='1';
+      glow.style.background=
         `radial-gradient(circle at ${x}px ${y}px,
-          rgba(255,255,255,0.35), transparent 70%)`;
+        rgba(255,255,255,0.35), transparent 70%)`;
     });
 
-    box.addEventListener('mouseleave', () => {
-      box.style.transform =
-        'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-      glow.style.opacity = '0';
+    card.addEventListener('mouseleave', ()=>{
+      card.style.transform='perspective(800px) rotateX(0) rotateY(0) scale(1)';
+      glow.style.opacity='0';
     });
   });
 }
