@@ -150,8 +150,8 @@ body {
   .carousel {
     display:flex;
     flex-direction:column;
-    padding:8vh 6vw 0;
-    gap:9px;                 /* ⬅️ reduced by half */
+    padding:8vh 6vw 10vh; /* extra bottom padding for back arrow */
+    gap:4px;               /* smaller space between boxes */
     align-items:flex-start;
   }
 
@@ -161,19 +161,12 @@ body {
     height:auto;
     padding:1.4rem;
     transform:translateX(-6px);
+    animation: subtleFloatMobile 6s ease-in-out infinite; /* smaller float */
   }
 
-  .glass-card__title {
-    font-size:1.5rem;
-  }
-
-  .glass-card__text {
-    font-size:0.95rem;
-  }
-
-  .glass-card__action {
-    padding:0.85rem 2.2rem;
-  }
+  .glass-card__title { font-size:1.5rem; }
+  .glass-card__text { font-size:0.95rem; }
+  .glass-card__action { padding:0.85rem 2.2rem; }
 
   /* Back arrow perfectly centered on mobile */
   .back-arrow {
@@ -185,6 +178,12 @@ body {
     padding:0 2.6rem;
     line-height:1;
   }
+}
+
+/* subtle float for mobile: smaller offset so it won't overlap back arrow */
+@keyframes subtleFloatMobile {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-3px); }
 }
 
 /* ========================= */
@@ -274,7 +273,7 @@ if (window.innerWidth > 900) {
     });
 
     card.addEventListener('mouseleave', ()=>{
-      card.style.transform='perspective(800px) rotateX(0) rotateY(0) scale(1)';
+      card.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
       glow.style.opacity='0';
     });
   });
