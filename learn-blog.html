@@ -200,6 +200,78 @@ body {
   50% { transform:translateX(-6px); }
   100% { transform:translateX(0); }
 }
+
+/* ========================= */
+/* MAILCHIMP POPUP */
+.mailchimp-popup {
+  position:fixed;
+  inset:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.55);
+  z-index:999;
+  padding:1rem;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.35s ease;
+}
+
+.mailchimp-popup.active {
+  opacity:1;
+  pointer-events:auto;
+}
+
+.mailchimp-inline-form {
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(6px);
+  border-radius:1.5rem;
+  padding:2rem;
+  max-width:400px;
+  width:100%;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  transform:translateY(-30px);
+  transition: transform 0.35s ease;
+}
+
+.mailchimp-popup.active .mailchimp-inline-form {
+  transform:translateY(0);
+}
+
+.mailchimp-inline-form input[type=email] {
+  width:80%;
+  padding:0.8rem 1rem;
+  margin-bottom:1rem;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.4);
+  background:rgba(255,255,255,0.1);
+  color:white;
+  font-size:1rem;
+}
+
+.mailchimp-inline-form button {
+  padding:0.7rem 2rem;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,0.4);
+  background:linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1), rgba(255,255,255,0.2));
+  color:white;
+  cursor:pointer;
+  font-size:1rem;
+  margin-bottom:0.7rem;
+}
+
+.thank-you-message {
+  margin-top:0.5rem;
+  font-size:1rem;
+  line-height:1.3;
+  display:none;
+  color:#ff5ab1;
+}
+.thank-you-message.active { display:block; }
+
 </style>
 </head>
 
@@ -222,6 +294,19 @@ body {
 </div>
 
 <a href="index.html" class="back-arrow">⟵</a>
+
+<!-- MAILCHIMP POPUP -->
+<div class="mailchimp-popup" id="mailchimpPopup">
+  <div class="mailchimp-inline-form">
+    <input type="email" id="mc-email" placeholder="Enter your email" required>
+    <button onclick="submitEmail()">OK</button>
+    <div class="thank-you-message" id="thankYouMessage">
+      Thank you for subscribing!<br>
+      Get ready for monthly updates!
+    </div>
+    <button class="back-arrow" onclick="closePopup()">⟵ Back</button>
+  </div>
+</div>
 
 <script>
 /* PARTICLES */
@@ -255,11 +340,40 @@ if (window.innerWidth > 900) {
       glow.style.background=`radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
     });
 
-    card.addEventListener('mouseleave', ()=>{
+    card.addEventListener('mouseleave', ()=> {
       card.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
       glow.style.opacity='0';
     });
   });
+}
+
+/* ========================= */
+/* MAILCHIMP POPUP FUNCTIONS */
+function openPopup() {
+  const popup = document.getElementById('mailchimpPopup');
+  popup.classList.add('active');
+  document.getElementById('thankYouMessage').classList.remove('active');
+  document.getElementById('mc-email').style.display = 'block';
+  document.getElementById('mc-email').value = '';
+}
+
+function closePopup() {
+  const popup = document.getElementById('mailchimpPopup');
+  popup.classList.remove('active');
+}
+
+function submitEmail() {
+  const emailInput = document.getElementById('mc-email');
+  const thankYou = document.getElementById('thankYouMessage');
+  if(emailInput.value.trim() === "") return;
+
+  // Open Mailchimp in new tab (replace with your Mailchimp form URL)
+  const formURL = "https://gmail.us11.list-manage.com/subscribe/post?u=a3a0fc0677a746f170a59ac7c&id=6630c786f4&f_id=009bcde0f0";
+  window.open(`${formURL}&EMAIL=${encodeURIComponent(emailInput.value)}`, "_blank");
+
+  // Show thank you message
+  emailInput.style.display = 'none';
+  thankYou.classList.add('active');
 }
 </script>
 
