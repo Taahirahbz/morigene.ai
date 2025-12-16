@@ -151,15 +151,15 @@ body {
     display:flex;
     flex-direction:column;
     padding:8vh 6vw 0;
-    gap:18px;
+    gap:9px;                 /* ⬅️ reduced by half */
     align-items:flex-start;
   }
 
   .glass-card {
-    width:83%;              /* ~5% narrower */
+    width:83%;
     max-width:280px;
     height:auto;
-    padding:1.4rem;         /* contributes to ~10% height reduction */
+    padding:1.4rem;
     transform:translateX(-6px);
   }
 
@@ -175,6 +175,7 @@ body {
     padding:0.85rem 2.2rem;
   }
 
+  /* Back arrow perfectly centered on mobile */
   .back-arrow {
     animation:none;
     display:flex;
@@ -182,6 +183,7 @@ body {
     align-items:center;
     height:64px;
     padding:0 2.6rem;
+    line-height:1;
   }
 }
 
