@@ -16,6 +16,7 @@ body {
   position:relative;
 }
 
+/* ========================= */
 /* PARTICLES */
 .particles { position:fixed; inset:0; z-index:0; }
 .particles span {
@@ -33,21 +34,41 @@ body {
   to   { transform:translateY(-20vh); opacity:0; }
 }
 
+/* ========================= */
+/* SUBTLE FLOAT (BASE) */
+@keyframes subtleFloat {
+  0%,100% { transform:translateY(0); }
+  50% { transform:translateY(-6px); }
+}
+
+/* ========================= */
 /* Glass Boxes */
 .glass-box {
   position:relative;
-  background:rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.05);
   width:350px;
   height:220px;
   padding:1.8rem;
   border-radius:1.5rem;
-  backdrop-filter:blur(12px);
-  border:1px solid rgba(255,255,255,0.3);
-  box-shadow:0 0 25px rgba(0,0,0,0.35);
+  backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,0.2);
 
   display:flex;
   flex-direction:column;
-  animation:fadeIn 1.5s ease both;
+
+  animation:
+    fadeIn 1.5s ease both,
+    subtleFloat 6s ease-in-out infinite;
+
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ASYMMETRIC FLOAT PHASES */
+#tutorial-box {
+  animation-delay: 0s, -2s;
+}
+#blog-box {
+  animation-delay: 0s, -4s;
 }
 
 /* Headers */
@@ -63,7 +84,8 @@ body {
   flex-grow:1;
 }
 
-/* BUTTONS */
+/* ========================= */
+/* BUTTONS (unchanged) */
 .button-like {
   display:flex;
   justify-content:center;
@@ -83,8 +105,12 @@ body {
   margin-top:auto;
   align-self:center;
 
-  /* Pulse Glow + Bounce + Shimmer */
-  background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.2) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.2) 0%,
+    rgba(255,255,255,0.1) 50%,
+    rgba(255,255,255,0.2) 100%
+  );
   background-size: 200% 100%;
   animation: glowPulse 3s infinite, buttonBounce 2.5s infinite, shimmer 2s infinite linear;
 }
@@ -96,28 +122,28 @@ body {
   box-shadow:0 0 30px rgba(255,91,177,0.8);
 }
 
-/* Pulse Glow + Bounce + Shimmer */
+/* Button animations */
 @keyframes glowPulse {
   0%,100% { box-shadow:0 0 15px rgba(255,91,177,0.2); }
   50% { box-shadow:0 0 30px rgba(255,91,177,0.6); }
 }
-
 @keyframes buttonBounce {
   0%,100% { transform:translateY(0); }
   50% { transform:translateY(-6px); }
 }
-
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% { background-position:-200% 0; }
+  100% { background-position:200% 0; }
 }
 
-/* Fade in for boxes */
+/* ========================= */
+/* Fade In */
 @keyframes fadeIn {
   from {opacity:0; transform:translateY(25px);}
-  to   {opacity:1; transform:translateY(0);}
+  to {opacity:1; transform:translateY(0);}
 }
 
+/* ========================= */
 /* BACK ARROW */
 .back-arrow {
   position:fixed;
@@ -156,27 +182,28 @@ body {
 /* MOBILE layout */
 @media (max-width:900px){
 
-  html, body {
-    overflow:hidden;
-  }
+  html, body { overflow:hidden; }
 
   .carousel {
     display:flex;
     flex-direction:column;
-    align-items:center;          /* horizontal centering */
-    padding:0 10vw 0 5vw;       /* more padding on right side */
-    gap:20px;                     /* visible vertical space between boxes */
+    padding-top:8vh;
+    padding-left:6vw;
+    padding-right:6vw;
+    gap:18px;
+    align-items:flex-start;
   }
 
   #tutorial-box,
   #blog-box {
     position:relative !important;
-    width:90%;                   /* slightly smaller */
-    max-width:320px;             /* limit max width */
+    width:88%;
+    max-width:300px;
     height:auto;
+    transform:translateX(-6px);
   }
 
-  /* Simplify button animation on mobile */
+  /* Simplify button animation */
   #tutorial-box .button-like,
   #blog-box .button-like {
     animation: buttonBreath 3s ease-in-out infinite;
@@ -184,7 +211,7 @@ body {
     box-shadow:0 0 10px rgba(255,91,177,0.15);
   }
 
-  /* Back arrow centered vertically in pill */
+  /* BACK ARROW – PERFECT CENTERING */
   .back-arrow {
     animation:none;
     display:flex;
@@ -219,11 +246,52 @@ body {
 <a href="index.html" class="back-arrow">⟵</a>
 
 <script>
+/* PARTICLES */
 for(let i=0;i<30;i++){
   const p=document.createElement("span");
   p.style.left=Math.random()*100+"vw";
   p.style.animationDelay=Math.random()*12+"s";
   document.querySelector(".particles").appendChild(p);
+}
+
+/* Glass Box Tilt + Glow (Desktop only) */
+if (window.innerWidth > 900) {
+  document.querySelectorAll('.glass-box').forEach(box => {
+    const glow = document.createElement('div');
+    glow.style.position = 'absolute';
+    glow.style.inset = '0';
+    glow.style.borderRadius = 'inherit';
+    glow.style.pointerEvents = 'none';
+    glow.style.opacity = '0';
+    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
+    glow.style.background =
+      'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+
+    box.appendChild(glow);
+
+    box.addEventListener('mousemove', e => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const rx = ((y / rect.height) - 0.5) * -15;
+      const ry = ((x / rect.width) - 0.5) * 15;
+
+      box.style.transform =
+        `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+
+      glow.style.opacity = '1';
+      glow.style.background =
+        `radial-gradient(circle at ${x}px ${y}px,
+          rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.transform =
+        'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity = '0';
+    });
+  });
 }
 </script>
 
