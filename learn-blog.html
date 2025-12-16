@@ -10,12 +10,7 @@
 /* ========================= */
 /* RESET */
 * { margin:0; padding:0; box-sizing:border-box; }
-html, body {
-  height:100%;
-  overflow:hidden;
-  font-family:"IBM Plex Sans", sans-serif;
-  color:white;
-}
+html, body { height:100%; overflow:hidden; font-family:"IBM Plex Sans", sans-serif; color:white; }
 
 /* ========================= */
 /* BACKGROUND */
@@ -56,19 +51,13 @@ body {
   width:350px;
   height:220px;
   padding:1.8rem;
-
   background:rgba(255,255,255,0.05);
   backdrop-filter:blur(6px);
   border:1px solid rgba(255,255,255,0.2);
   border-radius:1.5rem;
-
   display:flex;
   flex-direction:column;
-
-  animation:
-    fadeIn 1.5s ease both,
-    subtleFloat 6s ease-in-out infinite;
-
+  animation: fadeIn 1.5s ease both, subtleFloat 6s ease-in-out infinite;
   transition:transform 0.3s ease;
 }
 
@@ -83,7 +72,6 @@ body {
   margin-bottom:0.8rem;
   font-weight:600;
 }
-
 .glass-card__text {
   font-size:clamp(1rem,1.5vw,1.2rem);
   line-height:1.5;
@@ -95,27 +83,17 @@ body {
 .glass-card__action {
   margin-top:auto;
   align-self:center;
-
   padding:1rem 2.6rem;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
-
   color:white;
   text-decoration:none;
   cursor:pointer;
-
   backdrop-filter:blur(10px);
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,0.2),
-    rgba(255,255,255,0.1),
-    rgba(255,255,255,0.2)
-  );
+  background:linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1), rgba(255,255,255,0.2));
   background-size:200% 100%;
-
   animation:glowPulse 3s infinite, shimmer 2s linear infinite;
 }
-
 .glass-card__action:hover {
   animation:none;
   transform:translateY(-3px) scale(1.03);
@@ -125,18 +103,9 @@ body {
 
 /* ========================= */
 /* ANIMATIONS */
-@keyframes fadeIn {
-  from { opacity:0; transform:translateY(25px); }
-  to { opacity:1; transform:translateY(0); }
-}
-@keyframes glowPulse {
-  0%,100% { box-shadow:0 0 15px rgba(255,91,177,0.2); }
-  50% { box-shadow:0 0 30px rgba(255,91,177,0.6); }
-}
-@keyframes shimmer {
-  from { background-position:-200% 0; }
-  to { background-position:200% 0; }
-}
+@keyframes fadeIn { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
+@keyframes glowPulse { 0%,100% { box-shadow:0 0 15px rgba(255,91,177,0.2); } 50% { box-shadow:0 0 30px rgba(255,91,177,0.6); } }
+@keyframes shimmer { from { background-position:-200% 0; } to { background-position:200% 0; } }
 
 /* ========================= */
 /* DESKTOP POSITIONS */
@@ -146,12 +115,11 @@ body {
 /* ========================= */
 /* MOBILE LAYOUT */
 @media (max-width:900px){
-
   .carousel {
     display:flex;
     flex-direction:column;
-    padding:8vh 6vw 10vh; /* extra bottom padding for back arrow */
-    gap:4px;               /* smaller space between boxes */
+    padding:8vh 6vw 12vh; /* top + bottom padding for back arrow */
+    gap:9px; /* space between boxes */
     align-items:flex-start;
   }
 
@@ -161,7 +129,6 @@ body {
     height:auto;
     padding:1.4rem;
     transform:translateX(-6px);
-    animation: subtleFloatMobile 6s ease-in-out infinite; /* smaller float */
   }
 
   .glass-card__title { font-size:1.5rem; }
@@ -180,10 +147,33 @@ body {
   }
 }
 
-/* subtle float for mobile: smaller offset so it won't overlap back arrow */
-@keyframes subtleFloatMobile {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-3px); }
+/* Smallest phones (e.g., Nokia G45) */
+@media (max-width:450px){
+  .carousel {
+    padding:5vh 5vw 14vh;
+    gap:8px;
+  }
+
+  .glass-card {
+    width:90%;
+    max-width:260px;
+    padding:1.2rem;
+    animation: fadeIn 1.2s ease both, subtleFloatSmall 6s ease-in-out infinite;
+  }
+
+  .glass-card__title { font-size:1.4rem; }
+  .glass-card__text { font-size:0.9rem; }
+  .glass-card__action { padding:0.75rem 2rem; }
+
+  @keyframes subtleFloatSmall {
+    0%,100% { transform:translateY(0); }
+    50% { transform:translateY(-3px); }
+  }
+
+  .back-arrow {
+    height:60px;
+    padding:0 2.4rem;
+  }
 }
 
 /* ========================= */
@@ -192,21 +182,17 @@ body {
   position:fixed;
   bottom:3%;
   right:3%;
-
   padding:1rem 2.6rem;
   border-radius:50px;
   border:1px solid rgba(255,255,255,0.45);
   background:rgba(255,255,255,0.22);
-
   color:white;
   font-size:2.4rem;
   font-weight:800;
   text-decoration:none;
-
   display:flex;
   justify-content:center;
   align-items:center;
-
   animation:arrowPulse 2.2s ease-in-out infinite;
 }
 @keyframes arrowPulse {
@@ -264,12 +250,9 @@ if (window.innerWidth > 900) {
       const rx=((y/r.height)-0.5)*-15;
       const ry=((x/r.width)-0.5)*15;
 
-      card.style.transform=
-        `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      card.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
       glow.style.opacity='1';
-      glow.style.background=
-        `radial-gradient(circle at ${x}px ${y}px,
-        rgba(255,255,255,0.35), transparent 70%)`;
+      glow.style.background=`radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
     });
 
     card.addEventListener('mouseleave', ()=>{
