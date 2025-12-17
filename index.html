@@ -242,27 +242,27 @@ footer a:hover {
 }
 
 /* Mobile Responsive */
-@media (max-width: 900px) {
+@media (max-width: 500px) {
   .glass-container {
-    flex-wrap: nowrap;          /* horizontal swipe only */
-    overflow-x: auto;           /* enable scroll */
+    flex-wrap: nowrap;
+    overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 10%;                   /* spacing between cards */
-    padding-bottom: 60px;
+    gap: 10%; /* spacing between cards */
+    padding-bottom: 20px;
   }
   .glass-box {
-    flex: 0 0 75%;              /* card width 75% of viewport */
-    height: 50vh;               /* card height 50% of viewport */
-    scroll-snap-align: center;  /* snap cards to center */
+    flex: 0 0 80%;  /* one card at a time */
+    height: 50vh;   /* card height 50% of viewport */
+    scroll-snap-align: center;
     margin: 0;
   }
 
   .container {
-    top: 20px;                  /* header closer to navbar */
+    top: 60px;   /* header below navbar */
     padding: 0 10px;
   }
   .headline {
-    font-size: clamp(1.5rem, 5vw, 3rem);
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
     margin-bottom: 10px;
   }
 
@@ -270,28 +270,9 @@ footer a:hover {
   .mobile-menu-toggle { display: flex; }
   #mobileMenu { display: none; }
 
-  /* Footer remains original */
-  footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
-
-  /* Swipe indicators */
-  .swipe-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    position: absolute;
-    bottom: 60px;  /* above footer */
-    width: 100%;
-  }
-  .swipe-indicators span {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.5);
-    transition: background 0.3s;
-  }
-  .swipe-indicators span.active {
-    background: #ff5ab1;
-  }
+  /* Hide swipe line but keep dots */
+  .swiper-pagination { display: block; }
+  .swiper-horizontal > .swiper-pagination { border: none; }
 }
 </style>
 </head>
@@ -348,12 +329,6 @@ footer a:hover {
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
-</div>
-
-<!-- Swipe Indicators -->
-<div class="swipe-indicators">
-  <span class="active"></span>
-  <span></span>
 </div>
 
 <!-- Footer -->
@@ -413,23 +388,6 @@ if(window.innerWidth > 900){
       box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
       glow.style.opacity = '0';
     });
-  });
-}
-
-// Mobile Swipe Indicators
-const container = document.querySelector('.glass-container');
-const indicators = document.querySelectorAll('.swipe-indicators span');
-
-if(container && indicators.length){
-  let isScrolling;
-  container.addEventListener('scroll', () => {
-    window.clearTimeout(isScrolling);
-    isScrolling = setTimeout(() => {
-      const scrollLeft = container.scrollLeft;
-      const containerWidth = container.offsetWidth;
-      const index = Math.round(scrollLeft / containerWidth);
-      indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
-    }, 66);
   });
 }
 </script>
