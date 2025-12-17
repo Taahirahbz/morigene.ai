@@ -129,14 +129,8 @@ html, body {
 }
 
 @keyframes menuFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* Hero Section */
@@ -145,7 +139,7 @@ html, body {
   width: 100%;
   text-align: center;
   padding: 20px;
-  top: 70px; /* Default for desktop */
+  top: 70px; /* Desktop default */
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
@@ -250,69 +244,57 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Responsive */
+/* Mobile */
 @media (max-width: 900px) {
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: 30vh; /* Header occupies 30% of screen */
-    padding: 60px 20px 10px 20px; /* Below navbar */
-    top: 0;
-  }
-
-  .headline {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 20px;
-  }
-
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
   #mobileMenu { display: none; }
 
-  /* Glass container for mobile swipe */
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* closer to navbar */
+    height: 30vh; /* header occupies top 30% */
+    padding: 0 20px;
+    margin-top: 60px; /* below navbar */
+  }
+  .headline {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  /* Glass Container for swipe */
   .glass-container {
     display: flex;
-    flex-wrap: nowrap;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     gap: 20px;
-    padding: 0 10%;
-    margin-bottom: 20px; /* leave space for footer */
+    padding: 0 12.5%; /* 12.5% left and right padding for centering 75% width card */
+    margin-bottom: 20px; /* space above footer */
   }
+  .glass-container::-webkit-scrollbar { display: none; }
 
   .glass-box {
-    flex: 0 0 75%; /* card width ~75% of viewport */
-    height: 50vh;   /* card height 50% of viewport */
+    flex: 0 0 75%; /* 75% of viewport width */
+    height: 50vh; /* 50% of viewport height */
     scroll-snap-align: center;
-    margin: 0;
-    justify-content: flex-start;
+    margin: 0; /* spacing handled by container gap */
   }
 
-  /* Hide default scrollbar */
-  .glass-container::-webkit-scrollbar { display: none; }
-  .glass-container { -ms-overflow-style: none; scrollbar-width: none; }
-
-  /* Swipe indicators (dots) */
-  .swipe-indicators {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-bottom: 10px;
+  /* Swipe indicators */
+  .swipe-dots {
+    text-align: center;
+    margin-bottom: 15px;
   }
-  .swipe-indicators span {
+  .swipe-dots span {
+    display: inline-block;
     width: 10px;
     height: 10px;
+    background: rgba(255,255,255,0.5);
     border-radius: 50%;
-    background: rgba(255,255,255,0.6);
-    display: inline-block;
-    transition: background 0.3s;
+    margin: 0 5px;
+    cursor: pointer;
   }
-  .swipe-indicators span.active {
-    background: #ff5ab1;
-  }
-
-  footer { font-size: 14px; height: 45px; padding: 0 10px; gap: 15px; }
+  .swipe-dots span.active { background: #ff5ab1; }
 }
 </style>
 </head>
@@ -356,7 +338,7 @@ footer a:hover {
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Glass Boxes with swipe -->
+<!-- Glass Boxes -->
 <div class="glass-container" id="glassContainer">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
@@ -371,13 +353,13 @@ footer a:hover {
   </div>
 </div>
 
-<!-- Swipe Indicators -->
-<div class="swipe-indicators" id="swipeIndicators">
+<!-- Swipe Dots -->
+<div class="swipe-dots">
   <span class="active"></span>
   <span></span>
 </div>
 
-<!-- Footer -->
+<!-- Footer (Original) -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -437,23 +419,12 @@ if(window.innerWidth > 900){
   });
 }
 
-// Mobile swipe indicators
+// Mobile swipe dots update
 const container = document.getElementById('glassContainer');
-const indicators = document.querySelectorAll('#swipeIndicators span');
-
-function updateIndicators() {
-  const scrollLeft = container.scrollLeft;
-  const width = container.offsetWidth;
-  const index = Math.round(scrollLeft / width);
-  indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
-}
-
-container.addEventListener('scroll', updateIndicators);
-
-// Open page on "Individual" card
-window.addEventListener('load', () => {
-  container.scrollLeft = 0;
-  updateIndicators();
+const dots = document.querySelectorAll('.swipe-dots span');
+container.addEventListener('scroll', () => {
+  const index = Math.round(container.scrollLeft / container.offsetWidth);
+  dots.forEach((dot,i) => dot.classList.toggle('active', i===index));
 });
 </script>
 
