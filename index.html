@@ -250,7 +250,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Responsive Mobile (Final) */
+/* Responsive Mobile (Final Adjusted) */
 @media (max-width: 900px) {
   html, body {
     height: 100%;
@@ -260,12 +260,12 @@ footer a:hover {
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
 
-  /* Header */
+  /* Header closer to navbar */
   .container {
     top: 60px;
-    min-height: 30vh; /* top 30% */
+    min-height: 20vh; /* reduced from 30% */
     display: flex;
-    align-items: center;
+    align-items: flex-end; /* closer to navbar */
     justify-content: center;
   }
 
@@ -284,7 +284,7 @@ footer a:hover {
     -webkit-overflow-scrolling: touch;
 
     width: 100vw;
-    padding: 0 12.5% 20vh; /* 12.5% horizontal padding, bottom 20% */
+    padding: 0 12.5% 20vh; /* 12.5% horizontal padding, 20% bottom padding */
     gap: 24px;
   }
 
@@ -292,18 +292,17 @@ footer a:hover {
     display: none;
   }
 
-  /* Cards: 75% width, 50% height, centered */
+  /* Cards: 75% width, reduced height, only one visible at a time */
   .glass-box {
     flex: 0 0 75%;
-    max-width: 320px;
-    height: 50vh;
+    height: 40vh; /* reduced height */
     scroll-snap-align: center;
   }
 
   /* Swipe indicators */
   .swipe-indicators {
     position: fixed;
-    bottom: 80px;
+    bottom: 70px;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -386,7 +385,7 @@ footer a:hover {
   <div class="swipe-dot"></div>
 </div>
 
-<!-- Footer -->
+<!-- Footer (Original) -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -446,7 +445,7 @@ if(window.innerWidth > 900){
   });
 }
 
-// Optional: Swipe indicator update
+// Swipe indicator update
 const container = document.querySelector('.glass-container');
 const dots = document.querySelectorAll('.swipe-dot');
 container.addEventListener('scroll', () => {
