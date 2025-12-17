@@ -112,7 +112,7 @@ html, body {
   color: white;
   font-weight: bold;
   font-size: 1.8rem;
-  text-decoration: underline; 
+  text-decoration: underline;
 }
 #mobileMenu a:hover {
   color: #ff5ab1;
@@ -145,7 +145,7 @@ html, body {
   width: 100%;
   text-align: center;
   padding: 20px;
-  top: 70px; 
+  top: 70px; /* Default for desktop */
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
@@ -250,76 +250,73 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Responsive Mobile (Final Adjusted) */
+/* Responsive */
 @media (max-width: 900px) {
-  html, body {
-    height: 100%;
-    overflow: hidden;
+  .glass-container {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 20px;
+    padding-bottom: 20px;
   }
 
-  .navbar-menu { display: none; }
-  .mobile-menu-toggle { display: flex; }
+  .glass-box {
+    flex: 0 0 75%;
+    height: 50vh;
+    margin: 0 12.5%;
+    scroll-snap-align: center;
+  }
 
-  /* Header closer to navbar */
   .container {
-    top: 60px;
-    min-height: 20vh; /* reduced from 30% */
     display: flex;
-    align-items: flex-end; /* closer to navbar */
-    justify-content: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 30vh;
+    top: 60px;
+    padding: 10px 0;
   }
 
   .headline {
     font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 0;
+    margin-bottom: 15px;
   }
 
-  /* Horizontal swipe container */
-  .glass-container {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
+  .navbar-menu { display: none; }
+  .mobile-menu-toggle { display: flex; }
+  #mobileMenu { display: none; }
 
-    width: 100vw;
-    padding: 0 12.5% 20vh; /* 12.5% horizontal padding, 20% bottom padding */
-    gap: 24px;
-  }
-
-  .glass-container::-webkit-scrollbar {
-    display: none;
-  }
-
-  /* Cards: 75% width, reduced height, only one visible at a time */
-  .glass-box {
-    flex: 0 0 75%;
-    height: 40vh; /* reduced height */
-    scroll-snap-align: center;
+  footer { 
+    font-size: 14px;
+    padding: 0 10px;
+    gap: 10px;
+    height: 45px;
+    bottom: 0;
   }
 
   /* Swipe indicators */
   .swipe-indicators {
     position: fixed;
-    bottom: 70px;
-    width: 100%;
+    bottom: 55px; /* above footer */
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    gap: 8px;
     z-index: 20;
   }
 
-  .swipe-dot {
-    width: 8px;
-    height: 8px;
+  .swipe-indicators span {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background: rgba(255,255,255,0.5);
     border-radius: 50%;
-    background: rgba(255,255,255,0.4);
+    transition: background 0.3s;
   }
 
-  .swipe-dot.active {
+  .swipe-indicators span.active {
     background: #ff5ab1;
-    transform: scale(1.4);
   }
 }
 </style>
@@ -381,11 +378,11 @@ footer a:hover {
 
 <!-- Swipe Indicators -->
 <div class="swipe-indicators">
-  <div class="swipe-dot active"></div>
-  <div class="swipe-dot"></div>
+  <span class="active"></span>
+  <span></span>
 </div>
 
-<!-- Footer (Original) -->
+<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -445,15 +442,18 @@ if(window.innerWidth > 900){
   });
 }
 
-// Swipe indicator update
+// Mobile swipe indicators update
 const container = document.querySelector('.glass-container');
-const dots = document.querySelectorAll('.swipe-dot');
-container.addEventListener('scroll', () => {
-  const scrollLeft = container.scrollLeft;
-  const cardWidth = container.querySelector('.glass-box').offsetWidth + 24; // card + gap
-  const index = Math.round(scrollLeft / cardWidth);
-  dots.forEach((dot,i)=>dot.classList.toggle('active', i===index));
-});
+const indicators = document.querySelectorAll('.swipe-indicators span');
+
+if(container && indicators.length){
+  container.addEventListener('scroll', () => {
+    const scrollLeft = container.scrollLeft;
+    const containerWidth = container.offsetWidth;
+    const index = Math.round(scrollLeft / containerWidth);
+    indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
+  });
+}
 </script>
 
 </body>
