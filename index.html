@@ -117,6 +117,8 @@ html, body {
 #mobileMenu a:hover {
   color: #ff5ab1;
 }
+
+/* Mobile menu gradient on open */
 #mobileMenu.open {
   background: linear-gradient(
     to bottom,
@@ -125,9 +127,16 @@ html, body {
   );
   animation: menuFadeIn 0.35s ease forwards;
 }
+
 @keyframes menuFadeIn {
-  from { opacity: 0; transform: scale(1.02); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Hero Section */
@@ -136,7 +145,7 @@ html, body {
   width: 100%;
   text-align: center;
   padding: 20px;
-  top: 70px; /* Desktop default */
+  top: 70px; /* Default for desktop */
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
@@ -241,38 +250,69 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Mobile Responsive */
-@media (max-width: 500px) {
-  .glass-container {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    gap: 10%; /* spacing between cards */
-    padding-bottom: 20px;
-  }
-  .glass-box {
-    flex: 0 0 80%;  /* one card at a time */
-    height: 50vh;   /* card height 50% of viewport */
-    scroll-snap-align: center;
-    margin: 0;
+/* Responsive */
+@media (max-width: 900px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-height: 30vh; /* Header occupies 30% of screen */
+    padding: 60px 20px 10px 20px; /* Below navbar */
+    top: 0;
   }
 
-  .container {
-    top: 60px;   /* header below navbar */
-    padding: 0 10px;
-  }
   .headline {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    margin-bottom: 10px;
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-bottom: 20px;
   }
 
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
   #mobileMenu { display: none; }
 
-  /* Hide swipe line but keep dots */
-  .swiper-pagination { display: block; }
-  .swiper-horizontal > .swiper-pagination { border: none; }
+  /* Glass container for mobile swipe */
+  .glass-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 0 10%;
+    margin-bottom: 20px; /* leave space for footer */
+  }
+
+  .glass-box {
+    flex: 0 0 75%; /* card width ~75% of viewport */
+    height: 50vh;   /* card height 50% of viewport */
+    scroll-snap-align: center;
+    margin: 0;
+    justify-content: flex-start;
+  }
+
+  /* Hide default scrollbar */
+  .glass-container::-webkit-scrollbar { display: none; }
+  .glass-container { -ms-overflow-style: none; scrollbar-width: none; }
+
+  /* Swipe indicators (dots) */
+  .swipe-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+  .swipe-indicators span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.6);
+    display: inline-block;
+    transition: background 0.3s;
+  }
+  .swipe-indicators span.active {
+    background: #ff5ab1;
+  }
+
+  footer { font-size: 14px; height: 45px; padding: 0 10px; gap: 15px; }
 }
 </style>
 </head>
@@ -316,8 +356,8 @@ footer a:hover {
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Glass Boxes -->
-<div class="glass-container">
+<!-- Glass Boxes with swipe -->
+<div class="glass-container" id="glassContainer">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
@@ -329,6 +369,12 @@ footer a:hover {
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
+</div>
+
+<!-- Swipe Indicators -->
+<div class="swipe-indicators" id="swipeIndicators">
+  <span class="active"></span>
+  <span></span>
 </div>
 
 <!-- Footer -->
@@ -390,6 +436,25 @@ if(window.innerWidth > 900){
     });
   });
 }
+
+// Mobile swipe indicators
+const container = document.getElementById('glassContainer');
+const indicators = document.querySelectorAll('#swipeIndicators span');
+
+function updateIndicators() {
+  const scrollLeft = container.scrollLeft;
+  const width = container.offsetWidth;
+  const index = Math.round(scrollLeft / width);
+  indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
+}
+
+container.addEventListener('scroll', updateIndicators);
+
+// Open page on "Individual" card
+window.addEventListener('load', () => {
+  container.scrollLeft = 0;
+  updateIndicators();
+});
 </script>
 
 </body>
