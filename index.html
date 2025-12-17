@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
-/* Reset */
+/* ================= RESET ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
   height: 100%;
@@ -18,7 +18,7 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Video background */
+/* ================= VIDEO BACKGROUND ================= */
 #bg-video {
   position: fixed;
   inset: 0;
@@ -29,7 +29,7 @@ html, body {
   filter: brightness(0.6);
 }
 
-/* Navbar */
+/* ================= NAVBAR ================= */
 .navbar {
   position: fixed;
   top: 0;
@@ -58,7 +58,6 @@ html, body {
   margin-top: -2px;
 }
 
-/* Navbar Menu */
 .navbar-menu {
   list-style: none;
   display: flex;
@@ -70,7 +69,6 @@ html, body {
 }
 .navbar-menu a:hover { color: #ff5ab1; }
 
-/* Mobile menu toggle */
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
@@ -84,7 +82,7 @@ html, body {
   border-radius: 2px;
 }
 
-/* Mobile Menu Overlay */
+/* ================= MOBILE MENU ================= */
 #mobileMenu {
   display: none;
   position: fixed;
@@ -108,20 +106,27 @@ html, body {
   text-decoration: underline;
 }
 
-/* Hero */
+/* ================= HERO ================= */
 .container {
-  padding-top: min(12vh, 120px);
+  position: relative;
+  width: 100%;
   text-align: center;
+  padding: 20px;
+  top: 70px;
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 80px;
 }
 
-/* Glass Cards */
+/* ================= GLASS BOXES (DESKTOP UNCHANGED) ================= */
 .glass-container {
+  position: relative;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -130,57 +135,59 @@ html, body {
   padding: 20px;
 }
 .glass-box {
-  flex: 1 1 320px;
-  max-width: 360px;
-  aspect-ratio: 4 / 5;
+  width: 29.25%;
+  margin: 0 20px;
   background: rgba(255,255,255,0.05);
-  border-radius: 1.5rem;
+  min-height: 260px;
   padding: 2rem;
+  border-radius: 1.5rem;
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: transform 0.3s ease;
+  align-items: center;
 }
 .glass-box h2 {
-  text-decoration: underline;
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  text-decoration: underline;
 }
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
   text-align: justify;
 }
+
 .button-like {
-  margin-top: 20px;
-  padding: 0.8rem;
+  width: 100%;
+  padding: 0.8rem 0;
   border-radius: 50px;
-  text-align: center;
-  border: 1px solid rgba(255,255,255,0.45);
+  border:1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.22);
-  color: white;
+  color:white;
   text-decoration: none;
-}
-.button-like:hover {
-  color: #ff5ab1;
+  text-align: center;
 }
 
-/* Footer */
+/* ================= FOOTER ================= */
 footer {
+  background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  font-size: 14px;
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 45px;
-  background: rgba(0,0,0,0.35);
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 15px;
-  font-size: 14px;
+  align-items: center;
+  height: 45px;
 }
-footer a { color: white; }
 
-/* ===== MOBILE ===== */
+/* =========================================================
+   ===================== MOBILE ONLY =======================
+   ========================================================= */
 @media (max-width: 900px) {
 
   html, body {
@@ -190,15 +197,27 @@ footer a { color: white; }
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
 
+  .container {
+    top: 60px;
+    padding-bottom: 10px;
+  }
+
+  .headline {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-bottom: 20px;
+  }
+
   .glass-container {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
+    overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+
     width: 100vw;
-    height: calc(100vh - 140px);
-    padding: 0 12.5vw;
-    gap: 20px;
+    padding: 0 0 25vh;
+    gap: 0;
   }
 
   .glass-container::-webkit-scrollbar {
@@ -206,19 +225,35 @@ footer a { color: white; }
   }
 
   .glass-box {
-    flex: 0 0 75vw;
-    height: 100%;
-    max-height: 520px;
+    flex: 0 0 100%;
+    height: 75vh;
+    max-height: 75vh;
     scroll-snap-align: center;
+    margin: 0 auto;
   }
 
-  .headline {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 30px;
+  /* Swipe indicators */
+  .swipe-indicators {
+    position: fixed;
+    bottom: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    z-index: 20;
   }
 
-  footer {
-    font-size: 12px;
+  .swipe-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transition: transform 0.3s ease, background 0.3s ease;
+  }
+
+  .swipe-dot.active {
+    background: #ff5ab1;
+    transform: scale(1.4);
   }
 }
 </style>
@@ -226,12 +261,12 @@ footer a { color: white; }
 
 <body>
 
-<!-- Video Background -->
+<!-- VIDEO -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
-<!-- Navbar -->
+<!-- NAVBAR -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
@@ -248,7 +283,7 @@ footer a { color: white; }
   </ul>
 </nav>
 
-<!-- Mobile Menu -->
+<!-- MOBILE MENU -->
 <div id="mobileMenu">
   <a href="#about">About</a>
   <a href="#individual">Individual</a>
@@ -256,32 +291,35 @@ footer a { color: white; }
   <a href="learn-blog.html">More</a>
 </div>
 
-<!-- Hero -->
+<!-- HERO -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Cards -->
-<div class="glass-container">
-  <div class="glass-box" id="individual">
+<!-- GLASS BOXES -->
+<div class="glass-container" id="cards">
+  <div class="glass-box">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 
-  <div class="glass-box" id="corporate">
+  <div class="glass-box">
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 </div>
 
-<!-- Footer -->
+<!-- SWIPE INDICATORS -->
+<div class="swipe-indicators">
+  <span class="swipe-dot active"></span>
+  <span class="swipe-dot"></span>
+</div>
+
+<!-- FOOTER -->
 <footer>
   <span>© 2025 Morigene.ai</span>
-  <a href="privacy-policy.html">Privacy</a>
-  <a href="terms&conditions.html">Terms</a>
-  <a href="contact-form.html">Contact</a>
 </footer>
 
 <script>
@@ -289,6 +327,15 @@ function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
   menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
 }
+
+/* Swipe indicator logic */
+const container = document.getElementById('cards');
+const dots = document.querySelectorAll('.swipe-dot');
+
+container.addEventListener('scroll', () => {
+  const index = Math.round(container.scrollLeft / container.offsetWidth);
+  dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
+});
 </script>
 
 </body>
