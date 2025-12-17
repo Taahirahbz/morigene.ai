@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Morigene Landing Page</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
@@ -21,7 +20,8 @@ html, body {
 /* ================= VIDEO BACKGROUND ================= */
 #bg-video {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
@@ -42,17 +42,17 @@ html, body {
   padding: 0 20px;
   z-index: 10;
 }
-.logo {
+.navbar .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1;
 }
-.main-text {
+.navbar .logo .main-text {
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
-.sub-text {
+.navbar .logo .sub-text {
   font-style: italic;
   font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
@@ -63,17 +63,19 @@ html, body {
   display: flex;
   gap: 20px;
 }
-.navbar-menu a {
+.navbar-menu li a {
   color: white;
   text-decoration: underline;
 }
-.navbar-menu a:hover { color: #ff5ab1; }
+.navbar-menu li a:hover {
+  color: #ff5ab1;
+}
 
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
   cursor: pointer;
+  gap: 5px;
 }
 .mobile-menu-toggle span {
   width: 25px;
@@ -87,13 +89,10 @@ html, body {
   display: none;
   position: fixed;
   top: 60px;
+  left: 0;
   width: 100%;
   height: calc(100vh - 60px);
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,64,0.7),
-    rgba(48,25,78,0.7)
-  );
+  background: rgba(0,0,0,0.28);
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -101,9 +100,17 @@ html, body {
   z-index: 15;
 }
 #mobileMenu a {
-  font-size: 1.8rem;
   color: white;
+  font-weight: bold;
+  font-size: 1.8rem;
   text-decoration: underline;
+}
+#mobileMenu.open {
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,64,0.7),
+    rgba(48,25,78,0.7)
+  );
 }
 
 /* ================= HERO ================= */
@@ -117,13 +124,10 @@ html, body {
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  font-weight: 400;
-  line-height: 1.2;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 80px;
 }
 
-/* ================= GLASS BOXES (DESKTOP UNCHANGED) ================= */
+/* ================= GLASS BOXES (ORIGINAL DESKTOP) ================= */
 .glass-container {
   position: relative;
   width: 100%;
@@ -157,7 +161,6 @@ html, body {
   line-height: 1.5;
   text-align: justify;
 }
-
 .button-like {
   width: 100%;
   padding: 0.8rem 0;
@@ -169,7 +172,7 @@ html, body {
   text-align: center;
 }
 
-/* ================= FOOTER ================= */
+/* ================= FOOTER (ORIGINAL – UNTOUCHED) ================= */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
@@ -183,11 +186,18 @@ footer {
   gap: 15px;
   align-items: center;
   height: 45px;
+  padding: 0 10px;
+  flex-wrap: wrap;
+}
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
 }
 
-/* =========================================================
-   ===================== MOBILE ONLY =======================
-   ========================================================= */
+/* ================= MOBILE ONLY ================= */
 @media (max-width: 900px) {
 
   html, body {
@@ -199,7 +209,6 @@ footer {
 
   .container {
     top: 60px;
-    padding-bottom: 10px;
   }
 
   .headline {
@@ -214,10 +223,9 @@ footer {
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
-
     width: 100vw;
     padding: 0 0 25vh;
-    gap: 0;
+    gap: 24px;
   }
 
   .glass-container::-webkit-scrollbar {
@@ -225,9 +233,10 @@ footer {
   }
 
   .glass-box {
-    flex: 0 0 100%;
+    flex: 0 0 auto;
+    width: 90%;
+    max-width: 320px;
     height: 75vh;
-    max-height: 75vh;
     scroll-snap-align: center;
     margin: 0 auto;
   }
@@ -248,7 +257,6 @@ footer {
     height: 8px;
     border-radius: 50%;
     background: rgba(255,255,255,0.4);
-    transition: transform 0.3s ease, background 0.3s ease;
   }
 
   .swipe-dot.active {
@@ -261,12 +269,10 @@ footer {
 
 <body>
 
-<!-- VIDEO -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
-<!-- NAVBAR -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
@@ -283,7 +289,6 @@ footer {
   </ul>
 </nav>
 
-<!-- MOBILE MENU -->
 <div id="mobileMenu">
   <a href="#about">About</a>
   <a href="#individual">Individual</a>
@@ -291,19 +296,16 @@ footer {
   <a href="learn-blog.html">More</a>
 </div>
 
-<!-- HERO -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- GLASS BOXES -->
 <div class="glass-container" id="cards">
   <div class="glass-box">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
-
   <div class="glass-box">
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
@@ -311,15 +313,19 @@ footer {
   </div>
 </div>
 
-<!-- SWIPE INDICATORS -->
 <div class="swipe-indicators">
   <span class="swipe-dot active"></span>
   <span class="swipe-dot"></span>
 </div>
 
-<!-- FOOTER -->
 <footer>
-  <span>© 2025 Morigene.ai</span>
+  <span>© 2025 Morigene.ai — All rights reserved.</span>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms&conditions.html">Terms & Conditions</a>
+  <a href="contact-form.html">Contact</a>
+  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp">
+  </a>
 </footer>
 
 <script>
@@ -328,7 +334,6 @@ function toggleMobileMenu(){
   menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
 }
 
-/* Swipe indicator logic */
 const container = document.getElementById('cards');
 const dots = document.querySelectorAll('.swipe-dot');
 
