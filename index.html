@@ -16,20 +16,17 @@ html, body {
   font-family: 'IBM Plex Sans', sans-serif;
   color: white;
   overflow-x: hidden;
-  overflow-y: auto;
 }
 
 /* Video background */
 #bg-video {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
   z-index: -1;
   filter: brightness(0.6);
-  transition: transform 0.2s ease-out;
 }
 
 /* Navbar */
@@ -45,19 +42,17 @@ html, body {
   padding: 0 20px;
   z-index: 10;
 }
-.navbar .logo {
+.logo {
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1;
 }
-.navbar .logo .main-text {
-  font-family: 'IBM Plex Sans', sans-serif;
+.main-text {
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
-.navbar .logo .sub-text {
-  font-family: 'IBM Plex Sans', sans-serif;
+.sub-text {
   font-style: italic;
   font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
@@ -69,39 +64,38 @@ html, body {
   display: flex;
   gap: 20px;
 }
-.navbar-menu li a {
+.navbar-menu a {
   color: white;
   text-decoration: underline;
-  font-weight: 500;
 }
-.navbar-menu li a:hover {
-  color: #ff5ab1;
-}
+.navbar-menu a:hover { color: #ff5ab1; }
 
-/* Mobile Menu Toggle */
+/* Mobile menu toggle */
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
-  cursor: pointer;
   gap: 5px;
+  cursor: pointer;
 }
 .mobile-menu-toggle span {
-  display: block;
   width: 25px;
   height: 3px;
   background: white;
   border-radius: 2px;
 }
 
-/* Mobile menu overlay */
+/* Mobile Menu Overlay */
 #mobileMenu {
   display: none;
   position: fixed;
   top: 60px;
-  left: 0;
   width: 100%;
   height: calc(100vh - 60px);
-  background: rgba(0,0,0,0.28);
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,64,0.7),
+    rgba(48,25,78,0.7)
+  );
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -109,195 +103,132 @@ html, body {
   z-index: 15;
 }
 #mobileMenu a {
-  color: white;
-  font-weight: bold;
   font-size: 1.8rem;
-  text-decoration: underline; /* Mobile menu all items underlined */
-}
-#mobileMenu a:hover {
-  color: #ff5ab1;
+  color: white;
+  text-decoration: underline;
 }
 
-/* Mobile menu gradient on open */
-#mobileMenu.open {
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,64,0.7) 0%, 
-    rgba(48,25,78,0.7) 100%
-  );
-  animation: menuFadeIn 0.35s ease forwards;
-}
-
-@keyframes menuFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Hero Section */
+/* Hero */
 .container {
-  position: relative;
-  width: 100%;
+  padding-top: min(12vh, 120px);
   text-align: center;
-  padding: 20px;
-  top: 70px; /* Default for desktop */
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  font-weight: 400;
-  color: white;
-  line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 80px;
 }
 
-/* Glass Boxes */
+/* Glass Cards */
 .glass-container {
-  position: relative;
-  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   justify-content: center;
   gap: 40px;
   padding: 20px;
-  flex-wrap: wrap;
 }
 .glass-box {
-  width: 29.25%;
-  margin: 0 20px;
+  flex: 1 1 320px;
+  max-width: 360px;
+  aspect-ratio: 4 / 5;
   background: rgba(255,255,255,0.05);
-  min-height: 260px;
-  padding: 2rem;
   border-radius: 1.5rem;
+  padding: 2rem;
   backdrop-filter: blur(6px);
-  border:1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.2);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
 }
 .glass-box h2 {
-  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 600;
   text-decoration: underline;
-  text-align: center;
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
 }
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.5;
   text-align: justify;
-  flex-grow: 1;
 }
 .button-like {
-  display: block;
-  width: 100%;
-  padding: 0.8rem 0;
-  border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.22);
-  color:white;
-  backdrop-filter: blur(6px);
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   margin-top: 20px;
+  padding: 0.8rem;
+  border-radius: 50px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22);
+  color: white;
+  text-decoration: none;
 }
 .button-like:hover {
-  transform: translateY(-3px) scale(1.03);
   color: #ff5ab1;
-  box-shadow: 0 0 20px rgba(255,90,177,0.6);
-}
-.button-like:hover em {
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
 
 /* Footer */
 footer {
-  background: rgba(0,0,0,0.35);
-  color: white;
-  text-align: center;
-  font-size: 14px;
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 45px;
+  background: rgba(0,0,0,0.35);
   display: flex;
   justify-content: center;
-  gap: 15px;
   align-items: center;
-  height: 45px;
-  padding: 0 10px;
-  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 14px;
 }
-footer a {
-  color: white;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
+footer a { color: white; }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .glass-container { gap: 40px; }
-}
-
+/* ===== MOBILE ===== */
 @media (max-width: 900px) {
-  .glass-container {
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    padding-bottom: 60px;
-  }
 
-  .glass-box {
-    width: 90%;
-    max-width: 320px;
-    margin: 0;
-  }
-
-  /* Hero section flex vertical centering on mobile, reduced space by half */
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: calc((100vh - 60px - 260px) / 2); /* Half the previous spacing */
-    padding: 0 20px;
-    top: 60px;
-  }
-
-  .headline {
-    font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 20px;
+  html, body {
+    overflow: hidden;
   }
 
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
-  #mobileMenu { display: none; }
 
-  footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
+  .glass-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    width: 100vw;
+    height: calc(100vh - 140px);
+    padding: 0 12.5vw;
+    gap: 20px;
+  }
+
+  .glass-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass-box {
+    flex: 0 0 75vw;
+    height: 100%;
+    max-height: 520px;
+    scroll-snap-align: center;
+  }
+
+  .headline {
+    font-size: clamp(1.5rem, 5vw, 3rem);
+    margin-bottom: 30px;
+  }
+
+  footer {
+    font-size: 12px;
+  }
 }
 </style>
 </head>
+
 <body>
 
 <!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
 </video>
 
 <!-- Navbar -->
@@ -307,9 +238,7 @@ footer a:hover {
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
   <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
@@ -319,7 +248,7 @@ footer a:hover {
   </ul>
 </nav>
 
-<!-- Mobile Menu Overlay -->
+<!-- Mobile Menu -->
 <div id="mobileMenu">
   <a href="#about">About</a>
   <a href="#individual">Individual</a>
@@ -332,7 +261,7 @@ footer a:hover {
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Glass Boxes -->
+<!-- Cards -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
@@ -349,62 +278,16 @@ footer a:hover {
 
 <!-- Footer -->
 <footer>
-  <span>© 2025 Morigene.ai — All rights reserved.</span>
-  <a href="privacy-policy.html">Privacy Policy</a>
-  <a href="terms&conditions.html">Terms & Conditions</a>
+  <span>© 2025 Morigene.ai</span>
+  <a href="privacy-policy.html">Privacy</a>
+  <a href="terms&conditions.html">Terms</a>
   <a href="contact-form.html">Contact</a>
-  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
-  </a>
 </footer>
 
 <script>
-// Video Parallax
-document.addEventListener('mousemove', function(e){
-  const video = document.getElementById('bg-video');
-  const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
-  const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
-  video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
-});
-
-// Mobile Menu Toggle
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
-  const isOpen = menu.style.display === 'flex';
-  menu.style.display = isOpen ? 'none' : 'flex';
-  menu.classList.toggle('open', !isOpen);
-}
-
-// Desktop Glass Box Tilt & Glow
-if(window.innerWidth > 900){
-  const boxes = document.querySelectorAll('.glass-box');
-  boxes.forEach(box => {
-    const glow = document.createElement('div');
-    glow.style.position = 'absolute';
-    glow.style.inset = '0';
-    glow.style.borderRadius = 'inherit';
-    glow.style.opacity = '0';
-    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
-    glow.style.pointerEvents = 'none';
-    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
-    box.appendChild(glow);
-
-    box.addEventListener('mousemove', e => {
-      const rect = box.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const rx = ((y / rect.height) - 0.5) * -15;
-      const ry = ((x / rect.width) - 0.5) * 15;
-      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-      glow.style.opacity = '1';
-      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
-    });
-
-    box.addEventListener('mouseleave', () => {
-      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-      glow.style.opacity = '0';
-    });
-  });
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
 }
 </script>
 
