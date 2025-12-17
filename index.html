@@ -117,8 +117,6 @@ html, body {
 #mobileMenu a:hover {
   color: #ff5ab1;
 }
-
-/* Mobile menu gradient on open */
 #mobileMenu.open {
   background: linear-gradient(
     to bottom,
@@ -127,16 +125,9 @@ html, body {
   );
   animation: menuFadeIn 0.35s ease forwards;
 }
-
 @keyframes menuFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+  from { opacity: 0; transform: scale(1.02); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 /* Hero Section */
@@ -145,7 +136,7 @@ html, body {
   width: 100%;
   text-align: center;
   padding: 20px;
-  top: 70px; /* Default for desktop */
+  top: 70px; /* Desktop default */
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
@@ -250,71 +241,54 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Responsive */
+/* Mobile Responsive */
 @media (max-width: 900px) {
   .glass-container {
-    flex-wrap: nowrap;
-    overflow-x: auto;
+    flex-wrap: nowrap;          /* horizontal swipe only */
+    overflow-x: auto;           /* enable scroll */
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    gap: 20px;
-    padding-bottom: 20px;
+    gap: 10%;                   /* spacing between cards */
+    padding-bottom: 60px;
   }
-
   .glass-box {
-    flex: 0 0 75%;
-    height: 50vh;
-    margin: 0 12.5%;
-    scroll-snap-align: center;
+    flex: 0 0 75%;              /* card width 75% of viewport */
+    height: 50vh;               /* card height 50% of viewport */
+    scroll-snap-align: center;  /* snap cards to center */
+    margin: 0;
   }
 
   .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    min-height: 30vh;
-    top: 60px;
-    padding: 10px 0;
+    top: 20px;                  /* header closer to navbar */
+    padding: 0 10px;
   }
-
   .headline {
     font-size: clamp(1.5rem, 5vw, 3rem);
-    margin-bottom: 15px;
+    margin-bottom: 10px;
   }
 
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
   #mobileMenu { display: none; }
 
-  footer { 
-    font-size: 14px;
-    padding: 0 10px;
-    gap: 10px;
-    height: 45px;
-    bottom: 0;
-  }
+  /* Footer remains original */
+  footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
 
   /* Swipe indicators */
   .swipe-indicators {
-    position: fixed;
-    bottom: 55px; /* above footer */
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 8px;
-    z-index: 20;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    bottom: 60px;  /* above footer */
+    width: 100%;
   }
-
   .swipe-indicators span {
-    display: block;
     width: 10px;
     height: 10px;
-    background: rgba(255,255,255,0.5);
     border-radius: 50%;
+    background: rgba(255,255,255,0.5);
     transition: background 0.3s;
   }
-
   .swipe-indicators span.active {
     background: #ff5ab1;
   }
@@ -442,16 +416,20 @@ if(window.innerWidth > 900){
   });
 }
 
-// Mobile swipe indicators update
+// Mobile Swipe Indicators
 const container = document.querySelector('.glass-container');
 const indicators = document.querySelectorAll('.swipe-indicators span');
 
 if(container && indicators.length){
+  let isScrolling;
   container.addEventListener('scroll', () => {
-    const scrollLeft = container.scrollLeft;
-    const containerWidth = container.offsetWidth;
-    const index = Math.round(scrollLeft / containerWidth);
-    indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    window.clearTimeout(isScrolling);
+    isScrolling = setTimeout(() => {
+      const scrollLeft = container.scrollLeft;
+      const containerWidth = container.offsetWidth;
+      const index = Math.round(scrollLeft / containerWidth);
+      indicators.forEach((dot, i) => dot.classList.toggle('active', i === index));
+    }, 66);
   });
 }
 </script>
