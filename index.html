@@ -5,31 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Morigene Landing Page</title>
 
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
-/* ================= RESET ================= */
+/* Reset */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
 html, body {
   height: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
   color: white;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* ================= VIDEO ================= */
+/* Video background */
 #bg-video {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   object-fit: cover;
   z-index: -1;
   filter: brightness(0.6);
+  transition: transform 0.2s ease-out;
 }
 
-/* ================= NAVBAR ================= */
+/* Navbar */
 .navbar {
   position: fixed;
   top: 0;
@@ -42,97 +45,130 @@ html, body {
   padding: 0 20px;
   z-index: 10;
 }
-
-.logo {
+.navbar .logo {
   display: flex;
   flex-direction: column;
   align-items: center;
   line-height: 1;
 }
-
-.logo .main-text {
+.navbar .logo .main-text {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
-
-.logo .sub-text {
+.navbar .logo .sub-text {
+  font-family: 'IBM Plex Sans', sans-serif;
   font-style: italic;
   font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
 }
 
+/* Navbar Menu */
 .navbar-menu {
   list-style: none;
   display: flex;
   gap: 20px;
 }
-
-.navbar-menu a {
+.navbar-menu li a {
   color: white;
   text-decoration: underline;
+  font-weight: 500;
+}
+.navbar-menu li a:hover {
+  color: #ff5ab1;
 }
 
-/* ================= MOBILE TOGGLE ================= */
+/* Mobile Menu Toggle */
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
   cursor: pointer;
   gap: 5px;
 }
-
 .mobile-menu-toggle span {
+  display: block;
   width: 25px;
   height: 3px;
   background: white;
   border-radius: 2px;
 }
 
-/* ================= MOBILE MENU ================= */
+/* Mobile menu overlay */
 #mobileMenu {
   display: none;
   position: fixed;
   top: 60px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px);
-  height: calc(100svh - 60px - 45px);
-  background: rgba(255,255,255,0.22);
-  backdrop-filter: blur(14px);
-  border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 1.5rem;
-  z-index: 15;
-
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(6px);
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  gap: 18px;
+  justify-content: center;
+  gap: 20px;
+  z-index: 15;
+  border-radius: 1.5rem;
+  padding: 20px;
 }
-
 #mobileMenu a {
-  width: 80%;
-  max-width: 280px;
+  color: white;
+  font-weight: bold;
+  font-size: 1.4rem;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.45);
+  border-radius: 50px;
+  background: rgba(255,255,255,0.22);
+  padding: 0.5rem 1.5rem;
   text-align: center;
+  width: 80%;
+  max-width: 300px;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+#mobileMenu a:hover {
+  transform: translateY(-2px) scale(1.03);
+  color: #ff5ab1;
+  box-shadow: 0 0 15px rgba(255,90,177,0.6);
 }
 
-/* ================= HERO ================= */
+/* Mobile menu gradient on open */
+#mobileMenu.open {
+  animation: menuFadeIn 0.35s ease forwards;
+}
+
+@keyframes menuFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Hero Section */
 .container {
   position: relative;
   width: 100%;
   text-align: center;
   padding: 20px;
-  top: 70px;
+  top: 70px; /* Default for desktop */
 }
-
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
   font-weight: 400;
-  margin-bottom: 80px;
+  color: white;
+  line-height: 1.2;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+  margin-bottom: 80px;
 }
 
-/* ================= GLASS CARDS ================= */
+/* Glass Boxes */
 .glass-container {
+  position: relative;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -141,46 +177,63 @@ html, body {
   padding: 20px;
   flex-wrap: wrap;
 }
-
 .glass-box {
-  width: 29%;
+  width: 29.25%;
+  margin: 0 20px;
   background: rgba(255,255,255,0.05);
   min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,0.2);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .glass-box h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
   text-decoration: underline;
-  margin-bottom: 0.8rem;
+  text-align: center;
 }
-
 .glass-box p {
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
   text-align: justify;
+  flex-grow: 1;
 }
-
-/* ================= PILL ================= */
 .button-like {
   display: block;
   width: 100%;
-  padding: 0.75rem 0;
+  padding: 0.8rem 0;
   border-radius: 50px;
   border:1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.22);
   color:white;
   backdrop-filter: blur(6px);
   text-decoration: none;
+  cursor: pointer;
   font-size: 1rem;
   text-align: center;
-  margin-top: 16px;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+.button-like:hover {
+  transform: translateY(-3px) scale(1.03);
+  color: #ff5ab1;
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+}
+.button-like:hover em {
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
 
-/* ================= FOOTER (UNCHANGED) ================= */
+/* Footer */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
@@ -197,65 +250,80 @@ footer {
   padding: 0 10px;
   flex-wrap: wrap;
 }
-
 footer a {
   color: white;
   text-decoration: none;
 }
+footer a:hover {
+  text-decoration: underline;
+}
 
-/* ================= MOBILE ONLY ================= */
+/* Responsive */
+@media (max-width: 1200px) {
+  .glass-container { gap: 40px; }
+}
+
 @media (max-width: 900px) {
+  .glass-container {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center; /* horizontally center */
+    padding-bottom: 60px;
+  }
 
-  html, body {
-    overflow: hidden;
-    overscroll-behavior: none;
-    touch-action: none;
+  .glass-box {
+    width: 85%;
+    max-width: 280px;
+    margin: 0 auto;
+    padding: 1.5rem;
+  }
+
+  .button-like {
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
+  }
+
+  /* Hero section flex vertical centering on mobile */
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100vh - 60px - 260px - 45px); /* header + cards + footer fully visible */
+    padding: 0 15px;
+    top: 60px;
+  }
+
+  .headline {
+    font-size: clamp(1.4rem, 5vw, 2.5rem);
+    margin-bottom: 15px;
   }
 
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
-
-  .headline {
-    margin-bottom: 14px;
-  }
-
-  .glass-container {
-    flex-direction: column;
-    gap: 10px;
-    padding: 0;
-  }
-
-  .glass-box {
-    width: 90%;
-    max-width: 300px;
-    min-height: 210px;
-    padding: 1.4rem;
-  }
-
-  .button-like {
-    padding: 0.6rem 0;
-    font-size: 0.95rem;
-  }
+  #mobileMenu { display: none; }
+  footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
 }
 </style>
 </head>
-
 <body>
 
+<!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
 </video>
 
+<!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
-
   <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-    <span></span><span></span><span></span>
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
-
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -264,68 +332,102 @@ footer a {
   </ul>
 </nav>
 
-<!-- MOBILE MENU -->
+<!-- Mobile Menu Overlay -->
 <div id="mobileMenu">
-  <a class="button-like" href="#about" onclick="toggleMobileMenu()">About</a>
-  <a class="button-like" href="#individual" onclick="toggleMobileMenu()">Individual</a>
-  <a class="button-like" href="#corporate" onclick="toggleMobileMenu()">Corporate</a>
-  <a class="button-like" href="learn-blog.html">More</a>
-  <a class="button-like" href="javascript:void(0)" onclick="toggleMobileMenu()">Back</a>
+  <a href="#" id="backBtn">Back</a>
+  <a href="#about">About</a>
+  <a href="#individual">Individual</a>
+  <a href="#corporate">Corporate</a>
+  <a href="learn-blog.html">More</a>
 </div>
 
+<!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
+<!-- Glass Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
-    <a class="button-like"><em>Coming Soon</em></a>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
-    <a class="button-like"><em>Coming Soon</em></a>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 </div>
 
+<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
   <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
   <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20"/>
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
   </a>
 </footer>
 
 <script>
+// Video Parallax
+document.addEventListener('mousemove', function(e){
+  const video = document.getElementById('bg-video');
+  const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+  const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+  video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+});
+
+// Mobile Menu Toggle
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
-  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  const isOpen = menu.style.display === 'flex';
+  menu.style.display = isOpen ? 'none' : 'flex';
+  menu.classList.toggle('open', !isOpen);
 }
 
-/* ===== Swipe to Close (Mobile Menu) ===== */
-let touchStartX = 0;
-let touchStartY = 0;
-
-const mobileMenu = document.getElementById('mobileMenu');
-
-mobileMenu.addEventListener('touchstart', e => {
-  touchStartX = e.touches[0].clientX;
-  touchStartY = e.touches[0].clientY;
+// Back button closes mobile menu
+document.getElementById('backBtn').addEventListener('click', function(e){
+  e.preventDefault();
+  const menu = document.getElementById('mobileMenu');
+  menu.style.display = 'none';
+  menu.classList.remove('open');
 });
 
-mobileMenu.addEventListener('touchend', e => {
-  const dx = e.changedTouches[0].clientX - touchStartX;
-  const dy = e.changedTouches[0].clientY - touchStartY;
+// Desktop Glass Box Tilt & Glow
+if(window.innerWidth > 900){
+  const boxes = document.querySelectorAll('.glass-box');
+  boxes.forEach(box => {
+    const glow = document.createElement('div');
+    glow.style.position = 'absolute';
+    glow.style.inset = '0';
+    glow.style.borderRadius = 'inherit';
+    glow.style.opacity = '0';
+    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+    glow.style.pointerEvents = 'none';
+    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
+    box.appendChild(glow);
 
-  if (dx > 60 || dy > 60) {
-    toggleMobileMenu();
-  }
-});
+    box.addEventListener('mousemove', e => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -15;
+      const ry = ((x / rect.width) - 0.5) * 15;
+      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      glow.style.opacity = '1';
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity = '0';
+    });
+  });
+}
 </script>
 
 </body>
