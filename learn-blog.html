@@ -1,363 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Morigene Landing Page</title>
 
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
-/* ========================= */
-/* RESET */
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; overflow:hidden; font-family:"IBM Plex Sans", sans-serif; color:white; }
+/* ================= RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* ========================= */
-/* BACKGROUND */
-body {
-  background:url("images/background.jpg") center/cover no-repeat fixed;
-  position:relative;
+html, body {
+  height: 100%;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* ========================= */
-/* PARTICLES */
-.particles { position:fixed; inset:0; z-index:0; }
-.particles span {
-  position:absolute;
-  width:5px;
-  height:5px;
-  background:rgba(255,255,255,0.5);
-  border-radius:50%;
-  filter:blur(1px);
-  animation:floatUp 15s linear infinite;
-}
-@keyframes floatUp {
-  from { transform:translateY(120vh); opacity:0; }
-  20% { opacity:1; }
-  to { transform:translateY(-20vh); opacity:0; }
+/* ================= VIDEO BACKGROUND ================= */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.6);
+  transition: transform 0.2s ease-out;
 }
 
-/* ========================= */
-/* FLOAT ANIMATION */
-@keyframes subtleFloat {
-  0%,100% { transform:translateY(0); }
-  50% { transform:translateY(-6px); }
+/* ================= NAVBAR ================= */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 10;
 }
 
-/* ========================= */
-/* GLASS CARD COMPONENT */
-.glass-card {
-  position:relative;
-  width:350px;
-  height:220px;
-  padding:1.8rem;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(6px);
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+
+.logo .main-text {
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+}
+
+.logo .sub-text {
+  font-style: italic;
+  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
+  margin-top: -2px;
+}
+
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-menu a {
+  color: white;
+  text-decoration: underline;
+}
+
+.navbar-menu a:hover {
+  color: #ff5ab1;
+}
+
+/* ================= MOBILE TOGGLE ================= */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* ================= MOBILE MENU ================= */
+#mobileMenu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  height: calc(100svh - 60px - 45px);
+  background: rgba(255,255,255,0.22);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 1.5rem;
+  z-index: 15;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ================= HERO ================= */
+.container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  top: 70px;
+}
+
+.headline {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-style: italic;
+  font-weight: 400;
+  margin-bottom: 80px;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
+}
+
+/* ================= GLASS CARDS ================= */
+.glass-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+
+.glass-box {
+  width: 29.25%;
+  margin: 0 20px;
+  background: rgba(255,255,255,0.05);
+  min-height: 260px;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(6px);
   border:1px solid rgba(255,255,255,0.2);
-  border-radius:1.5rem;
-  display:flex;
-  flex-direction:column;
-  animation: fadeIn 1.5s ease both, subtleFloat 6s ease-in-out infinite;
-  transition:transform 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Float phase asymmetry */
-#tutorial-box { animation-delay:0s, -2s; }
-#blog-box { animation-delay:0s, -4s; }
-
-/* ========================= */
-/* CARD CONTENT */
-.glass-card__title {
-  font-size:clamp(1.8rem,3vw,2.5rem);
-  margin-bottom:0.8rem;
-  font-weight:600;
-}
-.glass-card__text {
-  font-size:clamp(1rem,1.5vw,1.2rem);
-  line-height:1.5;
-  flex-grow:1;
+.glass-box h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-align: center;
 }
 
-/* ========================= */
-/* ACTION BUTTON */
-.glass-card__action {
-  margin-top:auto;
-  align-self:center;
-  padding:1rem 2.6rem;
-  border-radius:50px;
+.glass-box p {
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+  text-align: justify;
+  flex-grow: 1;
+}
+
+/* ================= BUTTON ================= */
+.button-like {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
+  border-radius: 50px;
   border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22);
   color:white;
-  text-decoration:none;
-  cursor:pointer;
-  backdrop-filter:blur(10px);
-  background:linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1), rgba(255,255,255,0.2));
-  background-size:200% 100%;
-  animation:glowPulse 3s infinite, shimmer 2s linear infinite;
-}
-.glass-card__action:hover {
-  animation:none;
-  transform:translateY(-3px) scale(1.03);
-  color:#ff5ab1;
-  box-shadow:0 0 30px rgba(255,91,177,0.8);
+  backdrop-filter: blur(6px);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
 }
 
-/* ========================= */
-/* ANIMATIONS */
-@keyframes fadeIn { from { opacity:0; transform:translateY(25px); } to { opacity:1; transform:translateY(0); } }
-@keyframes glowPulse { 0%,100% { box-shadow:0 0 15px rgba(255,91,177,0.2); } 50% { box-shadow:0 0 30px rgba(255,91,177,0.6); } }
-@keyframes shimmer { from { background-position:-200% 0; } to { background-position:200% 0; } }
+.button-like:hover {
+  transform: translateY(-3px) scale(1.03);
+  color: #ff5ab1;
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+}
 
-/* ========================= */
-/* DESKTOP POSITIONS */
-#tutorial-box { position:absolute; top:10%; left:6%; }
-#blog-box { position:absolute; bottom:10%; left:10%; }
+/* ================= FOOTER (ORIGINAL) ================= */
+footer {
+  background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+  height: 45px;
+  padding: 0 10px;
+  flex-wrap: wrap;
+}
 
-/* ========================= */
-/* MOBILE LAYOUT */
-@media (max-width:900px){
-  .carousel {
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    gap:16px; /* vertical space between cards */
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+/* ================= MOBILE ONLY ================= */
+@media (max-width: 900px) {
+
+  html, body {
+    overflow: hidden;
+    overscroll-behavior: none;
+    touch-action: none;
   }
 
-  .glass-card {
-    width:83%;
-    max-width:280px;
-    height:auto;
-    padding:1.4rem;
-    transform:translateX(0);
+  .navbar-menu { display: none; }
+  .mobile-menu-toggle { display: flex; }
+
+  .glass-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 0;
   }
 
-  .glass-card__title { font-size:1.5rem; }
-  .glass-card__text { font-size:0.95rem; }
-  .glass-card__action { padding:0.85rem 2.2rem; }
-
-  /* Back arrow perfectly centered on mobile */
-  .back-arrow {
-    animation:none;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:64px;
-    padding:0 2.6rem;
-  }
-}
-
-/* Smallest phones (e.g., Nokia G45) */
-@media (max-width:450px){
-  .carousel {
-    gap:12px;
+  .glass-box {
+    width: 88%;
+    max-width: 300px;
+    min-height: 210px;
+    padding: 1.3rem;
+    margin: 0 auto; /* horizontally centered */
   }
 
-  .glass-card {
-    width:90%;
-    max-width:260px;
-    padding:1.2rem;
-    animation: fadeIn 1.2s ease both, subtleFloatSmall 6s ease-in-out infinite;
+  .button-like {
+    padding: 0.6rem 0;
+    font-size: 0.95rem;
   }
 
-  .glass-card__title { font-size:1.4rem; }
-  .glass-card__text { font-size:0.9rem; }
-  .glass-card__action { padding:0.75rem 2rem; }
-
-  @keyframes subtleFloatSmall {
-    0%,100% { transform:translateY(0); }
-    50% { transform:translateY(-3px); }
+  .headline {
+    margin-bottom: 16px;
   }
-
-  .back-arrow {
-    height:60px;
-    padding:0 2.4rem;
-  }
-}
-
-/* ========================= */
-/* BACK ARROW */
-.back-arrow {
-  position:fixed;
-  bottom:3%;
-  right:3%;
-  padding:1rem 2.6rem;
-  border-radius:50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background:rgba(255,255,255,0.22);
-  color:white;
-  font-size:2.4rem;
-  font-weight:800;
-  text-decoration:none;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  animation:arrowPulse 2.2s ease-in-out infinite;
-}
-@keyframes arrowPulse {
-  0% { transform:translateX(0); }
-  50% { transform:translateX(-6px); }
-  100% { transform:translateX(0); }
-}
-
-/* ========================= */
-/* SUBSCRIBE POPUP */
-#subscribe-popup {
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.6);
-  display:none;
-  justify-content:center;
-  align-items:center;
-  z-index:999;
-}
-#subscribe-popup .popup-content {
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(6px);
-  padding:2rem;
-  border-radius:1.5rem;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  max-width:320px;
-  width:80%;
-}
-#subscribe-popup input[type="email"] {
-  width:100%;
-  padding:0.9rem;
-  font-size:1rem;
-  border-radius:50px;
-  border:1px solid rgba(255,255,255,0.4);
-  margin-bottom:1rem;
-  outline:none;
-  text-align:center;
-}
-#subscribe-popup button {
-  padding:0.85rem 2rem;
-  border-radius:50px;
-  border:none;
-  background:linear-gradient(135deg, rgba(255,91,177,0.6), rgba(255,91,177,0.3));
-  color:white;
-  font-weight:600;
-  cursor:pointer;
-}
-#subscribe-popup .thankyou-message {
-  display:none;
-  text-align:center;
-  color:white;
-  margin-bottom:1rem;
-  font-size:1rem;
-  line-height:1.4;
-}
-#subscribe-popup .popup-back {
-  padding:0.6rem 1.8rem;
-  border-radius:50px;
-  border:1px solid rgba(255,255,255,0.4);
-  background:rgba(255,255,255,0.2);
-  color:white;
-  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<div class="particles"></div>
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="videos/background.mp4" type="video/mp4" />
+</video>
 
-<div class="carousel">
-  <div class="glass-card" id="tutorial-box">
-    <h2 class="glass-card__title">Tutorials</h2>
-    <p class="glass-card__text">Learn Bioinformatics with hands-on practice.</p>
-    <a class="glass-card__action" href="courses/index.html">Discover</a>
+<nav class="navbar">
+  <div class="logo">
+    <span class="main-text">MORIGENE</span>
+    <span class="sub-text">by Tabe-i Ltd</span>
   </div>
 
-  <div class="glass-card" id="blog-box">
-    <h2 class="glass-card__title">Blog</h2>
-    <p class="glass-card__text">Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
-    <a class="glass-card__action" onclick="openPopup()">Subscribe</a>
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+
+  <ul class="navbar-menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#individual">Individual</a></li>
+    <li><a href="#corporate">Corporate</a></li>
+    <li><a href="learn-blog.html">More</a></li>
+  </ul>
+</nav>
+
+<div id="mobileMenu">
+  <a class="button-like" href="#about" onclick="toggleMobileMenu()">About</a>
+  <a class="button-like" href="#individual" onclick="toggleMobileMenu()">Individual</a>
+  <a class="button-like" href="#corporate" onclick="toggleMobileMenu()">Corporate</a>
+  <a class="button-like" href="learn-blog.html">More</a>
+  <a class="button-like" href="javascript:void(0)" onclick="toggleMobileMenu()">Back</a>
+</div>
+
+<div class="container" id="about">
+  <h1 class="headline">Decoding life, one genome at a time!</h1>
+</div>
+
+<div class="glass-container">
+  <div class="glass-box" id="individual">
+    <h2>Individual</h2>
+    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
+    <a class="button-like"><em>Coming Soon</em></a>
+  </div>
+
+  <div class="glass-box" id="corporate">
+    <h2>Corporate</h2>
+    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
+    <a class="button-like"><em>Coming Soon</em></a>
   </div>
 </div>
 
-<a href="index.html" class="back-arrow">⟵</a>
-
-<!-- ================= SUBSCRIBE POPUP ================= -->
-<div id="subscribe-popup">
-  <div class="popup-content">
-    <input type="email" id="subscriber-email" placeholder="Enter your email" required>
-    <button onclick="submitEmail()">OK</button>
-    <div class="thankyou-message">
-      Thank you for subscribing!<br>
-      Get ready for monthly updates!
-    </div>
-    <button class="popup-back" onclick="closePopup()" style="display:none;">Back</button>
-  </div>
-</div>
+<footer>
+  <span>© 2025 Morigene.ai — All rights reserved.</span>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms&conditions.html">Terms & Conditions</a>
+  <a href="contact-form.html">Contact</a>
+  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20"/>
+  </a>
+</footer>
 
 <script>
-/* PARTICLES */
-for(let i=0;i<30;i++){
-  const p=document.createElement("span");
-  p.style.left=Math.random()*100+"vw";
-  p.style.animationDelay=Math.random()*12+"s";
-  document.querySelector(".particles").appendChild(p);
+/* Desktop video parallax */
+document.addEventListener('mousemove', function(e){
+  if (window.innerWidth <= 900) return;
+  const video = document.getElementById('bg-video');
+  const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+  const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+  video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+});
+
+/* Mobile menu toggle */
+function toggleMobileMenu(){
+  const menu = document.getElementById('mobileMenu');
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
 }
 
-/* GLASS TILT + GLOW (DESKTOP ONLY) */
+/* Desktop glass tilt */
 if (window.innerWidth > 900) {
-  document.querySelectorAll('.glass-card').forEach(card => {
-    const glow = document.createElement('div');
-    glow.style.position='absolute';
-    glow.style.inset='0';
-    glow.style.borderRadius='inherit';
-    glow.style.pointerEvents='none';
-    glow.style.opacity='0';
-    glow.style.transition='opacity 0.25s ease, background 0.25s ease';
-    card.appendChild(glow);
-
-    card.addEventListener('mousemove', e => {
-      const r=card.getBoundingClientRect();
-      const x=e.clientX-r.left, y=e.clientY-r.top;
-      const rx=((y/r.height)-0.5)*-15;
-      const ry=((x/r.width)-0.5)*15;
-
-      card.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-      glow.style.opacity='1';
-      glow.style.background=`radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+  document.querySelectorAll('.glass-box').forEach(box => {
+    box.addEventListener('mousemove', e => {
+      const r = box.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      const rx = ((y / r.height) - 0.5) * -15;
+      const ry = ((x / r.width) - 0.5) * 15;
+      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
     });
-
-    card.addEventListener('mouseleave', ()=>{
-      card.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-      glow.style.opacity='0';
+    box.addEventListener('mouseleave', () => {
+      box.style.transform = 'none';
     });
   });
-}
-
-/* ========================= SUBSCRIBE POPUP FUNCTIONS ========================= */
-function openPopup() {
-  document.getElementById('subscribe-popup').style.display='flex';
-  document.getElementById('subscriber-email').value='';
-  document.querySelector('.thankyou-message').style.display='none';
-  document.querySelector('.popup-back').style.display='none';
-}
-
-function closePopup() {
-  document.getElementById('subscribe-popup').style.display='none';
-}
-
-function submitEmail() {
-  const email = document.getElementById('subscriber-email').value;
-  if(!email) return;
-
-  // Mailchimp AJAX POST
-  const url = "https://gmail.us11.list-manage.com/subscribe/post-json?u=a3a0fc0677a746f170a59ac7c&id=6630c786f4&c=?";
-  const script = document.createElement('script');
-  script.src = `${url}&EMAIL=${encodeURIComponent(email)}`;
-  document.body.appendChild(script);
-  script.onload = () => { document.body.removeChild(script); }
-
-  // Show thank you message
-  document.querySelector('.thankyou-message').style.display='block';
-  document.querySelector('.popup-back').style.display='inline-block';
 }
 </script>
 
