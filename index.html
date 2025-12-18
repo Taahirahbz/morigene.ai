@@ -5,44 +5,32 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Morigene Landing Page</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
-/* =======================
-   RESET & ROOT
-======================= */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* ================= RESET ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
-  width: 100%;
   height: 100%;
   font-family: 'IBM Plex Sans', sans-serif;
   color: white;
   overflow-x: hidden;
 }
 
-/* =======================
-   VIDEO BACKGROUND
-======================= */
+/* ================= VIDEO ================= */
 #bg-video {
   position: fixed;
   inset: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   object-fit: cover;
   z-index: -1;
   filter: brightness(0.6);
-  transform: scale(1.05);
+  transition: transform 0.2s ease-out;
 }
 
-/* =======================
-   NAVBAR
-======================= */
+/* ================= NAVBAR ================= */
 .navbar {
   position: fixed;
   top: 0;
@@ -74,9 +62,6 @@ html, body {
   margin-top: -2px;
 }
 
-/* =======================
-   NAV MENU
-======================= */
 .navbar-menu {
   list-style: none;
   display: flex;
@@ -88,14 +73,12 @@ html, body {
   text-decoration: underline;
 }
 
-/* =======================
-   MOBILE MENU TOGGLE
-======================= */
+/* ================= MOBILE TOGGLE ================= */
 .mobile-menu-toggle {
   display: none;
   flex-direction: column;
-  gap: 5px;
   cursor: pointer;
+  gap: 5px;
 }
 
 .mobile-menu-toggle span {
@@ -105,54 +88,52 @@ html, body {
   border-radius: 2px;
 }
 
-/* =======================
-   MOBILE MENU OVERLAY
-======================= */
+/* ================= MOBILE MENU ================= */
 #mobileMenu {
+  display: none;
   position: fixed;
   top: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100dvh - 60px);
-  display: none;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  height: calc(100svh - 60px - 45px);
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 1.5rem;
+  z-index: 15;
+
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 30px;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,64,0.7),
-    rgba(48,25,78,0.7)
-  );
-  z-index: 15;
+  gap: 25px;
 }
 
+/* Reuse pill style */
 #mobileMenu a {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: white;
-  text-decoration: underline;
+  width: 80%;
+  max-width: 280px;
+  text-align: center;
 }
 
-/* =======================
-   HERO
-======================= */
+/* ================= HERO ================= */
 .container {
   position: relative;
-  top: 70px;
+  width: 100%;
   text-align: center;
+  padding: 20px;
+  top: 70px;
 }
 
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  margin-bottom: 80px;
+  font-weight: 400;
+  margin-bottom: 40px;
   text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
-/* =======================
-   GLASS BOXES
-======================= */
+/* ================= GLASS CARDS ================= */
 .glass-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -166,6 +147,7 @@ html, body {
 .glass-box {
   width: 29%;
   background: rgba(255,255,255,0.05);
+  min-height: 260px;
   padding: 2rem;
   border-radius: 1.5rem;
   backdrop-filter: blur(6px);
@@ -184,39 +166,55 @@ html, body {
   text-align: justify;
 }
 
+/* ================= PILL BUTTON ================= */
 .button-like {
-  margin-top: 20px;
-  padding: 0.8rem 2rem;
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
   border-radius: 50px;
-  border: 1px solid rgba(255,255,255,0.45);
+  border:1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.22);
+  color:white;
+  backdrop-filter: blur(6px);
+  text-decoration: none;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button-like:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 0 18px rgba(255,255,255,0.35);
+}
+
+/* ================= FOOTER (ORIGINAL) ================= */
+footer {
+  background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+  height: 45px;
+  padding: 0 10px;
+  flex-wrap: wrap;
+}
+
+footer a {
   color: white;
   text-decoration: none;
 }
 
-/* =======================
-   FOOTER
-======================= */
-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  height: 45px;
-  background: rgba(0,0,0,0.35);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-}
-
-/* =======================
-   MOBILE FIXES (NO SCROLL)
-======================= */
+/* ================= MOBILE ONLY ================= */
 @media (max-width: 900px) {
 
   html, body {
-    height: 100%;
     overflow: hidden;
     overscroll-behavior: none;
     touch-action: none;
@@ -227,15 +225,17 @@ footer {
 
   .container {
     top: 60px;
-    min-height: calc(100dvh - 60px - 45px);
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    padding-bottom: 0;
+  }
+
+  .headline {
+    margin-bottom: 20px;
   }
 
   .glass-container {
     flex-direction: column;
-    align-items: center;
+    gap: 15px;
+    padding-bottom: 0;
   }
 
   .glass-box {
@@ -249,7 +249,7 @@ footer {
 <body>
 
 <video autoplay muted loop playsinline id="bg-video">
-  <source src="videos/background.mp4" type="video/mp4">
+  <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
 <nav class="navbar">
@@ -271,10 +271,10 @@ footer {
 </nav>
 
 <div id="mobileMenu">
-  <a href="#about">About</a>
-  <a href="#individual">Individual</a>
-  <a href="#corporate">Corporate</a>
-  <a href="learn-blog.html">More</a>
+  <a class="button-like" href="#about">About</a>
+  <a class="button-like" href="#individual">Individual</a>
+  <a class="button-like" href="#corporate">Corporate</a>
+  <a class="button-like" href="learn-blog.html">More</a>
 </div>
 
 <div class="container" id="about">
@@ -285,22 +285,28 @@ footer {
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
-    <a class="button-like">Coming Soon</a>
+    <a class="button-like"><em>Coming Soon</em></a>
   </div>
 
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
-    <a class="button-like">Coming Soon</a>
+    <a class="button-like"><em>Coming Soon</em></a>
   </div>
 </div>
 
 <footer>
-  <span>© 2025 Morigene.ai</span>
+  <span>© 2025 Morigene.ai — All rights reserved.</span>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms&conditions.html">Terms & Conditions</a>
+  <a href="contact-form.html">Contact</a>
+  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20"/>
+  </a>
 </footer>
 
 <script>
-function toggleMobileMenu(){
+function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
   menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
 }
