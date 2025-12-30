@@ -80,7 +80,7 @@ html, body {
   color: #ff5ab1;
 }
 
-/* ===== NAVBAR TOOLTIP (AGREED MODIFICATIONS) ===== */
+/* ===== NAVBAR TOOLTIP (ONLY MODIFICATION) ===== */
 
 @keyframes softGlow {
   0%   { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
@@ -101,7 +101,6 @@ html, body {
   font-size: 0.85rem;
   line-height: 1.6;
   text-align: center;
-
   white-space: pre-line;
 
   color: white;
@@ -117,7 +116,6 @@ html, body {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Individual tooltip text — one phrase per line */
 .navbar-menu li a[href="#individual"]::after {
   content:
     "Your wellness, your way\A"
@@ -126,7 +124,6 @@ html, body {
     "Coming soon >>";
 }
 
-/* Corporate tooltip text — one phrase per line */
 .navbar-menu li a[href="#corporate"]::after {
   content:
     "Your genomic data\A"
@@ -135,7 +132,6 @@ html, body {
     "Coming soon >>";
 }
 
-/* Show tooltip */
 .navbar-menu li a:hover::after,
 .navbar-menu li a:focus::after,
 .navbar-menu li a:active::after {
@@ -144,7 +140,6 @@ html, body {
   animation: softGlow 2.5s ease-in-out infinite;
 }
 
-/* Smaller screens */
 @media (max-width: 900px) {
   .navbar-menu li a::after {
     max-width: 260px;
@@ -192,9 +187,11 @@ html, body {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(4px);
 }
-#mobileMenu a:hover { color: #ff5ab1; }
+#mobileMenu a:hover {
+  color: #ff5ab1;
+}
 
-/* Hero */
+/* Hero Section */
 .container {
   position: relative;
   width: 100%;
@@ -205,11 +202,17 @@ html, body {
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 80px;
 }
 
-/* Glass Boxes (RESTORED) */
+/* ===== GLASS BOXES (FULLY ORIGINAL) ===== */
+
 .glass-container {
+  position: relative;
+  width: 100%;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
@@ -220,6 +223,7 @@ html, body {
 }
 .glass-box {
   width: 29.25%;
+  margin: 0 20px;
   background: rgba(255,255,255,0.05);
   min-height: 260px;
   padding: 2rem;
@@ -228,13 +232,51 @@ html, body {
   border:1px solid rgba(255,255,255,0.2);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .glass-box h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-bottom: 1rem;
+  font-weight: 600;
   text-decoration: underline;
+  text-align: center;
+}
+.glass-box p {
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+  text-align: justify;
+  flex-grow: 1;
+}
+.button-like {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
+  border-radius: 50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22);
+  color:white;
+  backdrop-filter: blur(6px);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1rem;
+  text-align: center;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+.button-like:hover {
+  transform: translateY(-3px) scale(1.03);
+  color: #ff5ab1;
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+}
+.button-like:hover em {
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
 
-/* Footer (FULLY RESTORED) */
+/* Footer (ORIGINAL) */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
@@ -248,6 +290,8 @@ footer {
   gap: 15px;
   align-items: center;
   height: 45px;
+  padding: 0 10px;
+  flex-wrap: wrap;
 }
 footer a {
   color: white;
@@ -259,6 +303,18 @@ footer a:hover {
 
 /* Mobile */
 @media (max-width: 900px) {
+  .glass-container {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    padding-bottom: 60px;
+  }
+  .glass-box {
+    width: 85%;
+    max-width: 280px;
+    min-height: 180px;
+    padding: 1.5rem;
+  }
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
 }
@@ -267,20 +323,20 @@ footer a:hover {
 
 <body>
 
+<!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
+<!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
-
   <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
     <span></span><span></span><span></span>
   </div>
-
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -289,33 +345,48 @@ footer a:hover {
   </ul>
 </nav>
 
+<!-- Mobile Menu -->
+<div id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#individual">Individual</a>
+  <a href="#corporate">Corporate</a>
+  <a href="learn-blog.html">More</a>
+  <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
+</div>
+
+<!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
+<!-- Glass Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
     <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 
   <div class="glass-box" id="corporate">
     <h2>Corporate</h2>
     <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
+    <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 </div>
 
+<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
   <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
   <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp"/>
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
   </a>
 </footer>
 
 <script>
+// Video Parallax
 document.addEventListener('mousemove', function(e){
   const video = document.getElementById('bg-video');
   const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
@@ -323,9 +394,44 @@ document.addEventListener('mousemove', function(e){
   video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 });
 
+// Mobile Menu Toggle
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
-  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+  const isOpen = menu.style.display === 'flex';
+  menu.style.display = isOpen ? 'none' : 'flex';
+  menu.classList.toggle('open', !isOpen);
+}
+
+// Desktop Glass Box Tilt & Glow (ORIGINAL)
+if(window.innerWidth > 900){
+  const boxes = document.querySelectorAll('.glass-box');
+  boxes.forEach(box => {
+    const glow = document.createElement('div');
+    glow.style.position = 'absolute';
+    glow.style.inset = '0';
+    glow.style.borderRadius = 'inherit';
+    glow.style.opacity = '0';
+    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+    glow.style.pointerEvents = 'none';
+    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
+    box.appendChild(glow);
+
+    box.addEventListener('mousemove', e => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -15;
+      const ry = ((x / rect.width) - 0.5) * 15;
+      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      glow.style.opacity = '1';
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity = '0';
+    });
+  });
 }
 </script>
 
