@@ -89,6 +89,7 @@ button.send-btn {
   cursor: pointer;
   align-self: center; /* Centered at bottom */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 60%; /* Fits inside the box nicely */
   margin-top: 1rem;
 }
 
@@ -139,6 +140,7 @@ label { color: white; width: 100%; margin-top: 0.5rem; font-size: 0.95rem; }
 /* Media */
 @media (max-width: 500px) {
   .form-container { width: 90vw; height: 90vw; padding: 2rem; }
+  button.send-btn { width: 70%; }
 }
 </style>
 </head>
@@ -179,9 +181,11 @@ box.addEventListener('mouseleave', () => {
   box.style.boxShadow = '0 0 30px rgba(255,255,255,0.1)';
 });
 
-// Floating Particles with halo
-const particleCount = 60;
+// Floating Particles
+const particleCount = 80;
 const particleContainer = document.getElementById('particles');
+const particles = [];
+
 for (let i = 0; i < particleCount; i++) {
   const p = document.createElement('div');
   p.classList.add('particle');
@@ -190,26 +194,22 @@ for (let i = 0; i < particleCount; i++) {
   p.style.width = `${size}px`;
   p.style.height = `${size}px`;
   const angle = Math.random()*2*Math.PI;
-  const radius = Math.random()*120 + 60;
-  p.dataset.angle = angle;
-  p.dataset.radius = radius;
-  p.dataset.speed = 0.002 + Math.random()*0.003;
+  const radius = Math.random()*150 + 50;
+  const speed = 0.001 + Math.random()*0.003;
   particleContainer.appendChild(p);
+  particles.push({el: p, angle, radius, speed});
 }
 
 function animateParticles() {
   const rect = box.getBoundingClientRect();
   const centerX = rect.left + rect.width/2;
   const centerY = rect.top + rect.height/2;
-  document.querySelectorAll('.particle').forEach(p => {
-    let angle = parseFloat(p.dataset.angle);
-    const radius = parseFloat(p.dataset.radius);
-    angle += parseFloat(p.dataset.speed);
-    p.dataset.angle = angle;
-    const x = centerX + radius * Math.cos(angle) - parseFloat(p.style.width)/2;
-    const y = centerY + radius * Math.sin(angle) - parseFloat(p.style.height)/2;
-    p.style.left = `${x}px`;
-    p.style.top = `${y}px`;
+  particles.forEach(p => {
+    p.angle += p.speed;
+    const x = centerX + p.radius * Math.cos(p.angle) - parseFloat(p.el.style.width)/2;
+    const y = centerY + p.radius * Math.sin(p.angle) - parseFloat(p.el.style.height)/2;
+    p.el.style.left = `${x}px`;
+    p.el.style.top = `${y}px`;
   });
   requestAnimationFrame(animateParticles);
 }
