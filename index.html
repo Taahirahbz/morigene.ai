@@ -80,16 +80,14 @@ html, body {
   color: #ff5ab1;
 }
 
-/* ===== NAVBAR TOOLTIP (FINAL AGREED MODIFICATION) ===== */
+/* ===== NAVBAR TOOLTIP (AGREED MODIFICATIONS) ===== */
 
-/* Glow animation matching glass boxes */
 @keyframes softGlow {
   0%   { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
   50%  { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
   100% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
 }
 
-/* Base tooltip */
 .navbar-menu li a::after {
   content: "";
   position: absolute;
@@ -97,15 +95,14 @@ html, body {
   top: 135%;
   transform: translateX(-50%) translateY(0);
 
-  max-width: 420px;
-  width: max-content;
+  max-width: 320px;
   padding: 12px 16px;
 
   font-size: 0.85rem;
-  line-height: 1.45;
+  line-height: 1.6;
   text-align: center;
-  white-space: normal;
-  word-wrap: break-word;
+
+  white-space: pre-line;
 
   color: white;
   background: rgba(0,0,0,0.35);
@@ -120,15 +117,25 @@ html, body {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Tooltip text */
+/* Individual tooltip text — one phrase per line */
 .navbar-menu li a[href="#individual"]::after {
-  content: "Your wellness, your way - Personalized health plans powered by your DNA! Coming soon >>";
-}
-.navbar-menu li a[href="#corporate"]::after {
-  content: "Your genomic data, our professional care - Outsourcing made simple! Coming soon >>";
+  content:
+    "Your wellness, your way\A"
+    "Personalized health plans\A"
+    "Powered by your DNA\A"
+    "Coming soon >>";
 }
 
-/* Show tooltip (desktop + mobile tap) */
+/* Corporate tooltip text — one phrase per line */
+.navbar-menu li a[href="#corporate"]::after {
+  content:
+    "Your genomic data\A"
+    "Our professional care\A"
+    "Outsourcing made simple\A"
+    "Coming soon >>";
+}
+
+/* Show tooltip */
 .navbar-menu li a:hover::after,
 .navbar-menu li a:focus::after,
 .navbar-menu li a:active::after {
@@ -142,7 +149,6 @@ html, body {
   .navbar-menu li a::after {
     max-width: 260px;
     font-size: 0.8rem;
-    padding: 10px 14px;
   }
 }
 
@@ -188,12 +194,13 @@ html, body {
 }
 #mobileMenu a:hover { color: #ff5ab1; }
 
-/* Hero Section */
+/* Hero */
 .container {
+  position: relative;
+  width: 100%;
   text-align: center;
   padding: 20px;
   top: 70px;
-  position: relative;
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
@@ -201,21 +208,54 @@ html, body {
   margin-bottom: 80px;
 }
 
-/* Footer */
+/* Glass Boxes (RESTORED) */
+.glass-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+.glass-box {
+  width: 29.25%;
+  background: rgba(255,255,255,0.05);
+  min-height: 260px;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(6px);
+  border:1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.glass-box h2 {
+  text-decoration: underline;
+}
+
+/* Footer (FULLY RESTORED) */
 footer {
   background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  font-size: 14px;
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 45px;
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 15px;
-  font-size: 14px;
+  align-items: center;
+  height: 45px;
 }
-footer a { color: white; text-decoration: none; }
-footer a:hover { text-decoration: underline; }
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
 
 /* Mobile */
 @media (max-width: 900px) {
@@ -253,8 +293,26 @@ footer a:hover { text-decoration: underline; }
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
+<div class="glass-container">
+  <div class="glass-box" id="individual">
+    <h2>Individual</h2>
+    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
+  </div>
+
+  <div class="glass-box" id="corporate">
+    <h2>Corporate</h2>
+    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
+  </div>
+</div>
+
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
+  <a href="privacy-policy.html">Privacy Policy</a>
+  <a href="terms&conditions.html">Terms & Conditions</a>
+  <a href="contact-form.html">Contact</a>
+  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp"/>
+  </a>
 </footer>
 
 <script>
@@ -267,8 +325,7 @@ document.addEventListener('mousemove', function(e){
 
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
-  const isOpen = menu.style.display === 'flex';
-  menu.style.display = isOpen ? 'none' : 'flex';
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
 }
 </script>
 
