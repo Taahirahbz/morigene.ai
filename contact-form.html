@@ -6,7 +6,6 @@
 <title>Contact Form</title>
 
 <style>
-  /* Disable page scroll */
   html, body {
     height: 100%;
     margin: 0;
@@ -16,6 +15,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+  }
+
+  /* Floating particles */
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    pointer-events: none;
+    animation: float 15s linear infinite;
+  }
+
+  @keyframes float {
+    0% { transform: translateY(0) translateX(0); opacity:0.3; }
+    50% { transform: translateY(-50px) translateX(30px); opacity:0.6; }
+    100% { transform: translateY(0) translateX(0); opacity:0.3; }
   }
 
   /* Form container (glass box) */
@@ -27,7 +42,7 @@
     border-radius: 1.5rem;
     width: 80vw;
     max-width: 900px;
-    padding: 60px 80px; /* extra padding top/bottom and sides */
+    padding: 80px; /* equal padding all around */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -35,7 +50,6 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
-  /* Glow layer */
   #formGlow {
     position: absolute;
     inset: 0;
@@ -57,7 +71,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 1rem;
   }
 
   label {
@@ -90,15 +104,16 @@
   }
 
   button[type="submit"] {
-    padding: 1rem 0;
-    font-size: 1.2rem;
+    padding: 0.6rem 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
     border-radius: 50px;
-    border: none;
-    background: rgba(255,91,177,0.5); /* 50% transparent */
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,91,177,0.7);
     color: white;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    align-self: flex-start;
   }
 
   button[type="submit"]:hover {
@@ -106,34 +121,43 @@
     box-shadow: 0 0 20px rgba(255,91,177,0.6);
   }
 
-  /* Back button bottom-right */
+  /* Back button styling */
   #backButton {
     position: fixed;
     bottom: 20px;
     right: 20px;
     padding: 0.6rem 1.5rem;
-    border-radius: 50px;
-    border: 1px solid rgba(255,255,255,0.4);
-    background: rgba(255,255,255,0.2);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.08);
     color: white;
     text-decoration: none;
     font-weight: 500;
-    transition: background 0.3s ease;
-  }
-  #backButton:hover {
-    background: rgba(255,91,177,0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(8px);
   }
 
-  /* Responsive */
+  #backButton:hover {
+    background: rgba(255,91,177,0.15);
+    box-shadow: 0 0 15px rgba(255,91,177,0.5);
+  }
+
   @media (max-width: 900px) {
     #formBox {
       width: 90vw;
-      padding: 40px 30px;
+      padding: 40px;
     }
   }
 </style>
 </head>
 <body>
+
+<!-- Particles -->
+<div class="particle" style="width:6px; height:6px; top:10%; left:20%; animation-duration:12s;"></div>
+<div class="particle" style="width:10px; height:10px; top:70%; left:40%; animation-duration:18s;"></div>
+<div class="particle" style="width:8px; height:8px; top:30%; left:70%; animation-duration:15s;"></div>
+<div class="particle" style="width:12px; height:12px; top:50%; left:10%; animation-duration:20s;"></div>
+<div class="particle" style="width:5px; height:5px; top:80%; left:80%; animation-duration:17s;"></div>
 
 <div id="formBox">
   <div id="formGlow"></div>
@@ -162,7 +186,7 @@
     window.open(formURL, '_blank');
   });
 
-  // Glow & tilt effect
+  // Glow & tilt effect for form box
   const formBox = document.getElementById('formBox');
   const formGlow = document.getElementById('formGlow');
 
@@ -184,7 +208,7 @@
     formGlow.style.opacity = '0';
   });
 
-  // Touch events for mobile
+  // Mobile touch events
   formBox.addEventListener('touchstart', e=>{
     const touch = e.touches[0];
     const rect = formBox.getBoundingClientRect();
