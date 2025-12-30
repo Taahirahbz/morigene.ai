@@ -1,53 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact Form</title>
+
+<style>
+  /* Disable page scroll */
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: url('images/background.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Form container (glass box) */
+  #formBox {
+    position: relative;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 1.5rem;
+    width: 80vw;
+    max-width: 900px;
+    padding: 60px 80px; /* extra padding top/bottom and sides */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  /* Glow layer */
+  #formGlow {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
+    transition: opacity 0.25s ease, background 0.25s ease;
+  }
+
+  h2 {
+    color: white;
+    font-size: clamp(2rem, 3vw, 2.5rem);
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  label {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+
+  input, textarea {
+    padding: 0.9rem 1rem;
+    font-size: 1rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.3);
+    outline: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    transition: border-color 0.3s ease, background 0.3s ease;
+  }
+
+  input:focus, textarea:focus {
+    border-color: #ff5ab1;
+    background: rgba(255,255,255,0.15);
+  }
+
+  textarea {
+    min-height: 140px;
+    resize: vertical;
+  }
+
+  button[type="submit"] {
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-radius: 50px;
+    border: none;
+    background: rgba(255,91,177,0.5); /* 50% transparent */
+    color: white;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 0 20px rgba(255,91,177,0.6);
+  }
+
+  /* Back button bottom-right */
+  #backButton {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 0.6rem 1.5rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(255,255,255,0.2);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background 0.3s ease;
+  }
+  #backButton:hover {
+    background: rgba(255,91,177,0.3);
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    #formBox {
+      width: 90vw;
+      padding: 40px 30px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div id="formBox">
+  <div id="formGlow"></div>
+
+  <h2>Contact Us</h2>
+
+  <form id="contactForm">
+    <label for="name">Your Name:<input type="text" id="name" required></label>
+    <label for="email">Your Email:<input type="email" id="email" required></label>
+    <label for="message">Message:<textarea id="message" required></textarea></label>
+    <button type="submit">Send</button>
+  </form>
+</div>
+
+<a href="index.html" id="backButton">Back</a>
+
 <script>
-// Google Form submission
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = encodeURIComponent(document.getElementById('name').value);
-  const email = encodeURIComponent(document.getElementById('email').value);
-  const message = encodeURIComponent(document.getElementById('message').value);
+  // Google Form submission
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = encodeURIComponent(document.getElementById('name').value);
+    const email = encodeURIComponent(document.getElementById('email').value);
+    const message = encodeURIComponent(document.getElementById('message').value);
 
-  const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc6ol9SDEuiIaFkol84ZqSh0dv_BvJKv-vWYhnmAH4_NDoSBw/viewform?usp=pp_url&entry.1910789101=${name}&entry.1121926681=${email}&entry.356277934=${message}`;
-  window.open(formURL, '_blank');
-});
+    const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc6ol9SDEuiIaFkol84ZqSh0dv_BvJKv-vWYhnmAH4_NDoSBw/viewform?usp=pp_url&entry.1910789101=${name}&entry.1121926681=${email}&entry.356277934=${message}`;
+    window.open(formURL, '_blank');
+  });
 
-// Glow & Tilt effect (desktop & touch)
-const formBox = document.getElementById('formBox');
-const formGlow = document.getElementById('formGlow');
+  // Glow & tilt effect
+  const formBox = document.getElementById('formBox');
+  const formGlow = document.getElementById('formGlow');
 
-function setTilt(x, y, width, height){
-  const rx = ((y / height) - 0.5) * -10; // tilt intensity
-  const ry = ((x / width) - 0.5) * 10;
-  formBox.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
-  formGlow.style.opacity = '1';
-  formGlow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.25), transparent 70%)`;
-}
+  function setTilt(x, y, width, height){
+    const rx = ((y / height) - 0.5) * -10;
+    const ry = ((x / width) - 0.5) * 10;
+    formBox.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
+    formGlow.style.opacity = '1';
+    formGlow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.25), transparent 70%)`;
+  }
 
-// Desktop mouse movement
-formBox.addEventListener('mousemove', e=>{
-  const rect = formBox.getBoundingClientRect();
-  setTilt(e.clientX - rect.left, e.clientY - rect.top, rect.width, rect.height);
-});
+  formBox.addEventListener('mousemove', e=>{
+    const rect = formBox.getBoundingClientRect();
+    setTilt(e.clientX - rect.left, e.clientY - rect.top, rect.width, rect.height);
+  });
 
-formBox.addEventListener('mouseleave', ()=>{
-  formBox.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-  formGlow.style.opacity = '0';
-});
+  formBox.addEventListener('mouseleave', ()=>{
+    formBox.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+    formGlow.style.opacity = '0';
+  });
 
-// Touch events for mobile
-formBox.addEventListener('touchstart', e=>{
-  const touch = e.touches[0];
-  const rect = formBox.getBoundingClientRect();
-  setTilt(touch.clientX - rect.left, touch.clientY - rect.top, rect.width, rect.height);
-}, {passive:true});
+  // Touch events for mobile
+  formBox.addEventListener('touchstart', e=>{
+    const touch = e.touches[0];
+    const rect = formBox.getBoundingClientRect();
+    setTilt(touch.clientX - rect.left, touch.clientY - rect.top, rect.width, rect.height);
+  }, {passive:true});
 
-formBox.addEventListener('touchmove', e=>{
-  const touch = e.touches[0];
-  const rect = formBox.getBoundingClientRect();
-  setTilt(touch.clientX - rect.left, touch.clientY - rect.top, rect.width, rect.height);
-}, {passive:true});
+  formBox.addEventListener('touchmove', e=>{
+    const touch = e.touches[0];
+    const rect = formBox.getBoundingClientRect();
+    setTilt(touch.clientX - rect.left, touch.clientY - rect.top, rect.width, rect.height);
+  }, {passive:true});
 
-formBox.addEventListener('touchend', ()=>{
-  formBox.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-  formGlow.style.opacity = '0';
-});
+  formBox.addEventListener('touchend', ()=>{
+    formBox.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+    formGlow.style.opacity = '0';
+  });
 </script>
+
+</body>
+</html>
