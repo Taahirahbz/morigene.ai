@@ -4,200 +4,164 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Contact Form</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
-  /* Reset & body */
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body, html {
-    height: 100%;
-    font-family: 'IBM Plex Sans', sans-serif;
-    overflow: hidden;
-    background: url('images/background.jpg') center/cover no-repeat;
-    position: relative;
-  }
+/* Reset and background */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: url('images/background.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
 
-  /* Floating Particles */
-  .particle {
-    position: absolute;
-    width: 4px;
-    height: 4px;
-    background: #ff5ab1;
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: 0.8;
-    animation: floatParticles 10s linear infinite;
-  }
+/* Particle container */
+#particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
 
-  @keyframes floatParticles {
-    0% { transform: translateY(0) translateX(0); opacity:0.8; }
-    50% { transform: translateY(-200px) translateX(50px); opacity:0.3; }
-    100% { transform: translateY(-400px) translateX(-30px); opacity:0.8; }
-  }
+/* Glass Box */
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 400px;
+  height: 400px;
+  padding: 2rem;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+  transform: translate(-50%, -50%);
+  transition: box-shadow 0.25s ease;
+}
 
-  /* Form Box */
-  .form-container {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 480px;
-    height: 480px;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(8px);
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.2);
-    padding: 40px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 0 30px rgba(255,255,255,0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-  }
+/* Form elements */
+h2 {
+  color: white;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
 
-  h2 {
-    font-size: 2rem;
-    text-align: center;
-    color: white;
-    margin-bottom: 20px;
-  }
+input, textarea {
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: white;
+  font-size: 1rem;
+  outline: none;
+}
 
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-    justify-content: space-between;
-  }
+textarea { min-height: 100px; }
 
-  label {
-    display: flex;
-    flex-direction: column;
-    font-weight: 600;
-    color: white;
-    margin-bottom: 12px;
-    font-size: 1rem;
-  }
+button.send-btn {
+  background: rgba(255,91,177,0.5);
+  border: 1px solid rgba(255,91,177,0.7);
+  padding: 0.7rem 2rem;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  input, textarea, select {
-    margin-top: 6px;
-    padding: 0.8rem 1rem;
-    border-radius: 12px;
-    border: 1.5px solid rgba(255,255,255,0.4);
-    font-size: 1rem;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    outline: none;
-  }
+button.send-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,91,177,0.6);
+}
 
-  input:focus, textarea:focus, select:focus {
-    border-color: #ff5ab1;
-  }
+/* Back button */
+.back-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  textarea { min-height: 100px; }
+.back-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,91,177,0.6);
+}
 
-  /* Send Button */
-  #send-btn {
-    align-self: center;
-    margin-top: 10px;
-    padding: 0.8rem 2rem;
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: white;
-    background: rgba(255,91,177,0.5);
-    border-radius: 50px;
-    border: 1px solid rgba(255,91,177,0.8);
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+/* Labels */
+label { color: white; width: 100%; margin-top: 0.5rem; font-size: 0.95rem; }
 
-  #send-btn:hover {
-    background: rgba(255,91,177,0.8);
-    box-shadow: 0 0 20px rgba(255,91,177,0.6);
-    transform: scale(1.05);
-  }
+/* Particle styling */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.8;
+  pointer-events: none;
+}
 
-  /* Back Button */
-  #back-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    padding: 0.8rem 1.5rem;
-    font-weight: 600;
-    font-size: 1rem;
-    color: white;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.4);
-    border-radius: 50px;
-    cursor: pointer;
-    backdrop-filter: blur(6px);
-    transition: all 0.3s ease;
-  }
-
-  #back-btn:hover {
-    background: rgba(255,91,177,0.3);
-    box-shadow: 0 0 20px rgba(255,91,177,0.6);
-    transform: scale(1.05);
-  }
-
-  /* Thank you message */
-  #thankyou {
-    color: white;
-    text-align: center;
-    margin-top: 10px;
-    display: none;
-  }
-
+/* Media */
+@media (max-width: 500px) {
+  .form-container { width: 90vw; height: 90vw; }
+}
 </style>
 </head>
-
 <body>
 
-<!-- Floating particles container -->
+<!-- Particle container -->
 <div id="particles"></div>
 
-<!-- Form Box -->
+<!-- Glass Box -->
 <div class="form-container">
   <h2>Contact Us</h2>
-  <form id="contact-form">
+  <form id="contactForm">
     <label>
       Name
-      <input type="text" id="name" name="name" required>
+      <input type="text" id="name" required>
     </label>
     <label>
       Email
-      <input type="email" id="email" name="email" required>
+      <input type="email" id="email" required>
+    </label>
+    <label>
+      Subject
+      <input type="text" id="subject" required>
     </label>
     <label>
       Message
-      <textarea id="message" name="message" required></textarea>
+      <textarea id="message" required></textarea>
     </label>
-    <button type="submit" id="send-btn">Send</button>
-    <div id="thankyou">Message sent! You can send another one.</div>
+    <button type="submit" class="send-btn">Send</button>
   </form>
 </div>
 
 <!-- Back Button -->
-<button id="back-btn" onclick="location.href='index.html'">Back</button>
+<button class="back-btn" onclick="location.href='index.html'">Back</button>
 
 <script>
-/* Generate particles */
-const particlesContainer = document.getElementById('particles');
-const particleCount = 80;
-
-for(let i=0;i<particleCount;i++){
-  const p = document.createElement('div');
-  p.classList.add('particle');
-  p.style.top = Math.random()*window.innerHeight + 'px';
-  p.style.left = Math.random()*window.innerWidth + 'px';
-  p.style.width = Math.random()*4+2+'px';
-  p.style.height = p.style.width;
-  p.style.animationDuration = (5 + Math.random()*10)+'s';
-  p.style.background = Math.random() > 0.5 ? '#fff' : '#ff5ab1';
-  particlesContainer.appendChild(p);
-}
-
-/* Glass Box Tilt & Glow */
+// Tilt & Glow effect (keep box centered)
 const box = document.querySelector('.form-container');
 box.addEventListener('mousemove', e => {
   const rect = box.getBoundingClientRect();
@@ -205,28 +169,59 @@ box.addEventListener('mousemove', e => {
   const y = e.clientY - rect.top;
   const rx = ((y / rect.height) - 0.5) * -10;
   const ry = ((x / rect.width) - 0.5) * 10;
-  box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+  box.style.transform = `translate(-50%, -50%) perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
   box.style.boxShadow = `0 0 35px rgba(255,91,177,0.6)`;
 });
+
 box.addEventListener('mouseleave', () => {
-  box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+  box.style.transform = 'translate(-50%, -50%) perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
   box.style.boxShadow = '0 0 30px rgba(255,255,255,0.1)';
 });
 
-/* Handle Form Submit without redirect */
-document.getElementById('contact-form').addEventListener('submit', function(e){
+// Floating Particles
+const particleCount = 40;
+const particleContainer = document.getElementById('particles');
+
+for (let i = 0; i < particleCount; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle');
+  const size = Math.random()*4 + 2;
+  p.style.width = `${size}px`;
+  p.style.height = `${size}px`;
+  p.style.left = `${Math.random()*100}%`;
+  p.style.top = `${Math.random()*100}%`;
+  p.style.background = Math.random() > 0.5 ? 'white' : '#FF5AB1';
+  particleContainer.appendChild(p);
+}
+
+// Animate particles
+function animateParticles() {
+  document.querySelectorAll('.particle').forEach(p => {
+    let top = parseFloat(p.style.top);
+    top -= 0.1 + Math.random()*0.2;
+    if(top < 0) top = 100;
+    p.style.top = `${top}%`;
+  });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// Form submission without redirect
+document.getElementById('contactForm').addEventListener('submit', function(e){
   e.preventDefault();
   const name = encodeURIComponent(document.getElementById('name').value);
   const email = encodeURIComponent(document.getElementById('email').value);
+  const subject = encodeURIComponent(document.getElementById('subject').value);
   const message = encodeURIComponent(document.getElementById('message').value);
 
   const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc6ol9SDEuiIaFkol84ZqSh0dv_BvJKv-vWYhnmAH4_NDoSBw/viewform?usp=pp_url&entry.1910789101=${name}&entry.1121926681=${email}&entry.356277934=${message}`;
 
-  fetch(formURL, { mode: 'no-cors' })
+  fetch(formURL, { method: 'GET', mode: 'no-cors' })
     .then(() => {
-      document.getElementById('thankyou').style.display = 'block';
-      document.getElementById('contact-form').reset();
-    });
+      alert('Message sent!');
+      document.getElementById('contactForm').reset();
+    })
+    .catch(err => console.error(err));
 });
 </script>
 
