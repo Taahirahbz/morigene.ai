@@ -101,10 +101,10 @@ button.send-btn {
   padding: 0.7rem 2rem;
   font-size: 1rem;
   font-weight: 600;
-  background: rgba(255,255,255,0.5);
+  background: rgba(255,90,177,0.8); /* pink/magenta */
   color: white;
   border-radius: 1.2rem;
-  border: 1px solid rgba(255,255,255,0.4);
+  border: 1px solid rgba(255,90,177,0.9);
   cursor: pointer;
   backdrop-filter: blur(4px);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
@@ -201,17 +201,14 @@ function animateParticles(){
     let top=parseFloat(p.style.top)/100*window.innerHeight;
     let left=parseFloat(p.style.left)/100*window.innerWidth;
 
-    // Basic movement
     top+=p.speedY*window.innerHeight*0.005;
     left+=p.speedX*window.innerWidth*0.005;
 
-    // Wrap around screen
     if(top<0) top=window.innerHeight;
     if(top>window.innerHeight) top=0;
     if(left<0) left=window.innerWidth;
     if(left>window.innerWidth) left=0;
 
-    // Mouse repulsion
     const dx = mouse.x - left;
     const dy = mouse.y - top;
     const dist = Math.sqrt(dx*dx + dy*dy);
@@ -220,7 +217,6 @@ function animateParticles(){
       top -= dy*0.03;
     }
 
-    // Box gravitation (halo effect)
     const dxBox = boxX - left;
     const dyBox = boxY - top;
     const distBox = Math.sqrt(dxBox*dxBox + dyBox*dyBox);
@@ -232,19 +228,16 @@ function animateParticles(){
     p.style.top= (top/window.innerHeight*100) + 'vh';
     p.style.left= (left/window.innerWidth*100) + 'vw';
 
-    // Size pulsation
     p.size+=p.pulse;
     if(p.size>10 || p.size<3) p.pulse*=-1;
     p.style.width=p.style.height=p.size+'px';
 
-    // Color shift & glow
     p.colorShift += 0.02;
-    const r = 255;
-    const g = Math.floor(200 + 55 * Math.sin(p.colorShift));
-    const b = Math.floor(255 * Math.sin(p.colorShift*0.5 + 1));
+    // Only white and magenta
+    const colorChoice = Math.random() < 0.5 ? `255,255,255` : `255,90,177`;
     const alpha = 0.7 + 0.2*Math.sin(p.colorShift*1.5);
-    p.style.background = `rgba(${r},${g},${b},${alpha})`;
-    p.style.boxShadow=`0 0 ${p.size*1.5}px rgba(${r},${g},${b},${alpha})`;
+    p.style.background = `rgba(${colorChoice},${alpha})`;
+    p.style.boxShadow=`0 0 ${p.size*1.5}px rgba(${colorChoice},${alpha})`;
   });
   requestAnimationFrame(animateParticles);
 }
