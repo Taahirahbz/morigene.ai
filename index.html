@@ -80,7 +80,7 @@ html, body {
   color: #ff5ab1;
 }
 
-/* ===== NAVBAR TOOLTIP (ONLY MODIFICATION) ===== */
+/* ===== NAVBAR TOOLTIP (ONLY ADDITION) ===== */
 
 @keyframes softGlow {
   0%   { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
@@ -88,7 +88,9 @@ html, body {
   100% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
 }
 
-.navbar-menu li a::after {
+/* Tooltip base */
+.navbar-menu li a[href="#individual"]::after,
+.navbar-menu li a[href="#corporate"]::after {
   content: "";
   position: absolute;
   left: 50%;
@@ -116,6 +118,7 @@ html, body {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
+/* Individual tooltip text */
 .navbar-menu li a[href="#individual"]::after {
   content:
     "Your wellness, your way\A"
@@ -124,6 +127,7 @@ html, body {
     "Coming soon >>";
 }
 
+/* Corporate tooltip text */
 .navbar-menu li a[href="#corporate"]::after {
   content:
     "Your genomic data\A"
@@ -132,16 +136,22 @@ html, body {
     "Coming soon >>";
 }
 
-.navbar-menu li a:hover::after,
-.navbar-menu li a:focus::after,
-.navbar-menu li a:active::after {
+/* Show tooltip (hover + tap) */
+.navbar-menu li a[href="#individual"]:hover::after,
+.navbar-menu li a[href="#individual"]:focus::after,
+.navbar-menu li a[href="#individual"]:active::after,
+.navbar-menu li a[href="#corporate"]:hover::after,
+.navbar-menu li a[href="#corporate"]:focus::after,
+.navbar-menu li a[href="#corporate"]:active::after {
   opacity: 1;
   transform: translateX(-50%) translateY(6px);
   animation: softGlow 2.5s ease-in-out infinite;
 }
 
+/* Mobile sizing */
 @media (max-width: 900px) {
-  .navbar-menu li a::after {
+  .navbar-menu li a[href="#individual"]::after,
+  .navbar-menu li a[href="#corporate"]::after {
     max-width: 260px;
     font-size: 0.8rem;
   }
@@ -191,7 +201,7 @@ html, body {
   color: #ff5ab1;
 }
 
-/* Hero Section */
+/* Hero */
 .container {
   position: relative;
   width: 100%;
@@ -208,8 +218,7 @@ html, body {
   margin-bottom: 80px;
 }
 
-/* ===== GLASS BOXES (FULLY ORIGINAL) ===== */
-
+/* Glass Boxes (ORIGINAL) */
 .glass-container {
   position: relative;
   width: 100%;
@@ -241,13 +250,11 @@ html, body {
   margin-bottom: 1rem;
   font-weight: 600;
   text-decoration: underline;
-  text-align: center;
 }
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
   line-height: 1.5;
   text-align: justify;
-  flex-grow: 1;
 }
 .button-like {
   display: block;
@@ -323,12 +330,10 @@ footer a:hover {
 
 <body>
 
-<!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
-<!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
@@ -345,7 +350,6 @@ footer a:hover {
   </ul>
 </nav>
 
-<!-- Mobile Menu -->
 <div id="mobileMenu">
   <a href="#about">About</a>
   <a href="#individual">Individual</a>
@@ -354,12 +358,10 @@ footer a:hover {
   <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
 </div>
 
-<!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Glass Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="individual">
     <h2>Individual</h2>
@@ -374,14 +376,13 @@ footer a:hover {
   </div>
 </div>
 
-<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
   <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
   <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp"/>
   </a>
 </footer>
 
@@ -402,7 +403,7 @@ function toggleMobileMenu(){
   menu.classList.toggle('open', !isOpen);
 }
 
-// Desktop Glass Box Tilt & Glow (ORIGINAL)
+// Glass box tilt & glow (ORIGINAL)
 if(window.innerWidth > 900){
   const boxes = document.querySelectorAll('.glass-box');
   boxes.forEach(box => {
