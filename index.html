@@ -80,7 +80,7 @@ html, body {
   color: #ff5ab1;
 }
 
-/* ===== NAVBAR TOOLTIP (ONLY ADDITION) ===== */
+/* ===== NAVBAR TOOLTIP ===== */
 
 @keyframes softGlow {
   0%   { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
@@ -88,7 +88,6 @@ html, body {
   100% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
 }
 
-/* Tooltip base */
 .navbar-menu li a[href="#individual"]::after,
 .navbar-menu li a[href="#corporate"]::after {
   content: "";
@@ -118,25 +117,22 @@ html, body {
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-/* Individual tooltip text */
 .navbar-menu li a[href="#individual"]::after {
   content:
-    "Your wellness, your way\A"
-    "Personalized health plans\A"
-    "Powered by your DNA\A"
-    "Coming soon >>";
+    "Your wellness, your way!\A"
+    "Personalized health plans,\A"
+    "Powered by your DNA.\A"
+    "<< Coming soon >>";
 }
 
-/* Corporate tooltip text */
 .navbar-menu li a[href="#corporate"]::after {
   content:
-    "Your genomic data\A"
-    "Our professional care\A"
-    "Outsourcing made simple\A"
-    "Coming soon >>";
+    "Your genomic data,\A"
+    "Our professional care!\A"
+    "Outsourcing made simple.\A"
+    "<< Coming soon >>";
 }
 
-/* Show tooltip (hover + tap) */
 .navbar-menu li a[href="#individual"]:hover::after,
 .navbar-menu li a[href="#individual"]:focus::after,
 .navbar-menu li a[href="#individual"]:active::after,
@@ -148,7 +144,6 @@ html, body {
   animation: softGlow 2.5s ease-in-out infinite;
 }
 
-/* Mobile sizing */
 @media (max-width: 900px) {
   .navbar-menu li a[href="#individual"]::after,
   .navbar-menu li a[href="#corporate"]::after {
@@ -197,9 +192,7 @@ html, body {
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(4px);
 }
-#mobileMenu a:hover {
-  color: #ff5ab1;
-}
+#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero */
 .container {
@@ -212,9 +205,6 @@ html, body {
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  font-weight: 400;
-  line-height: 1.2;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 80px;
 }
 
@@ -244,43 +234,6 @@ html, body {
   justify-content: space-between;
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.glass-box h2 {
-  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-  margin-bottom: 1rem;
-  font-weight: 600;
-  text-decoration: underline;
-}
-.glass-box p {
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.5;
-  text-align: justify;
-}
-.button-like {
-  display: block;
-  width: 100%;
-  padding: 0.8rem 0;
-  border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.22);
-  color:white;
-  backdrop-filter: blur(6px);
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 20px;
-}
-.button-like:hover {
-  transform: translateY(-3px) scale(1.03);
-  color: #ff5ab1;
-  box-shadow: 0 0 20px rgba(255,90,177,0.6);
-}
-.button-like:hover em {
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
 
 /* Footer (ORIGINAL) */
@@ -330,10 +283,12 @@ footer a:hover {
 
 <body>
 
+<!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
 
+<!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
@@ -350,6 +305,7 @@ footer a:hover {
   </ul>
 </nav>
 
+<!-- Mobile Menu -->
 <div id="mobileMenu">
   <a href="#about">About</a>
   <a href="#individual">Individual</a>
@@ -358,24 +314,27 @@ footer a:hover {
   <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
 </div>
 
+<!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
+<!-- Glass Boxes -->
 <div class="glass-container">
-  <div class="glass-box" id="individual">
-    <h2>Individual</h2>
-    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
-    <a class="button-like" href="#"><em>Coming Soon</em></a>
+  <div class="glass-box" id="blog">
+    <h2>Blog</h2>
+    <p>Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
+    <a class="button-like" href="#"><em>Subscribe</em></a>
   </div>
 
-  <div class="glass-box" id="corporate">
-    <h2>Corporate</h2>
-    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
+  <div class="glass-box" id="courses">
+    <h2>Courses</h2>
+    <p>Learn Bioinformatics with hands-on practice.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
 </div>
 
+<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -433,6 +392,93 @@ if(window.innerWidth > 900){
       glow.style.opacity = '0';
     });
   });
+}
+
+/* 🔑 FIX: reset focus so hover tooltips work after navigation */
+document.querySelectorAll('.navbar-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    link.blur();
+  });
+});
+
+  <!-- ================= SUBSCRIBE POPUP ================= -->
+<div id="subscribe-popup">
+  <div class="popup-content">
+    <input type="email" id="subscriber-email" placeholder="Enter your email" required>
+    <button onclick="submitEmail()">OK</button>
+    <div class="thankyou-message">
+      Thank you for subscribing!<br>
+      Get ready for monthly updates!
+    </div>
+    <button class="popup-back" onclick="closePopup()" style="display:none;">Back</button>
+  </div>
+</div>
+
+<script>
+/* PARTICLES */
+for(let i=0;i<30;i++){
+  const p=document.createElement("span");
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDelay=Math.random()*12+"s";
+  document.querySelector(".particles").appendChild(p);
+}
+
+/* GLASS TILT + GLOW (DESKTOP ONLY) */
+if (window.innerWidth > 900) {
+  document.querySelectorAll('.glass-card').forEach(card => {
+    const glow = document.createElement('div');
+    glow.style.position='absolute';
+    glow.style.inset='0';
+    glow.style.borderRadius='inherit';
+    glow.style.pointerEvents='none';
+    glow.style.opacity='0';
+    glow.style.transition='opacity 0.25s ease, background 0.25s ease';
+    card.appendChild(glow);
+
+    card.addEventListener('mousemove', e => {
+      const r=card.getBoundingClientRect();
+      const x=e.clientX-r.left, y=e.clientY-r.top;
+      const rx=((y/r.height)-0.5)*-15;
+      const ry=((x/r.width)-0.5)*15;
+
+      card.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      glow.style.opacity='1';
+      glow.style.background=`radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    card.addEventListener('mouseleave', ()=>{
+      card.style.transform='perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity='0';
+    });
+  });
+}
+
+/* ========================= SUBSCRIBE POPUP FUNCTIONS ========================= */
+function openPopup() {
+  document.getElementById('subscribe-popup').style.display='flex';
+  document.getElementById('subscriber-email').value='';
+  document.querySelector('.thankyou-message').style.display='none';
+  document.querySelector('.popup-back').style.display='none';
+}
+
+function closePopup() {
+  document.getElementById('subscribe-popup').style.display='none';
+}
+
+function submitEmail() {
+  const email = document.getElementById('subscriber-email').value;
+  if(!email) return;
+
+  // Mailchimp AJAX POST
+  const url = "https://gmail.us11.list-manage.com/subscribe/post-json?u=a3a0fc0677a746f170a59ac7c&id=6630c786f4&c=?";
+  const script = document.createElement('script');
+  script.src = `${url}&EMAIL=${encodeURIComponent(email)}`;
+  document.body.appendChild(script);
+  script.onload = () => { document.body.removeChild(script); }
+
+  // Show thank you message
+  document.querySelector('.thankyou-message').style.display='block';
+  document.querySelector('.popup-back').style.display='inline-block';
 }
 </script>
 
