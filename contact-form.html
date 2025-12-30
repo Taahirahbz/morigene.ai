@@ -1,231 +1,179 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Contact Form</title>
 
 <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
-    font-family: 'IBM Plex Sans', sans-serif;
-    background: url('images/background.jpg') center/cover no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-  }
+/* Basic Reset & Background */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: 'IBM Plex Sans', sans-serif;
+  overflow: hidden; /* disable scrolling */
+  background: #0a0a0a;
+  position: relative;
+}
 
-  /* Floating particles */
-  .particle {
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.15);
-    pointer-events: none;
-    animation: float 15s linear infinite;
-  }
+/* Floating particles */
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 50%;
+  animation: float 10s linear infinite;
+}
+@keyframes float {
+  0% {transform: translateY(0px) translateX(0px);}
+  50% {transform: translateY(-50vh) translateX(50vw);}
+  100% {transform: translateY(0px) translateX(0px);}
+}
 
-  @keyframes float {
-    0% { transform: translateY(0) translateX(0); opacity:0.3; }
-    50% { transform: translateY(-50px) translateX(30px); opacity:0.6; }
-    100% { transform: translateY(0) translateX(0); opacity:0.3; }
-  }
+/* Center square form container */
+.form-container {
+  position: relative;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 1.5rem;
+  width: 450px;
+  aspect-ratio: 1 / 1;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  box-shadow: 0 0 25px rgba(255,255,255,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  /* Form container (glass box) */
-  #formBox {
-    position: relative;
-    background: rgba(255,255,255,0.08);
-    backdrop-filter: blur(8px);
-    border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 1.5rem;
-    width: 80vw;
-    max-width: 900px;
-    padding: 80px; /* equal padding all around */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+/* Tilt & glow effect */
+.form-container:hover {
+  transform: perspective(800px) rotateX(-3deg) rotateY(3deg) scale(1.03);
+  box-shadow: 0 0 35px rgba(255,90,177,0.6);
+}
 
-  #formGlow {
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    opacity: 0;
-    pointer-events: none;
-    background: radial-gradient(circle, rgba(255,255,255,0.25), transparent 70%);
-    transition: opacity 0.25s ease, background 0.25s ease;
-  }
+/* Form elements */
+h2 {
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
 
-  h2 {
-    color: white;
-    font-size: clamp(2rem, 3vw, 2.5rem);
-    margin-bottom: 2rem;
-    text-align: center;
-  }
+form {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
 
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.8rem;
+  color: white;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
 
-  label {
-    color: white;
-    display: flex;
-    flex-direction: column;
-    font-weight: 500;
-    font-size: 1rem;
-  }
+input, select, textarea {
+  margin-top: 0.4rem;
+  padding: 0.6rem 1rem;
+  border-radius: 0.8rem;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-  input, textarea {
-    padding: 0.9rem 1rem;
-    font-size: 1rem;
-    border-radius: 50px;
-    border: 1px solid rgba(255,255,255,0.3);
-    outline: none;
-    background: rgba(255,255,255,0.1);
-    color: white;
-    transition: border-color 0.3s ease, background 0.3s ease;
-  }
+input:focus, select:focus, textarea:focus {
+  border-color: #ff5ab1;
+  box-shadow: 0 0 10px rgba(255,90,177,0.4);
+}
 
-  input:focus, textarea:focus {
-    border-color: #ff5ab1;
-    background: rgba(255,255,255,0.15);
-  }
+textarea { resize: vertical; min-height: 80px; }
 
-  textarea {
-    min-height: 140px;
-    resize: vertical;
-  }
+/* Send button */
+button.send-btn {
+  align-self: center;
+  padding: 0.7rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.5); /* 50% transparency */
+  color: white;
+  border-radius: 1.2rem;
+  border: 1px solid rgba(255,255,255,0.4);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
 
-  button[type="submit"] {
-    padding: 0.6rem 1.5rem;
-    font-size: 1.1rem;
-    font-weight: 600;
-    border-radius: 50px;
-    border: 1px solid rgba(255,255,255,0.3);
-    background: rgba(255,91,177,0.7);
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    align-self: flex-start;
-  }
+button.send-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+}
 
-  button[type="submit"]:hover {
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 0 20px rgba(255,91,177,0.6);
-  }
+/* Back button */
+.back-btn {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  padding: 0.6rem 1.5rem;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 1.2rem;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  backdrop-filter: blur(4px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-  /* Back button styling */
-  #backButton {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    padding: 0.6rem 1.5rem;
-    border-radius: 1.5rem;
-    border: 1px solid rgba(255,255,255,0.3);
-    background: rgba(255,255,255,0.08);
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(8px);
-  }
+.back-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+}
 
-  #backButton:hover {
-    background: rgba(255,91,177,0.15);
-    box-shadow: 0 0 15px rgba(255,91,177,0.5);
+/* Responsive */
+@media(max-width: 500px){
+  .form-container {
+    width: 90vw;
+    aspect-ratio: 1/1;
+    padding: 1.5rem;
   }
-
-  @media (max-width: 900px) {
-    #formBox {
-      width: 90vw;
-      padding: 40px;
-    }
-  }
+}
 </style>
 </head>
 <body>
 
 <!-- Particles -->
-<div class="particle" style="width:6px; height:6px; top:10%; left:20%; animation-duration:12s;"></div>
-<div class="particle" style="width:10px; height:10px; top:70%; left:40%; animation-duration:18s;"></div>
-<div class="particle" style="width:8px; height:8px; top:30%; left:70%; animation-duration:15s;"></div>
-<div class="particle" style="width:12px; height:12px; top:50%; left:10%; animation-duration:20s;"></div>
-<div class="particle" style="width:5px; height:5px; top:80%; left:80%; animation-duration:17s;"></div>
+<div class="particle" style="top:10%; left:20%;"></div>
+<div class="particle" style="top:50%; left:40%;"></div>
+<div class="particle" style="top:80%; left:70%;"></div>
+<div class="particle" style="top:30%; left:60%;"></div>
+<div class="particle" style="top:70%; left:10%;"></div>
 
-<div id="formBox">
-  <div id="formGlow"></div>
-
+<div class="form-container">
   <h2>Contact Us</h2>
-
-  <form id="contactForm">
-    <label for="name">Your Name:<input type="text" id="name" required></label>
-    <label for="email">Your Email:<input type="email" id="email" required></label>
-    <label for="message">Message:<textarea id="message" required></textarea></label>
-    <button type="submit">Send</button>
+  <form id="contactForm" action="https://docs.google.com/forms/d/e/1FAIpQLSc6ol9SDEuiIaFkol84ZqSh0dv_BvJKv-vWYhnmAH4_NDoSBw/formResponse" method="GET" target="_blank">
+    <label for="name">Your Name:
+      <input type="text" id="name" name="entry.1910789101" required>
+    </label>
+    <label for="email">Your Email:
+      <input type="email" id="email" name="entry.1121926681" required>
+    </label>
+    <label for="message">Message:
+      <textarea id="message" name="entry.356277934" required></textarea>
+    </label>
+    <button type="submit" class="send-btn">Send</button>
   </form>
+  <a href="index.html" class="back-btn">Back</a>
 </div>
-
-<a href="index.html" id="backButton">Back</a>
-
-<script>
-  // Google Form submission
-  document.getElementById('contactForm').addEventListener('submit', function(e){
-    e.preventDefault();
-    const name = encodeURIComponent(document.getElementById('name').value);
-    const email = encodeURIComponent(document.getElementById('email').value);
-    const message = encodeURIComponent(document.getElementById('message').value);
-
-    const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc6ol9SDEuiIaFkol84ZqSh0dv_BvJKv-vWYhnmAH4_NDoSBw/viewform?usp=pp_url&entry.1910789101=${name}&entry.1121926681=${email}&entry.356277934=${message}`;
-    window.open(formURL, '_blank');
-  });
-
-  // Glow & tilt effect for form box
-  const formBox = document.getElementById('formBox');
-  const formGlow = document.getElementById('formGlow');
-
-  function setTilt(x, y, width, height){
-    const rx = ((y / height) - 0.5) * -10;
-    const ry = ((x / width) - 0.5) * 10;
-    formBox.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.02)`;
-    formGlow.style.opacity = '1';
-    formGlow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.25), transparent 70%)`;
-  }
-
-  formBox.addEventListener('mousemove', e=>{
-    const rect = formBox.getBoundingClientRect();
-    setTilt(e.clientX - rect.left, e.clientY - rect.top, rect.width, rect.height);
-  });
-
-  formBox.addEventListener('mouseleave', ()=>{
-    formBox.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-    formGlow.style.opacity = '0';
-  });
-
-  // Mobile touch events
-  formBox.addEventListener('touchstart', e=>{
-    const touch = e.touches[0];
-    const rect = formBox.getBoundingClientRect();
-    setTilt(touch.clientX - rect.left, touch.clientY - rect.top, rect.width, rect.height);
-  }, {passive:true});
-
-  formBox.addEventListener('touchmove', e=>{
-    const touch = e.touches[0];
-    const rect = formBox.getBoundingClientRect();
-    setTilt(touch.clientX - rect.left, touch.clientY - rect.top, rect.width, rect.height);
-  }, {passive:true});
-
-  formBox.addEventListener('touchend', ()=>{
-    formBox.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-    formGlow.style.opacity = '0';
-  });
-</script>
 
 </body>
 </html>
