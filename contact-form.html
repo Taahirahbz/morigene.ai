@@ -33,9 +33,9 @@ body {
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 400px;
-  height: 400px;
-  padding: 2rem;
+  width: 450px;
+  height: 450px;
+  padding: 3rem 2rem;
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
   border-radius: 20px;
@@ -53,7 +53,7 @@ body {
 /* Form elements */
 h2 {
   color: white;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   text-align: center;
 }
 
@@ -85,7 +85,7 @@ button.send-btn {
 
 button.send-btn:hover {
   transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 20px rgba(255,91,177,0.6);
+  box-shadow: 0 0 25px rgba(255,91,177,0.7);
 }
 
 /* Back button */
@@ -117,14 +117,19 @@ label { color: white; width: 100%; margin-top: 0.5rem; font-size: 0.95rem; }
 .particle {
   position: absolute;
   border-radius: 50%;
-  background: white;
   opacity: 0.8;
   pointer-events: none;
+  background: white;
+  box-shadow: 0 0 5px rgba(255,255,255,0.7);
+}
+.particle.magenta {
+  background: #FF5AB1;
+  box-shadow: 0 0 6px rgba(255,91,177,0.8);
 }
 
 /* Media */
 @media (max-width: 500px) {
-  .form-container { width: 90vw; height: 90vw; }
+  .form-container { width: 90vw; height: 90vw; padding: 2rem; }
 }
 </style>
 </head>
@@ -161,7 +166,7 @@ label { color: white; width: 100%; margin-top: 0.5rem; font-size: 0.95rem; }
 <button class="back-btn" onclick="location.href='index.html'">Back</button>
 
 <script>
-// Tilt & Glow effect (keep box centered)
+// Tilt & Glow effect (stable center)
 const box = document.querySelector('.form-container');
 box.addEventListener('mousemove', e => {
   const rect = box.getBoundingClientRect();
@@ -172,35 +177,44 @@ box.addEventListener('mousemove', e => {
   box.style.transform = `translate(-50%, -50%) perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
   box.style.boxShadow = `0 0 35px rgba(255,91,177,0.6)`;
 });
-
 box.addEventListener('mouseleave', () => {
   box.style.transform = 'translate(-50%, -50%) perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
   box.style.boxShadow = '0 0 30px rgba(255,255,255,0.1)';
 });
 
-// Floating Particles
-const particleCount = 40;
+// Floating Particles with halo
+const particleCount = 60;
 const particleContainer = document.getElementById('particles');
 
 for (let i = 0; i < particleCount; i++) {
   const p = document.createElement('div');
   p.classList.add('particle');
-  const size = Math.random()*4 + 2;
+  if(Math.random() > 0.5) p.classList.add('magenta');
+  const size = Math.random()*5 + 2;
   p.style.width = `${size}px`;
   p.style.height = `${size}px`;
-  p.style.left = `${Math.random()*100}%`;
-  p.style.top = `${Math.random()*100}%`;
-  p.style.background = Math.random() > 0.5 ? 'white' : '#FF5AB1';
+  const angle = Math.random()*2*Math.PI;
+  const radius = Math.random()*120 + 60; // distance from box center
+  p.dataset.angle = angle;
+  p.dataset.radius = radius;
+  p.dataset.speed = 0.002 + Math.random()*0.003;
   particleContainer.appendChild(p);
 }
 
-// Animate particles
+// Animate particles orbiting box
 function animateParticles() {
+  const rect = box.getBoundingClientRect();
+  const centerX = rect.left + rect.width/2;
+  const centerY = rect.top + rect.height/2;
   document.querySelectorAll('.particle').forEach(p => {
-    let top = parseFloat(p.style.top);
-    top -= 0.1 + Math.random()*0.2;
-    if(top < 0) top = 100;
-    p.style.top = `${top}%`;
+    let angle = parseFloat(p.dataset.angle);
+    const radius = parseFloat(p.dataset.radius);
+    angle += parseFloat(p.dataset.speed);
+    p.dataset.angle = angle;
+    const x = centerX + radius * Math.cos(angle) - parseFloat(p.style.width)/2;
+    const y = centerY + radius * Math.sin(angle) - parseFloat(p.style.height)/2;
+    p.style.left = `${x}px`;
+    p.style.top = `${y}px`;
   });
   requestAnimationFrame(animateParticles);
 }
