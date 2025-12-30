@@ -121,7 +121,7 @@ html, body {
     "Your wellness, your way!\A"
     "Personalized health plans,\A"
     "Powered by your DNA.\A"
-    "<< Coming soon >>";
+    "<Coming soon>";
 }
 
 .navbar-menu li a[href="#corporate"]::after {
@@ -129,7 +129,7 @@ html, body {
     "Your genomic data,\A"
     "Our professional care!\A"
     "Outsourcing made simple.\A"
-    "<< Coming soon >>";
+    "<Coming soon>";
 }
 
 .navbar-menu li a[href="#individual"]:hover::after,
@@ -207,7 +207,7 @@ html, body {
   margin-bottom: 80px;
 }
 
-/* Glass Boxes (RESTORED ORIGINAL) */
+/* Glass Boxes */
 .glass-container {
   position: relative;
   width: 100%;
@@ -275,7 +275,7 @@ html, body {
   text-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
 
-/* Footer (ORIGINAL) */
+/* Footer */
 footer {
   background: rgba(0,0,0,0.35);
   color: white;
@@ -316,6 +316,64 @@ footer a:hover {
   }
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
+}
+
+/* ========================= */
+/* SUBSCRIBE POPUP */
+#subscribe-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+#subscribe-popup .popup-content {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 320px;
+  width: 80%;
+}
+#subscribe-popup input[type="email"] {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  margin-bottom: 1rem;
+  outline: none;
+  text-align: center;
+}
+#subscribe-popup button {
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, rgba(255,91,177,0.6), rgba(255,91,177,0.3));
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+#subscribe-popup .thankyou-message {
+  display: none;
+  text-align: center;
+  color: white;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+#subscribe-popup .popup-back {
+  padding: 0.6rem 1.8rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
 }
 </style>
 </head>
@@ -362,7 +420,7 @@ footer a:hover {
   <div class="glass-box" id="blog">
     <h2>Blog</h2>
     <p>Tiny reads, Big genes: Bio bytes that fit your coffee break.</p>
-    <a class="button-like" href="#"><em>Subscribe</em></a>
+    <a class="button-like" onclick="openPopup()"><em>Subscribe</em></a>
   </div>
   
   <div class="glass-box" id="courses">
@@ -382,6 +440,19 @@ footer a:hover {
     <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp"/>
   </a>
 </footer>
+
+<!-- ================= SUBSCRIBE POPUP ================= -->
+<div id="subscribe-popup">
+  <div class="popup-content">
+    <input type="email" id="subscriber-email" placeholder="Enter your email" required>
+    <button onclick="submitEmail()">OK</button>
+    <div class="thankyou-message">
+      Thank you for subscribing!<br>
+      Get ready for monthly updates!
+    </div>
+    <button class="popup-back" onclick="closePopup()" style="display:none;">Back</button>
+  </div>
+</div>
 
 <script>
 // Video Parallax
@@ -438,7 +509,45 @@ document.querySelectorAll('.navbar-menu a').forEach(link => {
     link.blur();
   });
 });
-</script>
 
+// ========================= SUBSCRIBE POPUP FUNCTIONS =========================
+function openPopup() {
+  document.getElementById('subscribe-popup').style.display = 'flex';
+  document.getElementById('subscriber-email').value = '';
+  document.querySelector('.thankyou-message').style.display = 'none';
+  document.querySelector('.popup-back').style.display = 'none';
+}
+
+function closePopup() {
+  document.getElementById('subscribe-popup').style.display = 'none';
+}
+
+function submitEmail() {
+  const email = document.getElementById('subscriber-email').value;
+  if (!email) {
+    alert("Please enter your email!");
+    return;
+  }
+  
+  // Here you can add real email submission logic, e.g., using fetch or form action
+  console.log("Email submitted:", email);
+  
+  // Show thank you message
+  document.querySelector('.thankyou-message').style.display = 'block';
+  document.querySelector('.popup-back').style.display = 'block';
+  
+  // Hide input and OK button
+  document.getElementById('subscriber-email').style.display = 'none';
+  document.querySelector('#subscribe-popup button').style.display = 'none';
+}
+
+// Optional: Close popup when clicking outside content
+document.getElementById('subscribe-popup').addEventListener('click', function(e){
+  if(e.target === this){
+    closePopup();
+  }
+});
+</script>
 </body>
 </html>
+
