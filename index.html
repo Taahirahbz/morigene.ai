@@ -52,12 +52,10 @@ html, body {
   line-height: 1;
 }
 .navbar .logo .main-text {
-  font-family: 'IBM Plex Sans', sans-serif;
   font-weight: 600;
   font-size: clamp(1.5rem, 2.5vw, 1.9rem);
 }
 .navbar .logo .sub-text {
-  font-family: 'IBM Plex Sans', sans-serif;
   font-style: italic;
   font-size: clamp(0.75rem, 1.25vw, 0.95rem);
   margin-top: -2px;
@@ -69,13 +67,83 @@ html, body {
   display: flex;
   gap: 20px;
 }
+.navbar-menu li {
+  position: relative;
+}
 .navbar-menu li a {
   color: white;
   text-decoration: underline;
   font-weight: 500;
+  position: relative;
 }
 .navbar-menu li a:hover {
   color: #ff5ab1;
+}
+
+/* ===== NAVBAR TOOLTIP (FINAL AGREED MODIFICATION) ===== */
+
+/* Glow animation matching glass boxes */
+@keyframes softGlow {
+  0%   { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
+  50%  { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
+  100% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
+}
+
+/* Base tooltip */
+.navbar-menu li a::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 135%;
+  transform: translateX(-50%) translateY(0);
+
+  max-width: 420px;
+  width: max-content;
+  padding: 12px 16px;
+
+  font-size: 0.85rem;
+  line-height: 1.45;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+
+  color: white;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
+
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+/* Tooltip text */
+.navbar-menu li a[href="#individual"]::after {
+  content: "Your wellness, your way - Personalized health plans powered by your DNA! Coming soon >>";
+}
+.navbar-menu li a[href="#corporate"]::after {
+  content: "Your genomic data, our professional care - Outsourcing made simple! Coming soon >>";
+}
+
+/* Show tooltip (desktop + mobile tap) */
+.navbar-menu li a:hover::after,
+.navbar-menu li a:focus::after,
+.navbar-menu li a:active::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(6px);
+  animation: softGlow 2.5s ease-in-out infinite;
+}
+
+/* Smaller screens */
+@media (max-width: 900px) {
+  .navbar-menu li a::after {
+    max-width: 260px;
+    font-size: 0.8rem;
+    padding: 10px 14px;
+  }
 }
 
 /* Mobile Menu Toggle */
@@ -86,7 +154,6 @@ html, body {
   gap: 5px;
 }
 .mobile-menu-toggle span {
-  display: block;
   width: 25px;
   height: 3px;
   background: white;
@@ -112,219 +179,68 @@ html, body {
   color: white;
   font-weight: bold;
   font-size: 1.6rem;
-  text-decoration: underline; /* Mobile menu all items underlined */
+  text-decoration: underline;
   padding: 0.6rem 1.5rem;
   border-radius: 50px;
   border:1px solid rgba(255,255,255,0.45);
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(4px);
 }
-#mobileMenu a:hover {
-  color: #ff5ab1;
-}
-
-/* Mobile menu gradient on open */
-#mobileMenu.open {
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,64,0.7) 0%, 
-    rgba(48,25,78,0.7) 100%
-  );
-  animation: menuFadeIn 0.35s ease forwards;
-}
-
-@keyframes menuFadeIn {
-  from {
-    opacity: 0;
-    transform: scale(1.02);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero Section */
 .container {
-  position: relative;
-  width: 100%;
   text-align: center;
   padding: 20px;
-  top: 70px; /* Default for desktop */
+  top: 70px;
+  position: relative;
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
   font-style: italic;
-  font-weight: 400;
-  color: white;
-  line-height: 1.2;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
   margin-bottom: 80px;
-}
-
-/* Glass Boxes */
-.glass-container {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding: 20px;
-  flex-wrap: wrap;
-}
-.glass-box {
-  width: 29.25%;
-  margin: 0 20px;
-  background: rgba(255,255,255,0.05);
-  min-height: 260px;
-  padding: 2rem;
-  border-radius: 1.5rem;
-  backdrop-filter: blur(6px);
-  border:1px solid rgba(255,255,255,0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.glass-box h2 {
-  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  text-decoration: underline;
-  text-align: center;
-}
-.glass-box p {
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.5;
-  text-align: justify;
-  flex-grow: 1;
-}
-.button-like {
-  display: block;
-  width: 100%;
-  padding: 0.8rem 0;
-  border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.22);
-  color:white;
-  backdrop-filter: blur(6px);
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1rem;
-  text-align: center;
-  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 20px;
-}
-.button-like:hover {
-  transform: translateY(-3px) scale(1.03);
-  color: #ff5ab1;
-  box-shadow: 0 0 20px rgba(255,90,177,0.6);
-}
-.button-like:hover em {
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 0 8px rgba(255,255,255,0.8);
 }
 
 /* Footer */
 footer {
   background: rgba(0,0,0,0.35);
-  color: white;
-  text-align: center;
-  font-size: 14px;
   position: fixed;
   bottom: 0;
   width: 100%;
+  height: 45px;
   display: flex;
   justify-content: center;
-  gap: 15px;
   align-items: center;
-  height: 45px;
-  padding: 0 10px;
-  flex-wrap: wrap;
+  gap: 15px;
+  font-size: 14px;
 }
-footer a {
-  color: white;
-  text-decoration: none;
-}
-footer a:hover {
-  text-decoration: underline;
-}
+footer a { color: white; text-decoration: none; }
+footer a:hover { text-decoration: underline; }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .glass-container { gap: 40px; }
-}
-
-/* MOBILE ONLY ADJUSTMENTS */
+/* Mobile */
 @media (max-width: 900px) {
-  .glass-container {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-    padding-bottom: 60px;
-  }
-
-  .glass-box {
-    width: 85%;
-    max-width: 280px;
-    min-height: 180px; /* reduce height to fit mobile viewport */
-    padding: 1.5rem;
-    margin: 0 auto; /* center horizontally */
-  }
-
-  .button-like {
-    font-size: 0.9rem; /* reduce button size */
-    padding: 0.6rem 0;
-  }
-
-  /* Hero section adjustments for mobile */
-  .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    min-height: calc(100vh - 60px - 180px - 45px); /* header + card + footer */
-    padding: 0 15px;
-    top: 60px; /* reduce space from navbar */
-  }
-
-  .headline {
-    font-size: clamp(1.5rem, 5vw, 2.5rem);
-    margin-bottom: 15px; /* reduce spacing between header and first card */
-  }
-
   .navbar-menu { display: none; }
   .mobile-menu-toggle { display: flex; }
-  #mobileMenu { display: none; }
-
-  /* Footer remains untouched */
-  footer { font-size: 12px; padding: 4px 10px; gap: 5px; height: 45px; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- Video Background -->
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
-  Your browser does not support the video tag.
 </video>
 
-<!-- Navbar -->
 <nav class="navbar">
   <div class="logo">
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
+
   <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span>
   </div>
+
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -333,48 +249,15 @@ footer a:hover {
   </ul>
 </nav>
 
-<!-- Mobile Menu Overlay -->
-<div id="mobileMenu">
-  <a href="#about">About</a>
-  <a href="#individual">Individual</a>
-  <a href="#corporate">Corporate</a>
-  <a href="learn-blog.html">More</a>
-  <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
-</div>
-
-<!-- Hero -->
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one genome at a time!</h1>
 </div>
 
-<!-- Glass Boxes -->
-<div class="glass-container">
-  <div class="glass-box" id="individual">
-    <h2>Individual</h2>
-    <p>Your Wellness, Your Way — Personalized Health Plans Powered by Your DNA.</p>
-    <a class="button-like" href="#"><em>Coming Soon</em></a>
-  </div>
-
-  <div class="glass-box" id="corporate">
-    <h2>Corporate</h2>
-    <p>Your Genomic Data, Our Professional Care — Outsourcing Made Simple.</p>
-    <a class="button-like" href="#"><em>Coming Soon</em></a>
-  </div>
-</div>
-
-<!-- Footer -->
 <footer>
   <span>© 2025 Morigene.ai — All rights reserved.</span>
-  <a href="privacy-policy.html">Privacy Policy</a>
-  <a href="terms&conditions.html">Terms & Conditions</a>
-  <a href="contact-form.html">Contact</a>
-  <a href="https://wa.me/23057828591" target="_blank" rel="noopener">
-    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp Icon" width="20" height="20"/>
-  </a>
 </footer>
 
 <script>
-// Video Parallax
 document.addEventListener('mousemove', function(e){
   const video = document.getElementById('bg-video');
   const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
@@ -382,44 +265,10 @@ document.addEventListener('mousemove', function(e){
   video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 });
 
-// Mobile Menu Toggle
 function toggleMobileMenu(){
   const menu = document.getElementById('mobileMenu');
   const isOpen = menu.style.display === 'flex';
   menu.style.display = isOpen ? 'none' : 'flex';
-  menu.classList.toggle('open', !isOpen);
-}
-
-// Desktop Glass Box Tilt & Glow
-if(window.innerWidth > 900){
-  const boxes = document.querySelectorAll('.glass-box');
-  boxes.forEach(box => {
-    const glow = document.createElement('div');
-    glow.style.position = 'absolute';
-    glow.style.inset = '0';
-    glow.style.borderRadius = 'inherit';
-    glow.style.opacity = '0';
-    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
-    glow.style.pointerEvents = 'none';
-    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
-    box.appendChild(glow);
-
-    box.addEventListener('mousemove', e => {
-      const rect = box.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const rx = ((y / rect.height) - 0.5) * -15;
-      const ry = ((x / rect.width) - 0.5) * 15;
-      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-      glow.style.opacity = '1';
-      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
-    });
-
-    box.addEventListener('mouseleave', () => {
-      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-      glow.style.opacity = '0';
-    });
-  });
 }
 </script>
 
