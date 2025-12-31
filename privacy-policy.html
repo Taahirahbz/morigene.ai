@@ -1,68 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacy Policy</title>
 
-<!-- Shared CSS -->
-<link rel="stylesheet" href="base.css">
+<style>
+/* ================= PAGE ================= */
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  background: url('images/background.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+/* ================= PARTICLES ================= */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: float 4s infinite ease-in-out;
+}
+
+.particle.white {
+  background: white;
+  box-shadow: 0 0 6px rgba(255,255,255,0.8);
+}
+
+.particle.magenta {
+  background: #FF5AB1;
+  box-shadow: 0 0 8px rgba(255,91,177,0.9);
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ================= GLASS BOX ================= */
+.glass-policy {
+  position: relative;
+  width: min(900px, 90vw);
+  max-height: 85vh;
+  padding: 2.5rem;
+  overflow-y: auto;
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+  z-index: 10;
+}
+
+/* Scrollbar (subtle) */
+.glass-policy::-webkit-scrollbar {
+  width: 6px;
+}
+.glass-policy::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.25);
+  border-radius: 10px;
+}
+
+/* ================= TYPOGRAPHY ================= */
+h1, h2 {
+  color: white;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+p, li {
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+}
+
+ul {
+  padding-left: 1.2rem;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 600px) {
+  .glass-policy {
+    padding: 2rem;
+  }
+}
+</style>
 </head>
 <body>
 
-<!-- Particle container -->
+<!-- Particles -->
 <div id="particles"></div>
 
-<!-- Page wrapper for transitions -->
-<div class="page-wrapper" id="page">
-  <!-- Glass Box -->
-  <div class="glass-policy">
-    <h1>Privacy Policy</h1>
-    <p>Last updated: September 26, 2025</p>
+<!-- Glass Privacy Policy -->
+<div class="glass-policy">
+  <h1>Privacy Policy</h1>
+  <p><em>Last updated: September 26, 2025</em></p>
 
-    <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website.</p>
+  <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website.</p>
 
-    <h2>1. Information We Collect</h2>
-    <ul>
-      <li>Personal Information (e.g., name, email address)</li>
-      <li>Usage Data (e.g., browser type, pages visited)</li>
-      <li>Cookies and tracking data</li>
-    </ul>
+  <h2>1. Information We Collect</h2>
+  <p>We may collect the following types of information:</p>
+  <ul>
+    <li>Personal Information (e.g., name, email address)</li>
+    <li>Usage Data (e.g., browser type, pages visited)</li>
+    <li>Cookies and tracking data</li>
+  </ul>
 
-    <h2>2. How We Use Your Information</h2>
-    <ul>
-      <li>Provide and maintain our service</li>
-      <li>Improve and personalize your experience</li>
-      <li>Send you updates or marketing communications (if opted in)</li>
-    </ul>
+  <h2>2. How We Use Your Information</h2>
+  <p>We use your information to:</p>
+  <ul>
+    <li>Provide and maintain our service</li>
+    <li>Improve and personalize your experience</li>
+    <li>Send you updates or marketing communications (if opted in)</li>
+  </ul>
 
-    <h2>3. Data Sharing and Disclosure</h2>
-    <ul>
-      <li>Comply with legal obligations</li>
-      <li>Protect our rights or investigate fraud</li>
-      <li>Use third-party service providers (under strict confidentiality agreements)</li>
-    </ul>
+  <h2>3. Data Sharing and Disclosure</h2>
+  <p>We do not sell your personal information. We may share your data with third parties only to:</p>
+  <ul>
+    <li>Comply with legal obligations</li>
+    <li>Protect our rights or investigate fraud</li>
+    <li>Use third-party service providers (under strict confidentiality agreements)</li>
+  </ul>
 
-    <h2>4. Security of Your Data</h2>
-    <p>We use reasonable technical and organizational measures to protect your personal information.</p>
+  <h2>4. Security of Your Data</h2>
+  <p>We use reasonable technical and organizational measures to protect your personal information.</p>
 
-    <h2>5. Your Rights</h2>
-    <p>You may have the right to access, update, or delete your personal information. Contact us to make such a request.</p>
+  <h2>5. Your Rights</h2>
+  <p>You may have the right to access, update, or delete your personal information. Contact us to make such a request.</p>
 
-    <h2>6. Changes to This Policy</h2>
-    <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+  <h2>6. Changes to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
 
-    <h2>7. Contact Us</h2>
-    <p>If you have any questions about this Privacy Policy, you can contact us at:</p>
-    <p><strong>Email:</strong> tabe.i.limited@gmail.com</p>
-  </div>
+  <h2>7. Contact Us</h2>
+  <p>If you have any questions about this Privacy Policy, you can contact us at:</p>
+  <p><strong>Email:</strong> tabe.i.limited@gmail.com</p>
 </div>
 
-<!-- Back Button -->
-<button class="back-btn">Back</button>
+<script>
+/* ================= FLOATING PARTICLES ================= */
+const particleContainer = document.getElementById('particles');
+const particleCount = 80;
 
-<!-- Shared JS -->
-<script src="base.js" defer></script>
+for (let i = 0; i < particleCount; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle', Math.random() > 0.5 ? 'magenta' : 'white');
+
+  const size = Math.random() * 4 + 2;
+  p.style.width = p.style.height = size + 'px';
+  p.style.left = Math.random() * window.innerWidth + 'px';
+  p.style.top = Math.random() * window.innerHeight + 'px';
+  p.style.animationDuration = (3 + Math.random() * 3) + 's';
+
+  particleContainer.appendChild(p);
+}
+</script>
 
 </body>
 </html>
