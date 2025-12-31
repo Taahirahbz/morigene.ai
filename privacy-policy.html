@@ -19,6 +19,30 @@ body {
   color: white;
 }
 
+/* ================= PAGE TRANSITION ================= */
+.page-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pageIn 0.6s ease forwards;
+}
+
+.page-wrapper.fade-out {
+  animation: pageOut 0.4s ease forwards;
+}
+
+@keyframes pageIn {
+  from { opacity: 0; filter: blur(10px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+@keyframes pageOut {
+  from { opacity: 1; filter: blur(0); }
+  to { opacity: 0; filter: blur(10px); }
+}
+
 /* ================= PARTICLES ================= */
 #particles {
   position: fixed;
@@ -65,7 +89,7 @@ body {
   z-index: 10;
 }
 
-/* Scrollbar (subtle) */
+/* Scrollbar */
 .glass-policy::-webkit-scrollbar {
   width: 6px;
 }
@@ -79,10 +103,6 @@ h1, h2 {
   color: white;
 }
 
-h1 {
-  margin-top: 0;
-}
-
 p, li {
   color: rgba(255,255,255,0.9);
   line-height: 1.6;
@@ -90,6 +110,28 @@ p, li {
 
 ul {
   padding-left: 1.2rem;
+}
+
+/* ================= BACK BUTTON ================= */
+.back-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,91,177,0.6);
 }
 
 /* ================= MOBILE ================= */
@@ -102,56 +144,54 @@ ul {
 </head>
 <body>
 
-<!-- Particles -->
 <div id="particles"></div>
 
-<!-- Glass Privacy Policy -->
-<div class="glass-policy">
-  <h1>Privacy Policy</h1>
-  <p><em>Last updated: September 26, 2025</em></p>
+<div class="page-wrapper" id="page">
+  <div class="glass-policy">
+    <h1>Privacy Policy</h1>
+    <p><em>Last updated: September 26, 2025</em></p>
 
-  <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website.</p>
+    <p>Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal information when you use our website.</p>
 
-  <h2>1. Information We Collect</h2>
-  <p>We may collect the following types of information:</p>
-  <ul>
-    <li>Personal Information (e.g., name, email address)</li>
-    <li>Usage Data (e.g., browser type, pages visited)</li>
-    <li>Cookies and tracking data</li>
-  </ul>
+    <h2>1. Information We Collect</h2>
+    <ul>
+      <li>Personal Information (e.g., name, email address)</li>
+      <li>Usage Data (e.g., browser type, pages visited)</li>
+      <li>Cookies and tracking data</li>
+    </ul>
 
-  <h2>2. How We Use Your Information</h2>
-  <p>We use your information to:</p>
-  <ul>
-    <li>Provide and maintain our service</li>
-    <li>Improve and personalize your experience</li>
-    <li>Send you updates or marketing communications (if opted in)</li>
-  </ul>
+    <h2>2. How We Use Your Information</h2>
+    <ul>
+      <li>Provide and maintain our service</li>
+      <li>Improve and personalize your experience</li>
+      <li>Send updates or marketing communications (if opted in)</li>
+    </ul>
 
-  <h2>3. Data Sharing and Disclosure</h2>
-  <p>We do not sell your personal information. We may share your data with third parties only to:</p>
-  <ul>
-    <li>Comply with legal obligations</li>
-    <li>Protect our rights or investigate fraud</li>
-    <li>Use third-party service providers (under strict confidentiality agreements)</li>
-  </ul>
+    <h2>3. Data Sharing and Disclosure</h2>
+    <ul>
+      <li>Comply with legal obligations</li>
+      <li>Protect our rights or investigate fraud</li>
+      <li>Use third-party service providers</li>
+    </ul>
 
-  <h2>4. Security of Your Data</h2>
-  <p>We use reasonable technical and organizational measures to protect your personal information.</p>
+    <h2>4. Security</h2>
+    <p>We use reasonable technical and organizational measures to protect your personal information.</p>
 
-  <h2>5. Your Rights</h2>
-  <p>You may have the right to access, update, or delete your personal information. Contact us to make such a request.</p>
+    <h2>5. Your Rights</h2>
+    <p>You may request access, updates, or deletion of your data.</p>
 
-  <h2>6. Changes to This Policy</h2>
-  <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page.</p>
+    <h2>6. Changes</h2>
+    <p>We may update this policy from time to time.</p>
 
-  <h2>7. Contact Us</h2>
-  <p>If you have any questions about this Privacy Policy, you can contact us at:</p>
-  <p><strong>Email:</strong> tabe.i.limited@gmail.com</p>
+    <h2>7. Contact</h2>
+    <p><strong>Email:</strong> tabe.i.limited@gmail.com</p>
+  </div>
 </div>
 
+<button class="back-btn" onclick="goBack()">Back</button>
+
 <script>
-/* ================= FLOATING PARTICLES ================= */
+/* ================= PARTICLES ================= */
 const particleContainer = document.getElementById('particles');
 const particleCount = 80;
 
@@ -166,6 +206,15 @@ for (let i = 0; i < particleCount; i++) {
   p.style.animationDuration = (3 + Math.random() * 3) + 's';
 
   particleContainer.appendChild(p);
+}
+
+/* ================= PAGE TRANSITION ================= */
+function goBack() {
+  const page = document.getElementById('page');
+  page.classList.add('fade-out');
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 400);
 }
 </script>
 
