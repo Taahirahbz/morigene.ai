@@ -81,12 +81,23 @@ body {
   padding: 2.5rem;
   overflow-y: auto;
 
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.15); /* more opaque for readability */
+  backdrop-filter: blur(12px); /* frosted glass effect */
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.2);
-  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 35px rgba(255,255,255,0.15);
   z-index: 10;
+
+  /* Floating + tilt */
+  animation: floatTilt 12s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes floatTilt {
+  0%,100% { transform: translateY(0px) rotateZ(0deg) rotateX(0deg); }
+  25% { transform: translateY(-6px) rotateZ(0.5deg) rotateX(0.3deg); }
+  50% { transform: translateY(3px) rotateZ(-0.5deg) rotateX(-0.3deg); }
+  75% { transform: translateY(-4px) rotateZ(0.3deg) rotateX(0.2deg); }
 }
 
 /* Scrollbar */
@@ -100,11 +111,11 @@ body {
 
 /* ================= TYPOGRAPHY ================= */
 h1, h2 {
-  color: white;
+  color: #ffffff; /* crisp, readable */
 }
 
 p, li {
-  color: rgba(255,255,255,0.9);
+  color: #f0f0f0; /* softer, easy-to-read text */
   line-height: 1.6;
 }
 
