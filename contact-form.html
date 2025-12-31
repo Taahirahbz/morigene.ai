@@ -5,72 +5,199 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Contact Form</title>
 
-<!-- Shared CSS -->
-<link rel="stylesheet" href="base.css">
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: url('images/background.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ================= PARTICLES ================= */
+#particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: float 4s infinite ease-in-out;
+}
+
+.particle.white {
+  background: white;
+  box-shadow: 0 0 6px rgba(255,255,255,0.8);
+}
+
+.particle.magenta {
+  background: #FF5AB1;
+  box-shadow: 0 0 8px rgba(255,91,177,0.9);
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ================= GLASS BOX ================= */
+.form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 450px;
+  height: 450px;
+  padding: 2.5rem;
+  transform: translate(-52%, -54%); /* ⬅️ Centered slightly up & left */
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 0 30px rgba(255,255,255,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Floating glass interaction */
+.form-container:hover {
+  box-shadow: 0 0 35px rgba(255,91,177,0.6);
+}
+
+/* ================= FORM ================= */
+h2 {
+  color: white;
+  margin: 0;
+}
+
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.8rem; /* ⬆️ lifted slightly */
+}
+
+label {
+  color: white;
+  font-size: 0.95rem;
+  margin-top: 0.4rem;
+}
+
+input, textarea {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  color: white;
+  outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ✅ Magenta focus outline */
+input:focus,
+textarea:focus {
+  border: 1px solid rgba(255,91,177,0.9);
+  box-shadow: 0 0 12px rgba(255,91,177,0.8);
+}
+
+textarea { min-height: 95px; }
+
+button.send-btn {
+  background: rgba(255,91,177,0.5);
+  border: 1px solid rgba(255,91,177,0.7);
+  padding: 0.7rem 2rem;
+  border-radius: 50px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  width: 60%;
+  align-self: center;
+  margin-top: 1rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.send-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 0 25px rgba(255,91,177,0.7);
+}
+
+/* ================= BACK BUTTON ================= */
+.back-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.back-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,91,177,0.6);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 500px) {
+  .form-container {
+    width: 90vw;
+    height: 90vw;
+    padding: 2rem;
+  }
+}
+</style>
 </head>
 <body>
 
-<!-- Particle container -->
 <div id="particles"></div>
 
-<!-- Page wrapper for transitions -->
-<div class="page-wrapper" id="page">
-  <!-- Glass Box -->
-  <div class="glass-policy">
-    <h1>Contact Us</h1>
-    <form id="contactForm">
-      <label>Name
-        <input type="text" id="name" required>
-      </label>
-      <label>Email
-        <input type="email" id="email" required>
-      </label>
-      <label>Subject
-        <input type="text" id="subject" required>
-      </label>
-      <label>Message
-        <textarea id="message" required></textarea>
-      </label>
-      <button type="submit" class="send-btn">Send</button>
-    </form>
-  </div>
+<div class="form-container">
+  <h2>Contact Us</h2>
+  <form>
+    <label>Name<input type="text" required></label>
+    <label>Email<input type="email" required></label>
+    <label>Subject<input type="text" required></label>
+    <label>Message<textarea required></textarea></label>
+    <button class="send-btn">Send</button>
+  </form>
 </div>
 
-<!-- Back Button -->
-<button class="back-btn">Back</button>
-
-<!-- Shared JS -->
-<script src="base.js" defer></script>
+<button class="back-btn" onclick="location.href='index.html'">Back</button>
 
 <script>
-// Highlight magenta outline on focus
-const inputs = document.querySelectorAll('input, textarea');
-inputs.forEach(input => {
-  input.addEventListener('focus', () => {
-    input.style.border = '1px solid #FF5AB1';
-  });
-  input.addEventListener('blur', () => {
-    input.style.border = '1px solid rgba(255,255,255,0.3)';
-  });
-});
+/* ================= FLOATING PARTICLES ================= */
+const particleContainer = document.getElementById('particles');
+const particleCount = 80;
 
-// Form submission without redirect
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = encodeURIComponent(document.getElementById('name').value);
-  const email = encodeURIComponent(document.getElementById('email').value);
-  const subject = encodeURIComponent(document.getElementById('subject').value);
-  const message = encodeURIComponent(document.getElementById('message').value);
+for (let i = 0; i < particleCount; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle', Math.random() > 0.5 ? 'magenta' : 'white');
 
-  const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc6ol9SDEuiIaFkol84ZqSh0dv_BvJKv-vWYhnmAH4_NDoSBw/viewform?usp=pp_url&entry.1910789101=${name}&entry.1121926681=${email}&entry.356277934=${message}`;
+  const size = Math.random() * 4 + 2;
+  p.style.width = p.style.height = size + 'px';
+  p.style.left = Math.random() * window.innerWidth + 'px';
+  p.style.top = Math.random() * window.innerHeight + 'px';
+  p.style.animationDuration = (3 + Math.random() * 3) + 's';
 
-  fetch(formURL, { method: 'GET', mode: 'no-cors' })
-    .then(() => {
-      alert('Message sent!');
-      document.getElementById('contactForm').reset();
-    })
-    .catch(err => console.error(err));
-});
+  particleContainer.appendChild(p);
+}
 </script>
 
 </body>
