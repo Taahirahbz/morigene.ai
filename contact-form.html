@@ -67,7 +67,6 @@ body {
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
-  /* ================= FLOAT & TILT ================= */
   animation: floatTilt 12s ease-in-out infinite;
   transform-origin: center center;
 }
@@ -87,8 +86,9 @@ body {
 
 /* ================= FORM ================= */
 h2 {
-  color: white;
+  color: #ffffff; /* Crisp, clear white */
   margin: 0;
+  text-shadow: none;
 }
 
 form {
@@ -99,7 +99,7 @@ form {
 }
 
 label {
-  color: white;
+  color: #f0f0f0; /* Easy-to-read, soft white */
   font-size: 0.95rem;
   margin-top: 0.4rem;
 }
@@ -111,7 +111,7 @@ input, textarea {
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.1);
-  color: white;
+  color: #ffffff;
   outline: none;
   transition: border 0.3s ease, box-shadow 0.3s ease;
 }
@@ -126,7 +126,7 @@ textarea { min-height: 95px; }
 
 /* ================= SEND BUTTON ================= */
 button.send-btn {
-  background: rgba(255,91,177,0.6); /* slightly more opaque */
+  background: rgba(255,91,177,0.6);
   border: 1px solid rgba(255,91,177,0.7);
   padding: 0.7rem 2rem;
   border-radius: 50px;
@@ -142,6 +142,21 @@ button.send-btn {
 button.send-btn:hover {
   transform: translateY(-2px) scale(1.05);
   box-shadow: 0 0 25px rgba(255,91,177,0.7);
+}
+
+/* ================= THANK YOU MESSAGE ================= */
+#thankMessage {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.7);
+  color: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: 15px;
+  font-weight: 600;
+  z-index: 50;
+  display: none;
 }
 
 /* ================= BACK BUTTON ================= */
@@ -182,14 +197,16 @@ button.send-btn:hover {
 
 <div class="form-container">
   <h2>Contact Us</h2>
-  <form>
+  <form id="contactForm">
     <label>Name<input type="text" required></label>
     <label>Email<input type="email" required></label>
     <label>Subject<input type="text" required></label>
     <label>Message<textarea required></textarea></label>
-    <button class="send-btn">Send</button>
+    <button type="submit" class="send-btn">Send</button>
   </form>
 </div>
+
+<div id="thankMessage">Thank you for contacting Morigene, we shall get back to you asap!</div>
 
 <button class="back-btn" onclick="location.href='index.html'">Back</button>
 
@@ -201,15 +218,30 @@ const particleCount = 80;
 for (let i = 0; i < particleCount; i++) {
   const p = document.createElement('div');
   p.classList.add('particle', Math.random() > 0.5 ? 'magenta' : 'white');
-
   const size = Math.random() * 4 + 2;
   p.style.width = p.style.height = size + 'px';
   p.style.left = Math.random() * window.innerWidth + 'px';
   p.style.top = Math.random() * window.innerHeight + 'px';
   p.style.animationDuration = (3 + Math.random() * 3) + 's';
-
   particleContainer.appendChild(p);
 }
+
+/* ================= FORM SUBMISSION ================= */
+const form = document.getElementById('contactForm');
+const thankMsg = document.getElementById('thankMessage');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // Prevent page reload
+  thankMsg.style.display = 'block';
+
+  // Hide the message after 5 seconds
+  setTimeout(() => {
+    thankMsg.style.display = 'none';
+  }, 5000);
+
+  // Reset the form so user can send another message
+  form.reset();
+});
 </script>
 
 </body>
