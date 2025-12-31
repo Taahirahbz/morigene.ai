@@ -55,7 +55,7 @@ body {
   width: 450px;
   height: 450px;
   padding: 2.5rem;
-  transform: translate(-52%, -54%); /* ⬅️ Centered slightly up & left */
+  transform: translate(-52%, -54%);
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
   border-radius: 20px;
@@ -66,11 +66,23 @@ body {
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  /* ================= FLOAT & TILT ================= */
+  animation: floatTilt 12s ease-in-out infinite;
+  transform-origin: center center;
 }
 
-/* Floating glass interaction */
+/* Floating glass interaction on hover */
 .form-container:hover {
   box-shadow: 0 0 35px rgba(255,91,177,0.6);
+}
+
+/* Float + tilt keyframes */
+@keyframes floatTilt {
+  0%,100% { transform: translate(-52%, -54%) translateY(0px) rotateZ(0deg) rotateX(0deg); }
+  25% { transform: translate(-52%, -54%) translateY(-6px) rotateZ(0.5deg) rotateX(0.3deg); }
+  50% { transform: translate(-52%, -54%) translateY(3px) rotateZ(-0.5deg) rotateX(-0.3deg); }
+  75% { transform: translate(-52%, -54%) translateY(-4px) rotateZ(0.3deg) rotateX(0.2deg); }
 }
 
 /* ================= FORM ================= */
@@ -83,7 +95,7 @@ form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 0.8rem; /* ⬆️ lifted slightly */
+  margin-top: 0.8rem;
 }
 
 label {
@@ -104,7 +116,6 @@ input, textarea {
   transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* ✅ Magenta focus outline */
 input:focus,
 textarea:focus {
   border: 1px solid rgba(255,91,177,0.9);
@@ -113,8 +124,9 @@ textarea:focus {
 
 textarea { min-height: 95px; }
 
+/* ================= SEND BUTTON ================= */
 button.send-btn {
-  background: rgba(255,91,177,0.5);
+  background: rgba(255,91,177,0.6); /* slightly more opaque */
   border: 1px solid rgba(255,91,177,0.7);
   padding: 0.7rem 2rem;
   border-radius: 50px;
