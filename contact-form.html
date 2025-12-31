@@ -8,7 +8,6 @@
 <style>
 body {
   margin: 0;
-  padding: 0;
   height: 100vh;
   overflow: hidden;
   font-family: 'IBM Plex Sans', sans-serif;
@@ -16,7 +15,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 }
 
 /* ================= PARTICLES ================= */
@@ -25,23 +23,18 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: 0;
-  transition: transform 0.1s linear;
 }
 
 .particle {
   position: absolute;
   border-radius: 50%;
-  pointer-events: none;
-  animation: pulse 3s infinite ease-in-out;
+  opacity: 0.8;
+  animation: float 4s infinite ease-in-out;
 }
-
-.layer-far { opacity: 0.25; filter: blur(2px); }
-.layer-mid { opacity: 0.5; }
-.layer-near { opacity: 0.9; }
 
 .particle.white {
   background: white;
-  box-shadow: 0 0 6px rgba(255,255,255,0.7);
+  box-shadow: 0 0 6px rgba(255,255,255,0.8);
 }
 
 .particle.magenta {
@@ -49,9 +42,9 @@ body {
   box-shadow: 0 0 8px rgba(255,91,177,0.9);
 }
 
-@keyframes pulse {
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.4); }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
 }
 
 /* ================= GLASS BOX ================= */
@@ -61,11 +54,8 @@ body {
   left: 50%;
   width: 450px;
   height: 450px;
-
-  /* ✅ EQUAL PADDING ON ALL SIDES */
   padding: 2.5rem;
-
-  transform: translate(-50%, -50%);
+  transform: translate(-52%, -54%); /* ⬅️ Centered slightly up & left */
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
   border-radius: 20px;
@@ -75,7 +65,12 @@ body {
   align-items: center;
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Floating glass interaction */
+.form-container:hover {
+  box-shadow: 0 0 35px rgba(255,91,177,0.6);
 }
 
 /* ================= FORM ================= */
@@ -88,27 +83,35 @@ form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  margin-top: 1rem;
+  margin-top: 0.8rem; /* ⬆️ lifted slightly */
 }
 
 label {
   color: white;
   font-size: 0.95rem;
-  margin-top: 0.5rem;
+  margin-top: 0.4rem;
 }
 
 input, textarea {
   width: 100%;
-  margin: 0.4rem 0;
+  margin-top: 0.3rem;
   padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.1);
   color: white;
   outline: none;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
 }
 
-textarea { min-height: 100px; }
+/* ✅ Magenta focus outline */
+input:focus,
+textarea:focus {
+  border: 1px solid rgba(255,91,177,0.9);
+  box-shadow: 0 0 12px rgba(255,91,177,0.8);
+}
+
+textarea { min-height: 95px; }
 
 button.send-btn {
   background: rgba(255,91,177,0.5);
@@ -172,82 +175,29 @@ button.send-btn:hover {
     <label>Email<input type="email" required></label>
     <label>Subject<input type="text" required></label>
     <label>Message<textarea required></textarea></label>
-    <button type="submit" class="send-btn">Send</button>
+    <button class="send-btn">Send</button>
   </form>
 </div>
 
 <button class="back-btn" onclick="location.href='index.html'">Back</button>
 
 <script>
-/* ================= FLOATING GLASS BOX ================= */
-const box = document.querySelector('.form-container');
-
-box.addEventListener('mousemove', e => {
-  const rect = box.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const rx = ((y / rect.height) - 0.5) * -10;
-  const ry = ((x / rect.width) - 0.5) * 10;
-
-  box.style.transform =
-    `translate(-50%, -50%) perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-  box.style.boxShadow = '0 0 35px rgba(255,91,177,0.6)';
-});
-
-box.addEventListener('mouseleave', () => {
-  box.style.transform =
-    'translate(-50%, -50%) perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-  box.style.boxShadow = '0 0 30px rgba(255,255,255,0.1)';
-});
-
-/* ================= PARTICLES ================= */
+/* ================= FLOATING PARTICLES ================= */
 const particleContainer = document.getElementById('particles');
-const particles = [];
-const particleCount = 100;
+const particleCount = 80;
 
 for (let i = 0; i < particleCount; i++) {
   const p = document.createElement('div');
-  p.classList.add('particle');
-
-  let layer, speed, radius;
-  const r = Math.random();
-  if (r < 0.33) { layer='layer-far'; speed=0.0006; radius=200; }
-  else if (r < 0.66) { layer='layer-mid'; speed=0.0012; radius=150; }
-  else { layer='layer-near'; speed=0.002; radius=100; }
-
-  p.classList.add(layer);
-  p.classList.add(Math.random() > 0.5 ? 'magenta' : 'white');
+  p.classList.add('particle', Math.random() > 0.5 ? 'magenta' : 'white');
 
   const size = Math.random() * 4 + 2;
   p.style.width = p.style.height = size + 'px';
+  p.style.left = Math.random() * window.innerWidth + 'px';
+  p.style.top = Math.random() * window.innerHeight + 'px';
+  p.style.animationDuration = (3 + Math.random() * 3) + 's';
 
   particleContainer.appendChild(p);
-  particles.push({ el:p, angle:Math.random()*Math.PI*2, radius, speed });
 }
-
-function animateParticles() {
-  const rect = box.getBoundingClientRect();
-  const cx = rect.left + rect.width / 2;
-  const cy = rect.top + rect.height / 2;
-
-  particles.forEach(p => {
-    p.angle += p.speed;
-    p.el.style.left =
-      cx + p.radius * Math.cos(p.angle) - p.el.offsetWidth / 2 + 'px';
-    p.el.style.top =
-      cy + p.radius * Math.sin(p.angle) - p.el.offsetHeight / 2 + 'px';
-  });
-
-  requestAnimationFrame(animateParticles);
-}
-animateParticles();
-
-/* Parallax */
-document.addEventListener('mousemove', e => {
-  const x = (e.clientX / window.innerWidth - 0.5) * 30;
-  const y = (e.clientY / window.innerHeight - 0.5) * 30;
-  particleContainer.style.transform = `translate(${x}px, ${y}px)`;
-});
 </script>
 
 </body>
