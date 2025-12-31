@@ -19,61 +19,146 @@ body {
   position: relative;
 }
 
-/* Particle container */
+/* ================= PARTICLES ================= */
 #particles {
   position: absolute;
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  transition: transform 0.1s linear;
 }
 
-/* Glass Box */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: pulse 3s infinite ease-in-out;
+}
+
+.layer-far { opacity: 0.25; filter: blur(2px); }
+.layer-mid { opacity: 0.5; }
+.layer-near { opacity: 0.9; }
+
+.particle.white {
+  background: white;
+  box-shadow: 0 0 6px rgba(255,255,255,0.7);
+}
+
+.particle.magenta {
+  background: #FF5AB1;
+  box-shadow: 0 0 8px rgba(255,91,177,0.9);
+}
+
+@keyframes pulse {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+
+/* ================= GLASS BOX ================= */
 .form-container {
   position: fixed;
   top: 50%;
   left: 50%;
   width: 450px;
   height: 450px;
-  padding: 3rem 2rem;
+  padding: 2.5rem 2rem 4rem;
+  transform: translate(-50%, -50%);
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.2);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
-  transform: translate(-50%, -50%);
-  transition: box-shadow 0.25s ease;
+  overflow: hidden;
 }
 
-/* Form elements */
-h2 {
-  color: white;
-  text-align: center;
-  margin: 0;
+/* Neon animated edge */
+.form-container::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  border-radius: 22px;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,91,177,0.6),
+    rgba(255,255,255,0.8),
+    rgba(255,91,177,0.6),
+    transparent
+  );
+  filter: blur(10px);
+  opacity: 0.7;
+  animation: glowMove 6s linear infinite;
+  z-index: -1;
 }
+
+@keyframes glowMove {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Glass refraction distortion */
+.form-container::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255,255,255,0.08), transparent 40%),
+    radial-gradient(circle at 70% 60%, rgba(255,91,177,0.08), transparent 45%);
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+  animation: refractMove 12s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes refractMove {
+  0% { background-position: 0% 0%, 100% 100%; }
+  100% { background-position: 100% 100%, 0% 0%; }
+}
+
+/* Energy surge */
+.energy-surge {
+  animation: surge 0.8s ease-out;
+}
+
+@keyframes surge {
+  0% { box-shadow: 0 0 20px rgba(255,91,177,0.4); }
+  50% {
+    box-shadow:
+      0 0 60px rgba(255,91,177,1),
+      0 0 120px rgba(255,255,255,0.8);
+  }
+  100% { box-shadow: 0 0 30px rgba(255,255,255,0.1); }
+}
+
+/* ================= FORM ================= */
+h2 { color: white; margin: 0; }
 
 form {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  flex-grow: 1;
-  margin-top: 1rem;
+  margin-top: 0.5rem;
+}
+
+label {
+  color: white;
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
 }
 
 input, textarea {
   width: 100%;
-  margin: 0.5rem 0;
+  margin: 0.4rem 0;
   padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.3);
   background: rgba(255,255,255,0.1);
   color: white;
-  font-size: 1rem;
   outline: none;
 }
 
@@ -87,15 +172,9 @@ button.send-btn {
   color: white;
   font-weight: 600;
   cursor: pointer;
-  align-self: center; /* Centered at bottom */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  width: 60%; /* Fits inside the box nicely */
+  width: 60%;
+  align-self: center;
   margin-top: 1rem;
-}
-
-button.send-btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 25px rgba(255,91,177,0.7);
 }
 
 /* Back button */
@@ -107,130 +186,88 @@ button.send-btn:hover {
   border-radius: 50px;
   border: 1px solid rgba(255,255,255,0.4);
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
   color: white;
-  font-weight: 600;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.back-btn:hover {
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 0 20px rgba(255,91,177,0.6);
-}
-
-/* Labels */
-label { color: white; width: 100%; margin-top: 0.5rem; font-size: 0.95rem; }
-
-/* Particle styling */
-.particle {
-  position: absolute;
-  border-radius: 50%;
-  opacity: 0.8;
-  pointer-events: none;
-  background: white;
-  box-shadow: 0 0 5px rgba(255,255,255,0.7);
-}
-.particle.magenta {
-  background: #FF5AB1;
-  box-shadow: 0 0 6px rgba(255,91,177,0.8);
-}
-
-/* Media */
-@media (max-width: 500px) {
-  .form-container { width: 90vw; height: 90vw; padding: 2rem; }
-  button.send-btn { width: 70%; }
 }
 </style>
 </head>
 <body>
 
-<!-- Particle container -->
 <div id="particles"></div>
 
-<!-- Glass Box -->
 <div class="form-container">
   <h2>Contact Us</h2>
   <form id="contactForm">
-    <label>Name<input type="text" id="name" required></label>
-    <label>Email<input type="email" id="email" required></label>
-    <label>Subject<input type="text" id="subject" required></label>
-    <label>Message<textarea id="message" required></textarea></label>
+    <label>Name<input type="text" required></label>
+    <label>Email<input type="email" required></label>
+    <label>Subject<input type="text" required></label>
+    <label>Message<textarea required></textarea></label>
     <button type="submit" class="send-btn">Send</button>
   </form>
 </div>
 
-<!-- Back Button -->
 <button class="back-btn" onclick="location.href='index.html'">Back</button>
 
 <script>
-// Tilt & Glow effect (stable center)
 const box = document.querySelector('.form-container');
-box.addEventListener('mousemove', e => {
-  const rect = box.getBoundingClientRect();
-  const x = e.clientX - rect.left;
-  const y = e.clientY - rect.top;
-  const rx = ((y / rect.height) - 0.5) * -10;
-  const ry = ((x / rect.width) - 0.5) * 10;
-  box.style.transform = `translate(-50%, -50%) perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-  box.style.boxShadow = `0 0 35px rgba(255,91,177,0.6)`;
-});
-box.addEventListener('mouseleave', () => {
-  box.style.transform = 'translate(-50%, -50%) perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
-  box.style.boxShadow = '0 0 30px rgba(255,255,255,0.1)';
-});
-
-// Floating Particles
-const particleCount = 80;
 const particleContainer = document.getElementById('particles');
 const particles = [];
+const particleCount = 120;
+let surgeMultiplier = 1;
 
+/* Create particles */
 for (let i = 0; i < particleCount; i++) {
   const p = document.createElement('div');
   p.classList.add('particle');
-  if(Math.random() > 0.5) p.classList.add('magenta');
-  const size = Math.random()*5 + 2;
-  p.style.width = `${size}px`;
-  p.style.height = `${size}px`;
-  const angle = Math.random()*2*Math.PI;
-  const radius = Math.random()*150 + 50;
-  const speed = 0.001 + Math.random()*0.003;
+
+  let layer, speed, radius;
+  const r = Math.random();
+  if (r < 0.33) { layer='layer-far'; speed=0.0006; radius=200; }
+  else if (r < 0.66) { layer='layer-mid'; speed=0.0012; radius=150; }
+  else { layer='layer-near'; speed=0.002; radius=100; }
+
+  p.classList.add(layer);
+  p.classList.add(Math.random()>0.5?'magenta':'white');
+
+  const size = Math.random()*4+2;
+  p.style.width = p.style.height = size+'px';
+
   particleContainer.appendChild(p);
-  particles.push({el: p, angle, radius, speed});
+  particles.push({el:p,angle:Math.random()*Math.PI*2,radius,speed});
 }
 
+/* Animate particles */
 function animateParticles() {
   const rect = box.getBoundingClientRect();
-  const centerX = rect.left + rect.width/2;
-  const centerY = rect.top + rect.height/2;
-  particles.forEach(p => {
-    p.angle += p.speed;
-    const x = centerX + p.radius * Math.cos(p.angle) - parseFloat(p.el.style.width)/2;
-    const y = centerY + p.radius * Math.sin(p.angle) - parseFloat(p.el.style.height)/2;
-    p.el.style.left = `${x}px`;
-    p.el.style.top = `${y}px`;
+  const cx = rect.left + rect.width/2;
+  const cy = rect.top + rect.height/2;
+
+  particles.forEach(p=>{
+    p.angle += p.speed * surgeMultiplier;
+    p.el.style.left = cx + p.radius*Math.cos(p.angle) - p.el.offsetWidth/2 + 'px';
+    p.el.style.top  = cy + p.radius*Math.sin(p.angle) - p.el.offsetHeight/2 + 'px';
   });
+
   requestAnimationFrame(animateParticles);
 }
 animateParticles();
 
-// Form submission without redirect
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  e.preventDefault();
-  const name = encodeURIComponent(document.getElementById('name').value);
-  const email = encodeURIComponent(document.getElementById('email').value);
-  const subject = encodeURIComponent(document.getElementById('subject').value);
-  const message = encodeURIComponent(document.getElementById('message').value);
+/* Parallax */
+document.addEventListener('mousemove', e=>{
+  const x = (e.clientX/window.innerWidth - 0.5)*30;
+  const y = (e.clientY/window.innerHeight - 0.5)*30;
+  particleContainer.style.transform = `translate(${x}px,${y}px)`;
+});
 
-  const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc6ol9SDEuiIaFkol84ZqSh0dv_BvJKv-vWYhnmAH4_NDoSBw/viewform?usp=pp_url&entry.1910789101=${name}&entry.1121926681=${email}&entry.356277934=${message}`;
-
-  fetch(formURL, { method: 'GET', mode: 'no-cors' })
-    .then(() => {
-      alert('Message sent!');
-      document.getElementById('contactForm').reset();
-    })
-    .catch(err => console.error(err));
+/* Energy surge on submit */
+document.querySelector('.send-btn').addEventListener('click',()=>{
+  box.classList.add('energy-surge');
+  surgeMultiplier = 4;
+  setTimeout(()=>{
+    surgeMultiplier = 1;
+    box.classList.remove('energy-surge');
+  },700);
 });
 </script>
 
