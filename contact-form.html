@@ -12,9 +12,9 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: 'IBM Plex Sans', sans-serif;
-  background: url('images/background.jpg') center/cover no-repeat;
+  background: url('images/halodna.jpg') center/cover no-repeat;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* LEFT ALIGN */
   align-items: center;
 }
 
@@ -50,13 +50,10 @@ body {
 
 /* ================= GLASS BOX ================= */
 .form-container {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  margin-left: 5%; /* push slightly from left edge */
   width: 450px;
   height: 450px;
   padding: 2.5rem;
-  transform: translate(-52%, -54%);
   background: rgba(255,255,255,0.08);
   backdrop-filter: blur(8px);
   border-radius: 20px;
@@ -69,7 +66,6 @@ body {
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   animation: floatTilt 12s ease-in-out infinite;
-  transform-origin: center center;
 }
 
 .form-container:hover {
@@ -77,10 +73,10 @@ body {
 }
 
 @keyframes floatTilt {
-  0%,100% { transform: translate(-52%, -54%) translateY(0px) rotateZ(0deg) rotateX(0deg); }
-  25% { transform: translate(-52%, -54%) translateY(-6px) rotateZ(0.5deg) rotateX(0.3deg); }
-  50% { transform: translate(-52%, -54%) translateY(3px) rotateZ(-0.5deg) rotateX(-0.3deg); }
-  75% { transform: translate(-52%, -54%) translateY(-4px) rotateZ(0.3deg) rotateX(0.2deg); }
+  0%,100% { transform: translateY(0px) rotateZ(0deg) rotateX(0deg); }
+  25% { transform: translateY(-6px) rotateZ(0.5deg) rotateX(0.3deg); }
+  50% { transform: translateY(3px) rotateZ(-0.5deg) rotateX(-0.3deg); }
+  75% { transform: translateY(-4px) rotateZ(0.3deg) rotateX(0.2deg); }
 }
 
 /* ================= FORM ================= */
@@ -89,24 +85,29 @@ h2 {
   margin: 0;
 }
 
-/* FIELD WRAPPER (safe addition) */
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.8rem;
+}
+
+/* FIELD WRAPPER */
 .field {
   width: 100%;
   margin-top: 0.4rem;
-  position: relative;
 }
 
-/* LABEL */
+/* LABEL ABOVE INPUT */
 .field label {
   display: block;
   text-align: center;
   color: #f0f0f0;
   font-size: 0.95rem;
   margin-bottom: 0.2rem;
-  transition: 0.3s ease;
 }
 
-/* INPUTS (unchanged except alignment) */
+/* INPUTS */
 .field input,
 .field textarea {
   width: 100%;
@@ -129,22 +130,11 @@ h2 {
   text-align: left;
 }
 
-/* FOCUS EFFECT (unchanged) */
+/* FOCUS EFFECT */
 .field input:focus,
 .field textarea:focus {
   border: 1px solid rgba(255,91,177,0.9);
   box-shadow: 0 0 12px rgba(255,91,177,0.8);
-}
-
-/* SAFE FLOATING EFFECT */
-.field input:focus + label,
-.field input:not(:placeholder-shown) + label,
-.field textarea:focus + label,
-.field textarea:not(:placeholder-shown) + label {
-  transform: translateY(-6px);
-  font-size: 0.8rem;
-  color: #FF5AB1;
-  opacity: 0.9;
 }
 
 /* ================= SEND BUTTON ================= */
@@ -206,10 +196,15 @@ button.send-btn:hover {
 
 /* ================= MOBILE ================= */
 @media (max-width: 500px) {
+  body {
+    justify-content: center; /* center on mobile */
+  }
+
   .form-container {
     width: 90vw;
-    height: 90vw;
+    height: auto;
     padding: 2rem;
+    margin-left: 0;
   }
 }
 </style>
@@ -225,23 +220,23 @@ button.send-btn:hover {
 
 ```
 <div class="field">
-  <input type="text" required placeholder=" ">
   <label>Name</label>
+  <input type="text" required>
 </div>
 
 <div class="field">
-  <input type="email" required placeholder=" ">
   <label>Email</label>
+  <input type="email" required>
 </div>
 
 <div class="field">
-  <input type="text" required placeholder=" ">
   <label>Subject</label>
+  <input type="text" required>
 </div>
 
 <div class="field">
-  <textarea required placeholder=" "></textarea>
   <label>Message</label>
+  <textarea required></textarea>
 </div>
 
 <button type="submit" class="send-btn">Send</button>
