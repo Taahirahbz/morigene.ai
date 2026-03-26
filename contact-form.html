@@ -12,8 +12,9 @@ body {
   overflow: hidden;
   font-family: 'IBM Plex Sans', sans-serif;
   background: url('images/halodna.jpg') center top/cover no-repeat;
+  background-position-y: -5%; /* shift background slightly upwards */
   display: flex;
-  justify-content: flex-start; /* left-align form container */
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -54,24 +55,23 @@ body {
   width: 450px;
   min-height: 450px;
   padding: 2.5rem;
-  background: rgba(255,255,255,0.12); /* glass effect */
-  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(6px); /* glass effect on box only */
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.25);
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* justified content */
+  align-items: stretch; /* content justified */
   justify-content: center; 
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
-
   animation: floatBox 8s ease-in-out infinite;
   transition: transform 0.3s ease;
 }
 
 .form-container:hover {
+  transform: rotateY(5deg) rotateX(3deg); /* tilt on hover */
   box-shadow: 0 0 35px rgba(255,91,177,0.6);
-  transform: rotateY(5deg) rotateX(3deg); /* tilt effect on hover */
 }
 
 @keyframes floatBox {
@@ -124,8 +124,8 @@ form {
   padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.3); /* input more clear */
-  color: #ffffff;
+  background: #ffffff; /* crisp input */
+  color: #000000; /* clear text */
   outline: none;
 }
 
@@ -136,7 +136,7 @@ form {
 .field textarea:focus {
   border: 1px solid rgba(255,91,177,0.9);
   box-shadow: 0 0 12px rgba(255,91,177,0.8);
-  background: rgba(255,255,255,0.35); /* more visible on focus */
+  background: #ffffff; /* keep input crisp on focus */
 }
 
 /* BUTTON */
