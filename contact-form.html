@@ -14,7 +14,7 @@ body {
   font-family: 'IBM Plex Sans', sans-serif;
   background: url('images/halodna.jpg') center/cover no-repeat;
   display: flex;
-  justify-content: flex-start; /* LEFT ALIGN */
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -50,20 +50,20 @@ body {
 
 /* ================= GLASS BOX ================= */
 .form-container {
-  margin-left: 5%; /* push slightly from left edge */
+  margin-left: 3.8%; /* moved slightly more left */
   width: 450px;
   height: 450px;
   padding: 2.5rem;
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
+  background: rgba(255,255,255,0.12); /* slightly clearer */
+  backdrop-filter: blur(6px); /* reduced blur */
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* helps center thank-you message */
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
 
   animation: floatTilt 12s ease-in-out infinite;
 }
@@ -73,10 +73,10 @@ body {
 }
 
 @keyframes floatTilt {
-  0%,100% { transform: translateY(0px) rotateZ(0deg) rotateX(0deg); }
-  25% { transform: translateY(-6px) rotateZ(0.5deg) rotateX(0.3deg); }
-  50% { transform: translateY(3px) rotateZ(-0.5deg) rotateX(-0.3deg); }
-  75% { transform: translateY(-4px) rotateZ(0.3deg) rotateX(0.2deg); }
+  0%,100% { transform: translateY(0px); }
+  25% { transform: translateY(-6px); }
+  50% { transform: translateY(3px); }
+  75% { transform: translateY(-4px); }
 }
 
 /* ================= FORM ================= */
@@ -92,22 +92,20 @@ form {
   margin-top: 0.8rem;
 }
 
-/* FIELD WRAPPER */
+/* FIELD */
 .field {
   width: 100%;
   margin-top: 0.4rem;
 }
 
-/* LABEL ABOVE INPUT */
 .field label {
   display: block;
   text-align: center;
-  color: #f0f0f0;
+  color: #ffffff;
   font-size: 0.95rem;
   margin-bottom: 0.2rem;
 }
 
-/* INPUTS */
 .field input,
 .field textarea {
   width: 100%;
@@ -115,13 +113,9 @@ form {
   padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.15);
   color: #ffffff;
   outline: none;
-  transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-
-.field input {
   text-align: center;
 }
 
@@ -130,14 +124,13 @@ form {
   text-align: left;
 }
 
-/* FOCUS EFFECT */
 .field input:focus,
 .field textarea:focus {
   border: 1px solid rgba(255,91,177,0.9);
   box-shadow: 0 0 12px rgba(255,91,177,0.8);
 }
 
-/* ================= SEND BUTTON ================= */
+/* BUTTON */
 button.send-btn {
   background: rgba(255,91,177,0.6);
   border: 1px solid rgba(255,91,177,0.7);
@@ -149,7 +142,6 @@ button.send-btn {
   width: 60%;
   align-self: center;
   margin-top: 1rem;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 button.send-btn:hover {
@@ -157,22 +149,16 @@ button.send-btn:hover {
   box-shadow: 0 0 25px rgba(255,91,177,0.7);
 }
 
-/* ================= THANK YOU MESSAGE ================= */
-#thankMessage {
-  position: fixed;
-  top: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0,0,0,0.7);
-  color: #fff;
-  padding: 1rem 1.5rem;
-  border-radius: 15px;
-  font-weight: 600;
-  z-index: 50;
+/* THANK YOU INSIDE BOX */
+#thankBox {
   display: none;
+  text-align: center;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: 500;
 }
 
-/* ================= BACK BUTTON ================= */
+/* BACK BUTTON */
 .back-btn {
   position: fixed;
   bottom: 20px;
@@ -186,7 +172,6 @@ button.send-btn:hover {
   font-weight: 600;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .back-btn:hover {
@@ -194,16 +179,13 @@ button.send-btn:hover {
   box-shadow: 0 0 20px rgba(255,91,177,0.6);
 }
 
-/* ================= MOBILE ================= */
+/* MOBILE */
 @media (max-width: 500px) {
-  body {
-    justify-content: center; /* center on mobile */
-  }
+  body { justify-content: center; }
 
   .form-container {
     width: 90vw;
     height: auto;
-    padding: 2rem;
     margin-left: 0;
   }
 }
@@ -215,15 +197,15 @@ button.send-btn:hover {
 <div id="particles"></div>
 
 <div class="form-container">
-  <h2>Contact Us</h2>
+  <h2 id="formTitle">Contact Us</h2>
+
   <form id="contactForm">
+    <div class="field">
+      <label>Name</label>
+      <input type="text" required>
+    </div>
 
 ```
-<div class="field">
-  <label>Name</label>
-  <input type="text" required>
-</div>
-
 <div class="field">
   <label>Email</label>
   <input type="email" required>
@@ -243,18 +225,19 @@ button.send-btn:hover {
 ```
 
   </form>
-</div>
 
-<div id="thankMessage">Thank you for contacting Morigene, we shall get back to you asap!</div>
+  <div id="thankBox">
+    Thank you for contacting Morigene,<br><br>
+    we shall get back to you as soon as possible ✨
+  </div>
+</div>
 
 <button class="back-btn" onclick="location.href='index.html'">Back</button>
 
 <script>
-/* ================= FLOATING PARTICLES ================= */
+/* PARTICLES */
 const particleContainer = document.getElementById('particles');
-const particleCount = 80;
-
-for (let i = 0; i < particleCount; i++) {
+for (let i = 0; i < 80; i++) {
   const p = document.createElement('div');
   p.classList.add('particle', Math.random() > 0.5 ? 'magenta' : 'white');
   const size = Math.random() * 4 + 2;
@@ -265,19 +248,23 @@ for (let i = 0; i < particleCount; i++) {
   particleContainer.appendChild(p);
 }
 
-/* ================= FORM SUBMISSION ================= */
+/* FORM SUBMIT */
 const form = document.getElementById('contactForm');
-const thankMsg = document.getElementById('thankMessage');
+const thankBox = document.getElementById('thankBox');
+const title = document.getElementById('formTitle');
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
-  thankMsg.style.display = 'block';
 
-  setTimeout(() => {
-    thankMsg.style.display = 'none';
-  }, 5000);
+  /* REMOVE form completely */
+  form.remove();
 
-  form.reset();
+  /* REMOVE title */
+  title.remove();
+
+  /* SHOW thank you message */
+  thankBox.style.display = 'block';
+});
 });
 </script>
 
