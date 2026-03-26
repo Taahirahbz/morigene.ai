@@ -11,9 +11,9 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: 'IBM Plex Sans', sans-serif;
-  background: url('images/halodna.jpg') center/cover no-repeat;
+  background: url('images/halodna.jpg') center top/cover no-repeat;
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-start; /* left-align form container */
   align-items: center;
 }
 
@@ -50,26 +50,28 @@ body {
 /* ================= GLASS BOX ================= */
 .form-container {
   position: relative;
-  left: -1cm;
+  left: 1cm; /* leave 1cm from left edge */
   width: 450px;
-  height: 450px;
+  min-height: 450px;
   padding: 2.5rem;
-  background: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.12); /* glass effect */
   backdrop-filter: blur(6px);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.25);
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: stretch; /* justified content */
   justify-content: center; 
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
 
   animation: floatBox 8s ease-in-out infinite;
+  transition: transform 0.3s ease;
 }
 
 .form-container:hover {
   box-shadow: 0 0 35px rgba(255,91,177,0.6);
+  transform: rotateY(5deg) rotateX(3deg); /* tilt effect on hover */
 }
 
 @keyframes floatBox {
@@ -83,6 +85,7 @@ body {
 h2 {
   color: #ffffff;
   margin: 0;
+  text-align: center;
 }
 
 form {
@@ -121,7 +124,7 @@ form {
   padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.3);
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.3); /* input more clear */
   color: #ffffff;
   outline: none;
 }
@@ -133,6 +136,7 @@ form {
 .field textarea:focus {
   border: 1px solid rgba(255,91,177,0.9);
   box-shadow: 0 0 12px rgba(255,91,177,0.8);
+  background: rgba(255,255,255,0.35); /* more visible on focus */
 }
 
 /* BUTTON */
@@ -161,6 +165,7 @@ button.send-btn:hover {
   color: white;
   font-size: 1.1rem;
   font-weight: 500;
+  align-self: center;
 }
 
 /* BACK BUTTON */
