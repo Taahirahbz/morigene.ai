@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -50,33 +49,34 @@ body {
 
 /* ================= GLASS BOX ================= */
 .form-container {
-  margin-left: 3.8%; /* moved slightly more left */
+  position: relative;
+  left: -1cm;
   width: 450px;
   height: 450px;
   padding: 2.5rem;
-  background: rgba(255,255,255,0.12); /* slightly clearer */
-  backdrop-filter: blur(6px); /* reduced blur */
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(6px);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.25);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center; /* helps center thank-you message */
+  align-items: center; 
+  justify-content: center; 
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
 
-  animation: floatTilt 12s ease-in-out infinite;
+  animation: floatBox 8s ease-in-out infinite;
 }
 
 .form-container:hover {
   box-shadow: 0 0 35px rgba(255,91,177,0.6);
 }
 
-@keyframes floatTilt {
-  0%,100% { transform: translateY(0px); }
-  25% { transform: translateY(-6px); }
-  50% { transform: translateY(3px); }
-  75% { transform: translateY(-4px); }
+@keyframes floatBox {
+  0%,100% { transform: translateY(0px) translateX(0px) rotateZ(0deg); }
+  25% { transform: translateY(-6px) translateX(-2px) rotateZ(0.5deg); }
+  50% { transform: translateY(3px) translateX(-1px) rotateZ(-0.5deg); }
+  75% { transform: translateY(-4px) translateX(-3px) rotateZ(0.3deg); }
 }
 
 /* ================= FORM ================= */
@@ -90,6 +90,14 @@ form {
   display: flex;
   flex-direction: column;
   margin-top: 0.8rem;
+  animation: floatForm 8s ease-in-out infinite;
+}
+
+@keyframes floatForm {
+  0%,100% { transform: translateY(0px); }
+  25% { transform: translateY(-3px); }
+  50% { transform: translateY(2px); }
+  75% { transform: translateY(-2px); }
 }
 
 /* FIELD */
@@ -116,13 +124,10 @@ form {
   background: rgba(255,255,255,0.15);
   color: #ffffff;
   outline: none;
-  text-align: center;
 }
 
-.field textarea {
-  min-height: 95px;
-  text-align: left;
-}
+.field input { text-align: center; }
+.field textarea { text-align: left; min-height: 95px; }
 
 .field input:focus,
 .field textarea:focus {
@@ -149,7 +154,7 @@ button.send-btn:hover {
   box-shadow: 0 0 25px rgba(255,91,177,0.7);
 }
 
-/* THANK YOU INSIDE BOX */
+/* ================= THANK YOU ================= */
 #thankBox {
   display: none;
   text-align: center;
@@ -186,11 +191,10 @@ button.send-btn:hover {
   .form-container {
     width: 90vw;
     height: auto;
-    margin-left: 0;
+    left: 0;
   }
 }
 </style>
-
 </head>
 <body>
 
@@ -205,37 +209,33 @@ button.send-btn:hover {
       <input type="text" required>
     </div>
 
-```
-<div class="field">
-  <label>Email</label>
-  <input type="email" required>
-</div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" required>
+    </div>
 
-<div class="field">
-  <label>Subject</label>
-  <input type="text" required>
-</div>
+    <div class="field">
+      <label>Subject</label>
+      <input type="text" required>
+    </div>
 
-<div class="field">
-  <label>Message</label>
-  <textarea required></textarea>
-</div>
+    <div class="field">
+      <label>Message</label>
+      <textarea required></textarea>
+    </div>
 
-<button type="submit" class="send-btn">Send</button>
-```
-
+    <button type="submit" class="send-btn">Send</button>
   </form>
 
   <div id="thankBox">
-    Thank you for contacting Morigene,<br><br>
-    we shall get back to you as soon as possible ✨
+    Thank you for contacting Morigene, we shall get back to you shortly!
   </div>
 </div>
 
 <button class="back-btn" onclick="location.href='index.html'">Back</button>
 
 <script>
-/* PARTICLES */
+/* ================= FLOATING PARTICLES ================= */
 const particleContainer = document.getElementById('particles');
 for (let i = 0; i < 80; i++) {
   const p = document.createElement('div');
@@ -248,23 +248,16 @@ for (let i = 0; i < 80; i++) {
   particleContainer.appendChild(p);
 }
 
-/* FORM SUBMIT */
+/* ================= FORM SUBMISSION ================= */
 const form = document.getElementById('contactForm');
 const thankBox = document.getElementById('thankBox');
 const title = document.getElementById('formTitle');
 
 form.addEventListener('submit', function(e) {
   e.preventDefault();
-
-  /* REMOVE form completely */
   form.remove();
-
-  /* REMOVE title */
   title.remove();
-
-  /* SHOW thank you message */
   thankBox.style.display = 'block';
-});
 });
 </script>
 
