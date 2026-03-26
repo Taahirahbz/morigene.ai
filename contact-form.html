@@ -11,8 +11,7 @@ body {
   height: 100vh;
   overflow: hidden;
   font-family: 'IBM Plex Sans', sans-serif;
-  background: url('images/halodna.jpg') center top/cover no-repeat;
-  background-position-y: -5%; /* shift background slightly upwards */
+  background: url('images/halodna.jpg') center/cover no-repeat;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -51,17 +50,17 @@ body {
 /* ================= GLASS BOX ================= */
 .form-container {
   position: relative;
-  left: 1cm; /* leave 1cm from left edge */
-  width: 450px;
-  min-height: 450px;
+  left: 1cm; /* 1cm from left edge */
+  width: 428px; /* decreased 1cm per side */
+  min-height: 428px; /* decreased by 1cm */
   padding: 2.5rem;
-  background: rgba(255,255,255,0.12);
-  backdrop-filter: blur(6px); /* glass effect on box only */
+  background: rgba(255,255,255,0.12); /* frosted glass */
+  backdrop-filter: blur(6px);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.25);
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* content justified */
+  align-items: center; /* center fields horizontally */
   justify-content: center; 
   z-index: 10;
   box-shadow: 0 0 30px rgba(255,255,255,0.1);
@@ -70,7 +69,7 @@ body {
 }
 
 .form-container:hover {
-  transform: rotateY(5deg) rotateX(3deg); /* tilt on hover */
+  transform: rotateY(5deg) rotateX(3deg);
   box-shadow: 0 0 35px rgba(255,91,177,0.6);
 }
 
@@ -93,6 +92,7 @@ form {
   display: flex;
   flex-direction: column;
   margin-top: 0.8rem;
+  align-items: center; /* center fields */
   animation: floatForm 8s ease-in-out infinite;
 }
 
@@ -105,8 +105,8 @@ form {
 
 /* FIELD */
 .field {
-  width: 100%;
-  margin-top: 0.4rem;
+  width: 90%; /* less space at sides */
+  margin-top: 0.8rem;
 }
 
 .field label {
@@ -120,23 +120,26 @@ form {
 .field input,
 .field textarea {
   width: 100%;
-  margin-top: 0.3rem;
   padding: 0.7rem 1rem;
   border-radius: 12px;
   border: 1px solid rgba(255,255,255,0.3);
-  background: #ffffff; /* crisp input */
-  color: #000000; /* clear text */
+  background: rgba(255,255,255,0.1); /* keep frosted glass */
+  backdrop-filter: blur(6px);
+  color: #ffffff; /* crisp text */
   outline: none;
+  text-align: center; /* input text centered */
 }
 
-.field input { text-align: center; }
-.field textarea { text-align: left; min-height: 95px; }
+.field textarea {
+  min-height: 95px;
+  text-align: left;
+}
 
 .field input:focus,
 .field textarea:focus {
   border: 1px solid rgba(255,91,177,0.9);
   box-shadow: 0 0 12px rgba(255,91,177,0.8);
-  background: #ffffff; /* keep input crisp on focus */
+  background: rgba(255,255,255,0.12); /* preserve frosted effect */
 }
 
 /* BUTTON */
