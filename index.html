@@ -4,118 +4,425 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Morigene Landing Page</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:auto;font-family:'IBM Plex Sans',sans-serif;color:#fff;overflow-y:auto;background:#000;}
-#bg-video{position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:-1;filter:brightness(0.6);transition:transform 1s ease-out;}
-.navbar{position:fixed;top:0;width:100%;height:60px;background:rgba(0,0,0,.35);display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:10;}
-.navbar .logo{display:flex;flex-direction:column;align-items:center;line-height:1;}
-.navbar .logo .main-text{font-weight:600;font-size:clamp(1.5rem,2.5vw,1.9rem);}
-.navbar .logo .sub-text{font-style:italic;font-size:clamp(.75rem,1.25vw,.95rem);margin-top:-2px;}
-.navbar-menu{list-style:none;display:flex;gap:20px;}
-.navbar-menu li a{color:#fff;text-decoration:underline;font-weight:500;position:relative;}
-.navbar-menu li a:hover{color:#ff5ab1;}
 
-/* Tooltip for Individual only */
-.navbar-menu li a[href="#individual"]::after {
-  content: "Your wellness, your way!\A""Personalized health plans,\A""Powered by your DNA.\A""- Coming soon -";
-  position:absolute;
-  left:50%;
-  top:135%;
-  transform:translateX(-50%);
-  max-width:320px;
-  padding:12px 16px;
-  font-size:0.85rem;
-  line-height:1.6;
-  text-align:center;
-  white-space:pre-line;
-  color:white;
-  background:rgba(0,0,0,0.35);
-  border:1px solid rgba(255,255,255,0.35);
-  border-radius:14px;
-  backdrop-filter:blur(6px);
-  opacity:0;
-  pointer-events:none;
-  z-index:20;
-  transition:opacity 0.25s ease, transform 0.25s ease;
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
+
+<style>
+/* Reset */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body {
+  height: 100%;
+  font-family: 'IBM Plex Sans', sans-serif;
+  color: white;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-.navbar-menu li a[href="#individual"]:hover::after{
-  opacity:1;
-  transform:translateX(-50%) translateY(6px);
-  animation: softGlow 2.5s ease-in-out infinite;
+
+/* Video background */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.6);
+  transition: transform 0.2s ease-out;
 }
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 60px;
+  background: rgba(0,0,0,0.35);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  z-index: 10;
+}
+.navbar .logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.navbar .logo .main-text {
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
+}
+.navbar .logo .sub-text {
+  font-style: italic;
+  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
+  margin-top: -2px;
+}
+
+/* Navbar Menu */
+.navbar-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+.navbar-menu li {
+  position: relative;
+}
+.navbar-menu li a {
+  color: white;
+  text-decoration: underline;
+  font-weight: 500;
+  position: relative;
+}
+.navbar-menu li a:hover {
+  color: #ff5ab1;
+}
+
+/* ===== NAVBAR TOOLTIP ===== */
 @keyframes softGlow {
-  0% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
-  50% { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
+  0%   { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
+  50%  { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
   100% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
 }
 
-.mobile-menu-toggle{display:none;flex-direction:column;cursor:pointer;gap:5px}
-.mobile-menu-toggle span{width:25px;height:3px;background:#fff;border-radius:2px}
-#mobileMenu{display:none;position:fixed;top:60px;left:0;width:100%;height:calc(100vh - 60px);background:rgba(0,0,0,.28);flex-direction:column;align-items:center;justify-content:center;gap:25px;z-index:15}
-#mobileMenu a{color:#fff;font-weight:700;font-size:1.6rem;text-decoration:underline;padding:.6rem 1.5rem;border-radius:50px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.15);backdrop-filter:blur(4px)}
-#mobileMenu a:hover{color:#ff5ab1}
+.navbar-menu li a[href="#individual"]::after,
+.navbar-menu li a[href="#corporate"]::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 135%;
+  transform: translateX(-50%) translateY(0);
 
-.container{position:relative;width:100%;min-height:100vh;text-align:center;display:flex;align-items:center;justify-content:center;padding-top:60px;}
-.headline{font-size:clamp(2rem,4vw,4rem);font-style:italic;margin-bottom:0;}
+  max-width: 320px;
+  padding: 12px 16px;
 
-.glass-container{position:relative;width:100%;max-width:1200px;margin:0 auto;display:flex;justify-content:center;gap:40px;padding:60px 20px 40px 20px;flex-wrap:wrap;z-index:1;}
-.glass-box{width:29.25%;margin:0 20px;background:rgba(255,255,255,.05);min-height:260px;padding:2rem;border-radius:1.5rem;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;justify-content:space-between;align-items:center;transition:transform .3s ease,box-shadow .3s ease;position:relative;cursor:pointer;}
-.glass-box h2{font-size:clamp(1.8rem,2.5vw,2.2rem);margin:0 0 1rem;font-weight:600;text-decoration:underline;text-align:center;}
-.glass-box p{font-size:clamp(1rem,1.2vw,1.1rem);line-height:1.5;text-align:justify;flex-grow:1;}
-.button-like{display:block;width:100%;padding:.8rem 0;border-radius:50px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(6px);text-decoration:none;cursor:pointer;font-size:1.5rem;text-align:center;transition:transform .3s ease,color .3s ease,box-shadow .3s ease;margin-top:20px}
-.button-like:hover{transform:translateY(-3px) scale(1.03);color:#ff5ab1;box-shadow:0 0 20px rgba(255,90,177,.6)}
-.button-like:hover em{font-weight:700;color:#fff;text-shadow:0 0 8px rgba(255,255,255,.8)}
+  font-size: 0.85rem;
+  line-height: 1.6;
+  text-align: center;
+  white-space: pre-line;
 
-footer{background:rgba(0,0,0,.35);color:#fff;text-align:center;font-size:14px;position:relative;width:100%;display:flex;justify-content:center;gap:15px;align-items:center;height:45px;padding:0 10px;flex-wrap:wrap}
-footer a{color:#fff;text-decoration:none}
-footer a:hover{text-decoration:underline}
+  color: white;
+  background: rgba(0,0,0,0.35);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 14px;
+  backdrop-filter: blur(6px);
 
-@media(max-width:900px){
-  .glass-container{flex-direction:column;gap:15px;align-items:center;padding-bottom:60px}
-  .glass-box{width:85%;max-width:280px;min-height:180px;padding:1.5rem}
-  .navbar-menu{display:none}
-  .mobile-menu-toggle{display:flex}
+  opacity: 0;
+  pointer-events: none;
+  z-index: 20;
+
+  transition: opacity 0.25s ease, transform 0.25s ease;
 }
 
-#subscribe-popup{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;justify-content:center;align-items:center;z-index:999}
-#subscribe-popup .popup-content{background:rgba(255,255,255,.05);backdrop-filter:blur(6px);padding:2rem;border-radius:1.5rem;display:flex;flex-direction:column;align-items:center;max-width:320px;width:80%}
-#subscribe-popup input[type=email]{width:100%;padding:.9rem;font-size:1rem;border-radius:50px;border:1px solid rgba(255,255,255,.4);margin-bottom:1rem;outline:none;text-align:center}
-#subscribe-popup button{padding:.85rem 2rem;border-radius:50px;border:none;background:linear-gradient(135deg,rgba(255,91,177,.6),rgba(255,91,177,.3));color:#fff;font-weight:600;cursor:pointer}
-#subscribe-popup .thankyou-message{display:none;text-align:center;color:#fff;margin-bottom:1rem;font-size:1rem;line-height:1.4}
-#subscribe-popup .popup-back{padding:.6rem 1.8rem;border-radius:50px;border:1px solid rgba(255,255,255,.4);background:rgba(255,255,255,.2);color:#fff;cursor:pointer}
+.navbar-menu li a[href="#individual"]::after {
+  content:
+    "Your wellness, your way!\A"
+    "Personalized health plans,\A"
+    "Powered by your DNA.\A"
+    "- Coming soon -";
+}
+
+.navbar-menu li a[href="#corporate"]::after {
+  content:
+    "Your genomic data,\A"
+    "Our professional care!\A"
+    "Outsourcing made simple.\A"
+    "- Coming soon -";
+}
+
+.navbar-menu li a[href="#individual"]:hover::after,
+.navbar-menu li a[href="#individual"]:focus::after,
+.navbar-menu li a[href="#individual"]:active::after,
+.navbar-menu li a[href="#corporate"]:hover::after,
+.navbar-menu li a[href="#corporate"]:focus::after,
+.navbar-menu li a[href="#corporate"]:active::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(6px);
+  animation: softGlow 2.5s ease-in-out infinite;
+}
+
+@media (max-width: 900px) {
+  .navbar-menu li a[href="#individual"]::after,
+  .navbar-menu li a[href="#corporate"]::after {
+    max-width: 260px;
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+}
+
+/* Mobile menu overlay */
+#mobileMenu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(0,0,0,0.28);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  z-index: 15;
+}
+#mobileMenu a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-decoration: underline;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+}
+#mobileMenu a:hover { color: #ff5ab1; }
+
+/* Hero */
+.container {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  padding: 20px;
+  top: 70px;
+}
+.headline {
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-style: italic;
+  margin-bottom: 80px;
+}
+
+/* Glass Boxes */
+.glass-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 20px;
+  flex-wrap: wrap;
+}
+.glass-box {
+  width: 29.25%;
+  margin: 0 20px;
+  background: rgba(255,255,255,0.05);
+  min-height: 260px;
+  padding: 2rem;
+  border-radius: 1.5rem;
+  backdrop-filter: blur(6px);
+  border:1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.glass-box h2 {
+  font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-align: center;
+}
+.glass-box p {
+  font-size: clamp(1rem, 1.2vw, 1.1rem);
+  line-height: 1.5;
+  text-align: justify;
+  flex-grow: 1;
+}
+.button-like {
+  display: block;
+  width: 100%;
+  padding: 0.8rem 0;
+  border-radius: 50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22);
+  color:white;
+  backdrop-filter: blur(6px);
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  text-align: center;
+  transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 20px;
+}
+.button-like:hover {
+  transform: translateY(-3px) scale(1.03);
+  color: #ff5ab1;
+  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+}
+.button-like:hover em {
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 0 8px rgba(255,255,255,0.8);
+}
+
+/* Footer */
+footer {
+  background: rgba(0,0,0,0.35);
+  color: white;
+  text-align: center;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  align-items: center;
+  height: 45px;
+  padding: 0 10px;
+  flex-wrap: wrap;
+}
+footer a {
+  color: white;
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .glass-container {
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    padding-bottom: 60px;
+  }
+  .glass-box {
+    width: 85%;
+    max-width: 280px;
+    min-height: 180px;
+    padding: 1.5rem;
+  }
+  .navbar-menu { display: none; }
+  .mobile-menu-toggle { display: flex; }
+}
+
+/* ========================= */
+/* SUBSCRIBE POPUP */
+#subscribe-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+#subscribe-popup .popup-content {
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(6px);
+  padding: 2rem;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 320px;
+  width: 80%;
+}
+#subscribe-popup input[type="email"] {
+  width: 100%;
+  padding: 0.9rem;
+  font-size: 1rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  margin-bottom: 1rem;
+  outline: none;
+  text-align: center;
+}
+#subscribe-popup button {
+  padding: 0.85rem 2rem;
+  border-radius: 50px;
+  border: none;
+  background: linear-gradient(135deg, rgba(255,91,177,0.6), rgba(255,91,177,0.3));
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+#subscribe-popup .thankyou-message {
+  display: none;
+  text-align: center;
+  color: white;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+#subscribe-popup .popup-back {
+  padding: 0.6rem 1.8rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
+}
 </style>
 </head>
-<body>
-<video autoplay muted loop playsinline id="bg-video" loading="lazy"><source src="videos/background.mp4" type="video/mp4" /></video>
 
+<body>
+
+<!-- Video Background -->
+<video autoplay muted loop playsinline id="bg-video">
+  <source src="videos/background.mp4" type="video/mp4" />
+</video>
+
+<!-- Navbar -->
 <nav class="navbar">
-  <div class="logo"><span class="main-text">MORIGENE</span><span class="sub-text">by Tabe-i Ltd</span></div>
-  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
+  <div class="logo">
+    <span class="main-text">MORIGENE</span>
+    <span class="sub-text">by Tabe-i Ltd</span>
+  </div>
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
-    <li><a href="corporate.html" target="_blank">Corporate</a></li>
+    <li><a href="#corporate">Corporate</a></li>
   </ul>
 </nav>
 
+<!-- Mobile Menu -->
 <div id="mobileMenu">
   <a href="#about">About</a>
   <a href="#individual">Individual</a>
-  <a href="corporate.html" target="_blank">Corporate</a>
+  <a href="#corporate">Corporate</a>
   <a href="learn-blog.html">More</a>
   <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
 </div>
 
-<div class="container" id="about"><h1 class="headline">Decoding life, one gene at a time!</h1></div>
+<!-- Hero -->
+<div class="container" id="about">
+  <h1 class="headline">Decoding life, one gene at a time!</h1>
+</div>
 
+<!-- Glass Boxes -->
 <div class="glass-container">
   <div class="glass-box" id="blog">
     <h2>Blog</h2>
     <p>Tiny reads, Big genes - Bio bytes that fit your coffee break.</p>
     <a class="button-like" onclick="openPopup()"><em>Subscribe</em></a>
   </div>
+  
   <div class="glass-box" id="courses">
     <h2>Courses</h2>
     <p>Learn Bioinformatics with hands-on practice.</p>
@@ -123,55 +430,140 @@ footer a:hover{text-decoration:underline}
   </div>
 </div>
 
+<!-- Footer -->
 <footer>
   <span>© 2026 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
   <a href="terms&conditions.html">Terms & Conditions</a>
   <a href="contact-form.html">Contact</a>
-  <a href="https://wa.me/23059119191" target="_blank" rel="noopener"><img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp"/></a>
+  <a href="https://wa.me/23059119191" target="_blank" rel="noopener">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp"/>
+  </a>
 </footer>
 
+<!-- ================= SUBSCRIBE POPUP ================= -->
 <div id="subscribe-popup">
   <div class="popup-content">
     <input type="email" id="subscriber-email" placeholder="Enter your email" required>
     <button onclick="submitEmail()">OK</button>
-    <div class="thankyou-message">Thank you for subscribing!<br>Get ready for monthly updates!</div>
+    <div class="thankyou-message">
+      Thank you for subscribing!<br>
+      Get ready for monthly updates!
+    </div>
     <button class="popup-back" onclick="closePopup()" style="display:none;">Ok</button>
   </div>
 </div>
 
-<script defer>
-document.addEventListener('DOMContentLoaded',function(){
-const bgVideo=document.getElementById('bg-video');
-document.addEventListener('mousemove',e=>{
-  const x=(e.clientX/window.innerWidth-.5)*20,
-        y=(e.clientY/window.innerHeight-.5)*20;
-  bgVideo.style.transform=`translate(${x}px,${y}px) scale(1.05)`;
+<script>
+// Video Parallax
+document.addEventListener('mousemove', function(e){
+  const video = document.getElementById('bg-video');
+  const moveX = (e.clientX / window.innerWidth - 0.5) * 20;
+  const moveY = (e.clientY / window.innerHeight - 0.5) * 20;
+  video.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
 });
-function toggleMobileMenu(){const menu=document.getElementById('mobileMenu'),isOpen=menu.style.display==="flex";menu.style.display=isOpen?"none":"flex"}
-window.toggleMobileMenu=toggleMobileMenu;
 
-if(window.innerWidth>900){
-document.querySelectorAll('.glass-box').forEach(box=>{
-  const glow=document.createElement('div');
-  glow.style.cssText="position:absolute;inset:0;border-radius:inherit;opacity:0;background:radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);pointer-events:none;transition:opacity .25s ease,background .25s ease";
-  box.appendChild(glow);
-
-  box.addEventListener("mousemove",e=>{
-    const r=box.getBoundingClientRect(),i=e.clientX-r.left,l=e.clientY-r.top,rx=(l/r.height-.5)*-15,ry=(i/r.width-.5)*15;
-    box.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
-    glow.style.opacity="1";
-    glow.style.background=`radial-gradient(circle at ${i}px ${l}px, rgba(255,255,255,.35), transparent 70%)`;
-  });
-  box.addEventListener("mouseleave",()=>{box.style.transform="perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)";glow.style.opacity="0"});
-});
+// Mobile Menu Toggle
+function toggleMobileMenu(){
+  const menu = document.getElementById('mobileMenu');
+  const isOpen = menu.style.display === 'flex';
+  menu.style.display = isOpen ? 'none' : 'flex';
+  menu.classList.toggle('open', !isOpen);
 }
 
-// Popup
-window.openPopup=function(){document.getElementById('subscribe-popup').style.display='flex';document.getElementById('subscriber-email').value='';document.getElementById('subscriber-email').style.display='block';document.querySelector('.thankyou-message').style.display='none';document.querySelector('.popup-back').style.display='none';document.querySelector('#subscribe-popup button').style.display='inline-block'}
-window.closePopup=function(){document.getElementById('subscribe-popup').style.display='none'}
-window.submitEmail=function(){const email=document.getElementById('subscriber-email').value;if(!email)return alert("Please enter your email!");const url="https://docs.google.com/forms/d/e/1FAIpQLSev7pADOilh_EMXWz185MDEmUvs9YGv8gnqFk9VVS6q7c-Cww/formResponse",entry="entry.1272858739",fd=new FormData();fd.append(entry,email);fetch(url,{method:"POST",mode:"no-cors",body:fd}).then(()=>{document.querySelector('.thankyou-message').style.display='block';document.querySelector('.popup-back').style.display='inline-block';document.getElementById('subscriber-email').style.display='none';document.querySelector('#subscribe-popup button').style.display='none'}).catch(console.error)})
-document.getElementById('subscribe-popup').addEventListener('click',function(e){if(e.target===this)closePopup()})
+// Glass box tilt & glow (DESKTOP ONLY)
+if(window.innerWidth > 900){
+  const boxes = document.querySelectorAll('.glass-box');
+  boxes.forEach(box => {
+    const glow = document.createElement('div');
+    glow.style.position = 'absolute';
+    glow.style.inset = '0';
+    glow.style.borderRadius = 'inherit';
+    glow.style.opacity = '0';
+    glow.style.background = 'radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%)';
+    glow.style.pointerEvents = 'none';
+    glow.style.transition = 'opacity 0.25s ease, background 0.25s ease';
+    box.appendChild(glow);
+
+    box.addEventListener('mousemove', e => {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rx = ((y / rect.height) - 0.5) * -15;
+      const ry = ((x / rect.width) - 0.5) * 15;
+      box.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
+      glow.style.opacity = '1';
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.35), transparent 70%)`;
+    });
+
+    box.addEventListener('mouseleave', () => {
+      box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+      glow.style.opacity = '0';
+    });
+  });
+}
+
+// Reset focus for navbar links so tooltip works after navigation
+document.querySelectorAll('.navbar-menu a').forEach(link => {
+  link.addEventListener('click', () => {
+    link.blur();
+  });
+});
+
+// ========================= SUBSCRIBE POPUP FUNCTIONS =========================
+function openPopup() {
+  document.getElementById('subscribe-popup').style.display = 'flex';
+  document.getElementById('subscriber-email').value = '';
+  document.getElementById('subscriber-email').style.display = 'block';
+  document.querySelector('.thankyou-message').style.display = 'none';
+  document.querySelector('.popup-back').style.display = 'none';
+  document.querySelector('#subscribe-popup button').style.display = 'inline-block';
+}
+
+function closePopup() {
+  document.getElementById('subscribe-popup').style.display = 'none';
+}
+
+function submitEmail() {
+  const email = document.getElementById('subscriber-email').value;
+  if (!email) {
+    alert("Please enter your email!");
+    return;
+  }
+
+  // Google Form POST endpoint
+  const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSev7pADOilh_EMXWz185MDEmUvs9YGv8gnqFk9VVS6q7c-Cww/formResponse";
+  
+  // Google Form email field entry
+  const entryEmail = "entry.1272858739";
+
+  const formData = new FormData();
+  formData.append(entryEmail, email);
+
+  fetch(formURL, {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  })
+  .then(() => {
+    // Show thank you message
+    document.querySelector('.thankyou-message').style.display = 'block';
+    document.querySelector('.popup-back').style.display = 'block';
+
+    // Clear and hide input & OK button
+    document.getElementById('subscriber-email').style.display = 'none';
+    document.querySelector('#subscribe-popup button').style.display = 'none';
+  })
+  .catch(err => {
+    console.error("Error submitting email:", err);
+  });
+}
+
+// Optional: Close popup when clicking outside content
+document.getElementById('subscribe-popup').addEventListener('click', function(e){
+  if(e.target === this){
+    closePopup();
+  }
 });
 </script>
 </body>
