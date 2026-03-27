@@ -1,1 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genomic Services</title>
 
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'IBM Plex Sans', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: url('analysis.jpg') no-repeat center center/cover;
+    color: #fff;
+}
+
+/* NAVBAR */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    backdrop-filter: blur(10px);
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 400;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    padding: 8px 16px;
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 20px;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+/* CENTER BOX */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.glass-box {
+    width: 60%;
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* HEADER */
+.glass-box h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 600;
+}
+
+/* SERVICES */
+.service {
+    margin-bottom: 20px;
+}
+
+.service-title {
+    font-weight: 500;
+}
+
+.read-more {
+    text-decoration: underline;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.description {
+    display: none;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.less {
+    display: block;
+    margin-top: 10px;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* FOOTER */
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </div>
+
+    <a href="index.html" class="back-btn">Back</a>
+</div>
+
+<!-- CENTER CONTENT -->
+<div class="container">
+    <div class="glass-box">
+
+        <h1>Your genomic data, our professional care! Outsourcing made simple</h1>
+
+        <!-- SERVICE 1 -->
+        <div class="service">
+            <span class="service-title">1. Turnkey genomic solutions</span>
+            <span class="read-more" onclick="toggleText('desc1')">>> Read more</span>
+
+            <div id="desc1" class="description">
+                We provide end-to-end support for organizations seeking to harness the power of genomics without needing to build in-house expertise or infrastructure. 
+                It delivers fully integrated workflows that cover every stage of the genomic pipeline—from sample collection and preparation to sequencing, data analysis, interpretation, and reporting.
+                <span class="less" onclick="toggleText('desc1')">Less</span>
+            </div>
+        </div>
+
+        <!-- SERVICE 2 -->
+        <div class="service">
+            <span class="service-title">2. Diagnostic product development</span>
+            <span class="read-more" onclick="toggleText('desc2')">>> Read more</span>
+
+            <div id="desc2" class="description">
+                We develop clinically actionable biomarker panels and companion diagnostics from client-provided genomic data, enabling precise disease detection and personalized treatment decisions. 
+                Our turnkey approach combines advanced bioinformatics and rigorous validation to deliver reliable, scalable diagnostic solutions ready for real-world application.
+                <span class="less" onclick="toggleText('desc2')">Less</span>
+            </div>
+        </div>
+
+        <!-- SERVICE 3 -->
+        <div class="service">
+            <span class="service-title">3. Customized pipeline</span>
+            <span class="read-more" onclick="toggleText('desc3')">>> Read more</span>
+
+            <div id="desc3" class="description">
+                We develop customized genomic analysis pipelines tailored to your specific datasets, research goals, and clinical applications. Each pipeline is carefully designed to handle data processing, quality control, variant detection, and downstream analysis with precision and reproducibility.
+
+                Our flexible and scalable workflows integrate advanced bioinformatics tools to ensure accurate, high-quality results while remaining adaptable to different project needs. By aligning the pipeline with your objectives, we enable efficient data interpretation and seamless support for biomarker discovery and diagnostic development.
+                <span class="less" onclick="toggleText('desc3')">Less</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    © 2026 Your Company Name. All rights reserved.
+</div>
+
+<script>
+function toggleText(id) {
+    let el = document.getElementById(id);
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+}
+</script>
+
+</body>
+</html>
