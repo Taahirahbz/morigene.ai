@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;color:#fff;overflow:hidden} /* one-page, no scroll */
+html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;color:#fff;overflow:hidden} /* single page */
 #bg-video{position:fixed;top:0;left:0;width:100vw;height:100vh;object-fit:cover;z-index:-1;filter:brightness(0.6);transition:transform 1s ease-out}
 .navbar{position:fixed;top:0;width:100%;height:60px;background:rgba(0,0,0,.35);display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:10}
 .navbar .logo{display:flex;flex-direction:column;align-items:center;line-height:1}
@@ -19,14 +19,11 @@ html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;color:#fff;overflow
 
 /* Tooltip for Individual only */
 .navbar-menu li a[href="#individual"]::after {
-  content: "Your wellness, your way!\A"
-           "Personalized health plans,\A"
-           "Powered by your DNA.\A"
-           "- Coming soon -";
+  content: "Your wellness, your way!\A""Personalized health plans,\A""Powered by your DNA.\A""- Coming soon -";
   position:absolute;
   left:50%;
   top:135%;
-  transform:translateX(-50%) translateY(0);
+  transform:translateX(-50%);
   max-width:320px;
   padding:12px 16px;
   font-size:0.85rem;
@@ -43,14 +40,11 @@ html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;color:#fff;overflow
   z-index:20;
   transition:opacity 0.25s ease, transform 0.25s ease;
 }
-.navbar-menu li a[href="#individual"]:hover::after,
-.navbar-menu li a[href="#individual"]:focus::after,
-.navbar-menu li a[href="#individual"]:active::after {
+.navbar-menu li a[href="#individual"]:hover::after{
   opacity:1;
   transform:translateX(-50%) translateY(6px);
   animation: softGlow 2.5s ease-in-out infinite;
 }
-
 @keyframes softGlow {
   0% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
   50% { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
@@ -62,19 +56,29 @@ html,body{height:100%;font-family:'IBM Plex Sans',sans-serif;color:#fff;overflow
 #mobileMenu{display:none;position:fixed;top:60px;left:0;width:100%;height:calc(100vh - 60px);background:rgba(0,0,0,.28);flex-direction:column;align-items:center;justify-content:center;gap:25px;z-index:15}
 #mobileMenu a{color:#fff;font-weight:700;font-size:1.6rem;text-decoration:underline;padding:.6rem 1.5rem;border-radius:50px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.15);backdrop-filter:blur(4px)}
 #mobileMenu a:hover{color:#ff5ab1}
+
 .container{position:relative;width:100%;height:100vh;text-align:center;display:flex;align-items:center;justify-content:center}
 .headline{font-size:clamp(2rem,4vw,4rem);font-style:italic;margin-bottom:0}
-.glass-container{position:relative;width:100%;max-width:1200px;margin:0 auto;display:flex;justify-content:center;gap:40px;padding:20px;flex-wrap:wrap}
-.glass-box{width:29.25%;margin:0 20px;background:rgba(255,255,255,.05);min-height:260px;padding:2rem;border-radius:1.5rem;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;justify-content:space-between;align-items:center;transition:transform .3s ease,box-shadow .3s ease;position:relative}
+
+.glass-container{position:relative;width:100%;max-width:1200px;margin:0 auto;display:flex;justify-content:center;gap:40px;padding:20px;flex-wrap:wrap;z-index:1}
+.glass-box{width:29.25%;margin:0 20px;background:rgba(255,255,255,.05);min-height:260px;padding:2rem;border-radius:1.5rem;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2);display:flex;flex-direction:column;justify-content:space-between;align-items:center;transition:transform .3s ease,box-shadow .3s ease;position:relative;cursor:pointer}
 .glass-box h2{font-size:clamp(1.8rem,2.5vw,2.2rem);margin:0 0 1rem;font-weight:600;text-decoration:underline;text-align:center}
 .glass-box p{font-size:clamp(1rem,1.2vw,1.1rem);line-height:1.5;text-align:justify;flex-grow:1}
 .button-like{display:block;width:100%;padding:.8rem 0;border-radius:50px;border:1px solid rgba(255,255,255,.45);background:rgba(255,255,255,.22);color:#fff;backdrop-filter:blur(6px);text-decoration:none;cursor:pointer;font-size:1.5rem;text-align:center;transition:transform .3s ease,color .3s ease,box-shadow .3s ease;margin-top:20px}
 .button-like:hover{transform:translateY(-3px) scale(1.03);color:#ff5ab1;box-shadow:0 0 20px rgba(255,90,177,.6)}
 .button-like:hover em{font-weight:700;color:#fff;text-shadow:0 0 8px rgba(255,255,255,.8)}
+
 footer{background:rgba(0,0,0,.35);color:#fff;text-align:center;font-size:14px;position:fixed;bottom:0;width:100%;display:flex;justify-content:center;gap:15px;align-items:center;height:45px;padding:0 10px;flex-wrap:wrap}
 footer a{color:#fff;text-decoration:none}
 footer a:hover{text-decoration:underline}
-@media(max-width:900px){.glass-container{flex-direction:column;gap:15px;align-items:center;padding-bottom:60px}.glass-box{width:85%;max-width:280px;min-height:180px;padding:1.5rem}.navbar-menu{display:none}.mobile-menu-toggle{display:flex}}
+
+@media(max-width:900px){
+  .glass-container{flex-direction:column;gap:15px;align-items:center;padding-bottom:60px}
+  .glass-box{width:85%;max-width:280px;min-height:180px;padding:1.5rem}
+  .navbar-menu{display:none}
+  .mobile-menu-toggle{display:flex}
+}
+
 #subscribe-popup{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;justify-content:center;align-items:center;z-index:999}
 #subscribe-popup .popup-content{background:rgba(255,255,255,.05);backdrop-filter:blur(6px);padding:2rem;border-radius:1.5rem;display:flex;flex-direction:column;align-items:center;max-width:320px;width:80%}
 #subscribe-popup input[type=email]{width:100%;padding:.9rem;font-size:1rem;border-radius:50px;border:1px solid rgba(255,255,255,.4);margin-bottom:1rem;outline:none;text-align:center}
@@ -91,17 +95,19 @@ footer a:hover{text-decoration:underline}
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
-    <li><a href="corporate.html">Corporate</a></li>
+    <li><a href="corporate.html" target="_blank">Corporate</a></li>
   </ul>
 </nav>
 <div id="mobileMenu">
   <a href="#about">About</a>
   <a href="#individual">Individual</a>
-  <a href="corporate.html">Corporate</a>
+  <a href="corporate.html" target="_blank">Corporate</a>
   <a href="learn-blog.html">More</a>
   <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
 </div>
+
 <div class="container" id="about"><h1 class="headline">Decoding life, one gene at a time!</h1></div>
+
 <div class="glass-container">
   <!-- Blog box -->
   <div class="glass-box" id="blog">
@@ -116,6 +122,7 @@ footer a:hover{text-decoration:underline}
     <a class="button-like" href="#"><em>Discover</em></a>
   </div>
 </div>
+
 <footer>
   <span>© 2026 Morigene.ai — All rights reserved.</span>
   <a href="privacy-policy.html">Privacy Policy</a>
@@ -123,6 +130,7 @@ footer a:hover{text-decoration:underline}
   <a href="contact-form.html">Contact</a>
   <a href="https://wa.me/23059119191" target="_blank" rel="noopener"><img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" width="20" height="20" alt="WhatsApp"/></a>
 </footer>
+
 <div id="subscribe-popup">
   <div class="popup-content">
     <input type="email" id="subscriber-email" placeholder="Enter your email" required>
@@ -131,6 +139,7 @@ footer a:hover{text-decoration:underline}
     <button class="popup-back" onclick="closePopup()" style="display:none;">Ok</button>
   </div>
 </div>
+
 <script defer>
 document.addEventListener('DOMContentLoaded',function(){
 const bgVideo=document.getElementById('bg-video');
@@ -142,14 +151,13 @@ document.addEventListener('mousemove',e=>{
 function toggleMobileMenu(){const menu=document.getElementById('mobileMenu'),isOpen=menu.style.display==="flex";menu.style.display=isOpen?"none":"flex"}
 window.toggleMobileMenu=toggleMobileMenu;
 
-// Hover + scroll tilt for glass boxes
+// Glass boxes hover tilt
 if(window.innerWidth>900){
 document.querySelectorAll('.glass-box').forEach(box=>{
   const glow=document.createElement('div');
   glow.style.cssText="position:absolute;inset:0;border-radius:inherit;opacity:0;background:radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);pointer-events:none;transition:opacity .25s ease,background .25s ease";
   box.appendChild(glow);
 
-  // mouse hover tilt
   box.addEventListener("mousemove",e=>{
     const r=box.getBoundingClientRect(),i=e.clientX-r.left,l=e.clientY-r.top,rx=(l/r.height-.5)*-15,ry=(i/r.width-.5)*15;
     box.style.transform=`perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03)`;
@@ -157,16 +165,6 @@ document.querySelectorAll('.glass-box').forEach(box=>{
     glow.style.background=`radial-gradient(circle at ${i}px ${l}px, rgba(255,255,255,.35), transparent 70%)`;
   });
   box.addEventListener("mouseleave",()=>{box.style.transform="perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)";glow.style.opacity="0"});
-
-  // scroll tilt based on container offset
-  const container = document.querySelector('.glass-container');
-  window.addEventListener('scroll',()=>{
-    const rect = box.getBoundingClientRect();
-    const centerY = window.innerHeight/2;
-    const offsetY = rect.top + rect.height/2 - centerY;
-    const tiltX = offsetY / centerY * -10; // max 10deg tilt
-    box.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(0deg) scale(1.03)`;
-  });
 });
 }
 
