@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Genomic Services</title>
-
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
-
 <style>
 * {
     margin: 0;
@@ -15,64 +13,109 @@
     font-family: 'IBM Plex Sans', sans-serif;
 }
 
+html {
+    height: 100%;
+    max-height: 100%;
+    overflow: hidden !important;
+    position: fixed;
+    width: 100%;
+}
+
 body {
-    min-height: 100vh;
-    background: url('images/analysis.jpg') no-repeat center center/cover;
+    height: 100vh;
+    max-height: 100vh;
+    overflow: hidden !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     color: #fff;
-}
-
-/* NAVBAR */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 40px;
-    backdrop-filter: blur(10px);
-}
-
-.nav-links {
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: #fff;
-}
-
-/* BACK BUTTON */
-.back-btn {
-    padding: 8px 16px;
-    border: 1px solid rgba(255,255,255,0.5);
-    border-radius: 20px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(10px);
-    color: #fff;
-    text-decoration: none;
-    transition: 0.3s;
-}
-
-.back-btn:hover {
-    background: rgba(255,255,255,0.2);
-}
-
-/* CENTER BOX */
-.container {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px 20px;
+}
+
+/* PARTICLES */
+#particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.8;
+    animation: float 4s infinite ease-in-out;
+}
+
+.particle.white {
+    background: white;
+    box-shadow: 0 0 6px rgba(255,255,255,0.8);
+}
+
+.particle.magenta {
+    background: #FF5AB1;
+    box-shadow: 0 0 8px rgba(255,91,177,0.9);
+}
+
+@keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* Background image layer */
+.bg {
+    position: fixed;
+    inset: 0;
+    background: url('images/analysis.jpg') no-repeat center center/cover;
+    z-index: 0;
+}
+
+/* Blur overlay — covers only the center of the image where the glass is */
+.bg-blur-patch {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 340px;
+    height: 420px;
+    z-index: 1;
+    backdrop-filter: blur(18px) brightness(0.7);
+    -webkit-backdrop-filter: blur(18px) brightness(0.7);
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 40%, transparent 100%);
+}
+
+/* CENTER CONTENT */
+.container {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    padding-top: 22vh;
+    padding-bottom: 28vh;
 }
 
 .glass-box {
-    width: 60%;
+    width: calc(60% - 1cm);
+    max-height: 55vh;
+    overflow-y: auto;
     padding: 40px;
     border-radius: 20px;
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background: rgba(255,255,255,0.02);
     border: 1px solid rgba(255,255,255,0.2);
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
 }
 
 /* Glow effect */
@@ -91,10 +134,17 @@ body {
     opacity: 1;
 }
 
+/* Hide scrollbar */
+.glass-box::-webkit-scrollbar { display: none; }
+.glass-box { -ms-overflow-style: none; scrollbar-width: none; }
+
 /* HEADER */
 .glass-box h1 {
     text-align: center;
     margin-bottom: 30px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.5;
 }
 
 /* SERVICES */
@@ -103,7 +153,7 @@ body {
 }
 
 .service-title {
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .read-more, .less {
@@ -111,6 +161,7 @@ body {
     cursor: pointer;
     margin-left: 10px;
     font-size: 14px;
+    font-weight: 700;
 }
 
 .description {
@@ -118,31 +169,21 @@ body {
     margin-top: 10px;
     font-size: 14px;
     line-height: 1.6;
-}
-
-/* FOOTER */
-.footer {
-    text-align: center;
-    padding: 15px;
-    backdrop-filter: blur(10px);
-    font-size: 14px;
-    margin-top: 40px;
+    font-weight: 700;
 }
 </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<div class="navbar">
-    <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#">Services</a>
-        <a href="#">Contact</a>
-    </div>
+<!-- Background -->
+<div class="bg"></div>
 
-    <a href="index.html" class="back-btn">Back</a>
-</div>
+<!-- Particles -->
+<div id="particles"></div>
+
+<!-- Blur patch over the center glass -->
+<div class="bg-blur-patch"></div>
 
 <!-- CENTER CONTENT -->
 <div class="container">
@@ -154,7 +195,6 @@ body {
         <div class="service">
             <span class="service-title">1. Turnkey genomic solutions</span>
             <span class="read-more" data-target="desc1">>> Read more</span>
-
             <div id="desc1" class="description">
                 We provide end-to-end support for organizations seeking to harness the power of genomics without needing to build in-house expertise or infrastructure. 
                 It delivers fully integrated workflows that cover every stage of the genomic pipeline—from sample collection and preparation to sequencing, data analysis, interpretation, and reporting.
@@ -166,7 +206,6 @@ body {
         <div class="service">
             <span class="service-title">2. Diagnostic product development</span>
             <span class="read-more" data-target="desc2">>> Read more</span>
-
             <div id="desc2" class="description">
                 We develop clinically actionable biomarker panels and companion diagnostics from client-provided genomic data, enabling precise disease detection and personalized treatment decisions. 
                 Our turnkey approach combines advanced bioinformatics and rigorous validation to deliver reliable, scalable diagnostic solutions ready for real-world application.
@@ -178,10 +217,8 @@ body {
         <div class="service">
             <span class="service-title">3. Customized pipeline</span>
             <span class="read-more" data-target="desc3">>> Read more</span>
-
             <div id="desc3" class="description">
                 We develop customized genomic analysis pipelines tailored to your specific datasets, research goals, and clinical applications. Each pipeline is carefully designed to handle data processing, quality control, variant detection, and downstream analysis with precision and reproducibility.
-
                 Our flexible and scalable workflows integrate advanced bioinformatics tools to ensure accurate, high-quality results while remaining adaptable to different project needs. By aligning the pipeline with your objectives, we enable efficient data interpretation and seamless support for biomarker discovery and diagnostic development.
                 <span class="less" data-target="desc3">Less</span>
             </div>
@@ -190,12 +227,25 @@ body {
     </div>
 </div>
 
-<!-- FOOTER -->
-<div class="footer">
-    © 2026 Your Company Name. All rights reserved.
-</div>
-
 <script>
+// Particles
+const particleContainer = document.getElementById('particles');
+for (let i = 0; i < 80; i++) {
+    const p = document.createElement('div');
+    p.classList.add('particle', Math.random() > 0.5 ? 'magenta' : 'white');
+    const size = Math.random() * 4 + 2;
+    p.style.width = p.style.height = size + 'px';
+    p.style.left = Math.random() * window.innerWidth + 'px';
+    p.style.top = Math.random() * window.innerHeight + 'px';
+    p.style.animationDuration = (3 + Math.random() * 3) + 's';
+    particleContainer.appendChild(p);
+}
+
+// Prevent all scrolling on the page
+document.addEventListener('scroll', e => e.preventDefault(), { passive: false });
+document.addEventListener('wheel', e => e.preventDefault(), { passive: false });
+document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+
 // Toggle descriptions
 function toggleText(id) {
     const el = document.getElementById(id);
@@ -203,7 +253,6 @@ function toggleText(id) {
     el.style.display = isVisible ? "none" : "block";
 }
 
-// Attach click events
 document.querySelectorAll('.read-more, .less').forEach(btn => {
     btn.addEventListener('click', () => {
         toggleText(btn.dataset.target);
@@ -218,13 +267,10 @@ glassBox.addEventListener('mousemove', e => {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    // Tilt
     const rotateX = ((y / rect.height) - 0.5) * -10;
     const rotateY = ((x / rect.width) - 0.5) * 10;
 
     glassBox.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-
-    // Glow position
     glassBox.style.setProperty('--x', `${x}px`);
     glassBox.style.setProperty('--y', `${y}px`);
 });
