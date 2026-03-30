@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&family=Fredoka+One&display=swap" rel="stylesheet">
 
 <style>
-/* Reset */
+/* Reset & basic body */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html, body {
   height: 100%;
@@ -17,9 +17,8 @@ html, body {
   color: white;
   overflow-x: hidden;
   overflow-y: auto;
-  transition: opacity 0.4s ease;
 }
-body.fade-out { opacity: 0; }
+body.fade-out { opacity: 0; transition: opacity 0.4s ease; }
 
 /* Video background */
 #bg-video {
@@ -53,22 +52,11 @@ body.fade-out { opacity: 0; }
   align-items: center;
   line-height: 1;
 }
-.navbar .logo .main-text {
-  font-weight: 600;
-  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
-}
-.navbar .logo .sub-text {
-  font-style: italic;
-  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
-  margin-top: -2px;
-}
+.navbar .logo .main-text { font-weight: 600; font-size: clamp(1.5rem, 2.5vw, 1.9rem); }
+.navbar .logo .sub-text { font-style: italic; font-size: clamp(0.75rem, 1.25vw, 0.95rem); margin-top: -2px; }
 
 /* Navbar Menu */
-.navbar-menu {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
+.navbar-menu { list-style: none; display: flex; gap: 20px; }
 .navbar-menu li { position: relative; }
 .navbar-menu li a {
   color: white;
@@ -85,11 +73,10 @@ body.fade-out { opacity: 0; }
   100% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
 }
 .navbar-menu li a[href="#individual"]::after {
-  content:
-    "Your wellness, your way!\A"
-    "Personalized health plans,\A"
-    "Powered by your DNA.\A"
-    "- Coming soon -";
+  content: "Your wellness, your way!\A" 
+           "Personalized health plans,\A" 
+           "Powered by your DNA.\A"
+           "- Coming soon -";
   position: absolute;
   left: 50%;
   top: 135%;
@@ -117,34 +104,45 @@ body.fade-out { opacity: 0; }
   transform: translateX(-50%) translateY(6px);
   animation: softGlow 2.5s ease-in-out infinite;
 }
+@media (max-width: 900px) {
+  .navbar-menu li a[href="#individual"]::after { max-width: 260px; font-size: 0.8rem; }
+}
 
 /* Mobile Menu Toggle */
-.mobile-menu-toggle {
+.mobile-menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+.mobile-menu-toggle span { width: 25px; height: 3px; background: white; border-radius: 2px; }
+
+/* Mobile menu overlay */
+#mobileMenu {
   display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(0,0,0,0.28);
   flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  z-index: 15;
 }
-.mobile-menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
+#mobileMenu a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-decoration: underline;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
 }
+#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero */
-.container {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  padding: 20px;
-  top: 70px;
-}
-.headline {
-  font-size: clamp(2rem, 4vw, 4rem);
-  font-style: italic;
-  margin-bottom: 80px;
-}
+.container { position: relative; width: 100%; text-align: center; padding: 20px; top: 70px; }
+.headline { font-size: clamp(2rem, 4vw, 4rem); font-style: italic; margin-bottom: 80px; }
 
 /* Glass Boxes */
 .glass-container {
@@ -172,6 +170,7 @@ body.fade-out { opacity: 0; }
   justify-content: space-between;
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
@@ -236,25 +235,11 @@ footer a:hover { text-decoration: underline; }
 
 /* Mobile */
 @media (max-width: 900px) {
-  .navbar-menu { display: none; }
-  .mobile-menu-toggle { display: flex; }
-
-  /* Hide desktop footer */
+  .navbar { display: none; }
+  .mobile-menu-toggle { display: none; } /* no hamburger needed */
+  .glass-container { flex-direction: column; gap: 15px; align-items: center; padding-bottom: 60px; }
+  .glass-box { width: 85%; max-width: 280px; min-height: 180px; padding: 1.5rem; }
   footer { display: none; }
-
-  /* Mobile glass boxes for all menu items */
-  .glass-container {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-    padding-bottom: 60px;
-  }
-  .glass-box {
-    width: 85%;
-    max-width: 280px;
-    min-height: 180px;
-    padding: 1.5rem;
-  }
 }
 </style>
 </head>
@@ -271,10 +256,6 @@ footer a:hover { text-decoration: underline; }
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
 
-  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-    <span></span><span></span><span></span>
-  </div>
-
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -287,44 +268,19 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <div class="glass-container" id="glassContainer">
-
-  <!-- Desktop & Mobile Boxes -->
+  <!-- Blog -->
   <div class="glass-box" id="blog">
     <h2>Blog</h2>
     <p>Tiny reads, Big genes - Bio bytes that fit your coffee break.</p>
     <a class="button-like" onclick="openPopup()"><em>Subscribe</em></a>
   </div>
 
-  <div class="glass-box" id="corporate">
-    <h2>Corporate</h2>
-    <p>Explore tailored corporate genomics solutions.</p>
-    <a class="button-like" href="corporate.html"><em>Learn More</em></a>
-  </div>
-
+  <!-- Courses -->
   <div class="glass-box" id="courses">
     <h2>Courses</h2>
     <p>Learn Bioinformatics with hands-on practice.</p>
     <a class="button-like" href="#"><em>Discover</em></a>
   </div>
-
-  <div class="glass-box" id="individual">
-    <h2>Individual</h2>
-    <p>Personalized wellness & DNA-powered health plans.</p>
-    <a class="button-like" href="#individual"><em>Explore</em></a>
-  </div>
-
-  <div class="glass-box" id="more">
-    <h2>More</h2>
-    <div id="moreLinks" style="display:none; flex-direction: column; gap: 10px; width: 100%; text-align:center;">
-      <a href="privacy-policy.html" class="button-like"><em>Privacy Policy</em></a>
-      <a href="terms&conditions.html" class="button-like"><em>Terms & Conditions</em></a>
-      <a href="contact-form.html" class="button-like"><em>Contact</em></a>
-      <a href="https://wa.me/23059119191" target="_blank" class="button-like"><em>WhatsApp</em></a>
-      <button onclick="toggleMore()" class="button-like"><em>Close</em></button>
-    </div>
-    <button onclick="toggleMore()" class="button-like"><em>Open</em></button>
-  </div>
-
 </div>
 
 <footer>
@@ -351,47 +307,44 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <script>
-// Tilt effect for desktop glass boxes
-document.querySelectorAll('.glass-box').forEach(box => {
+// Desktop tilt effect
+const glassBoxes = document.querySelectorAll('.glass-box');
+glassBoxes.forEach(box => {
   box.addEventListener('mousemove', e => {
-    if(window.innerWidth > 900){
-      const rect = box.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      const rotateX = ((y / rect.height) - 0.5) * -10;
-      const rotateY = ((x / rect.width) - 0.5) * 10;
-      box.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
-    }
+    const rect = box.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+    box.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
   });
   box.addEventListener('mouseleave', () => {
-    box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)';
+    box.style.transform = `perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)`;
   });
 });
 
-// Mobile "More" toggle
-function toggleMore() {
-  const links = document.getElementById('moreLinks');
-  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
-}
-
-// Mobile menu toggle (navbar)
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-}
+// Smooth transition for Corporate
+document.querySelectorAll('.corporate-link').forEach(link => {
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => { window.location.href = this.href; }, 350);
+  });
+});
 
 // Subscribe popup
-function openPopup(){ document.getElementById('subscribe-popup').style.display='flex'; }
-function closePopup(){
-  const popup = document.getElementById('subscribe-popup');
-  popup.style.display='none';
-  popup.querySelector('.thankyou-message').style.display='none';
-  popup.querySelector('.popup-back').style.display='none';
+function openPopup() {
+  document.getElementById('subscribe-popup').style.display = 'flex';
 }
-function submitEmail(){
-  const popup = document.getElementById('subscribe-popup');
-  popup.querySelector('.thankyou-message').style.display='block';
-  popup.querySelector('.popup-back').style.display='block';
+function closePopup() {
+  document.getElementById('subscribe-popup').style.display = 'none';
+}
+function submitEmail() {
+  const emailInput = document.getElementById('subscriber-email');
+  if(emailInput.value.trim() !== ''){
+    document.querySelector('#subscribe-popup .thankyou-message').style.display = 'block';
+    document.querySelector('#subscribe-popup .popup-back').style.display = 'block';
+  }
 }
 </script>
 
