@@ -17,7 +17,7 @@
 
 body {
     min-height: 100vh;
-    background: url('analysis.jpg') no-repeat center center/cover;
+    background: url('images/analysis.jpg') no-repeat center center/cover;
     color: #fff;
 }
 
@@ -38,7 +38,6 @@ body {
 .nav-links a {
     text-decoration: none;
     color: #fff;
-    font-weight: 400;
 }
 
 /* BACK BUTTON */
@@ -74,27 +73,28 @@ body {
     border: 1px solid rgba(255,255,255,0.2);
     position: relative;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: flex;
-    flex-direction: column;
 }
 
-/* Hover tilt & glow effect */
+/* Glow effect */
 .glass-box::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: inherit;
     opacity: 0;
-    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,255,255,0.25), transparent 70%);
     pointer-events: none;
-    transition: opacity 0.25s ease, background 0.25s ease;
+    transition: opacity 0.2s ease;
+}
+
+.glass-box:hover::before {
+    opacity: 1;
 }
 
 /* HEADER */
 .glass-box h1 {
     text-align: center;
     margin-bottom: 30px;
-    font-weight: 600;
 }
 
 /* SERVICES */
@@ -106,10 +106,11 @@ body {
     font-weight: 500;
 }
 
-.read-more {
+.read-more, .less {
     text-decoration: underline;
     cursor: pointer;
     margin-left: 10px;
+    font-size: 14px;
 }
 
 .description {
@@ -117,13 +118,6 @@ body {
     margin-top: 10px;
     font-size: 14px;
     line-height: 1.6;
-}
-
-.less {
-    display: block;
-    margin-top: 10px;
-    text-decoration: underline;
-    cursor: pointer;
 }
 
 /* FOOTER */
@@ -159,37 +153,37 @@ body {
         <!-- SERVICE 1 -->
         <div class="service">
             <span class="service-title">1. Turnkey genomic solutions</span>
-            <span class="read-more" onclick="toggleText('desc1')">>> Read more</span>
+            <span class="read-more" data-target="desc1">>> Read more</span>
 
             <div id="desc1" class="description">
                 We provide end-to-end support for organizations seeking to harness the power of genomics without needing to build in-house expertise or infrastructure. 
                 It delivers fully integrated workflows that cover every stage of the genomic pipeline—from sample collection and preparation to sequencing, data analysis, interpretation, and reporting.
-                <span class="less" onclick="toggleText('desc1')">Less</span>
+                <span class="less" data-target="desc1">Less</span>
             </div>
         </div>
 
         <!-- SERVICE 2 -->
         <div class="service">
             <span class="service-title">2. Diagnostic product development</span>
-            <span class="read-more" onclick="toggleText('desc2')">>> Read more</span>
+            <span class="read-more" data-target="desc2">>> Read more</span>
 
             <div id="desc2" class="description">
                 We develop clinically actionable biomarker panels and companion diagnostics from client-provided genomic data, enabling precise disease detection and personalized treatment decisions. 
                 Our turnkey approach combines advanced bioinformatics and rigorous validation to deliver reliable, scalable diagnostic solutions ready for real-world application.
-                <span class="less" onclick="toggleText('desc2')">Less</span>
+                <span class="less" data-target="desc2">Less</span>
             </div>
         </div>
 
         <!-- SERVICE 3 -->
         <div class="service">
             <span class="service-title">3. Customized pipeline</span>
-            <span class="read-more" onclick="toggleText('desc3')">>> Read more</span>
+            <span class="read-more" data-target="desc3">>> Read more</span>
 
             <div id="desc3" class="description">
                 We develop customized genomic analysis pipelines tailored to your specific datasets, research goals, and clinical applications. Each pipeline is carefully designed to handle data processing, quality control, variant detection, and downstream analysis with precision and reproducibility.
 
                 Our flexible and scalable workflows integrate advanced bioinformatics tools to ensure accurate, high-quality results while remaining adaptable to different project needs. By aligning the pipeline with your objectives, we enable efficient data interpretation and seamless support for biomarker discovery and diagnostic development.
-                <span class="less" onclick="toggleText('desc3')">Less</span>
+                <span class="less" data-target="desc3">Less</span>
             </div>
         </div>
 
@@ -202,22 +196,39 @@ body {
 </div>
 
 <script>
+// Toggle descriptions
 function toggleText(id) {
     const el = document.getElementById(id);
-    el.style.display = (el.style.display === "block") ? "none" : "block";
+    const isVisible = window.getComputedStyle(el).display === "block";
+    el.style.display = isVisible ? "none" : "block";
 }
 
-// Hover tilt & glow
+// Attach click events
+document.querySelectorAll('.read-more, .less').forEach(btn => {
+    btn.addEventListener('click', () => {
+        toggleText(btn.dataset.target);
+    });
+});
+
+// Hover tilt & glow tracking
 const glassBox = document.getElementById('glassBox');
+
 glassBox.addEventListener('mousemove', e => {
     const rect = glassBox.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const rotateX = ((y / rect.height) - 0.5) * -15;
-    const rotateY = ((x / rect.width) - 0.5) * 15;
-    glassBox.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-    glassBox.querySelector('::before');
+
+    // Tilt
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+
+    glassBox.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+
+    // Glow position
+    glassBox.style.setProperty('--x', `${x}px`);
+    glassBox.style.setProperty('--y', `${y}px`);
 });
+
 glassBox.addEventListener('mouseleave', () => {
     glassBox.style.transform = `perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)`;
 });
