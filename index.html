@@ -78,7 +78,7 @@ body.fade-out { opacity: 0; }
 }
 .navbar-menu li a:hover { color: #ff5ab1; }
 
-/* Tooltip only for Individual */
+/* Tooltip for Individual */
 @keyframes softGlow {
   0% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
   50% { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
@@ -120,15 +120,47 @@ body.fade-out { opacity: 0; }
   animation: softGlow 2.5s ease-in-out infinite;
 }
 
-@media (max-width: 900px) {
-  .navbar-menu li a[href="#individual"]::after {
-    max-width: 260px;
-    font-size: 0.8rem;
-  }
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
 }
 
-/* Mobile Menu Toggle */
-.mobile-menu-toggle { display: none; }
+/* Mobile menu overlay */
+#mobileMenu {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(0,0,0,0.28);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  z-index: 15;
+}
+#mobileMenu a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.5rem;
+  text-decoration: underline;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+}
+#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero */
 .container {
@@ -170,8 +202,6 @@ body.fade-out { opacity: 0; }
   justify-content: space-between;
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  position: relative;
 }
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
@@ -234,7 +264,7 @@ footer {
 footer a { color: white; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
-/* Mobile adjustments */
+/* Mobile */
 @media (max-width: 900px) {
   .glass-container {
     flex-direction: column;
@@ -248,35 +278,9 @@ footer a:hover { text-decoration: underline; }
     min-height: 180px;
     padding: 1.5rem;
   }
-  .navbar-menu, footer { display: none; }
-}
-
-/* More box content (hidden initially) */
-.more-links {
-  display: none;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 10px;
-  width: 100%;
-}
-.more-links a {
-  font-size: 1rem;
-  text-decoration: underline;
-  color: white;
-  text-align: center;
-  border:1px solid rgba(255,255,255,0.45);
-  border-radius: 50px;
-  padding: 0.5rem 0;
-  backdrop-filter: blur(4px);
-  background: rgba(255,255,255,0.15);
-}
-
-/* Tilt hover effect desktop only */
-@media (min-width: 901px) {
-  .glass-box:hover {
-    transform: perspective(800px) rotateX(3deg) rotateY(3deg) scale(1.02);
-    box-shadow: 0 12px 40px rgba(255,90,177,0.6);
-  }
+  .navbar-menu { display: none; }
+  .mobile-menu-toggle { display: flex; }
+  footer { display: none; }
 }
 </style>
 </head>
@@ -286,6 +290,38 @@ footer a:hover { text-decoration: underline; }
 <video autoplay muted loop playsinline id="bg-video">
   <source src="videos/background.mp4" type="video/mp4" />
 </video>
+
+<nav class="navbar">
+  <div class="logo">
+    <span class="main-text">MORIGENE</span>
+    <span class="sub-text">by Tabe-i Ltd</span>
+  </div>
+
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+
+  <ul class="navbar-menu">
+    <li><a href="#about">About</a></li>
+    <li><a href="#individual">Individual</a></li>
+    <li><a href="corporate.html" class="corporate-link">Corporate</a></li>
+  </ul>
+</nav>
+
+<div id="mobileMenu">
+  <a href="#blog">Blog</a>
+  <a href="corporate.html" class="corporate-link">Corporate</a>
+  <a href="#courses">Courses</a>
+  <a href="#individual">Individual</a>
+  <a href="#" onclick="showMoreFooter()">More</a>
+  <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
+  <div id="mobileFooterLinks" style="display:none; flex-direction: column; gap:10px; margin-top:15px;">
+    <a href="privacy-policy.html">Privacy Policy</a>
+    <a href="terms&conditions.html">Terms & Conditions</a>
+    <a href="contact-form.html">Contact</a>
+    <a href="https://wa.me/23059119191" target="_blank" rel="noopener">WhatsApp</a>
+  </div>
+</div>
 
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one gene at a time!</h1>
@@ -298,32 +334,10 @@ footer a:hover { text-decoration: underline; }
     <a class="button-like" onclick="openPopup()"><em>Subscribe</em></a>
   </div>
   
-  <div class="glass-box" id="corporate">
-    <h2>Corporate</h2>
-    <p>Genomic solutions tailored for your organization.</p>
-    <a class="button-like" href="#"><em>Explore</em></a>
-  </div>
-  
   <div class="glass-box" id="courses">
     <h2>Courses</h2>
     <p>Learn Bioinformatics with hands-on practice.</p>
     <a class="button-like" href="#"><em>Discover</em></a>
-  </div>
-
-  <div class="glass-box" id="individual">
-    <h2>Individual</h2>
-    <p>Personalized genomic health insights.</p>
-    <a class="button-like" href="#"><em>Learn</em></a>
-  </div>
-
-  <div class="glass-box" id="more">
-    <h2>More</h2>
-    <div class="more-links">
-      <a href="privacy-policy.html">Privacy Policy</a>
-      <a href="terms&conditions.html">Terms & Conditions</a>
-      <a href="contact-form.html">Contact</a>
-      <a href="https://wa.me/23059119191" target="_blank" rel="noopener">WhatsApp</a>
-    </div>
   </div>
 </div>
 
@@ -337,31 +351,56 @@ footer a:hover { text-decoration: underline; }
   </a>
 </footer>
 
+<div id="subscribe-popup">
+  <div class="popup-content">
+    <input type="email" id="subscriber-email" placeholder="Enter your email" required>
+    <button onclick="submitEmail()">OK</button>
+    <div class="thankyou-message">
+      Thank you for subscribing!<br>
+      Get ready for monthly updates!
+    </div>
+    <button class="popup-back" onclick="closePopup()" style="display:none;">Ok</button>
+  </div>
+</div>
+
 <script>
-// Smooth transition for Corporate
-document.querySelectorAll('.button-like').forEach(btn => {
-  btn.addEventListener('click', () => { openPopup(); });
-});
-
-// Toggle "More" links on mobile
-const moreBox = document.getElementById('more');
-moreBox.addEventListener('click', () => {
-  const links = moreBox.querySelector('.more-links');
-  links.style.display = (links.style.display === 'flex') ? 'none' : 'flex';
-});
-
-// Tilt effect for desktop
-document.querySelectorAll('.glass-box').forEach(box => {
-  box.addEventListener('mousemove', e => {
-    if(window.innerWidth <= 900) return; // mobile skip
-    const rect = box.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const rotateX = ((y / rect.height) - 0.5) * -10;
-    const rotateY = ((x / rect.width) - 0.5) * 10;
-    box.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+// Desktop Corporate fade
+document.querySelectorAll('.corporate-link').forEach(link => {
+  link.addEventListener('click', function(e){
+    e.preventDefault();
+    document.body.classList.add('fade-out');
+    setTimeout(() => { window.location.href = this.href; }, 350);
   });
-  box.addEventListener('mouseleave', () => { box.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)'; });
+});
+
+// Mobile menu toggle
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// Show footer links in More
+function showMoreFooter() {
+  const links = document.getElementById('mobileFooterLinks');
+  links.style.display = links.style.display === 'flex' ? 'none' : 'flex';
+}
+
+// Desktop tilt for glass boxes
+const glassBoxes = document.querySelectorAll('.glass-box');
+glassBoxes.forEach(box => {
+  box.addEventListener('mousemove', e => {
+    if(window.innerWidth > 900) {
+      const rect = box.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rotateX = ((y / rect.height) - 0.5) * -10;
+      const rotateY = ((x / rect.width) - 0.5) * 10;
+      box.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+    }
+  });
+  box.addEventListener('mouseleave', () => {
+    box.style.transform = `perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)`;
+  });
 });
 </script>
 
