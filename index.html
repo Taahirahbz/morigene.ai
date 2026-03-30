@@ -118,25 +118,38 @@ body.fade-out { opacity: 0; }
   animation: softGlow 2.5s ease-in-out infinite;
 }
 
-@media (max-width: 900px) {
-  .navbar-menu li a[href="#individual"]::after {
-    max-width: 260px;
-    font-size: 0.8rem;
-  }
-}
+<!-- Mobile More Box -->
+<div class="glass-container mobile-only">
+  <div class="glass-box" id="more-mobile" onclick="toggleMoreMobile()">
+    <h2>More</h2>
+    <p>Tap to explore all options</p>
+  </div>
 
-/* Mobile Menu Toggle */
-.mobile-menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
+  <div id="more-mobile-items" style="display:none; width: 85%; max-width: 280px; flex-direction: column; gap: 15px; margin: 0 auto;">
+    <!-- Individual Mobile -->
+    <div class="glass-box mobile-only">
+      <h2>Individual</h2>
+      <p>Your Wellness, your way! Personalized health plans powered by your DNA.</p>
+      <a class="button-like" href="#"><em>Coming soon</em></a>
+    </div>
+
+    <!-- Corporate Mobile -->
+    <div class="glass-box mobile-only">
+      <h2>Corporate</h2>
+      <p>Your genomic data, our professional care. Outsourcing made simple!</p>
+      <a class="button-like" href="#"><em>Learn More</em></a>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleMoreMobile() {
+  const items = document.getElementById('more-mobile-items');
+  items.style.display = (items.style.display === 'flex') ? 'none' : 'flex';
+  items.style.flexDirection = 'column';
+  items.style.alignItems = 'center';
 }
-.mobile-menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
+</script>
 }
 
 /* Mobile menu overlay */
