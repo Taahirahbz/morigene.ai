@@ -125,15 +125,47 @@ body.fade-out { opacity: 0; }
   }
 }
 
-/* Mobile Menu Toggle - HIDDEN */
+/* Mobile Menu Toggle */
 .mobile-menu-toggle {
   display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+.mobile-menu-toggle span {
+  width: 25px;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
 }
 
-/* Mobile menu overlay - REMOVED */
+/* Mobile menu overlay */
 #mobileMenu {
   display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 60px);
+  background: rgba(0,0,0,0.28);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  z-index: 15;
 }
+#mobileMenu a {
+  color: white;
+  font-weight: bold;
+  font-size: 1.6rem;
+  text-decoration: underline;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  border:1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(4px);
+}
+#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero */
 .container {
@@ -252,14 +284,15 @@ footer a:hover { text-decoration: underline; }
     padding: 1.5rem;
   }
   
-  /* Keep navigation visible on mobile */
+  /* Show navbar menu, hide hamburger toggle */
   .navbar-menu { 
     display: flex;
     gap: 10px;
     font-size: 0.85rem;
   }
-  
-  /* Footer stays visible on mobile */
+  .mobile-menu-toggle { display: none; }
+
+  /* Keep footer visible on mobile */
   footer { 
     display: flex;
     font-size: 11px;
@@ -301,12 +334,24 @@ footer a:hover { text-decoration: underline; }
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
 
+  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </div>
+
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
     <li><a href="corporate.html" class="corporate-link">Corporate</a></li>
   </ul>
 </nav>
+
+<div id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#individual">Individual</a>
+  <a href="corporate.html" class="corporate-link">Corporate</a>
+  <a href="learn-blog.html">More</a>
+  <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
+</div>
 
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one gene at a time!</h1>
@@ -338,7 +383,7 @@ footer a:hover { text-decoration: underline; }
   <div class="glass-box mobile-only" id="corporate-mobile">
     <h2>Corporate</h2>
     <p>Your genomic data, our professional care. Outsourcing made simple!</p>
-    <a class="button-like" href="corporate.html" class="corporate-link"><em>Learn More</em></a>
+    <a class="button-like corporate-link" href="corporate.html"><em>Learn More</em></a>
   </div>
 </div>
 
@@ -374,6 +419,12 @@ document.querySelectorAll('.corporate-link').forEach(link => {
     setTimeout(() => { window.location.href = this.href; }, 350);
   });
 });
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+}
 
 // Subscribe Popup Functions
 function openPopup() {
