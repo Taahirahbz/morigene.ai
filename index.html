@@ -125,47 +125,15 @@ body.fade-out { opacity: 0; }
   }
 }
 
-/* Mobile Menu Toggle */
+/* Mobile Menu Toggle - HIDDEN */
 .mobile-menu-toggle {
   display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-}
-.mobile-menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
 }
 
-/* Mobile menu overlay */
+/* Mobile menu overlay - REMOVED */
 #mobileMenu {
   display: none;
-  position: fixed;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100vh - 60px);
-  background: rgba(0,0,0,0.28);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-  z-index: 15;
 }
-#mobileMenu a {
-  color: white;
-  font-weight: bold;
-  font-size: 1.6rem;
-  text-decoration: underline;
-  padding: 0.6rem 1.5rem;
-  border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(4px);
-}
-#mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero */
 .container {
@@ -283,11 +251,21 @@ footer a:hover { text-decoration: underline; }
     min-height: 180px;
     padding: 1.5rem;
   }
-  .navbar-menu { display: none; }
-  .mobile-menu-toggle { display: flex; }
-
-  /* Hide footer on mobile */
-  footer { display: none; }
+  
+  /* Keep navigation visible on mobile */
+  .navbar-menu { 
+    display: flex;
+    gap: 10px;
+    font-size: 0.85rem;
+  }
+  
+  /* Footer stays visible on mobile */
+  footer { 
+    display: flex;
+    font-size: 11px;
+    gap: 8px;
+    height: 40px;
+  }
 }
 
 /* Mobile-only boxes */
@@ -296,73 +274,6 @@ footer a:hover { text-decoration: underline; }
 }
 @media (max-width: 900px) {
   .mobile-only { display: block; }
-}
-
-  /* ========================= */
-/* 🍏 CLEAN MOBILE OVERRIDES */
-/* ========================= */
-@media (max-width: 900px) {
-
-  /* Remove hamburger completely */
-  .mobile-menu-toggle {
-    display: none !important;
-  }
-
-  #mobileMenu {
-    display: none !important;
-  }
-
-  /* Show navbar menu instead */
-  .navbar {
-    flex-direction: column;
-    height: auto;
-    padding: 12px 0;
-    gap: 6px;
-    backdrop-filter: blur(10px);
-  }
-
-  .navbar-menu {
-    display: flex !important;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .navbar-menu li a {
-    font-size: 1rem;
-    opacity: 0.9;
-  }
-
-  /* Improve spacing */
-  .headline {
-    margin-bottom: 40px;
-  }
-
-  .glass-container {
-    gap: 20px;
-    padding-bottom: 90px;
-  }
-
-  .glass-box {
-    width: 90%;
-    max-width: 320px;
-    border-radius: 20px;
-  }
-
-  .glass-box p {
-    text-align: center;
-  }
-
-  /* Restore footer (you had hidden it) */
-  footer {
-    display: flex !important;
-    flex-direction: column;
-    height: auto;
-    padding: 10px;
-    gap: 6px;
-    font-size: 12px;
-    backdrop-filter: blur(10px);
-  }
 }
 
 /* Subscribe Popup */
@@ -390,24 +301,12 @@ footer a:hover { text-decoration: underline; }
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
 
-  <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-    <span></span><span></span><span></span>
-  </div>
-
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
     <li><a href="corporate.html" class="corporate-link">Corporate</a></li>
   </ul>
 </nav>
-
-<div id="mobileMenu">
-  <a href="#about">About</a>
-  <a href="#individual">Individual</a>
-  <a href="corporate.html" class="corporate-link">Corporate</a>
-  <a href="learn-blog.html">More</a>
-  <a href="javascript:void(0);" onclick="toggleMobileMenu()">Back</a>
-</div>
 
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one gene at a time!</h1>
@@ -439,9 +338,7 @@ footer a:hover { text-decoration: underline; }
   <div class="glass-box mobile-only" id="corporate-mobile">
     <h2>Corporate</h2>
     <p>Your genomic data, our professional care. Outsourcing made simple!</p>
-    <a class="button-like corporate-link" href="corporate.html">
-  <em>Learn More</em>
-</a>
+    <a class="button-like" href="corporate.html" class="corporate-link"><em>Learn More</em></a>
   </div>
 </div>
 
@@ -477,12 +374,6 @@ document.querySelectorAll('.corporate-link').forEach(link => {
     setTimeout(() => { window.location.href = this.href; }, 350);
   });
 });
-
-// Mobile Menu Toggle
-function toggleMobileMenu() {
-  const menu = document.getElementById('mobileMenu');
-  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
-}
 
 // Subscribe Popup Functions
 function openPopup() {
