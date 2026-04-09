@@ -298,6 +298,73 @@ footer a:hover { text-decoration: underline; }
   .mobile-only { display: block; }
 }
 
+  /* ========================= */
+/* 🍏 CLEAN MOBILE OVERRIDES */
+/* ========================= */
+@media (max-width: 900px) {
+
+  /* Remove hamburger completely */
+  .mobile-menu-toggle {
+    display: none !important;
+  }
+
+  #mobileMenu {
+    display: none !important;
+  }
+
+  /* Show navbar menu instead */
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 12px 0;
+    gap: 6px;
+    backdrop-filter: blur(10px);
+  }
+
+  .navbar-menu {
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .navbar-menu li a {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+
+  /* Improve spacing */
+  .headline {
+    margin-bottom: 40px;
+  }
+
+  .glass-container {
+    gap: 20px;
+    padding-bottom: 90px;
+  }
+
+  .glass-box {
+    width: 90%;
+    max-width: 320px;
+    border-radius: 20px;
+  }
+
+  .glass-box p {
+    text-align: center;
+  }
+
+  /* Restore footer (you had hidden it) */
+  footer {
+    display: flex !important;
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+    gap: 6px;
+    font-size: 12px;
+    backdrop-filter: blur(10px);
+  }
+}
+
 /* Subscribe Popup */
 #subscribe-popup { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 999; }
 #subscribe-popup .popup-content { background: rgba(255,255,255,0.05); backdrop-filter: blur(6px); padding: 2rem; border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; max-width: 320px; width: 80%; }
@@ -372,7 +439,9 @@ footer a:hover { text-decoration: underline; }
   <div class="glass-box mobile-only" id="corporate-mobile">
     <h2>Corporate</h2>
     <p>Your genomic data, our professional care. Outsourcing made simple!</p>
-    <a class="button-like" href="#"><em>Learn More</em></a>
+    <a class="button-like corporate-link" href="corporate.html">
+  <em>Learn More</em>
+</a>
   </div>
 </div>
 
