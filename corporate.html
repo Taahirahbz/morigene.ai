@@ -212,6 +212,60 @@ body {
     transform: translateY(-3px) scale(1.05);
     box-shadow: 0 0 20px rgba(255,91,177,0.6);
 }
+
+/* ══════════════════════════════════════════
+   MOBILE  ≤ 768px — fixes only, desktop untouched
+   ══════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* Resize blur patch to match mobile box */
+    .bg-blur-patch {
+        width: 92vw;
+        height: 72vh;
+        border-radius: 30px;
+    }
+
+    /* Remove excessive padding, let flexbox centre the box */
+    .container {
+        padding: 80px 16px 80px;
+        align-items: center;
+    }
+
+    /* Full-width box, comfortable height with internal scroll */
+    .glass-box {
+        width: 92%;
+        max-width: 420px;
+        max-height: 70vh;
+        padding: 24px 20px;
+    }
+
+    /* Slightly smaller heading on mobile */
+    .glass-box h1 {
+        font-size: 1.05rem;
+        margin-bottom: 20px;
+    }
+
+    /* Service text readable on small screens */
+    .service-title {
+        font-size: 0.95rem;
+    }
+
+    .read-more, .less {
+        font-size: 13px;
+    }
+
+    .description {
+        font-size: 13px;
+    }
+
+    /* Back button clear of content */
+    .back-btn {
+        bottom: 14px;
+        right: 14px;
+        padding: 0.6rem 1.2rem;
+        font-size: 13px;
+    }
+}
 </style>
 </head>
 
@@ -304,23 +358,23 @@ document.querySelectorAll('.read-more, .less').forEach(btn => {
     });
 });
 
-// Hover tilt & glow tracking
+// Hover tilt & glow tracking — desktop only
 const glassBox = document.getElementById('glassBox');
 
 glassBox.addEventListener('mousemove', e => {
+    if (window.innerWidth <= 768) return;
     const rect = glassBox.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-
     const rotateX = ((y / rect.height) - 0.5) * -10;
     const rotateY = ((x / rect.width) - 0.5) * 10;
-
     glassBox.style.transform = `perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
     glassBox.style.setProperty('--x', `${x}px`);
     glassBox.style.setProperty('--y', `${y}px`);
 });
 
 glassBox.addEventListener('mouseleave', () => {
+    if (window.innerWidth <= 768) return;
     glassBox.style.transform = `perspective(800px) rotateX(0deg) rotateY(0deg) scale(1)`;
 });
 </script>
