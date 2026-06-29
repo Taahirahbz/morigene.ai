@@ -479,7 +479,11 @@ function buildPills() {
 
   // Available area (pill layer is fixed: top 60px, bottom 40px)
   const areaW = window.innerWidth;
-  const areaH = window.innerHeight - 60 - 40; // layer height
+  const areaH = window.innerHeight - 60 - 40; // total layer height
+
+  // Pills scatter only in the BOTTOM HALF of the layer
+  const zoneTop = areaH / 2;  // start y of allowed zone
+  const zoneH   = areaH / 2;  // height of allowed zone
 
   // Estimate pill size before placing
   const pillW = 120, pillH = 38, margin = 18;
@@ -494,12 +498,13 @@ function buildPills() {
 
   function randomPos() {
     const maxX = areaW - pillW - 10;
-    const maxY = areaH - pillH - 10;
+    const minY = zoneTop + 10;
+    const maxY = zoneTop + zoneH - pillH - 10;
     let attempts = 0;
     let x, y;
     do {
       x = 10 + Math.random() * maxX;
-      y = 10 + Math.random() * maxY;
+      y = minY + Math.random() * (maxY - minY);
       attempts++;
     } while (overlaps(x, y) && attempts < 200);
     return { x, y };
