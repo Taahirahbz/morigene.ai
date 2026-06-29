@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — Morigene</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ================= PAGE ================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  overflow: hidden;
+  font-family: 'IBM Plex Sans', Arial, sans-serif;
+  background: url('images/halodna.jpg') center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: relative;
+}
+
+/* ================= BACKGROUND DIM ================= */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.38);
+  z-index: 1;
+}
+
+/* ================= PARTICLES ================= */
+#particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: float 4s infinite ease-in-out;
+}
+.particle.white {
+  background: white;
+  box-shadow: 0 0 6px rgba(255,255,255,0.8);
+}
+.particle.magenta {
+  background: #FF5AB1;
+  box-shadow: 0 0 8px rgba(255,91,177,0.9);
+}
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* ================= PAGE TRANSITION ================= */
+.page-wrapper {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pageIn 0.6s ease forwards;
+  z-index: 10;
+  padding: 20px;
+}
+.page-wrapper.fade-out {
+  animation: pageOut 0.4s ease forwards;
+}
+@keyframes pageIn {
+  from { opacity: 0; filter: blur(10px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+@keyframes pageOut {
+  from { opacity: 1; filter: blur(0); }
+  to   { opacity: 0; filter: blur(10px); }
+}
+
+/* ================= LAYOUT ================= */
+.about-layout {
+  display: flex;
+  gap: 30px;
+  align-items: flex-start;
+  width: min(1100px, 95vw);
+  max-height: 88vh;
+}
+
+/* ================= PHOTO CARD ================= */
+.photo-card {
+  flex-shrink: 0;
+  width: 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  animation: floatPhoto 8s ease-in-out infinite;
+}
+
+@keyframes floatPhoto {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
+}
+
+.photo-frame {
+  width: 200px;
+  height: 240px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 20px rgba(255,90,177,0.15);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.photo-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.photo-name {
+  text-align: center;
+  line-height: 1.4;
+}
+.photo-name strong {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.photo-name span {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.7);
+  font-style: italic;
+}
+
+/* ================= GLASS BOX ================= */
+.glass-about {
+  position: relative;
+  flex: 1;
+  max-height: 88vh;
+  padding: 2.2rem 2.5rem;
+  overflow-y: auto;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.25);
+  box-shadow: 0 0 35px rgba(255,255,255,0.15);
+  animation: floatTilt 12s ease-in-out infinite;
+  transform-origin: center center;
+}
+
+@keyframes floatTilt {
+  0%,100% { transform: translateY(0px)   rotateZ(0deg)    rotateX(0deg); }
+  25%      { transform: translateY(-6px)  rotateZ(0.5deg)  rotateX(0.3deg); }
+  50%      { transform: translateY(3px)   rotateZ(-0.5deg) rotateX(-0.3deg); }
+  75%      { transform: translateY(-4px)  rotateZ(0.3deg)  rotateX(0.2deg); }
+}
+
+/* Scrollbar */
+.glass-about::-webkit-scrollbar { width: 6px; }
+.glass-about::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.25);
+  border-radius: 10px;
+}
+
+/* ================= TYPOGRAPHY ================= */
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #FF5AB1;
+  margin-bottom: 6px;
+}
+
+h1 {
+  font-size: 1.55rem;
+  font-weight: 600;
+  color: #ffffff;
+  line-height: 1.35;
+  margin-bottom: 1rem;
+}
+
+.mission-text {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #f0f0f0;
+  margin-bottom: 0.75rem;
+}
+
+.divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  margin: 1.6rem 0;
+}
+
+h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 0.9rem;
+}
+
+.bio-text {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #f0f0f0;
+  margin-bottom: 0.75rem;
+}
+
+/* Credential pills */
+.credentials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 1rem;
+}
+.cred-pill {
+  padding: 0.35rem 0.9rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(4px);
+  font-size: 0.8rem;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* ================= BACK BUTTON ================= */
+.back-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 0.7rem 1.5rem;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  font-size: 14px;
+}
+.back-btn:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 0 20px rgba(255,91,177,0.6);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 700px) {
+  body { overflow-y: auto; }
+
+  .page-wrapper {
+    height: auto;
+    min-height: 100vh;
+    align-items: flex-start;
+    padding: 20px 16px 80px;
+  }
+
+  .about-layout {
+    flex-direction: column;
+    align-items: center;
+    max-height: unset;
+    gap: 20px;
+  }
+
+  .photo-card {
+    width: 100%;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .photo-frame {
+    width: 110px;
+    height: 130px;
+    flex-shrink: 0;
+  }
+
+  .photo-name {
+    text-align: left;
+  }
+
+  .glass-about {
+    max-height: unset;
+    padding: 1.6rem;
+    animation: none; /* skip tilt on mobile */
+  }
+
+  h1 { font-size: 1.2rem; }
+  h2 { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div id="particles"></div>
+
+<div class="page-wrapper" id="page">
+  <div class="about-layout">
+
+    <!-- ── PHOTO CARD ── -->
+    <div class="photo-card">
+      <div class="photo-frame">
+        <img src="images/about.jpg" alt="Taahirah Goolbar" />
+      </div>
+      <div class="photo-name">
+        <strong>Taahirah Goolbar</strong>
+        <span>Founder &amp; Director, Morigene</span>
+      </div>
+    </div>
+
+    <!-- ── GLASS CONTENT BOX ── -->
+    <div class="glass-about">
+
+      <!-- MISSION & VISION -->
+      <div class="section-label">Mission &amp; Vision</div>
+      <h1>Genomics, made accessible — one gene at a time.</h1>
+
+      <p class="mission-text">
+        Morigene was born at the crossroads of two passions: the precision of informatics and the complexity of biology. 
+        Having spent years working within healthcare, one pattern became impossible to ignore — patients are growing increasingly aware of their health, 
+        and they are no longer satisfied with approximations. They want answers. Real, exact, biological answers.
+      </p>
+      <p class="mission-text">
+        That answer lies in precision medicine, and precision medicine begins with genomics. Morigene exists to make that a reality — 
+        not just for research institutions or large corporations, but for individuals and organisations across Mauritius and beyond.
+      </p>
+      <p class="mission-text">
+        The vision is clear: to become Mauritius's one-stop shop for genomics — a trusted, rigorous, and locally rooted platform 
+        where genomic data is handled with scientific excellence and professional care.
+      </p>
+
+      <hr class="divider" />
+
+      <!-- ABOUT TAAHIRAH -->
+      <div class="section-label">The Person Behind It</div>
+      <h2>Taahirah Goolbar</h2>
+
+      <p class="bio-text">
+        Taahirah Goolbar is a bioinformatician and genomics researcher based in Mauritius, and the founder of Morigene. 
+        Her academic journey at the University of Mauritius spans biotechnology, bioinformatics, and genomics — 
+        a combination that places her at the precise intersection of wet-lab science and computational analysis.
+      </p>
+      <p class="bio-text">
+        With a background in healthcare and a deepening expertise in genomic data analysis, Taahirah bridges the gap between 
+        clinical reality and cutting-edge science. She understands both the human dimension of health — the patient seeking answers — 
+        and the technical rigour required to find them reliably.
+      </p>
+      <p class="bio-text">
+        Currently pursuing an MPhil/PhD in Bioinformatics and Genomics at the University of Mauritius, 
+        she continues to push the boundaries of what genomic science can offer in a local and regional context.
+      </p>
+
+      <!-- Credential pills -->
+      <div class="credentials">
+        <span class="cred-pill">BSc Biotechnology</span>
+        <span class="cred-pill">PG Diploma in Bioinformatics</span>
+        <span class="cred-pill">MPhil/PhD Candidate — Bioinformatics &amp; Genomics</span>
+        <span class="cred-pill">University of Mauritius</span>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<button class="back-btn" onclick="goBack()">Back</button>
+
+<script>
+/* ================= PARTICLES ================= */
+const particleContainer = document.getElementById('particles');
+for (let i = 0; i < 80; i++) {
+  const p = document.createElement('div');
+  p.classList.add('particle', Math.random() > 0.5 ? 'magenta' : 'white');
+  const size = Math.random() * 4 + 2;
+  p.style.width = p.style.height = size + 'px';
+  p.style.left = Math.random() * window.innerWidth + 'px';
+  p.style.top = Math.random() * window.innerHeight + 'px';
+  p.style.animationDuration = (3 + Math.random() * 3) + 's';
+  particleContainer.appendChild(p);
+}
+
+/* ================= PAGE TRANSITION ================= */
+function goBack() {
+  const page = document.getElementById('page');
+  page.classList.add('fade-out');
+  setTimeout(() => { window.location.href = 'index.html'; }, 400);
+}
+</script>
+
+</body>
+</html>
