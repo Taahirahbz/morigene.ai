@@ -24,10 +24,8 @@ body.fade-out { opacity: 0; }
 /* Video background */
 #bg-video {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
   object-fit: cover;
   z-index: -1;
   filter: brightness(0.6);
@@ -37,9 +35,7 @@ body.fade-out { opacity: 0; }
 /* Navbar */
 .navbar {
   position: fixed;
-  top: 0;
-  width: 100%;
-  height: 60px;
+  top: 0; width: 100%; height: 60px;
   background: rgba(0,0,0,0.35);
   display: flex;
   justify-content: space-between;
@@ -48,66 +44,35 @@ body.fade-out { opacity: 0; }
   z-index: 10;
 }
 .navbar .logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  line-height: 1;
+  display: flex; flex-direction: column;
+  align-items: center; line-height: 1;
 }
-.navbar .logo .main-text {
-  font-weight: 600;
-  font-size: clamp(1.5rem, 2.5vw, 1.9rem);
-}
-.navbar .logo .sub-text {
-  font-style: italic;
-  font-size: clamp(0.75rem, 1.25vw, 0.95rem);
-  margin-top: -2px;
-}
+.navbar .logo .main-text { font-weight: 600; font-size: clamp(1.5rem, 2.5vw, 1.9rem); }
+.navbar .logo .sub-text { font-style: italic; font-size: clamp(0.75rem, 1.25vw, 0.95rem); margin-top: -2px; }
 
 /* Navbar Menu */
-.navbar-menu {
-  list-style: none;
-  display: flex;
-  gap: 20px;
-}
+.navbar-menu { list-style: none; display: flex; gap: 20px; }
 .navbar-menu li { position: relative; }
-.navbar-menu li a {
-  color: white;
-  text-decoration: underline;
-  font-weight: 500;
-  position: relative;
-}
+.navbar-menu li a { color: white; text-decoration: underline; font-weight: 500; position: relative; }
 .navbar-menu li a:hover { color: #ff5ab1; }
 
 /* Tooltip for Individual */
 @keyframes softGlow {
-  0% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
-  50% { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
+  0%   { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
+  50%  { box-shadow: 0 0 20px rgba(255,90,177,0.35); }
   100% { box-shadow: 0 0 10px rgba(255,255,255,0.15); }
 }
 .navbar-menu li a[href="#individual"]::after {
-  content:
-    "Your wellness, your way!\A"
-    "Personalized health plans,\A"
-    "Powered by your DNA.\A"
-    "- Coming soon -";
-  position: absolute;
-  left: 50%;
-  top: 135%;
+  content: "Your wellness, your way!\A Personalized health plans,\A Powered by your DNA.\A - Coming soon -";
+  position: absolute; left: 50%; top: 135%;
   transform: translateX(-50%);
-  max-width: 320px;
-  padding: 12px 16px;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  text-align: center;
-  white-space: pre-line;
-  color: white;
+  max-width: 320px; padding: 12px 16px;
+  font-size: 0.85rem; line-height: 1.6;
+  text-align: center; white-space: pre-line; color: white;
   background: rgba(0,0,0,0.35);
   border: 1px solid rgba(255,255,255,0.35);
-  border-radius: 14px;
-  backdrop-filter: blur(6px);
-  opacity: 0;
-  pointer-events: none;
-  z-index: 20;
+  border-radius: 14px; backdrop-filter: blur(6px);
+  opacity: 0; pointer-events: none; z-index: 20;
   transition: opacity 0.25s ease, transform 0.25s ease;
 }
 .navbar-menu li a[href="#individual"]:hover::after,
@@ -118,259 +83,234 @@ body.fade-out { opacity: 0; }
   animation: softGlow 2.5s ease-in-out infinite;
 }
 
-@media (max-width: 900px) {
-  .navbar-menu li a[href="#individual"]::after {
-    max-width: 260px;
-    font-size: 0.8rem;
-  }
-}
-
 /* Mobile Menu Toggle */
-.mobile-menu-toggle {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
-  gap: 5px;
-}
-.mobile-menu-toggle span {
-  width: 25px;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-}
+.mobile-menu-toggle { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+.mobile-menu-toggle span { width: 25px; height: 3px; background: white; border-radius: 2px; }
 
 /* Mobile menu overlay */
 #mobileMenu {
-  display: none;
-  position: fixed;
-  top: 60px;
-  left: 0;
-  width: 100%;
-  height: calc(100vh - 60px);
+  display: none; position: fixed; top: 60px; left: 0;
+  width: 100%; height: calc(100vh - 60px);
   background: rgba(0,0,0,0.28);
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-  z-index: 15;
+  flex-direction: column; align-items: center; justify-content: center;
+  gap: 25px; z-index: 15;
 }
 #mobileMenu a {
-  color: white;
-  font-weight: bold;
-  font-size: 1.6rem;
-  text-decoration: underline;
-  padding: 0.6rem 1.5rem;
-  border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.15);
-  backdrop-filter: blur(4px);
+  color: white; font-weight: bold; font-size: 1.6rem;
+  text-decoration: underline; padding: 0.6rem 1.5rem;
+  border-radius: 50px; border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.15); backdrop-filter: blur(4px);
 }
 #mobileMenu a:hover { color: #ff5ab1; }
 
 /* Hero */
 .container {
-  position: relative;
-  width: 100%;
-  text-align: center;
-  padding: 20px;
-  top: 70px;
+  position: relative; width: 100%;
+  text-align: center; padding: 20px; top: 70px;
 }
 .headline {
   font-size: clamp(2rem, 4vw, 4rem);
-  font-style: italic;
-  margin-bottom: 80px;
+  font-style: italic; margin-bottom: 80px;
 }
 
-/* Glass Boxes */
+/* ── DESKTOP Glass Boxes ── */
 .glass-container {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  padding: 20px;
-  flex-wrap: wrap;
+  position: relative; width: 100%; max-width: 1200px;
+  margin: 0 auto; display: flex;
+  justify-content: center; gap: 40px; padding: 20px; flex-wrap: wrap;
 }
 .glass-box {
-  width: 29.25%;
-  margin: 0 20px;
+  width: 29.25%; margin: 0 20px;
   background: rgba(255,255,255,0.05);
-  min-height: 260px;
-  padding: 2rem;
-  border-radius: 1.5rem;
-  backdrop-filter: blur(6px);
-  border:1px solid rgba(255,255,255,0.2);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
+  min-height: 260px; padding: 2rem; border-radius: 1.5rem;
+  backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,0.2);
+  display: flex; flex-direction: column;
+  justify-content: space-between; align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 .glass-box h2 {
   font-size: clamp(1.8rem, 2.5vw, 2.2rem);
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-weight: 600;
-  text-decoration: underline;
-  text-align: center;
+  margin-top: 0; margin-bottom: 1rem;
+  font-weight: 600; text-decoration: underline; text-align: center;
 }
 .glass-box p {
   font-size: clamp(1rem, 1.2vw, 1.1rem);
-  line-height: 1.5;
-  text-align: justify;
-  flex-grow: 1;
+  line-height: 1.5; text-align: justify; flex-grow: 1;
 }
 .button-like {
-  display: block;
-  width: 100%;
-  padding: 0.8rem 0;
-  border-radius: 50px;
-  border:1px solid rgba(255,255,255,0.45);
-  background: rgba(255,255,255,0.22);
-  color:white;
-  backdrop-filter: blur(6px);
-  text-decoration: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  text-align: center;
+  display: block; width: 100%; padding: 0.8rem 0;
+  border-radius: 50px; border: 1px solid rgba(255,255,255,0.45);
+  background: rgba(255,255,255,0.22); color: white;
+  backdrop-filter: blur(6px); text-decoration: none;
+  cursor: pointer; font-size: 1.5rem; text-align: center;
   transition: transform 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
   margin-top: 20px;
 }
 .button-like:hover {
   transform: translateY(-3px) scale(1.03);
-  color: #ff5ab1;
-  box-shadow: 0 0 20px rgba(255,90,177,0.6);
+  color: #ff5ab1; box-shadow: 0 0 20px rgba(255,90,177,0.6);
 }
-.button-like:hover em {
-  font-weight: 700;
-  color: white;
-  text-shadow: 0 0 8px rgba(255,255,255,0.8);
-}
+.button-like:hover em { font-weight: 700; color: white; text-shadow: 0 0 8px rgba(255,255,255,0.8); }
 
 /* Footer */
 footer {
-  background: rgba(0,0,0,0.35);
-  color: white;
-  text-align: center;
-  font-size: 14px;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-  align-items: center;
-  height: 45px;
-  padding: 0 10px;
-  flex-wrap: wrap;
+  background: rgba(0,0,0,0.35); color: white;
+  text-align: center; font-size: 14px;
+  position: fixed; bottom: 0; width: 100%;
+  display: flex; justify-content: center; gap: 15px;
+  align-items: center; height: 45px; padding: 0 10px; flex-wrap: wrap;
 }
 footer a { color: white; text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
-/* Mobile Adjustments */
-@media (max-width: 900px) {
-
-  /* Lock the page — no scrolling on mobile */
-  html, body {
-    overflow: hidden;
-    height: 100%;
-  }
-
-  /* Hide Courses, Individual-mobile, Corporate-mobile glass boxes entirely */
-  #courses,
-  #individual-mobile,
-  #corporate-mobile {
-    display: none !important;
-  }
-
-  /* Glass container: centre the single Blog box perfectly */
-  .glass-container {
-    position: fixed;
-    top: 60px;               /* below navbar */
-    bottom: 40px;            /* above footer */
-    left: 0;
-    right: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
-    padding: 20px;
-    margin: 0;
-    max-width: 100%;
-    overflow: hidden;
-  }
-
-  /* Blog glass box — sized to fit the available space comfortably */
-  #blog {
-    width: 85%;
-    max-width: 320px;
-    min-height: unset;
-    padding: 1.5rem;
-    transition: all 0.4s ease;
-    overflow: hidden;
-    cursor: pointer;
-  }
-
-  /* Collapsed pill state — mobile only */
-  #blog.collapsed {
-    width: auto;
-    max-width: unset;
-    min-height: unset;
-    padding: 0.55rem 1.6rem;
-    border-radius: 50px;
-    background: rgba(255,255,255,0.12);
-    backdrop-filter: blur(4px);
-    justify-content: center;
-  }
-  #blog.collapsed p,
-  #blog.collapsed .button-like {
-    display: none;
-  }
-  #blog.collapsed h2 {
-    margin: 0;
-    font-size: 1.1rem;
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  /* Show navbar menu, hide hamburger toggle */
-  .navbar-menu { 
-    display: flex;
-    gap: 10px;
-    font-size: 0.85rem;
-  }
-  .mobile-menu-toggle { display: none; }
-
-  /* Keep footer visible on mobile */
-  footer { 
-    display: flex;
-    font-size: 11px;
-    gap: 8px;
-    height: 40px;
-  }
-}
-
-/* Mobile-only boxes */
+/* Hover tilt — desktop only */
 @media (min-width: 901px) {
+  .glass-box:hover { transform: perspective(600px) rotateX(3deg) rotateY(-3deg); }
   .mobile-only { display: none; }
 }
+
+/* ══════════════════════════════════════════
+   MOBILE  ≤ 900px  — pills + expand system
+   ══════════════════════════════════════════ */
 @media (max-width: 900px) {
-  .mobile-only { display: block; }
+
+  html, body { overflow: hidden; height: 100%; }
+
+  /* Hide desktop glass container completely */
+  .glass-container { display: none; }
+
+  /* Navbar: About only */
+  .navbar-menu li:not(:first-child) { display: none; }
+  .navbar-menu { gap: 10px; font-size: 0.85rem; }
+  .mobile-menu-toggle { display: none; }
+
+  footer { font-size: 11px; gap: 8px; height: 40px; }
+
+  /* ── Pill layer: fixed, full screen between nav & footer ── */
+  #mobile-pill-layer {
+    position: fixed;
+    top: 60px; bottom: 40px; left: 0; right: 0;
+    pointer-events: none; /* pills handle their own events */
+    z-index: 5;
+  }
+
+  /* Each pill is absolutely positioned by JS */
+  .m-pill {
+    position: absolute;
+    pointer-events: all;
+    padding: 0.55rem 1.4rem;
+    border-radius: 50px;
+    border: 1px solid rgba(255,255,255,0.45);
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(5px);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: box-shadow 0.25s ease, background 0.25s ease;
+    user-select: none;
+  }
+  .m-pill:active,
+  .m-pill:hover {
+    background: rgba(255,255,255,0.22);
+    box-shadow: 0 0 14px rgba(255,90,177,0.5);
+  }
+
+  /* ── Expanded glass card overlay ── */
+  #mobile-card-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.25);
+  }
+  #mobile-card-overlay.active { display: flex; }
+
+  .m-card {
+    position: relative;
+    width: 82%;
+    max-width: 310px;
+    background: rgba(255,255,255,0.05);
+    padding: 1.8rem 1.5rem 1.5rem;
+    border-radius: 1.5rem;
+    backdrop-filter: blur(6px);
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex; flex-direction: column;
+    align-items: center; gap: 0.8rem;
+    animation: cardPop 0.3s ease;
+  }
+  @keyframes cardPop {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+  }
+
+  .m-card h2 {
+    font-size: 1.8rem; font-weight: 600;
+    text-decoration: underline; text-align: center;
+    margin: 0;
+  }
+  .m-card p {
+    font-size: 1rem; line-height: 1.5;
+    text-align: justify; margin: 0;
+  }
+  .m-card .button-like {
+    font-size: 1.2rem; margin-top: 0.4rem;
+  }
+
+  /* ✕ Close button */
+  .m-close {
+    position: absolute;
+    top: 0.7rem; right: 0.9rem;
+    background: none; border: none;
+    color: white; font-size: 1.4rem;
+    cursor: pointer; line-height: 1;
+    transition: color 0.2s ease, text-shadow 0.2s ease;
+  }
+  .m-close:hover,
+  .m-close:active {
+    color: #ff5ab1;
+    text-shadow: 0 0 8px rgba(255,90,177,0.7);
+  }
+
+  /* tooltip tweak */
+  .navbar-menu li a[href="#individual"]::after {
+    max-width: 260px; font-size: 0.8rem;
+  }
 }
 
 /* Subscribe Popup */
-#subscribe-popup { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: none; justify-content: center; align-items: center; z-index: 999; }
-#subscribe-popup .popup-content { background: rgba(255,255,255,0.05); backdrop-filter: blur(6px); padding: 2rem; border-radius: 1.5rem; display: flex; flex-direction: column; align-items: center; max-width: 320px; width: 80%; }
-#subscribe-popup input[type="email"] { width: 100%; padding: 0.9rem; font-size: 1rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.4); margin-bottom: 1rem; outline: none; text-align: center; }
-#subscribe-popup button { padding: 0.85rem 2rem; border-radius: 50px; border: none; background: linear-gradient(135deg, rgba(255,91,177,0.6), rgba(255,91,177,0.3)); color: white; font-weight: 600; cursor: pointer; }
-#subscribe-popup .thankyou-message { display: none; text-align: center; color: white; margin-bottom: 1rem; font-size: 1rem; line-height: 1.4; }
-#subscribe-popup .popup-back { padding: 0.6rem 1.8rem; border-radius: 50px; border: 1px solid rgba(255,255,255,0.4); background: rgba(255,255,255,0.2); color: white; cursor: pointer; }
-
-/* Smooth hover tilt effect */
-.glass-box:hover { transform: perspective(600px) rotateX(3deg) rotateY(-3deg); }
+#subscribe-popup {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+  display: none; justify-content: center; align-items: center; z-index: 999;
+}
+#subscribe-popup .popup-content {
+  background: rgba(255,255,255,0.05); backdrop-filter: blur(6px);
+  padding: 2rem; border-radius: 1.5rem;
+  display: flex; flex-direction: column; align-items: center;
+  max-width: 320px; width: 80%;
+}
+#subscribe-popup input[type="email"] {
+  width: 100%; padding: 0.9rem; font-size: 1rem;
+  border-radius: 50px; border: 1px solid rgba(255,255,255,0.4);
+  margin-bottom: 1rem; outline: none; text-align: center;
+}
+#subscribe-popup button {
+  padding: 0.85rem 2rem; border-radius: 50px; border: none;
+  background: linear-gradient(135deg, rgba(255,91,177,0.6), rgba(255,91,177,0.3));
+  color: white; font-weight: 600; cursor: pointer;
+}
+#subscribe-popup .thankyou-message {
+  display: none; text-align: center; color: white;
+  margin-bottom: 1rem; font-size: 1rem; line-height: 1.4;
+}
+#subscribe-popup .popup-back {
+  padding: 0.6rem 1.8rem; border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: rgba(255,255,255,0.2); color: white; cursor: pointer;
+}
 </style>
 </head>
 
@@ -385,11 +325,9 @@ footer a:hover { text-decoration: underline; }
     <span class="main-text">MORIGENE</span>
     <span class="sub-text">by Tabe-i Ltd</span>
   </div>
-
   <div class="mobile-menu-toggle" onclick="toggleMobileMenu()">
     <span></span><span></span><span></span>
   </div>
-
   <ul class="navbar-menu">
     <li><a href="#about">About</a></li>
     <li><a href="#individual">Individual</a></li>
@@ -397,38 +335,44 @@ footer a:hover { text-decoration: underline; }
   </ul>
 </nav>
 
-
 <div class="container" id="about">
   <h1 class="headline">Decoding life, one gene at a time!</h1>
 </div>
 
+<!-- DESKTOP glass boxes (hidden on mobile via CSS) -->
 <div class="glass-container">
-  <!-- Blog -->
   <div class="glass-box" id="blog">
     <h2>Blog</h2>
     <p>Tiny reads, Big genes - Bio bytes that fit your coffee break.</p>
     <a class="button-like" onclick="openPopup()"><em>Subscribe</em></a>
   </div>
-
-  <!-- Courses -->
   <div class="glass-box" id="courses">
     <h2>Courses</h2>
     <p>Learn Bioinformatics with hands-on practice.</p>
     <a class="button-like" href="#"><em>Coming Soon</em></a>
   </div>
-
-  <!-- Individual - Mobile Only -->
   <div class="glass-box mobile-only" id="individual-mobile">
     <h2>Individual</h2>
     <p>Your Wellness, your way! Personalized health plans powered by your DNA.</p>
     <a class="button-like" href="#"><em>Coming soon</em></a>
   </div>
-
-  <!-- Corporate - Mobile Only -->
   <div class="glass-box mobile-only" id="corporate-mobile">
     <h2>Corporate</h2>
     <p>Your genomic data, our professional care. Outsourcing made simple!</p>
     <a class="button-like corporate-link" href="corporate.html"><em>Learn More</em></a>
+  </div>
+</div>
+
+<!-- MOBILE pill layer (built by JS, invisible on desktop) -->
+<div id="mobile-pill-layer"></div>
+
+<!-- MOBILE expanded card overlay -->
+<div id="mobile-card-overlay">
+  <div class="m-card" id="mobile-card">
+    <button class="m-close" onclick="closeCard()">✕</button>
+    <h2 id="mc-title"></h2>
+    <p id="mc-body"></p>
+    <div id="mc-action"></div>
   </div>
 </div>
 
@@ -456,7 +400,7 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <script>
-// Smooth transition for Corporate
+// ── Desktop: smooth corporate transition ──
 document.querySelectorAll('.corporate-link').forEach(link => {
   link.addEventListener('click', function(e){
     e.preventDefault();
@@ -465,25 +409,13 @@ document.querySelectorAll('.corporate-link').forEach(link => {
   });
 });
 
-// Mobile Menu Toggle
+// Mobile menu toggle (kept for safety)
 function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
-  menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
+  if (menu) menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
 }
 
-// Mobile Blog box collapse toggle
-(function() {
-  function isMobile() { return window.innerWidth <= 900; }
-  const blog = document.getElementById('blog');
-  blog.addEventListener('click', function(e) {
-    if (!isMobile()) return;
-    // Don't collapse when tapping the Subscribe button
-    if (e.target.closest('.button-like')) return;
-    blog.classList.toggle('collapsed');
-  });
-})();
-
-// Subscribe Popup Functions
+// ── Subscribe popup ──
 function openPopup() {
   document.getElementById('subscribe-popup').style.display = 'flex';
 }
@@ -492,13 +424,158 @@ function closePopup() {
 }
 function submitEmail() {
   const input = document.getElementById('subscriber-email');
-  if(input.value.trim() !== '') {
+  if (input.value.trim() !== '') {
     document.querySelector('#subscribe-popup .thankyou-message').style.display = 'block';
     input.style.display = 'none';
     document.querySelector('#subscribe-popup button').style.display = 'none';
     document.querySelector('#subscribe-popup .popup-back').style.display = 'block';
   }
 }
+
+// ══════════════════════════════════════════
+//  MOBILE pill system
+// ══════════════════════════════════════════
+const SECTIONS = [
+  {
+    id: 'blog',
+    title: 'Blog',
+    body: 'Tiny reads, Big genes - Bio bytes that fit your coffee break.',
+    actionLabel: 'Subscribe',
+    actionType: 'popup'
+  },
+  {
+    id: 'courses',
+    title: 'Courses',
+    body: 'Learn Bioinformatics with hands-on practice.',
+    actionLabel: 'Coming Soon',
+    actionType: 'link',
+    actionHref: '#'
+  },
+  {
+    id: 'individual',
+    title: 'Individual',
+    body: 'Your Wellness, your way! Personalized health plans powered by your DNA.',
+    actionLabel: 'Coming Soon',
+    actionType: 'link',
+    actionHref: '#'
+  },
+  {
+    id: 'corporate',
+    title: 'Corporate',
+    body: 'Your genomic data, our professional care. Outsourcing made simple!',
+    actionLabel: 'Learn More',
+    actionType: 'corporate',
+    actionHref: 'corporate.html'
+  }
+];
+
+function isMobile() { return window.innerWidth <= 900; }
+
+function buildPills() {
+  if (!isMobile()) return;
+
+  const layer = document.getElementById('mobile-pill-layer');
+  layer.innerHTML = '';
+
+  // Available area (pill layer is fixed: top 60px, bottom 40px)
+  const areaW = window.innerWidth;
+  const areaH = window.innerHeight - 60 - 40; // layer height
+
+  // Estimate pill size before placing
+  const pillW = 120, pillH = 38, margin = 18;
+  const placed = [];
+
+  function overlaps(x, y) {
+    return placed.some(p =>
+      x < p.x + p.w + margin && x + pillW + margin > p.x &&
+      y < p.y + p.h + margin && y + pillH + margin > p.y
+    );
+  }
+
+  function randomPos() {
+    const maxX = areaW - pillW - 10;
+    const maxY = areaH - pillH - 10;
+    let attempts = 0;
+    let x, y;
+    do {
+      x = 10 + Math.random() * maxX;
+      y = 10 + Math.random() * maxY;
+      attempts++;
+    } while (overlaps(x, y) && attempts < 200);
+    return { x, y };
+  }
+
+  SECTIONS.forEach(sec => {
+    const pill = document.createElement('div');
+    pill.className = 'm-pill';
+    pill.textContent = sec.title;
+    pill.dataset.id = sec.id;
+
+    const pos = randomPos();
+    pill.style.left = pos.x + 'px';
+    pill.style.top  = pos.y + 'px';
+    placed.push({ x: pos.x, y: pos.y, w: pillW, h: pillH });
+
+    pill.addEventListener('click', () => expandCard(sec.id));
+    layer.appendChild(pill);
+  });
+}
+
+function expandCard(id) {
+  const sec = SECTIONS.find(s => s.id === id);
+  if (!sec) return;
+
+  // Fill card
+  document.getElementById('mc-title').textContent = sec.title;
+  document.getElementById('mc-body').textContent  = sec.body;
+
+  const actionEl = document.getElementById('mc-action');
+  actionEl.innerHTML = '';
+
+  if (sec.actionType === 'popup') {
+    const btn = document.createElement('a');
+    btn.className = 'button-like';
+    btn.innerHTML = '<em>' + sec.actionLabel + '</em>';
+    btn.onclick = openPopup;
+    actionEl.appendChild(btn);
+  } else if (sec.actionType === 'corporate') {
+    const btn = document.createElement('a');
+    btn.className = 'button-like corporate-link';
+    btn.href = sec.actionHref;
+    btn.innerHTML = '<em>' + sec.actionLabel + '</em>';
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      document.body.classList.add('fade-out');
+      setTimeout(() => { window.location.href = sec.actionHref; }, 350);
+    });
+    actionEl.appendChild(btn);
+  } else {
+    const btn = document.createElement('a');
+    btn.className = 'button-like';
+    btn.href = sec.actionHref || '#';
+    btn.innerHTML = '<em>' + sec.actionLabel + '</em>';
+    actionEl.appendChild(btn);
+  }
+
+  // Hide all pills
+  document.querySelectorAll('.m-pill').forEach(p => p.style.display = 'none');
+
+  // Show overlay
+  const overlay = document.getElementById('mobile-card-overlay');
+  overlay.classList.add('active');
+}
+
+function closeCard() {
+  document.getElementById('mobile-card-overlay').classList.remove('active');
+  // Restore all pills
+  document.querySelectorAll('.m-pill').forEach(p => p.style.display = '');
+}
+
+// Init on load & resize
+if (isMobile()) buildPills();
+window.addEventListener('resize', () => {
+  if (isMobile()) buildPills();
+});
 </script>
 
 </body>
