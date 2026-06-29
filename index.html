@@ -190,7 +190,7 @@ footer a:hover { text-decoration: underline; }
   #mobile-pill-layer {
     position: fixed;
     top: 60px; bottom: 40px; left: 0; right: 0;
-    pointer-events: none; /* pills handle their own events */
+    pointer-events: none;
     z-index: 5;
   }
 
@@ -215,6 +215,16 @@ footer a:hover { text-decoration: underline; }
   .m-pill:hover {
     background: rgba(255,255,255,0.22);
     box-shadow: 0 0 14px rgba(255,90,177,0.5);
+  }
+
+  /* Pulse hint animation — draws attention on load */
+  @keyframes pillPulse {
+    0%   { box-shadow: 0 0 0px rgba(255,90,177,0);   transform: scale(1); }
+    50%  { box-shadow: 0 0 16px rgba(255,90,177,0.7); transform: scale(1.08); }
+    100% { box-shadow: 0 0 0px rgba(255,90,177,0);   transform: scale(1); }
+  }
+  .m-pill.pulse {
+    animation: pillPulse 0.7s ease-in-out;
   }
 
   /* ── Expanded glass card overlay ── */
@@ -481,12 +491,12 @@ function buildPills() {
   const areaW = window.innerWidth;
   const areaH = window.innerHeight - 60 - 40; // total layer height
 
-  // Pills scatter only in the BOTTOM HALF of the layer
-  const zoneTop = areaH / 2;  // start y of allowed zone
-  const zoneH   = areaH / 2;  // height of allowed zone
+  // Pills scatter in the BOTTOM TWO-THIRDS of the layer
+  const zoneTop = areaH / 3;       // top one-third is clear
+  const zoneH   = (areaH * 2) / 3; // bottom two-thirds is the scatter zone
 
-  // Estimate pill size before placing
-  const pillW = 120, pillH = 38, margin = 18;
+  // Pill size estimate for collision detection
+  const pillW = 120, pillH = 38, margin = 16;
   const placed = [];
 
   function overlaps(x, y) {
@@ -500,17 +510,16 @@ function buildPills() {
     const maxX = areaW - pillW - 10;
     const minY = zoneTop + 10;
     const maxY = zoneTop + zoneH - pillH - 10;
-    let attempts = 0;
-    let x, y;
+    let attempts = 0, x, y;
     do {
-      x = 10 + Math.random() * maxX;
+      x = 10 + Math.random() * (maxX - 10);
       y = minY + Math.random() * (maxY - minY);
       attempts++;
-    } while (overlaps(x, y) && attempts < 200);
+    } while (overlaps(x, y) && attempts < 300);
     return { x, y };
   }
 
-  SECTIONS.forEach(sec => {
+  SECTIONS.forEach((sec, i) => {
     const pill = document.createElement('div');
     pill.className = 'm-pill';
     pill.textContent = sec.title;
@@ -523,6 +532,12 @@ function buildPills() {
 
     pill.addEventListener('click', () => expandCard(sec.id));
     layer.appendChild(pill);
+
+    // Staggered pulse on load to hint interactivity
+    setTimeout(() => {
+      pill.classList.add('pulse');
+      pill.addEventListener('animationend', () => pill.classList.remove('pulse'), { once: true });
+    }, 300 + i * 180);
   });
 }
 
@@ -530,7 +545,6 @@ function expandCard(id) {
   const sec = SECTIONS.find(s => s.id === id);
   if (!sec) return;
 
-  // Fill card
   document.getElementById('mc-title').textContent = sec.title;
   document.getElementById('mc-body').textContent  = sec.body;
 
@@ -566,8 +580,7 @@ function expandCard(id) {
   document.querySelectorAll('.m-pill').forEach(p => p.style.display = 'none');
 
   // Show overlay
-  const overlay = document.getElementById('mobile-card-overlay');
-  overlay.classList.add('active');
+  document.getElementById('mobile-card-overlay').classList.add('active');
 }
 
 function closeCard() {
