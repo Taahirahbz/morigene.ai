@@ -271,19 +271,46 @@ footer a:hover { text-decoration: underline; }
 
 /* Mobile Adjustments */
 @media (max-width: 900px) {
-  .glass-container {
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-    padding-bottom: 60px;
+
+  /* Lock the page — no scrolling on mobile */
+  html, body {
+    overflow: hidden;
+    height: 100%;
   }
-  .glass-box {
+
+  /* Hide Courses, Individual-mobile, Corporate-mobile glass boxes entirely */
+  #courses,
+  #individual-mobile,
+  #corporate-mobile {
+    display: none !important;
+  }
+
+  /* Glass container: centre the single Blog box perfectly */
+  .glass-container {
+    position: fixed;
+    top: 60px;               /* below navbar */
+    bottom: 40px;            /* above footer */
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 20px;
+    margin: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Blog glass box — sized to fit the available space comfortably */
+  #blog {
     width: 85%;
-    max-width: 280px;
-    min-height: 180px;
+    max-width: 320px;
+    min-height: unset;
     padding: 1.5rem;
   }
-  
+
   /* Show navbar menu, hide hamburger toggle */
   .navbar-menu { 
     display: flex;
