@@ -7,9 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
-/* ================= PAGE ================= */
+/* ================= RESET ================= */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ================= PAGE ================= */
 body {
   min-height: 100vh;
   overflow: hidden;
@@ -54,7 +55,7 @@ body::before {
 }
 @keyframes float {
   0%,100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50%      { transform: translateY(-8px); }
 }
 
 /* ================= PAGE TRANSITION ================= */
@@ -80,90 +81,28 @@ body::before {
   to   { opacity: 0; filter: blur(10px); }
 }
 
-/* ================= LAYOUT ================= */
-.about-layout {
-  display: flex;
-  gap: 30px;
-  align-items: flex-start;
-  width: min(1100px, 95vw);
-  max-height: 88vh;
-}
-
-/* ================= PHOTO CARD ================= */
-.photo-card {
-  flex-shrink: 0;
-  width: 220px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 14px;
-  animation: floatPhoto 8s ease-in-out infinite;
-}
-
-@keyframes floatPhoto {
-  0%,100% { transform: translateY(0px); }
-  50%      { transform: translateY(-10px); }
-}
-
-.photo-frame {
-  width: 200px;
-  height: 240px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.28);
-  background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(8px);
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 20px rgba(255,90,177,0.15);
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-}
-
-.photo-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: top center;
-  display: block;
-}
-
-.photo-name {
-  text-align: center;
-  line-height: 1.4;
-}
-.photo-name strong {
-  display: block;
-  font-size: 1rem;
-  font-weight: 600;
-  color: #ffffff;
-}
-.photo-name span {
-  font-size: 0.82rem;
-  color: rgba(255,255,255,0.7);
-  font-style: italic;
-}
-
 /* ================= GLASS BOX ================= */
 .glass-about {
   position: relative;
-  flex: 1;
+  width: min(860px, 92vw);
   max-height: 88vh;
-  padding: 2.2rem 2.5rem;
+  padding: 2.5rem;
   overflow-y: auto;
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(12px);
   border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.25);
   box-shadow: 0 0 35px rgba(255,255,255,0.15);
+  z-index: 10;
   animation: floatTilt 12s ease-in-out infinite;
   transform-origin: center center;
 }
 
 @keyframes floatTilt {
-  0%,100% { transform: translateY(0px)   rotateZ(0deg)    rotateX(0deg); }
-  25%      { transform: translateY(-6px)  rotateZ(0.5deg)  rotateX(0.3deg); }
-  50%      { transform: translateY(3px)   rotateZ(-0.5deg) rotateX(-0.3deg); }
-  75%      { transform: translateY(-4px)  rotateZ(0.3deg)  rotateX(0.2deg); }
+  0%,100% { transform: translateY(0px)  rotateZ(0deg)    rotateX(0deg); }
+  25%      { transform: translateY(-6px) rotateZ(0.5deg)  rotateX(0.3deg); }
+  50%      { transform: translateY(3px)  rotateZ(-0.5deg) rotateX(-0.3deg); }
+  75%      { transform: translateY(-4px) rotateZ(0.3deg)  rotateX(0.2deg); }
 }
 
 /* Scrollbar */
@@ -184,7 +123,7 @@ body::before {
 }
 
 h1 {
-  font-size: 1.55rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: #ffffff;
   line-height: 1.35;
@@ -192,7 +131,7 @@ h1 {
 }
 
 .mission-text {
-  font-size: 1rem;
+  font-size: 0.97rem;
   line-height: 1.75;
   color: #f0f0f0;
   margin-bottom: 0.75rem;
@@ -201,7 +140,7 @@ h1 {
 .divider {
   border: none;
   border-top: 1px solid rgba(255,255,255,0.18);
-  margin: 1.6rem 0;
+  margin: 1.8rem 0;
 }
 
 h2 {
@@ -209,6 +148,18 @@ h2 {
   font-weight: 600;
   color: #ffffff;
   margin-bottom: 0.9rem;
+}
+
+/* ================= PERSON SECTION ================= */
+.person-section {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+/* Bio text fills the left */
+.bio-content {
+  flex: 1;
 }
 
 .bio-text {
@@ -236,6 +187,48 @@ h2 {
   white-space: nowrap;
 }
 
+/* Photo floats on the right — fully transparent */
+.photo-float {
+  flex-shrink: 0;
+  width: 175px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  animation: floatPhoto 7s ease-in-out infinite;
+}
+
+@keyframes floatPhoto {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-12px); }
+}
+
+.photo-float img {
+  width: 175px;
+  height: auto;
+  object-fit: contain;
+  object-position: top center;
+  display: block;
+  /* no border, no background — fully transparent */
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.4));
+}
+
+.photo-float .photo-name {
+  text-align: center;
+  line-height: 1.4;
+}
+.photo-float .photo-name strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+.photo-float .photo-name span {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.65);
+  font-style: italic;
+}
+
 /* ================= BACK BUTTON ================= */
 .back-btn {
   position: fixed;
@@ -260,44 +253,36 @@ h2 {
 }
 
 /* ================= MOBILE ================= */
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   body { overflow-y: auto; }
 
   .page-wrapper {
     height: auto;
     min-height: 100vh;
     align-items: flex-start;
-    padding: 20px 16px 80px;
-  }
-
-  .about-layout {
-    flex-direction: column;
-    align-items: center;
-    max-height: unset;
-    gap: 20px;
-  }
-
-  .photo-card {
-    width: 100%;
-    flex-direction: row;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .photo-frame {
-    width: 110px;
-    height: 130px;
-    flex-shrink: 0;
-  }
-
-  .photo-name {
-    text-align: left;
+    padding: 20px 14px 80px;
   }
 
   .glass-about {
     max-height: unset;
-    padding: 1.6rem;
-    animation: none; /* skip tilt on mobile */
+    padding: 1.8rem 1.4rem;
+    animation: none;
+  }
+
+  /* Stack photo above bio on mobile */
+  .person-section {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .photo-float {
+    width: 130px;
+    animation: floatPhoto 7s ease-in-out infinite; /* keep float on mobile */
+  }
+
+  .photo-float img {
+    width: 130px;
   }
 
   h1 { font-size: 1.2rem; }
@@ -310,70 +295,70 @@ h2 {
 <div id="particles"></div>
 
 <div class="page-wrapper" id="page">
-  <div class="about-layout">
+  <div class="glass-about">
 
-    <!-- ── PHOTO CARD ── -->
-    <div class="photo-card">
-      <div class="photo-frame">
+    <!-- ══ MISSION & VISION ══ -->
+    <div class="section-label">Mission &amp; Vision</div>
+    <h1>Genomics, made accessible — one gene at a time.</h1>
+
+    <p class="mission-text">
+      Morigene was born at the crossroads of two passions: the precision of informatics and the complexity of biology.
+      Having spent years working within healthcare, one pattern became impossible to ignore — patients are growing increasingly
+      aware of their health, and they are no longer satisfied with approximations. They want answers. Real, exact, biological answers.
+    </p>
+    <p class="mission-text">
+      That answer lies in precision medicine, and precision medicine begins with genomics. Morigene exists to make that a reality —
+      not just for research institutions or large corporations, but for individuals and organisations across Mauritius and beyond.
+    </p>
+    <p class="mission-text">
+      The vision is clear: to become Mauritius's one-stop shop for genomics — a trusted, rigorous, and locally rooted platform
+      where genomic data is handled with scientific excellence and professional care.
+    </p>
+
+    <hr class="divider" />
+
+    <!-- ══ THE PERSON BEHIND IT ══ -->
+    <div class="section-label">The Person Behind It</div>
+    <h2>Taahirah Goolbar</h2>
+
+    <div class="person-section">
+
+      <!-- Bio left -->
+      <div class="bio-content">
+        <p class="bio-text">
+          Taahirah Goolbar is a bioinformatician and genomics researcher based in Mauritius, and the founder of Morigene.
+          Her academic journey at the University of Mauritius spans biotechnology, bioinformatics, and genomics —
+          a combination that places her at the precise intersection of wet-lab science and computational analysis.
+        </p>
+        <p class="bio-text">
+          With a background in healthcare and a deepening expertise in genomic data analysis, Taahirah bridges the gap between
+          clinical reality and cutting-edge science. She understands both the human dimension of health — the patient seeking answers —
+          and the technical rigour required to find them reliably.
+        </p>
+        <p class="bio-text">
+          Currently pursuing an MPhil/PhD in Bioinformatics and Genomics at the University of Mauritius,
+          she continues to push the boundaries of what genomic science can offer in a local and regional context.
+        </p>
+
+        <div class="credentials">
+          <span class="cred-pill">BSc Biotechnology</span>
+          <span class="cred-pill">PG Diploma in Bioinformatics</span>
+          <span class="cred-pill">MPhil/PhD Candidate — Bioinformatics &amp; Genomics</span>
+          <span class="cred-pill">University of Mauritius</span>
+        </div>
+      </div>
+
+      <!-- Photo right — transparent, floating -->
+      <div class="photo-float">
         <img src="images/about.jpg" alt="Taahirah Goolbar" />
-      </div>
-      <div class="photo-name">
-        <strong>Taahirah Goolbar</strong>
-        <span>Founder &amp; Director, Morigene</span>
-      </div>
-    </div>
-
-    <!-- ── GLASS CONTENT BOX ── -->
-    <div class="glass-about">
-
-      <!-- MISSION & VISION -->
-      <div class="section-label">Mission &amp; Vision</div>
-      <h1>Genomics, made accessible — one gene at a time.</h1>
-
-      <p class="mission-text">
-        Morigene was born at the crossroads of two passions: the precision of informatics and the complexity of biology. 
-        Having spent years working within healthcare, one pattern became impossible to ignore — patients are growing increasingly aware of their health, 
-        and they are no longer satisfied with approximations. They want answers. Real, exact, biological answers.
-      </p>
-      <p class="mission-text">
-        That answer lies in precision medicine, and precision medicine begins with genomics. Morigene exists to make that a reality — 
-        not just for research institutions or large corporations, but for individuals and organisations across Mauritius and beyond.
-      </p>
-      <p class="mission-text">
-        The vision is clear: to become Mauritius's one-stop shop for genomics — a trusted, rigorous, and locally rooted platform 
-        where genomic data is handled with scientific excellence and professional care.
-      </p>
-
-      <hr class="divider" />
-
-      <!-- ABOUT TAAHIRAH -->
-      <div class="section-label">The Person Behind It</div>
-      <h2>Taahirah Goolbar</h2>
-
-      <p class="bio-text">
-        Taahirah Goolbar is a bioinformatician and genomics researcher based in Mauritius, and the founder of Morigene. 
-        Her academic journey at the University of Mauritius spans biotechnology, bioinformatics, and genomics — 
-        a combination that places her at the precise intersection of wet-lab science and computational analysis.
-      </p>
-      <p class="bio-text">
-        With a background in healthcare and a deepening expertise in genomic data analysis, Taahirah bridges the gap between 
-        clinical reality and cutting-edge science. She understands both the human dimension of health — the patient seeking answers — 
-        and the technical rigour required to find them reliably.
-      </p>
-      <p class="bio-text">
-        Currently pursuing an MPhil/PhD in Bioinformatics and Genomics at the University of Mauritius, 
-        she continues to push the boundaries of what genomic science can offer in a local and regional context.
-      </p>
-
-      <!-- Credential pills -->
-      <div class="credentials">
-        <span class="cred-pill">BSc Biotechnology</span>
-        <span class="cred-pill">PG Diploma in Bioinformatics</span>
-        <span class="cred-pill">MPhil/PhD Candidate — Bioinformatics &amp; Genomics</span>
-        <span class="cred-pill">University of Mauritius</span>
+        <div class="photo-name">
+          <strong>Taahirah Goolbar</strong>
+          <span>Founder &amp; Director</span>
+        </div>
       </div>
 
     </div>
+
   </div>
 </div>
 
