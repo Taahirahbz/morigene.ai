@@ -340,10 +340,14 @@ for (let i = 0; i < 150; i++) {
     particleContainer.appendChild(p);
 }
 
-// Prevent all scrolling on the page
+// Prevent page scrolling but allow touch-scroll inside the glass box
 document.addEventListener('scroll', e => e.preventDefault(), { passive: false });
-document.addEventListener('wheel', e => e.preventDefault(), { passive: false });
-document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
+document.addEventListener('wheel', e => {
+    if (!e.target.closest('#glassBox')) e.preventDefault();
+}, { passive: false });
+document.addEventListener('touchmove', e => {
+    if (!e.target.closest('#glassBox')) e.preventDefault();
+}, { passive: false });
 
 // Toggle descriptions
 function toggleText(id) {
