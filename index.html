@@ -309,6 +309,31 @@ footer a:hover { text-decoration: underline; }
     max-width: 320px;
     min-height: unset;
     padding: 1.5rem;
+    transition: all 0.4s ease;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  /* Collapsed pill state — mobile only */
+  #blog.collapsed {
+    width: auto;
+    max-width: unset;
+    min-height: unset;
+    padding: 0.55rem 1.6rem;
+    border-radius: 50px;
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(4px);
+    justify-content: center;
+  }
+  #blog.collapsed p,
+  #blog.collapsed .button-like {
+    display: none;
+  }
+  #blog.collapsed h2 {
+    margin: 0;
+    font-size: 1.1rem;
+    text-decoration: none;
+    font-weight: 600;
   }
 
   /* Show navbar menu, hide hamburger toggle */
@@ -445,6 +470,18 @@ function toggleMobileMenu() {
   const menu = document.getElementById('mobileMenu');
   menu.style.display = (menu.style.display === 'flex') ? 'none' : 'flex';
 }
+
+// Mobile Blog box collapse toggle
+(function() {
+  function isMobile() { return window.innerWidth <= 900; }
+  const blog = document.getElementById('blog');
+  blog.addEventListener('click', function(e) {
+    if (!isMobile()) return;
+    // Don't collapse when tapping the Subscribe button
+    if (e.target.closest('.button-like')) return;
+    blog.classList.toggle('collapsed');
+  });
+})();
 
 // Subscribe Popup Functions
 function openPopup() {
